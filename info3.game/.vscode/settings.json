@@ -1,0 +1,10 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "c:\\info3.game.given.2021\\lib\\json-20230227.jar"
+        ]
+    }
+}
