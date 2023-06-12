@@ -13,15 +13,20 @@ import org.json.JSONObject;
 import entity.Player;
 import entity.Entity;
 
+
 public class GameSession {
-    Game game;
+    public Game game;
     public static GameSession gameSession;
 
-    Player player1;
-    Player player2;
+    public Player player1;
+    public Player player2;
+
+    public Camera camera;
 
     List<Entity> entities;
     public Map map;
+
+    boolean camView = false;
 
     public GameSession(Game game, String mapPath) throws IOException {
         this.game = game;
@@ -30,6 +35,8 @@ public class GameSession {
 
         player1 = new Player();
         player2 = new Player();
+
+        camera = new Camera();
 
         gameSession = this;
     }
@@ -63,10 +70,10 @@ public class GameSession {
         for (Entity entity : entities) {
             entity.tick(elapsed);
         }
+        camera.tick(elapsed);
     }
 
     public void paint(Graphics g) {
-        boolean camView = false;
         if (camView) {
             camPaint(g);
         } else {
@@ -74,6 +81,7 @@ public class GameSession {
         }
     }
     public void normalPaint(Graphics g) {
+        camera.paint(g);
         map.paint(g);
         for (Entity entity : entities) {
             entity.paint(g);
@@ -89,6 +97,18 @@ public class GameSession {
         }
         player1.camPaint(g);
         player2.camPaint(g);
+    }
+
+    int getLevelWidth() {
+        return map.realWidth();
+    }
+
+    int getLevelHeight() {
+        return map.realHeight();
+    }
+
+    public void toggleCameraDebug() {
+        camView = !camView;
     }
 
 

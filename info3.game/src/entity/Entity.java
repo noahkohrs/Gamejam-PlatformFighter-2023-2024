@@ -8,21 +8,23 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import automate.Automate;
+import info3.game.Camera;
 
 public abstract class Entity {
-    int x;
-    int y;
+    public int x;
+    public int y;
 
     int width;
     int height;
 
     long moveElapsed;
 
+    int imageIndex;
+
     Automate automate;
     Hitbox hitbox;
 
-
-    BufferedImage[] m_images;
+    public BufferedImage[] m_images;
 
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
@@ -33,19 +35,22 @@ public abstract class Entity {
         this.m_images = loadSprite(filename, nrows, ncols);
         this.width = m_images[0].getWidth();
         this.height = m_images[0].getHeight();
-        this.automate = automate ;
+        this.automate = automate;
     }
-
 
     public abstract void tick(long elapsed);
 
     public abstract void paint(Graphics g);
-    
-    public abstract void camPaint(Graphics g);
+
+    public void camPaint(Graphics g) {
+        BufferedImage img = m_images[imageIndex];
+        Camera.drawImage(g, img, x, y, width, height);
+    }
 
     public abstract void move(String direction);
 
     public abstract void wizz();
+
     public abstract void pop();
 
     public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
@@ -67,7 +72,5 @@ public abstract class Entity {
         }
         return null;
     }
-
-
 
 }

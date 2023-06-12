@@ -77,8 +77,12 @@ public class Map {
     }
 
     void camPaint(Graphics g) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'camPaint'");
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                if (fixedMap[i][j] != null)
+                    fixedMap[i][j].camPaint(g);
+        g.setColor(Color.yellow);
+        Camera.drawRect(g, 0, 0, realWidth(), realWidth());
     }
 
     static String readFile(String file) throws IOException {

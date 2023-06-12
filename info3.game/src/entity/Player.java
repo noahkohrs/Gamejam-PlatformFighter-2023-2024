@@ -28,6 +28,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import automate.Automate;
+import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
 
@@ -36,9 +37,7 @@ import info3.game.GameSession;
  *
  */
 public class Player extends Entity {
-  int m_imageIndex;
   long m_imageElapsed;
-  
 
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
@@ -51,7 +50,7 @@ public class Player extends Entity {
     m_imageElapsed += elapsed;
     if (m_imageElapsed > 200) {
       m_imageElapsed = 0;
-      m_imageIndex = (m_imageIndex + 1) % m_images.length;
+      imageIndex = (imageIndex + 1) % m_images.length;
     }
     moveElapsed += elapsed;
     if (moveElapsed > 24) {
@@ -62,16 +61,10 @@ public class Player extends Entity {
 
   @Override
   public void paint(Graphics g) {
-    BufferedImage img = m_images[m_imageIndex];
-    int scale = 1;
-    g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(), null);
+    BufferedImage img = m_images[imageIndex];
+    g.drawImage(img, x, y, img.getWidth(), img.getHeight(), null);
   }
 
-  @Override
-  public void camPaint(Graphics g) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'camPaint'");
-  }
 
   @Override
   public void move(String direction) {
