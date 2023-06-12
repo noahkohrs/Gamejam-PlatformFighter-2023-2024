@@ -1,0 +1,95 @@
+Philosopher(Think){
+  * (Think)
+}
+
+Mine(Banzai){
+  * (Banzai) 
+  | Cell(F,E) ? Explode  :()
+  | True ?               :(Banzai)
+  * ()
+}
+
+Poule(Pondre){
+  * (Pondre)
+  | Cell(F,V) ? Egg(F)  :(Couver)
+
+  * (Couver)
+  | Cell(F,T) ? Move    :(Attendre)
+
+  * (Attendre)
+  | Cell(H,V) ?          :(Pondre) 
+}
+
+Fire(Forward){
+ * (Forward)
+ | Cell(F,V) ? Move(F)    :(Copy)
+ | Cell(F,O) ? Explode(H) :()
+ | True      ?            :()
+
+ * (Copy)
+ | Cell(F,O) ? Explode(H) :()
+ | Cell(B,V) ? Egg(B)     :(Forward) 
+}
+
+Egyptologue(Explore){
+ * (Explore)
+ | Cell(H,C) ?          :()
+ | Cell(F,V) ? Move(F)  :(Paint)
+ | Cell(L,V) ? Turn(L)  :(Explore)
+ | Cell(R,V) ? Turn(R)  :(Explore)
+ | Cell(B,V) ? Turn(B)  :(Explore)
+
+ * (Paint): True ? Pop(B) :(Explore)
+}
+
+PopOrWizz1(Init){
+  * (Init): True ? 49%Pop / 49% Wizz / Power :(Init)
+}
+
+PopOrWizz2(State1){
+  * (State1): True ? Pop  :(_)
+  * (State2): True ? Wizz :(_)
+}
+
+Fourmi(Init){
+ * (Init):
+ | Cell(F,C) ? Move(F) :(Init)
+ | Cell(R,C) ? Turn(R) :(Init)
+ | Cell(L,C) ? Turn(L) :(Init)
+ | Cell(F,V) ? Move    :(Init)
+}
+
+Blocker(Go){
+* (Go):
+    | Cell(F,V) ? Move :(Go)
+    | True ?           :(Block)
+* (Block)
+}
+
+Escape(Init){
+* (Init):
+  | Cell(N,V) & Cell(S,V) & Cell(E,V) & Cell(O,V) ? :(Init)
+  | Cell(F,V) ? Move(F) :(Init)
+  | Cell(L,V) ? Turn(L) :(Init)
+  | Cell(R,V) ? Turn(R) :(Init)
+  | Cell(B,V) ? Move(B) :(Init)
+}
+
+Player(Init){
+  * (Init):
+  | Key(FU) ? Move(N) :(Init)
+  | Key(FD) ? Move(S) :(Init)
+  | Key(FL) ? Move(O) :(Init)
+  | Key(FR) ? Move(E) :(Init)
+  | Key(SPACE) ? Hit  :(Init)
+  | Key(ENTER) ? Jump :(Init)
+  | Key(b)  ? Jump(B) :(Init)
+  | Key(d)  ? Move(D) :(Init)
+  | Key(e)  ? Move(E) :(Init)
+  | Key(f)  ? Turn(B) :(Init)
+  | Key(p)  ? Pop     :(Init)
+  | Key(w)  ? Wizz    :(Init)
+  | Key(g)  ? Get     :(Init)
+  | Key(t)  ? Throw   :(Init)
+  | True    ? Power   :(Init)
+}

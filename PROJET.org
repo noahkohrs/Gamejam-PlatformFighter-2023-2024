@@ -1,0 +1,120 @@
+#+TITLE: PROJET LOGICIEL INFO3 à Polytech Grenoble
+#+AUTHOR: Michaël PÉRIN, Polytech Grenoble, Univ. Grenoble Alpes
+#+DATE: march 2020
+
+Le projet consiste à réaliser 
+- un moteur de jeux à base d'automates
+- et de l'utiliser pour réaliser un jeu 
+
+Ce document décrit les contraintes imposées par nos objectifs pédagogiques
+#+BEGIN_QUOTE
+- Le type de jeu, l'environnement graphque et certains ingrégients sont imposées pour des raisons pédagogiques
+- le thème du jeu est libre et laisse une grande place à votre créativité
+#+END_QUOTE
+
+
+* I. Game Play  
+
+On impose un type de jeu qui va vous obliger à vous confronter à des problèmes classiques de programmation de jeux.
+
+** Le jeu s'appuie sur /un moteur de jeu à base d'automates/ 
+  - toutes les entités du jeu sont controlées par un automate
+  - les automates sont écrits dans langage *GAL* (/Game Automata Language/) dans des fichiers .gal 
+  - la physique du monde est fixée dans l'interprétation des actions (move, jump, ...) 
+
+** *TOUTES les entités du jeu ont un comportement défini par un automate*
+En particulier votre jeu comportera
+  - deux entités joueurs controlées au clavier ou souris ou joystick via des automates  
+  - des bots dont le comportements est défini par des automates
+  - des décors, objets, ... dont le comportement est un automate "ne rien faire"
+
+** *Jeu à 2 joueurs :* coopératif ou affrontement
+
+** *Jeu en 2D*
+  - plateforme, 
+  - scrolling, 
+  - vue de dessus ou perspective isométrique
+
+** *Fenêtre de visualisation (Viewport)*
+
+- le monde dans lequel évolue le joueur est plus grand que le viewport
+- le viewport est centré sur l'entité contrôlée au clavier 
+
+- =OPTIONEL= on doit pouvoir afficher deux vues simultanément en séparant l'écran en deux 
+   + soit pour jouer à deux
+   + soit pour avoir simultanément une vision plus large  (minimap)
+
+** *Des univers sans bord* (dans au moins une dimension), deux solutions : 
+  - génération aléatoire du monde au fur et à mesure qu'on avance
+  - retour du côté droit quand on arrive au bord du côté gauche (comme dans Pac Man, qui vit sur un tore)
+
+** *Un jeu d'action et de stratégie*
+- *un jeu d'action :*
+
+  le(s) joueur(s) contrôle des entités
+
+- *un jeu de stratégie :*
+
+  le(s) joueur(s) peuvent être accompagnés de partenaires bots, ie., des entités aux comportements définis au moyen du langage GAL sous forme d'automates.
+
+
+** Les propositions qui n'ont pas d'intérêt pédagogique 
+
+Ces propositions sont fréquentes. Elles ont un intérêt pour le jeu mais pas dans le cadre pédagogique du projet, 
+où ce qu'on souhaite c'est vous confronter à certaines difficultés techniques. Dans ce contexte nous ne retiendrons pas dans les contrats :
+
+- la réalisation d'un éditeur de carte
+- la réalisation d'animation graphique entre les phases du jeu 
+
+
+* II. Objectifs pédagogiques
+
+- Utilisation d'un framework graphique événementiel avec les problèmes de mise au jour et de réactivité
+
+- Conception d'une architecture Model/View/Controller avec séparation claire entre les trois concepts
+
+- Utilisation d'automates pour animer les éléments du jeu
+
+- Utilisation d'un parseur du langage GAL, fourni par les enseignants 
+
+- Génération d'automates exécutables à partir du parseur 
+
+
+* III. Créativité
+
+Ces contraintes pédagogiques sont imposées. En revanche ...
+
+*** Le thème du jeu est libre 
+- vous pouvez refaire un jeu connu
+- vous pouvez en profiter pour créer un jeu totalement nouveau
+
+*** Le but du jeu est non spécifié
+- tuer l'adversaire ?
+- récupérer des éléments sur la carte ?
+- survivre un certain temps ?
+- se multiplier ?
+- coloniser du terrain ?
+- bloquer les issues ?
+- marquer des points ?
+- temps limité vs durée illimitée ? 
+- ...
+
+*** Les paramètres des entités et leur gestion sont libres
+- puissance de frappe en fonction de l'énergie ?
+- vitesse de déplacement en fonction de l'énergie ?
+- inertie en fonction de l'énergie ?
+- résistance en fonction de l'énergie ?
+- au dessous de 0 points d'énergie, on devient un zombie ?
+- au delà de 100 points d'énergie, on explose ?
+- Lorsque l'entité du joueur meurt ?
+  Le joueur se réincarne dans l'entité la plus proche qui se tranforme temporairement en fantôme (indestrucible et inoffensif) ? 
+- Le joueur peut-il changer l'entité qu'il contrôle ? (À vous de trouver une manière pour que le joueur puisse changer d'entité).
+- ...
+
+
+* [[README.md][SUITE]]
+
+
+---
+    AUTHOR: Michaël PÉRIN, Polytech'Grenoble, Univ. Grenoble Alpes 
+    

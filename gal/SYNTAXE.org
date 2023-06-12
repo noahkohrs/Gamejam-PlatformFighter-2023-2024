@@ -1,0 +1,204 @@
+#+AUTHOR: Michaël PÉRIN, Polytech'Grenoble, Univ. Grenoble Alpes 
+#+DATE: 2021
+#+TITLE: GAL (Game Automata Language) = Un langage de description d'automates
+
+* Le format GAL
+
+** *Automate*
+
+#+BEGIN_SRC ascii
+  <nom de l'automate> (<état initial>){ 
+   <transitions>
+   }
+#+END_SRC
+
+** *Transition avec action* 
+
+#+BEGIN_SRC ascii
+  * (<nom état source>): <condition> ? <action> :(<nom état cible>)
+#+END_SRC
+
+** *Transition sans action* 
+
+#+BEGIN_SRC ascii
+  * (<nom état source>): <condition> :(<nom état cible>)
+#+END_SRC
+
+** *Transitions multiples*
+
+#+BEGIN_SRC ascii
+  * (<nom état source>):
+  | <condition 1> ? <action 1> :(<état cible 1>)
+  ...
+  | <condition n> ? <action n> :(<état cible n>)
+#+END_SRC
+
+** *Choix probabiliste en plusieurs actions*
+
+#+BEGIN_SRC ascii
+  | <condition> ? <pourcentage> % <action 1> / ... / <pourcentage> % <action n>  :(<état cible 1>)
+#+END_SRC
+
+Les pourcentages sont optionnels. S'ils ne sont pas fournis ce sera à vous de les calculer.
+
+#+BEGIN_SRC
+  | <condition> ? <action 1>  / ... / <action n>  :(<état cible 1>)
+#+END_SRC
+
+** *Deux états spécifiques*
+
+- *L'état sans nom*
+
+#+BEGIN_SRC ascii
+* () 
+#+END_SRC
+
+Lorsque l'automate arrive dans l'état () il indique l'arrêt de l'automate (et donc la destuction de l'entité).
+   
+- *L'état cible non-déterministe*
+
+#+BEGIN_SRC ascii
+* (State): Condition ? Action :(_)
+#+END_SRC
+
+L'état cible (_) signifie n'importe quel état de l'automate. C'est une façon d'introduire de l'aléatoire (on dit non-déterminisme pour faire plus philosophe) dans le comportement des automates.
+
+* Les actions
+
+** Les paramètres des actions sont optionnels au sens suivant, *mais l'ordre des paramètres est fixé*
+
+#+BEGIN_QUOTE
+Une action peut avoir 
+- 0 paramètre : *Action()* ou *Action*
+- 1 paramètre de direction : *Action(Direction)*
+- 2 paramètres une direction suivie d'une catégorie : *Action(Direction,Catégorie)*
+#+END_QUOTE
+
+
+Par exemple,
+#+BEGIN_QUOTE
+ - Hit   : frappe selon l'orientation actuelle de l'entité
+ - Hit(B): donne un coup en arrière
+ - Hit(N,E): donne un coup au nord sur un ennemi. Si la case au nord contient au chose qu'un ennemi, l'action n'est pas effectuée.
+#+END_QUOTE
+
+
+** Listes des actions reconnues par le parser
+
++ *Egg* 
++ *Get*
++ *Hit*
++ *Jump*
++ *Explode*
++ *Move*
++ *Pick*
++ *Pop* 
++ *Power*
++ *Protect*
++ *Store*
++ *Turn*  
++ *Throw*
++ *Wait*
++ *Wizz*
+
+
+** Choix probabilistes entre plusieurs actions
+
+La transition suivante signifie
+#+BEGIN_SRC ascii
+Cell(F,V) ? 80% Move / Pop / 10% Rotate(L) /  Wizz
+#+END_SRC
+#+BEGIN_QUOTE
+si la case devant est vide, faire 
+- Move dans 80% des cas,
+- Rotate(L) dans 10% des cas, 
+- Les deux actions restantes (Pop et Wizz) se répartissent équitablement les 10% restants :
+    + 5% pour Pop 
+    + 5% pour Wizz
+#+END_QUOTE
+
+*** Une action sans pourcentage est interprétée comme ayant le pourcentage disponible.
+
+#+BEGIN_SRC ascii
+Cell(F,V) ? Move() 
+#+END_SRC
+
+est équivalente à 
+
+#+BEGIN_SRC ascii
+Cell(F,V) ? 100% Move() 
+#+END_SRC
+
+
+
+
+* Les conditions
+
+** Le nombre et l'ordre des paramètres de chaque conditions est fixé
+
+** Listes des conditions reconnues par le parser
+
++ *True*
++ *Key* (/Touche/)
++ *MyDir* (/Direction/)
++ *Cell* (/Direction, Categorie/)
++ *Closest* (/Direction, Categorie/)
++ *GotPower*
++ *GotStuff*
+
+** *Les opérateurs sur les conditions*
+
+- *conjonction*
+
+#+BEGIN_SRC 
+condition1 & condition2
+#+END_SRC
+
+- *disjunction*
+
+#+BEGIN_SRC 
+condition1 / condition2
+#+END_SRC
+
+- *negation*
+
+#+BEGIN_SRC 
+! Condition
+#+END_SRC
+
+
+
+* Les directions
+  - *N,S,E,W* sont des directions absolues (/north, south, east, west/)
+  - *F,B,L,R* sont des directions relatives à l'orientation de l'entité (/front,back,left,right/)
+  - *H* la position actuelle (/Here/)  
+
+* Les catégories
+
+- *A* = un /Adversaire/
+- *C* = l'indice d'un précédent passage (/Clue/)
+- *D* = un /Danger/
+- *G* = un /Gate/ (passage)
+- *J* = un élément sur lequel on peut sauter (/Jumpable/)
+- *M* = un /Missile/
+- *O* = un /Obstacle/
+- *P* = un élément que l'on peut /Prendre/, stocker, lancer, déposer
+- *T* = /Team/ = une entité de mon équipe
+- *V* = /Void/
+- *@* = Le joueur de mon équipe
+- *_* = n'importe quelle entité *sauf Void*
+
+
+* Les touches
+
+- les lettres *a,...,z*
+- les chiffres *0...9*
+- *SPACE, ENTER*
+- les flêches: *FU, FD, FR, FL*
+
+
+* [[README.md][SUITE]]
+
+---
+    AUTHOR: Michaël PÉRIN, Polytech'Grenoble, Univ. Grenoble Alpes 
+    DATE: 2021

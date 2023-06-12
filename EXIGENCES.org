@@ -1,0 +1,105 @@
+#+TITLE: EXIGENCES PÉDAGOGIQUES
+#+AUTHOR: Michaël PÉRIN, Polytech'Grenoble / univ. Grenoble-Alpes
+
+* Modalités d'évaluation du projet
+
+#+BEGIN_QUOTE
+- En fin de projet vous devrez réaliser une vidéo de 5min de démonstration du jeu.
+  La démo doit démontrer que vous avez respecté les contraintes du projet.
+
+- Les tuteurs testeront le jeu disponible sur le dépôt git.
+
+- Chaque groupe recevra une note en fonction de la qualité de sa réalisation
+
+- Chaque membre du groupe recevra un % de la note du groupe en fonction de son investissement et de la qualité du code qu'il a produit.
+#+END_QUOTE
+
+
+
+* Mise en oeuvre d'une solution MVC (Model/View/Controller)
+
+** Le Controller
+- reçoit les évenements clavier et souris,
+- déclenche la mise à jour du Model et de la View
+
+** Le Model
+- met à jour les entités en demandant à chacune d'effectuer un pas de leur automate
+- effectue les actions déclenchées par les automates (mise à jour des positions, calcul des points de vie, création/suppression d'entités,...)
+
+** La View
+- effectue l'affichage graphique des actions via les avatars associées aux entités.
+
+** En résumé
+
+#+BEGIN_QUOTE
+- Le joueur interagit avec le Controller
+- Les entités évoluent dans le Model
+- Les avatars sont leur version graphique et s'affichent dans la View
+#+END_QUOTE
+
+
+* Définition du comportements des entités dans des fichiers /.gal/
+
+- Le langage GAL de programmation des automates est fourni par les enseignants, ainsi qu'un parseur de fichiers /.gal/.
+
+- *TOUTES* les entités du jeu ont un comportement défini par un automate
+
+- le contrôle d'une entité au clavier/souris/joystick est réalisé via des automates /player1.gal. player2.gal/
+  (en changeant cet automate on peut jeter un sort au joueur en inversant le sens de ses commandes).
+
+- *vous devez attribuer un comportement aux obstacles, aux objet, ...* : par défaut on leur attribue l'automate "ne rien faire" mais ils ont un automate qu'on pourra changer au cours du jeu pour ; par exemple, pour créer un effet de murs qui se rapprochent.
+
+
+** Les actions
+
+Le langage GAL proposent un certains nombre d'actions et de conditions qui permettent de définir des automates.
+Le noms des actions et des conditions sont fixées *mais leur interprétation est libre.*
+
+*** Chaque entité doit définir au moins une action : par exemple Move
+
+- *Démo*: cela vous permettra, en attribuant un automate qui fait des `Move` à un élément du décor, de voir celui-ci se déplacer et ainsi de démontrer que l'entité est effectivement controlée par un automate.
+
+*** Deux actions non spécifiées: Pop et Wizz
+
+- Si vous avez besoin d'actions non prévues par le langage GAL, vous utiliserez Pop/Wizz en leur donnant l'interprétaton qui vous convient.
+
+*** Interprétation des actions standards (déplacement, frappe, ...)
+
+L'interprétation est relativement libre mais doit rester en lien avec le nom de l'action
+
+L'action *Hit* signifie bien sûr "frapper" mais ne précise pas quel type de frappe.
+Un même automate effectuant l'action *Hit* aura des effets différents dans chacun des jeux selon l'interprétation :
+   1. comme un coup sur la case voisine
+   2. un laser longue portée
+   3. une poussée pour envoyer l'autre dans le décor (Pengo)
+   4. une déplacement en roulade pour bousculer l'adversaire (Sonic)
+
+*** L'action EGG crée une nouvelle entité (reproduction)
+
+L'interprétation est libre mais doit aboutir à la création d'entité : par duplication immédiate, par dépôt d'un oeuf, ...
+
+#+BEGIN_QUOTE
+*L'objectif pédagogique* est de vous faire coder une gestion dynamique du nombre d'entités actives.
+#+END_QUOTE
+
+*** La démo doit (au minimum) illustrer les points suivants
+  1. action MOVE
+  2. état () = mort de l'entité
+  3. action EGG = reproduction
+
+
+* Configuration du jeu au démarrage
+
+Votre jeu doit permettre d'attribuer à des entités un comportement décrit par un fichier `.gal`
+- soit sous forme d'un menu
+- soit sous forme d'un fichier de configuration
+
+Cela facilitera votre démo en vous permettant de modifier facilement les automates qui contrôlent les entités.
+
+
+
+* [[README.md][SUITE]]
+
+
+---
+    AUTHOR: Michaël PÉRIN, Polytech'Grenoble, Univ. Grenoble Alpes
