@@ -5,7 +5,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="audio"/>
 	<classpathentry kind="src" path="game"/>
