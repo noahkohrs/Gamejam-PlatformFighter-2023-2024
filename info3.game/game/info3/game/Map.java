@@ -65,6 +65,18 @@ public class Map {
         return height * 32;
     }
 
+    public Block getBlockWithIndex(int x, int y) {
+        if (x < 0)
+            return null;
+        if (y < 0)
+            return null;
+        if (x >= width)
+            return null;
+        if (y >= height )
+            return null;
+        return this.fixedMap[x][y];
+    }
+
     void paint(Graphics g) {
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
