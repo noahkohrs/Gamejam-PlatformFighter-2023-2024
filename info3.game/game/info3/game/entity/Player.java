@@ -22,16 +22,10 @@ package info3.game.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import info3.game.Camera;
-import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
-import info3.game.entity.life.Life;
 import info3.game.entity.life.LifeBar;
 
 /**
@@ -46,6 +40,7 @@ public class Player extends Entity {
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6);
+    this.lifeBar = new LifeBar();
   }
 
   public Player(int team) throws IOException {
