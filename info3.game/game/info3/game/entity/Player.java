@@ -42,12 +42,14 @@ public class Player extends Entity {
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
+    hitbox = new HitBox(12, 8, 22, 35, this);
   }
 
   /*
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    System.out.println(hitbox.inCollision(Direction.RIGHT));
     view.tick(elapsed);
     moveElapsed += elapsed;
     if (moveElapsed > 24) {
@@ -60,6 +62,7 @@ public class Player extends Entity {
   public void paint(Graphics g) {
     BufferedImage img = getImage();
     Camera.drawImage(g, img, x, y, getWidth(), getHeight());
+    hitbox.showHitBox(g);
     // OR
     // Camera.drawEntity(this, g);
   }

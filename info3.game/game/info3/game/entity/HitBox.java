@@ -8,9 +8,12 @@ import info3.game.GameSession;
 public class HitBox {
     private final int offsetX;
     private final int offsetY;
-    private final int width;
-    private final int height;
     private Entity entity;
+
+    public final int width;
+    public final int height;
+
+    private final HitBoxView view;
 
     public HitBox(int offsetX, int offsetY, int width, int height, Entity entity) {
         this.height = height;
@@ -18,7 +21,23 @@ public class HitBox {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.entity = entity;
+        view = new HitBoxView(this);
     }
+
+    public void showHitBox(Graphics g)
+    {
+        view.paint(g);
+    }
+
+    public int getTopX()
+    {
+        return entity.x + offsetX;
+    }
+
+    public int getTopY()
+    {{
+        return entity.y + offsetY;
+    }}
 
     public boolean inCollision(Direction dir) {
         int x, y;
