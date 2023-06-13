@@ -28,6 +28,7 @@ import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
   Game m_game;
+    int[] IsPressed = new int[]{0, 0, 0, 0};
 
   CanvasListener(Game game) {
     m_game = game;
@@ -94,17 +95,53 @@ public class CanvasListener implements GameCanvasListener {
     case KeyEvent.VK_SPACE:
       GameSession.gameSession.camera.toggleDebugMode();
       break;
+      case KeyEvent.VK_Z:
+        IsPressed[2] = 1;
+        GameSession.gameSession.player1.IsJumping = true;
+        GameSession.gameSession.player1.StartJump();
+        break;
+      case KeyEvent.VK_D:
+        IsPressed[0] = 1;
+        break;
+        case KeyEvent.VK_Q:
+        IsPressed[1] = 1;
+        break;
     }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
     System.out.println("Key released: "+e.getKeyChar()+" code="+e.getKeyCode());
+     switch(e.getKeyCode()){
+      case KeyEvent.VK_Z:
+        IsPressed[2] = 0;
+        GameSession.gameSession.player1.IsJumping = false;
+        break;
+      case KeyEvent.VK_D:
+        IsPressed[0] = 0;
+        break;
+        case KeyEvent.VK_Q:
+        IsPressed[1] = 0;
+        break;
+    }
+    
   }
 
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
+    if(IsPressed[0] == 1){
+      GameSession.gameSession.player1.SetVelX(5);
+      GameSession.gameSession.player1.FaceRight();
+    }else 
+    if(IsPressed[1] == 1){
+      GameSession.gameSession.player1.SetVelX(5);
+      GameSession.gameSession.player1.FaceLeft();
+    } 
+    else {
+      GameSession.gameSession.player1.reSetVelX();
+     GameSession.gameSession.player1.Idle();
+    }
   }
 
   @Override

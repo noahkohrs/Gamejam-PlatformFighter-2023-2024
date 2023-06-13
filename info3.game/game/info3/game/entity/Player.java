@@ -48,6 +48,8 @@ public class Player extends Entity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    Movement.Walk(this);
+    Movement.jump(this, elapsed);
     view.tick(elapsed);
     moveElapsed += elapsed;
     if (moveElapsed > 24) {
@@ -64,6 +66,7 @@ public class Player extends Entity {
     // Camera.drawEntity(this, g);
   }
 
+  
 
   @Override
   public void move(String direction) {
