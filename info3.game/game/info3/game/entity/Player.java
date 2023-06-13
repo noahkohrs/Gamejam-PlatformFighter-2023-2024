@@ -48,6 +48,7 @@ public class Player extends Entity {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6);
     this.lifeBar = new LifeBar(team);
+    hitbox = new HitBox(12, 8, 22, 35, this);
   }
 
   public void takeDamage(int ammount)
