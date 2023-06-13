@@ -29,7 +29,7 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import entity.Player;
+import info3.game.entity.Player;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 

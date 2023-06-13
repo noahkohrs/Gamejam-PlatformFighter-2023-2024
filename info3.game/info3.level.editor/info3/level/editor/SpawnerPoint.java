@@ -16,7 +16,5 @@ public class SpawnerPoint extends AnimatedEntity {
     
         public String toString() {
             return "SpawnerPoint";
-        }
-
-    
+        }    
 }

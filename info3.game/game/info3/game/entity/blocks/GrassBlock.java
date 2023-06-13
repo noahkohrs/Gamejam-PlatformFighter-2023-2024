@@ -1,8 +1,8 @@
-package entity.blocks;
+package info3.game.entity.blocks;
 
 import java.io.IOException;
 
-import entity.Block;
+import info3.game.entity.Block;
 
 public class GrassBlock extends Block {
     private static String blockTexture = "resources/blocks/1.png";

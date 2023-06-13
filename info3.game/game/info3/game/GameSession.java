@@ -10,8 +10,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import entity.Player;
-import entity.Entity;
+import info3.game.entity.Entity;
+import info3.game.entity.Player;
 
 
 public class GameSession {
@@ -25,8 +25,6 @@ public class GameSession {
 
     List<Entity> entities;
     public Map map;
-
-    boolean camView = false;
 
     public GameSession(Game game, String mapPath) throws IOException {
         this.game = game;
@@ -74,13 +72,6 @@ public class GameSession {
     }
 
     public void paint(Graphics g) {
-        if (camView) {
-            camPaint(g);
-        } else {
-            normalPaint(g);
-        }
-    }
-    public void normalPaint(Graphics g) {
         camera.paint(g);
         map.paint(g);
         for (Entity entity : entities) {
@@ -88,15 +79,6 @@ public class GameSession {
         }
         player1.paint(g);
         player2.paint(g);
-    }
-
-    public void camPaint(Graphics g) {
-        map.camPaint(g);
-        for (Entity entity : entities) {
-            entity.camPaint(g);
-        }
-        player1.camPaint(g);
-        player2.camPaint(g);
     }
 
     int getLevelWidth() {
@@ -107,9 +89,6 @@ public class GameSession {
         return map.realHeight();
     }
 
-    public void toggleCameraDebug() {
-        camView = !camView;
-    }
 
 
 

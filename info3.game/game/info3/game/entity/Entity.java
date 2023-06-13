@@ -1,4 +1,4 @@
-package entity;
+package info3.game.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -7,42 +7,32 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import automate.Automate;
 import info3.game.Camera;
+import info3.game.automate.Automate;
 
 public abstract class Entity {
     public int x;
     public int y;
 
-    int width;
-    int height;
-
     long moveElapsed;
-
-    public int imageIndex;
 
     Automate automate;
     Hitbox hitbox;
-
-    public BufferedImage[] m_images;
+    public EntityView view;
 
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
+        this.view = new EntityView(filename, nrows, ncols);
 
-        this.m_images = loadSprite(filename, nrows, ncols);
-        this.width = m_images[0].getWidth();
-        this.height = m_images[0].getHeight();
         this.automate = automate;
     }
 
-    public abstract void tick(long elapsed);
+    public abstract void tick(long elapsed) ;
 
-    public abstract void paint(Graphics g);
-
-    public void camPaint(Graphics g) {
-        BufferedImage img = m_images[imageIndex];
-        Camera.drawImage(g, img, x, y, width, height);
+    public void paint(Graphics g) {
+        BufferedImage img = getImage();
+        Camera.drawImage(g, img, x, y, getWidth(), getHeight());
         // OR
         // Camera.drawEntity(this, g); (same result)
     }
@@ -73,4 +63,15 @@ public abstract class Entity {
         return null;
     }
 
+    public BufferedImage getImage() {
+        return view.getImage();
+    }
+
+    public int getWidth() {
+        return view.width;
+    }
+
+    public int getHeight() {
+        return view.height;
+    }
 }

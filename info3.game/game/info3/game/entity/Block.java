@@ -1,4 +1,4 @@
-package entity;
+package info3.game.entity;
 
 import java.awt.Graphics;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class Block extends Entity {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(m_images[0], x, y, width, height, null);
+        Camera.drawImage(g, getImage(), x, y, getWidth(), getHeight());
     }
 
 

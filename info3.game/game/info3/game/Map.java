@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.Block;
-import entity.Entity;
-import entity.blocks.GrassBlock;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import info3.game.entity.Block;
+import info3.game.entity.Entity;
+import info3.game.entity.blocks.GrassBlock;
 
 public class Map {
     int width;
@@ -70,17 +70,6 @@ public class Map {
             for (int j = 0; j < height; j++)
                 if (fixedMap[i][j] != null)
                     fixedMap[i][j].paint(g);
-
-        // See map Limits
-        g.setColor(Color.yellow);
-        g.drawRect(0, 0, realWidth(), realHeight());
-    }
-
-    void camPaint(Graphics g) {
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-                if (fixedMap[i][j] != null)
-                    fixedMap[i][j].camPaint(g);
         g.setColor(Color.yellow);
         Camera.drawRect(g, 0, 0, realWidth(), realWidth());
     }

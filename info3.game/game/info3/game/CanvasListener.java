@@ -92,7 +92,7 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Key pressed: "+e.getKeyChar()+" code="+e.getKeyCode());
     switch (e.getKeyCode()) { 
     case KeyEvent.VK_SPACE:
-      GameSession.gameSession.toggleCameraDebug();
+      GameSession.gameSession.camera.toggleDebugMode();
       break;
     }
   }

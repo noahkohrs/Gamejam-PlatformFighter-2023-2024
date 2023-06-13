@@ -6,9 +6,15 @@ import java.awt.image.BufferedImage;
 
 import com.jcraft.jogg.Buffer;
 
-import entity.Entity;
+import info3.game.entity.Entity;
 
 public class Camera {
+
+    public static boolean debugMode = true;
+
+    void toggleDebugMode() {
+        debugMode = !debugMode;
+    }
 
     public static Camera camera;
     int camX, camY;
@@ -43,11 +49,11 @@ public class Camera {
     }
 
     public static int centeredCoordinateX(Entity entity) {
-        return entity.x + entity.m_images[0].getWidth() / 2;
+        return entity.x + entity.getImage().getWidth() / 2;
     }
 
     public static int centeredCoordinateY(Entity entity) {
-        return entity.y + entity.m_images[0].getHeight() / 2;
+        return entity.y + entity.getImage().getHeight() / 2;
     }
 
     private void evalCameraVision() {
@@ -103,40 +109,54 @@ public class Camera {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.white);
-        g.fillRect(camX, camY, camWidth, camHeight);
+        if (debugMode) {
+            g.setColor(Color.white);
+            g.fillRect(camX, camY, camWidth, camHeight);
+        }
     }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {
-        int cX = onCamViewX(x, camera.scale);
-        int cY = onCamViewY(y, camera.scale);
-        int cWidth = realSize(width, camera.scale);
-        int cHeight = realSize(height, camera.scale);
-        g.drawImage(img, cX, cY, cWidth, cHeight, null);
+        if (debugMode) {
+            g.drawImage(img, x, y, width, height, null);
+        } else {
+            int cX = onCamViewX(x, camera.scale);
+            int cY = onCamViewY(y, camera.scale);
+            int cWidth = realSize(width, camera.scale);
+            int cHeight = realSize(height, camera.scale);
+            g.drawImage(img, cX, cY, cWidth, cHeight, null);
+        }
+
     }
 
     static public void drawEntity(Entity e, Graphics g) {
-        BufferedImage img = e.m_images[e.imageIndex] ;
+        BufferedImage img = e.getImage();
         drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
     }
 
     static public void drawRect(Graphics g, int x, int y, int width, int height) {
-        int cX = onCamViewX(x, camera.scale);
-        int cY = onCamViewY(y, camera.scale);
-        int cWidth = realSize(width, camera.scale);
-        int cHeight = realSize(height, camera.scale);
-        g.drawRect(cX, cY, cWidth, cHeight);
+        if (debugMode) {
+            g.drawRect(x, y, width, height);
+        } else {
+            int cX = onCamViewX(x, camera.scale);
+            int cY = onCamViewY(y, camera.scale);
+            int cWidth = realSize(width, camera.scale);
+            int cHeight = realSize(height, camera.scale);
+            g.drawRect(cX, cY, cWidth, cHeight);
+        }
 
     }
 
     static public void fillRect(Graphics g, int x, int y, int width, int height) {
-        int cX = onCamViewX(x, camera.scale);
-        int cY = onCamViewY(y, camera.scale);
-        int cWidth = realSize(width, camera.scale);
-        int cHeight = realSize(height, camera.scale);
-        g.fillRect(cX, cY, cWidth, cHeight);
+        if (debugMode) {
+            g.drawRect(x, y, width, height);
+        } else {
+            int cX = onCamViewX(x, camera.scale);
+            int cY = onCamViewY(y, camera.scale);
+            int cWidth = realSize(width, camera.scale);
+            int cHeight = realSize(height, camera.scale);
+            g.fillRect(cX, cY, cWidth, cHeight);
+        }
 
     }
-
 
 }

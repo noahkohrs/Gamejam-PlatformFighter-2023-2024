@@ -5,9 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import entity.Entity;
-
 import org.json.JSONObject;
+
+import info3.game.entity.Entity;
 
 public abstract class Element {
     public static final int DEFAULT_SIZE = 32;

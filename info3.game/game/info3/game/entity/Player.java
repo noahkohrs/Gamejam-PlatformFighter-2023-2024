@@ -18,7 +18,7 @@
  *  Created on: March, 2020
  *      Author: Pr. Olivier Gruber
  */
-package entity;
+package info3.game.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -27,10 +27,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import automate.Automate;
 import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
+import info3.game.automate.Automate;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
@@ -41,17 +41,14 @@ public class Player extends Entity {
 
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
   }
 
   /*
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    m_imageElapsed += elapsed;
-    if (m_imageElapsed > 200) {
-      m_imageElapsed = 0;
-      imageIndex = (imageIndex + 1) % m_images.length;
-    }
+    view.tick(elapsed);
     moveElapsed += elapsed;
     if (moveElapsed > 24) {
       moveElapsed = 0;
@@ -61,8 +58,10 @@ public class Player extends Entity {
 
   @Override
   public void paint(Graphics g) {
-    BufferedImage img = m_images[imageIndex];
-    g.drawImage(img, x, y, img.getWidth(), img.getHeight(), null);
+    BufferedImage img = getImage();
+    Camera.drawImage(g, img, x, y, getWidth(), getHeight());
+    // OR
+    // Camera.drawEntity(this, g);
   }
 
 
