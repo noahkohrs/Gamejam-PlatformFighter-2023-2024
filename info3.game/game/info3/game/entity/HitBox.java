@@ -68,10 +68,10 @@ public class HitBox {
         if (y < 0)
             return true;
 
-        int blockX = x / 32;
-        int blockY = y / 32;
-        int blockHeight = (int) Math.floor(height / 32) + 1;
-        int blockWidth = (int) Math.floor(width / 32) + 1;
+        int blockX = x / Block.BLOCK_SIZE;
+        int blockY = y / Block.BLOCK_SIZE;
+        int blockHeight = (int) Math.floor(height / Block.BLOCK_SIZE) + 1;
+        int blockWidth = (int) Math.floor(width / Block.BLOCK_SIZE) + 1;
 
         switch (dir) {
             case UPPER:
@@ -79,7 +79,6 @@ public class HitBox {
                 for (int i = 0; i < blockWidth; i += 2) {
                     Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX + i, blockY);
                     Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + i + 1, blockY);
-                    // TODO NEED TO CHECK BOUNDARIES
                     if (b2 != null) {
                         if (x + width > b2.x)
                             return true;
