@@ -16,7 +16,7 @@ public abstract class Entity {
 
     long moveElapsed;
 
-    Automate automate;
+    public Automate automate;
     Hitbox hitbox;
     public EntityView view;
 

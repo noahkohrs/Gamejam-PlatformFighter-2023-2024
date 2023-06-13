@@ -32,6 +32,10 @@ public class UnaryOp extends Expression {
 		return operator + " " + operand.toString();
 	}
 
+	public String name() {
+		return "";
+	}
+	
 	Object accept(IVisitor visitor) {
 		Object o = operand.accept(visitor);
 		return visitor.visit(this, o);

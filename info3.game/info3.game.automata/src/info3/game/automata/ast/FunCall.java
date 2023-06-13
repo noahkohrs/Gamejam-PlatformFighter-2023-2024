@@ -70,6 +70,10 @@ public class FunCall extends Expression {
 		return s;
 	}
 
+	public String name(){
+		return name;
+	}
+	
 	Object accept(IVisitor visitor) {
 		visitor.enter(this);
 		LinkedList<Object> list = new LinkedList<Object>();
