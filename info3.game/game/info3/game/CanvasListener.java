@@ -94,6 +94,9 @@ public class CanvasListener implements GameCanvasListener {
     case KeyEvent.VK_SPACE:
       GameSession.gameSession.camera.toggleDebugMode();
       break;
+    case KeyEvent.VK_Q:
+    GameSession.gameSession.player1.takeDamage(10);
+    break;
     }
   }
 

@@ -19,17 +19,22 @@ public class Life {
         ;
     }
 
-    public boolean alive(){
-        return health>0;
+    public int ratio()
+    {
+        return (int)((float)health*100/(float)maxHealth);
     }
 
-    public void removeHealth(int ammount){
-        if(health>0)
-            health -=ammount;
+    public boolean alive() {
+        return health > 0;
     }
 
-    public void addHealth(int ammount){
-        if(health+ ammount <= maxHealth)
+    public void removeHealth(int ammount) {
+        if (health > 0)
+            health -= ammount;
+    }
+
+    public void addHealth(int ammount) {
+        if (health + ammount <= maxHealth)
             health += ammount;
         else
             health = maxHealth;

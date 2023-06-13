@@ -3,19 +3,19 @@ package info3.game.entity.life;
 import java.awt.Graphics;
 import java.io.IOException;
 
-import info3.game.entity.Player;
-
-
 public class LifeBar {
-	private Player player;
+	public Life life;
+	public int team; //1 ou 2
 	private LifeBarView view;
 
-	public LifeBar(Player player) throws IOException{
-		this.player = player;
-		this.view=new LifeBarView();
+	public LifeBar(int team) throws IOException {
+		this.life = new Life();
+		this.view = new LifeBarView();
+		this.team=team;
 	}
-	void showLifeBar(Graphics g) {
-		view.paint(g, player.life);
+
+	public void showLifeBar(Graphics g) {
+		view.paint(g, this);
 	}
 
 }

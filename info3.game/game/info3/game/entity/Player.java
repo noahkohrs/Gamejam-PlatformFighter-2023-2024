@@ -40,20 +40,23 @@ import info3.game.entity.life.LifeBar;
  */
 public class Player extends Entity {
   long m_imageElapsed;
-
-  public Life life;
   private LifeBar lifeBar;
+  
 
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
-    view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6);
   }
 
   public Player(int team) throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
-    view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
-    this.life = new Life();
-    this.lifeBar = new LifeBar(this);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6);
+    this.lifeBar = new LifeBar(team);
+  }
+
+  public void takeDamage(int ammount)
+  {
+    lifeBar.life.removeHealth(ammount);
   }
 
   /*
@@ -72,11 +75,10 @@ public class Player extends Entity {
   public void paint(Graphics g) {
     BufferedImage img = getImage();
     Camera.drawImage(g, img, x, y, getWidth(), getHeight());
-    m_bare.paint(g);
+    lifeBar.showLifeBar(g);
     // OR
     // Camera.drawEntity(this, g);
   }
-
 
   @Override
   public void move(String direction) {

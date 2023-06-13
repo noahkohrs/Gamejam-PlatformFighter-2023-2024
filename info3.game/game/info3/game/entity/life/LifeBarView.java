@@ -25,15 +25,15 @@ public class LifeBarView {
 	}
 
 
-	public void paint(Graphics g, Life life) {
+	public void paint(Graphics g, LifeBar lifeBar) {
 		y=Game.game.m_canvas.getHeight()-m_images1[0].getHeight()*mul; //même position
-
-		if(id==1) {
-			change_cloueur(g,ratio,id,m_images1[0],x1,y);
+		int ratio=lifeBar.life.ratio();
+		if(lifeBar.team==1) {
+			change_cloueur(g,ratio,lifeBar.team,m_images1[0],x1,y);
 			g.drawImage(m_images1[0], x1, y, m_images1[0].getWidth()*mul, m_images1[0].getHeight()*mul, null);
-		}else if(id==2) {
+		}else if(lifeBar.team==2) {
 			x2=Game.game.m_canvas.getWidth()-m_images2[0].getWidth()*mul;
-			change_cloueur(g,ratio,id,m_images2[0],x2,y);
+			change_cloueur(g,ratio,lifeBar.team,m_images2[0],x2,y);
 			g.drawImage(m_images2[0], x2, y, m_images2[0].getWidth()*mul, m_images2[0].getHeight()*mul, null);
 		}else {
 			throw new RuntimeException("joueur différent de 1 et 2");		
@@ -42,7 +42,7 @@ public class LifeBarView {
 	}
 
 
-	private void change_cloueur(Graphics g, int ratio, int id, BufferedImage bufferedImage, int x, int y) {
+	private void change_cloueur(Graphics g, int ratio, int team, BufferedImage bufferedImage, int x, int y) {
 		//choix de la couleur
 		if (ratio >= 75) {
 	        g.setColor(Color.GREEN);
@@ -54,8 +54,8 @@ public class LifeBarView {
 	        g.setColor(Color.RED);
 	    }
 		int wid=(bufferedImage.getWidth()*mul*ratio)/100;
-		if(id==1)g.fillRect(x, y,wid, bufferedImage.getHeight()*mul);
-		if(id==2)g.fillRect(x-wid+bufferedImage.getWidth()*mul, y,wid, bufferedImage.getHeight()*mul);
+		if(team==1)g.fillRect(x, y,wid, bufferedImage.getHeight()*mul);
+		if(team==2)g.fillRect(x-wid+bufferedImage.getWidth()*mul, y,wid, bufferedImage.getHeight()*mul);
 
 	}
 }
