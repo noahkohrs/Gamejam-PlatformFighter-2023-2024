@@ -31,6 +31,8 @@ import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.entity.life.Life;
+import info3.game.entity.life.LifeBar;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
@@ -39,8 +41,8 @@ import info3.game.automate.Automate;
 public class Player extends Entity {
   long m_imageElapsed;
 
-  LifeBar m_bare;
-  int m_team;
+  public Life life;
+  private LifeBar lifeBar;
 
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
@@ -50,8 +52,8 @@ public class Player extends Entity {
   public Player(int team) throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
-    m_team=team;
-    m_bare=new LifeBar(this);
+    this.life = new Life();
+    this.lifeBar = new LifeBar(this);
   }
 
   /*

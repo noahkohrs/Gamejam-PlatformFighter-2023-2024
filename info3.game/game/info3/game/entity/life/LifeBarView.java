@@ -1,4 +1,4 @@
-package info3.game.entity;
+package info3.game.entity.life;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import info3.game.Game;
+import info3.game.entity.Player;
 
 public class LifeBarView {
 	BufferedImage[] m_images1;
@@ -24,7 +25,7 @@ public class LifeBarView {
 	}
 
 
-	public void paint(Graphics g, int ratio, int id) {
+	public void paint(Graphics g, Life life) {
 		y=Game.game.m_canvas.getHeight()-m_images1[0].getHeight()*mul; //même position
 
 		if(id==1) {
