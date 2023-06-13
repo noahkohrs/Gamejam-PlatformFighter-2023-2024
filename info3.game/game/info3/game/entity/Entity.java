@@ -13,6 +13,8 @@ import info3.game.automate.Automate;
 public abstract class Entity {
     public int x;
     public int y;
+    int HP;
+    int maxHP;
 
     long moveElapsed;
 

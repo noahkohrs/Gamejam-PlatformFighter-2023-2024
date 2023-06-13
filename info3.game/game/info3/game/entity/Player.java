@@ -39,9 +39,19 @@ import info3.game.automate.Automate;
 public class Player extends Entity {
   long m_imageElapsed;
 
+  LifeBar m_bare;
+  int m_team;
+
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
+  }
+
+  public Player(int team) throws IOException {
+    super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
+    m_team=team;
+    m_bare=new LifeBar(this);
   }
 
   /*
@@ -60,6 +70,7 @@ public class Player extends Entity {
   public void paint(Graphics g) {
     BufferedImage img = getImage();
     Camera.drawImage(g, img, x, y, getWidth(), getHeight());
+    m_bare.paint(g);
     // OR
     // Camera.drawEntity(this, g);
   }
