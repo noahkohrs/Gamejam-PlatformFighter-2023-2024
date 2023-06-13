@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.jcraft.jogg.Buffer;
+
 import entity.Entity;
 
 public class Camera {
@@ -111,6 +113,11 @@ public class Camera {
         int cWidth = realSize(width, camera.scale);
         int cHeight = realSize(height, camera.scale);
         g.drawImage(img, cX, cY, cWidth, cHeight, null);
+    }
+
+    static public void drawEntity(Entity e, Graphics g) {
+        BufferedImage img = e.m_images[e.imageIndex] ;
+        drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
     }
 
     static public void drawRect(Graphics g, int x, int y, int width, int height) {

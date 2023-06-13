@@ -19,7 +19,7 @@ public abstract class Entity {
 
     long moveElapsed;
 
-    int imageIndex;
+    public int imageIndex;
 
     Automate automate;
     Hitbox hitbox;
@@ -29,8 +29,6 @@ public abstract class Entity {
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
-        // Print where we are in the direcetory structure
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
         this.m_images = loadSprite(filename, nrows, ncols);
         this.width = m_images[0].getWidth();
@@ -45,6 +43,8 @@ public abstract class Entity {
     public void camPaint(Graphics g) {
         BufferedImage img = m_images[imageIndex];
         Camera.drawImage(g, img, x, y, width, height);
+        // OR
+        // Camera.drawEntity(this, g); (same result)
     }
 
     public abstract void move(String direction);
