@@ -29,7 +29,8 @@
             "name": "Game",
             "request": "launch",
             "mainClass": "info3.game.Game",
-            "projectName": "info3.game.projetB"
+            "projectName": "info3.game.projetB",
+            "args":"game/info3/game/automate/example.gal"
         },
         {
             "type": "java",

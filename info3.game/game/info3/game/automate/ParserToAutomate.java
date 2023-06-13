@@ -24,7 +24,7 @@ import info3.game.entity.Entity;
 
 public class ParserToAutomate implements IVisitor {
 
-    List<Automate> autos;
+    public List<Automate> autos;
 
     public ParserToAutomate(){
         this.autos=new ArrayList<Automate>();

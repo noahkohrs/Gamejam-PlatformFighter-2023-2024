@@ -1,10 +1,9 @@
-Player(Pondre){
-  * (Pondre)
-  | True() ? Move(F)  :(Couver)
+Player(Init){
+  * (Init)
+  | True() ? Move(F)  :(Init)
+}
 
-  * (Couver)
-  | True() ? Move(B)   :(Couver)
-
-  * (Attendre)
-  | True() ? Move()    :(Pondre) 
+Player(Init){
+  * (Init)
+  | True() ? Move(F)  :(Init)
 }

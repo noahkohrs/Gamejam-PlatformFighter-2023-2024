@@ -49,10 +49,11 @@ public class Player extends Entity {
    */
   public void tick(long elapsed) {
     view.tick(elapsed);
-    moveElapsed += elapsed;
-    if (moveElapsed > 24) {
-      moveElapsed = 0;
-      move("right");
+    try {
+      this.automate.step();
+    } catch (Exception e) {
+      System.out.println("Normally we should not reach here");
+      e.printStackTrace();
     }
   }
 

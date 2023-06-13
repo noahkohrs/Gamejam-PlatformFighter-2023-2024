@@ -7,7 +7,7 @@ import info3.game.entity.Entity;
 
 public class Automate {
     List<Transitions> trans;
-    Entity e;
+    public Entity e;
     State src;
     List<State> states;
 

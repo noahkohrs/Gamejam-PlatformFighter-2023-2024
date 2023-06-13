@@ -10,6 +10,9 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import info3.game.automata.ast.AST;
+import info3.game.automata.parser.AutomataParser;
+import info3.game.automate.ParserToAutomate;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 
@@ -26,7 +29,7 @@ public class GameSession {
     List<Entity> entities;
     public Map map;
 
-    public GameSession(Game game, String mapPath) throws IOException {
+    public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
         map = new Map(mapPath);
         loadEntities(mapPath);
@@ -36,6 +39,16 @@ public class GameSession {
 
         camera = new Camera();
 
+        ParserToAutomate parser= new ParserToAutomate();
+        AST ast;
+        ast=AutomataParser.from_file(GalFile);
+        ast.accept(parser);
+        parser.autos.get(0).e=player1;
+        parser.autos.get(1).e=player2;
+        player1.automate=parser.autos.get(0);
+        player2.automate=parser.autos.get(1);
+        System.out.println("\n\n\nAutomate du parseur\n");
+        parser.autos.get(0).prettyPrint();
         gameSession = this;
     }
 
