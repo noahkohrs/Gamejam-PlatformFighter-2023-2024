@@ -1,15 +1,15 @@
-package info3.game.entity;
+package info3.game.entity.blocks;
 
-import java.awt.Graphics;
 import java.io.IOException;
 
-import info3.game.Camera;
+import info3.game.automate.Automate;
+import info3.game.entity.Entity;
 
-public class Block extends Entity {
-    public static final int BLOCK_SIZE = 32;
+public class MovingPlatform extends Entity {
 
-    public Block(int x, int y, String blockTexture) throws IOException {
-        super(x*BLOCK_SIZE, y*BLOCK_SIZE, null, blockTexture, 1, 1);
+    public MovingPlatform(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
+        super(x, y, automate, filename, nrows, ncols);
+        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -17,12 +17,6 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
-
-    // @Override
-    // public void paint(Graphics g) {
-    //     Camera.drawImage(g, getImage(), x, y, getWidth(), getHeight());
-    // }
-
 
     @Override
     public void move(String direction) {
@@ -41,4 +35,5 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
+
 }

@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,14 +50,16 @@ public class GameSession {
             String id = jsonEntity.getString("id");
             int x = jsonEntity.getInt("x");
             int y = jsonEntity.getInt("y");
-            JSONObject tags = jsonEntity.getJSONObject("tags");
+            Set<String> tags = jsonEntity.getJSONObject("tags").keySet();
             // If it need somes tags...
-            entities.add(IdToEntity(id, x, y));
+            entities.add(IdToEntity(id, x, y, tags));
         }
     }
 
-    private Entity IdToEntity(String id, int x, int y) {
+    private Entity IdToEntity(String id, int x, int y, Set<String> tags) {
         switch (id) {
+            // case "MovingPlatform" :
+            //     return new MovingPlatform(x, y);
             default :
                 return null ;
         }

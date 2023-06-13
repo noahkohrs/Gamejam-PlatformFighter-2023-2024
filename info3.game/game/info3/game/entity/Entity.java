@@ -31,6 +31,9 @@ public abstract class Entity {
     public abstract void tick(long elapsed) ;
 
     public void paint(Graphics g) {
+        if (getImage() == null) {
+            
+        }
         BufferedImage img = getImage();
         Camera.drawImage(g, img, x, y, getWidth(), getHeight());
         // OR
