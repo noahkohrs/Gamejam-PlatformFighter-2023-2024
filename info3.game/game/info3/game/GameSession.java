@@ -31,8 +31,8 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
 
-        player1 = new Player();
-        player2 = new Player();
+        player1 = new Player(1);
+        player2 = new Player(2);
 
         camera = new Camera();
 

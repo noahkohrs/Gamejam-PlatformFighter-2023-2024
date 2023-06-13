@@ -22,15 +22,11 @@ package info3.game.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import info3.game.Camera;
-import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.entity.life.LifeBar;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
@@ -38,11 +34,25 @@ import info3.game.automate.Automate;
  */
 public class Player extends Entity {
   long m_imageElapsed;
+  private LifeBar lifeBar;
+  
 
   public Player() throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
-    view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
     hitbox = new HitBox(12, 8, 22, 35, this);
+    this.lifeBar = new LifeBar();
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6) ;
+  }
+
+  public Player(int team) throws IOException {
+    super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6);
+    this.lifeBar = new LifeBar(team);
+  }
+
+  public void takeDamage(int ammount)
+  {
+    lifeBar.life.removeHealth(ammount);
   }
 
   /*
@@ -63,10 +73,10 @@ public class Player extends Entity {
     BufferedImage img = getImage();
     Camera.drawImage(g, img, x, y, getWidth(), getHeight());
     hitbox.showHitBox(g);
+    lifeBar.showLifeBar(g);
     // OR
     // Camera.drawEntity(this, g);
   }
-
 
   @Override
   public void move(String direction) {
