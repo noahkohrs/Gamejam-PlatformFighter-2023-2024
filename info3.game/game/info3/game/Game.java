@@ -52,15 +52,12 @@ public class Game {
 	public GameCanvas m_canvas;
 	CanvasListener m_listener;
 	Sound m_music;
-	GameSession m_game_session;
-	Camera m_camera;
+	public static GameSession m_game_session;
 
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_game_session = new GameSession(this, "level.json");
-
-		m_camera = new Camera(this);
 		
 		// creating a listener for all the events
 		// from the game canvas, that would be
