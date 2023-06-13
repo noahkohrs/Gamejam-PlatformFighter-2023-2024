@@ -6,7 +6,7 @@ public class Transitions {
     State src;
     State dest;
     Action action;
-    Condition cond;
+    public Condition cond;
 
     public Transitions(State src,State dest,Action action,Condition cond){
         this.src=src;

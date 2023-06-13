@@ -68,7 +68,22 @@ public class Player extends Entity {
 
   @Override
   public void move(String direction) {
-    x = (x + 2) % GameSession.gameSession.map.realWidth();
+    System.out.println(direction);
+    switch(direction){
+      case  "E":
+        x = (x + 2) % GameSession.gameSession.map.realWidth();
+        break;
+      case  "W":
+        x = x- 2;
+        break;
+      case  "N":
+        y = y-2;
+        break;
+      case  "S":
+        y = y+2;
+      break;
+    }
+    //x = (x + 2) % GameSession.gameSession.map.realWidth();
   }
 
   @Override

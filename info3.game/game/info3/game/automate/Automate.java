@@ -6,7 +6,7 @@ import java.util.List;
 import info3.game.entity.Entity;
 
 public class Automate {
-    List<Transitions> trans;
+    public List<Transitions> trans;
     public Entity e;
     State src;
     List<State> states;
@@ -28,6 +28,8 @@ public class Automate {
         for(int i=0;i<trans.size();i++){
             if(src.name.equals(trans.get(i).src.name) && trans.get(i).cond!=null && trans.get(i).cond.eval(e)){
                 src=trans.get(i).dest;
+                if(trans.get(i).action==null)
+                    return;
                 String direction=trans.get(i).action.Direction;
                 trans.get(i).action.exec(e, direction);
                 return;
