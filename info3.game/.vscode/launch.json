@@ -1,0 +1,64 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "ChainingExample",
+            "request": "launch",
+            "mainClass": "com.jcraft.jorbis.ChainingExample",
+            "projectName": "info3.game.projetB"
+        },
+        {
+            "type": "java",
+            "name": "DecodeExample",
+            "request": "launch",
+            "mainClass": "com.jcraft.jorbis.DecodeExample",
+            "projectName": "info3.game.projetB"
+        },
+        {
+            "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "mainClass": "info3.game.Game",
+            "projectName": "info3.game.projetB"
+        },
+        {
+            "type": "java",
+            "name": "AutomataParser",
+            "request": "launch",
+            "mainClass": "info3.game.automata.parser.AutomataParser",
+            "projectName": "info3.game.projetB"
+        },
+        {
+            "type": "java",
+            "name": "TestAutomate",
+            "request": "launch",
+            "mainClass": "info3.game.automate.TestAutomate",
+            "projectName": "info3.game.projetB",
+            "args":"game/info3/game/automate/example.gal"
+        },
+        {
+            "type": "java",
+            "name": "RandomFileInputStream",
+            "request": "launch",
+            "mainClass": "info3.game.sound.RandomFileInputStream",
+            "projectName": "info3.game.projetB"
+        },
+        {
+            "type": "java",
+            "name": "LevelEditor",
+            "request": "launch",
+            "mainClass": "info3.level.editor.LevelEditor",
+            "projectName": "info3.game.projetB"
+        }
+    ]
+}

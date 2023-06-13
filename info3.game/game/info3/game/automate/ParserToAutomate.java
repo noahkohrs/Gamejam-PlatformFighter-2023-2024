@@ -126,7 +126,7 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public void enter(Condition condition) {
-        String className = "automate."+condition.expression.name().toString();
+        String className = "info3.game.automate.condition."+condition.expression.name().toString();
         // Load the class dynamically
         Class<?> condClass=null;
         try {
@@ -170,7 +170,7 @@ public class ParserToAutomate implements IVisitor {
     public void enter(Action action) {
         if(action.calls==null || action.calls.size()==0)
             return;
-        String className = "automate."+action.calls.get(0).name;
+        String className = "info3.game.automate.action."+action.calls.get(0).name;
         //System.out.println(className);
         // Load the class dynamically
         Class<?> actionClass=null;
@@ -217,7 +217,7 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public void enter(Automaton automaton) {
-        String className = "automate."+automaton.toString();
+        String className = "info3.game.entity."+automaton.toString();
                 
         // Load the class dynamically
         Class<?> entityClass=null;
