@@ -80,8 +80,11 @@ public class Player extends Entity {
   }
 
   @Override
-  public void move(String direction) {
-    x = (x + 2) % GameSession.gameSession.map.realWidth();
+  public void move(Direction direction) {
+    if (!hitbox.inCollision(direction)) {
+      x += direction.x*8;
+      y += direction.y*8;
+    }
   }
 
   @Override

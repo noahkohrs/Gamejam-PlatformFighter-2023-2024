@@ -36,7 +36,7 @@ public abstract class Entity {
         // Camera.drawEntity(this, g); (same result)
     }
 
-    public abstract void move(String direction);
+    public abstract void move(Direction direction);
 
     public abstract void wizz();
 
