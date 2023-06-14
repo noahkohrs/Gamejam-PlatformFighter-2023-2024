@@ -65,7 +65,6 @@ public class Player extends Entity {
     moveElapsed += elapsed;
     if (moveElapsed > 24) {
       moveElapsed = 0;
-      move("right");
     }
   }
 
