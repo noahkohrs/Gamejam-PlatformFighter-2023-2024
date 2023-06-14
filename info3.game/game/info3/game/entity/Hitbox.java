@@ -1,4 +1,5 @@
 package info3.game.entity;
 
-public class Hitbox {
+public class HitBox {
+    
 }

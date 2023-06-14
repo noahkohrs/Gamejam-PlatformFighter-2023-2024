@@ -3,19 +3,32 @@ package info3.game.entity.blocks;
 import java.io.IOException;
 
 import info3.game.automate.Automate;
+import info3.game.entity.Block;
 import info3.game.entity.Entity;
 
 public class MovingPlatform extends Entity {
+    int velX ;
+    int minX, maxX;
+    int power, maxPower ;
 
-    public MovingPlatform(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
-        super(x, y, automate, filename, nrows, ncols);
-        //TODO Auto-generated constructor stub
+
+    public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
+        super(x, y, null, "resources/blocks/26.png", 1, 1);
+        maxPower = blockMove ;
+        power = maxPower ;
+        
+        velX = speed;
     }
 
     @Override
     public void tick(long elapsed) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
+        if (power <= 0) {
+            velX = -velX;
+            power = maxPower;
+        }
+        power -= Math.abs(velX);
+
+        x += velX;
     }
 
     @Override

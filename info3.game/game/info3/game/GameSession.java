@@ -11,8 +11,10 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.entity.blocks.MovingPlatform;
 
 
 public class GameSession {
@@ -50,16 +52,18 @@ public class GameSession {
             String id = jsonEntity.getString("id");
             int x = jsonEntity.getInt("x");
             int y = jsonEntity.getInt("y");
-            Set<String> tags = jsonEntity.getJSONObject("tags").keySet();
+            JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x, y, tags));
+            entities.add(IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags));
         }
     }
 
-    private Entity IdToEntity(String id, int x, int y, Set<String> tags) {
+    private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
-            // case "MovingPlatform" :
-            //     return new MovingPlatform(x, y);
+            case "MovingPlatform" :
+                int moveX = tags.getInt("blockMove");
+                int speed = tags.getInt("speed");
+                return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
             default :
                 return null ;
         }

@@ -1,5 +1,6 @@
 package info3.game.entity;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,7 +18,7 @@ public abstract class Entity {
     long moveElapsed;
 
     Automate automate;
-    Hitbox hitbox;
+    HitBox hitbox;
     public EntityView view;
 
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
@@ -32,10 +33,11 @@ public abstract class Entity {
 
     public void paint(Graphics g) {
         if (getImage() == null) {
-            
+            g.setColor(Color.magenta);
+            Camera.fillRect(g, x, y, getWidth(), getHeight());
+        } else {
+            Camera.drawImage(g, getImage(), x, y, getWidth(), getHeight());
         }
-        BufferedImage img = getImage();
-        Camera.drawImage(g, img, x, y, getWidth(), getHeight());
         // OR
         // Camera.drawEntity(this, g); (same result)
     }
