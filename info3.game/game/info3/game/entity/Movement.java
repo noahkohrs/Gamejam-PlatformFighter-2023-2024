@@ -58,7 +58,7 @@ public class Movement {
 
     static private void InitJump(Entity E, long deltatime){//initialise la vitesse au début du saut ainsi que le temps que va durer le saut
         E.jumpcd = true;
-        E.jumptime = 88;
+        E.jumptime = 102;
         E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime* 0.99f;
     }
 
