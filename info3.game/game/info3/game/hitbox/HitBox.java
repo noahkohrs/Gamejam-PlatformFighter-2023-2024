@@ -1,9 +1,12 @@
-package info3.game.entity;
+package info3.game.hitbox;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import info3.game.GameSession;
+import info3.game.entity.Block;
+import info3.game.entity.Direction;
+import info3.game.entity.Entity;
 
 public class HitBox {
     private final int offsetX;
