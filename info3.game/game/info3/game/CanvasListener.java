@@ -110,6 +110,9 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_Q:
         GameSession.gameSession.player1.move(Direction.LEFT);
         break;
+      case KeyEvent.VK_F:
+        GameSession.gameSession.player1.weapon.shoot();
+        break;
     }
   }
 
