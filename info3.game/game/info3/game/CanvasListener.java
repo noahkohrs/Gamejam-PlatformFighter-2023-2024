@@ -108,18 +108,6 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_T:
         GameSession.gameSession.player1.takeDamage(10);
         break;
-      case KeyEvent.VK_Z:
-        GameSession.gameSession.player1.move(Direction.UPPER);
-        break;
-      case KeyEvent.VK_D:
-        GameSession.gameSession.player1.move(Direction.RIGHT);
-        break;
-      case KeyEvent.VK_S:
-        GameSession.gameSession.player1.move(Direction.BOTTOM);
-        break;
-      case KeyEvent.VK_Q:
-        GameSession.gameSession.player1.move(Direction.LEFT);
-        break;
     }
   }
 
