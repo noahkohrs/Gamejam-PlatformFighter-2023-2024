@@ -47,6 +47,7 @@ public class Movement {
         }
         //routine de check des collisions ici: tape le plafond /une plateforme
         if((E.hitbox.inCollision(Direction.UPPER) || E.hitbox.inCollision(Direction.RIGHT_TOP) || E.hitbox.inCollision(Direction.LEFT_TOP)) && E.velY > 0){
+           E.velY = 0;
             Gravity(E, deltatime);
             E.jumptime = 0;
         }
@@ -57,8 +58,8 @@ public class Movement {
 
     static private void InitJump(Entity E, long deltatime){//initialise la vitesse au début du saut ainsi que le temps que va durer le saut
         E.jumpcd = true;
-        E.jumptime = 90;
-        E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
+        E.jumptime = 88;
+        E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime* 0.99f;
     }
 
     static private void Gravity(Entity E, long deltatime){//accélération de la gravité -> affectation au joueur
