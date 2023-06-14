@@ -83,7 +83,7 @@ public class Map {
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
                 if (fixedMap[i][j] != null)
-                    fixedMap[i][j].paint(g);
+                    fixedMap[i][j].view.paint(g);
         g.setColor(Color.yellow);
         Camera.drawRect(g, 0, 0, realWidth(), realWidth());
     }
