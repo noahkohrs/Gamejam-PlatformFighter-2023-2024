@@ -1,1 +1,1 @@
-{"entities":[],"blocks":[{"x":0,"y":0,"id":"GrassBlock","tags":{"block":true}},{"x":0,"y":1,"id":"GrassBlock","tags":{"block":true}},{"x":1,"y":0,"id":"GrassBlock","tags":{"block":true}}],"width":48,"height":30}
+{"entities":[],"blocks":[{"x":8,"y":0,"id":"GrassBlock","tags":{"block":true}},{"x":8,"y":1,"id":"GrassBlock","tags":{"block":true}},{"x":8,"y":2,"id":"GrassBlock","tags":{"block":true}},{"x":8,"y":3,"id":"GrassBlock","tags":{"block":true}}],"width":48,"height":30}

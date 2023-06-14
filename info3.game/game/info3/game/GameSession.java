@@ -1,8 +1,7 @@
 package info3.game;
 
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +27,16 @@ public class GameSession {
 
     public GameSession(Game game, String mapPath) throws IOException {
         this.game = game;
+        entities = new ArrayList<Entity>();
         map = new Map(mapPath);
         loadEntities(mapPath);
-
-        player1 = new Player();
-        player2 = new Player();
-
         camera = new Camera();
-
         gameSession = this;
+        player1 = new Player(1);
+        player2 = new Player(2);
     }
 
     private void loadEntities(String filename) throws IOException {
-        entities = new ArrayList<Entity>();
         String content = Map.readFile(filename);
         JSONObject json = new JSONObject(content);
         JSONArray jsonEntities = json.getJSONArray("entities");
@@ -62,6 +58,11 @@ public class GameSession {
         }
     }
 
+    public void addEntities(Entity entity)
+    {
+        this.entities.add(0, entity);
+    }
+
     public void tick(long elapsed) {
         player1.tick(elapsed);
         player2.tick(elapsed);
@@ -75,10 +76,10 @@ public class GameSession {
         camera.paint(g);
         map.paint(g);
         for (Entity entity : entities) {
-            entity.paint(g);
+            entity.view.paint(g);
         }
-        player1.paint(g);
-        player2.paint(g);
+        player1.view.paint(g);
+        player2.view.paint(g);
     }
 
     int getLevelWidth() {
