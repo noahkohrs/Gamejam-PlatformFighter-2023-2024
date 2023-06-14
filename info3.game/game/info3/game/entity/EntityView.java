@@ -22,9 +22,12 @@ public class EntityView {
 
     public EntityView(String filename, int nrows, int ncols, Entity entity) {
         try {
+            if(!filename.equals(""))
+            {
             images = Entity.loadSprite(filename, nrows, ncols);
             this.width = images[0].getWidth();
             this.height = images[0].getHeight();
+            }
             this.entity = entity;
         } catch (Exception e) {
             System.out.println("Error loading sprite: " + filename);
