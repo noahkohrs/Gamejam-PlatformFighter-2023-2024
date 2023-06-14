@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import info3.game.automate.Automate;
 import info3.game.entity.Block;
+import info3.game.entity.Direction;
 import info3.game.entity.Entity;
 
 public class MovingPlatform extends Entity {
@@ -13,7 +14,7 @@ public class MovingPlatform extends Entity {
 
 
     public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, null, "resources/blocks/26.png", 1, 1);
+        super(x, y, null, "resources/blocks/2.png", 1, 1);
         maxPower = blockMove ;
         power = maxPower ;
         
@@ -32,12 +33,6 @@ public class MovingPlatform extends Entity {
     }
 
     @Override
-    public void move(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
-
-    @Override
     public void wizz() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'wizz'");
@@ -47,6 +42,12 @@ public class MovingPlatform extends Entity {
     public void pop() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    }
+
+    @Override
+    public void move(Direction direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
 
 }
