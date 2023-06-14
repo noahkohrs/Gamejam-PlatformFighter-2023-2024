@@ -97,8 +97,6 @@ public class CanvasListener implements GameCanvasListener {
       break;
       case KeyEvent.VK_Z:
         IsPressed[2] = 1;
-        GameSession.gameSession.player1.IsJumping = true;
-        GameSession.gameSession.player1.StartJump();
         break;
       case KeyEvent.VK_D:
         IsPressed[0] = 1;
@@ -131,14 +129,18 @@ public class CanvasListener implements GameCanvasListener {
   public void tick(long elapsed) {
     m_game.tick(elapsed);
     if(IsPressed[0] == 1){
-      GameSession.gameSession.player1.SetVelX(5);
+      GameSession.gameSession.player1.SetVelX(2);
       GameSession.gameSession.player1.FaceRight();
-    }else 
+    }
     if(IsPressed[1] == 1){
-      GameSession.gameSession.player1.SetVelX(5);
+      GameSession.gameSession.player1.SetVelX(2);
       GameSession.gameSession.player1.FaceLeft();
     } 
-    else {
+    if(IsPressed[2] == 1){
+        GameSession.gameSession.player1.IsJumping = true;
+        GameSession.gameSession.player1.StartJump();
+    } if(IsPressed[0] == 0 && IsPressed[1] == 0 && IsPressed[2] == 0)
+    {
       GameSession.gameSession.player1.reSetVelX();
      GameSession.gameSession.player1.Idle();
     }
