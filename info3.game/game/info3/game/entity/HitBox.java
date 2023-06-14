@@ -107,7 +107,6 @@ public class HitBox {
 
     // Need to check in function of Direction after proto
     private boolean checkMapCollision(int x, int y, Direction dir) {
-
         if (x < 0)
             return true;
 
@@ -116,18 +115,30 @@ public class HitBox {
 
         int maxBoundX = GameSession.gameSession.map.realWidth();
         int maxBoundY = GameSession.gameSession.map.realHeight();
-
         if (x >= maxBoundX)
             return true;
-
         if (y >= maxBoundY)
             return true;
 
-        if (x + width >= maxBoundX)
-            return true;
-
-        if (y + height >= maxBoundY)
-            return true;
+        switch (dir) {
+            case LEFT:
+            case UPPER:
+                if (x + width >= maxBoundX)
+                    return true;
+                break;
+            case RIGHT:
+            case BOTTOM:
+                if (y + height >= maxBoundY)
+                    return true;
+        }
+        /*
+         * 
+         * if (x + width >= maxBoundX)
+         * return true;
+         * 
+         * if (y + height >= maxBoundY)
+         * return true;
+         */
 
         return false;
     }

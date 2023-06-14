@@ -29,6 +29,5 @@ public class EntityView {
     }
 
     public void tick(long elapsed) {
-        System.out.println("NONON");
     }
 }

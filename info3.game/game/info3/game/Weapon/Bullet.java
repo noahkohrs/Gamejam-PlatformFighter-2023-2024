@@ -12,17 +12,17 @@ import info3.game.entity.Direction;
 import info3.game.entity.Entity;
 import info3.game.entity.HitBox;
 
-public class Bullet extends Entity{
+public class Bullet extends Entity {
 
   private HitBox hitBox;
   private Direction dir;
 
   public Bullet(int x, int y, Direction dir)
       throws IOException {
-    super(x,y, new Automate(), "resources/blocks/1.png", 1, 1);
+    super(x, y, new Automate(), "resources/blocks/1.png", 1, 1);
 
     this.dir = dir;
-    hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, this);
+    hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, true, this);
   }
 
   @Override
@@ -38,7 +38,6 @@ public class Bullet extends Entity{
     BufferedImage img = getImage();
     Camera.drawImage(g, img, x, y, getWidth(), getHeight());
   }
-
 
   @Override
   public void move(Direction direction) {
