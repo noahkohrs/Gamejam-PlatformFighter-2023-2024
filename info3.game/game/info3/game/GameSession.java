@@ -1,8 +1,7 @@
 package info3.game;
 
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +29,9 @@ public class GameSession {
         this.game = game;
         map = new Map(mapPath);
         loadEntities(mapPath);
-
+        camera = new Camera();
         player1 = new Player(1);
         player2 = new Player(2);
-
-        camera = new Camera();
-
         gameSession = this;
     }
 
