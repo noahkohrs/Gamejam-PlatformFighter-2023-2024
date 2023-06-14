@@ -24,11 +24,10 @@ public abstract class Entity {
     int jumptime =0;//init at 0 for implementation but represent the numbers of frames in which the player will be jumping
     boolean jumpcd = false; // checking if the jump is on cd same purpose as Isjumping
 
-
     long moveElapsed;
 
     Automate automate;
-    Hitbox hitbox;
+    HitBox hitbox;
     public EntityView view;
 
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
@@ -48,7 +47,7 @@ public abstract class Entity {
         // Camera.drawEntity(this, g); (same result)
     }
 
-    public abstract void move(String direction);
+    public abstract void move(Direction direction);
 
     public abstract void wizz();
 
