@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import info3.game.automate.Automate;
+import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
     public int x;

@@ -25,6 +25,7 @@ import java.io.IOException;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
 import info3.game.entity.life.LifeBar;
+import info3.game.hitbox.HitBox;
 
 /**
  * A simple class that holds the images of a sprite for an animated cowbow.
