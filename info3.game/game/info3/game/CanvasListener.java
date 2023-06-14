@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import info3.game.entity.Direction;
 import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {

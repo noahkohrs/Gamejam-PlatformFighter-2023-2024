@@ -1,8 +1,7 @@
 package info3.game;
 
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +34,6 @@ public class GameSession {
         this.game = game;
         map = new Map(mapPath);
         loadEntities(mapPath);
-
-        player1 = new Player();
-        player2 = new Player();
-
         camera = new Camera();
 
         ParserToAutomate parser= new ParserToAutomate();
