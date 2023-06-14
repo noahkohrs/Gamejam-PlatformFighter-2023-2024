@@ -11,6 +11,6 @@ public class Move extends Action{
     }
     @Override
     public void exec(Entity e, String Direction) {
-        e.move(Direction);
+        e.move(info3.game.entity.Direction.fromString(Direction));
     }
 }

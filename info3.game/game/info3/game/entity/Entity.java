@@ -16,7 +16,7 @@ public abstract class Entity {
     long moveElapsed;
 
     public Automate automate;
-    Hitbox hitbox;
+    HitBox hitbox;
     public EntityView view;
 
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {

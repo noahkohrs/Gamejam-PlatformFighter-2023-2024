@@ -83,8 +83,8 @@ public class Player extends Entity {
   @Override
   public void move(Direction direction) {
     if (!hitbox.inCollision(direction)) {
-      x += direction.x*8;
-      y += direction.y*8;
+      x += direction.x;
+      y += direction.y;
     }
   }
 

@@ -35,7 +35,8 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
-
+        player1=new Player(1);
+        player2=new Player(2);
         ParserToAutomate parser= new ParserToAutomate();
         AST ast;
         ast=AutomataParser.from_file(GalFile);
