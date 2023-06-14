@@ -1,4 +1,4 @@
-package info3.game.entity;
+package info3.game.hitbox;
 
 import java.awt.Color;
 import java.awt.Graphics;
