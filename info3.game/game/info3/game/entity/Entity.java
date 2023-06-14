@@ -30,6 +30,7 @@ public abstract class Entity {
     HitBox hitbox;
     public EntityView view;
 
+
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;

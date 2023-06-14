@@ -62,6 +62,8 @@ public class Player extends Entity {
   public void tick(long elapsed) {
     Movement.Walk(this);
     Movement.jump(this, elapsed);
+    if(this.hitbox.inCollision(Direction.UPPER)){ System.out.println(" touché le plafond");}
+
     System.out.println(hitbox.inCollision(Direction.RIGHT));
     view.tick(elapsed);
     moveElapsed += elapsed;

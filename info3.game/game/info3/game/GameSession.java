@@ -12,10 +12,11 @@ import org.json.JSONObject;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 
-
 public class GameSession {
     public Game game;
     public static GameSession gameSession;
+
+    private long updateTime;
 
     public Player player1;
     public Player player2;
@@ -53,18 +54,23 @@ public class GameSession {
 
     private Entity IdToEntity(String id, int x, int y) {
         switch (id) {
-            default :
-                return null ;
+            default:
+                return null;
         }
     }
 
     public void tick(long elapsed) {
-        player1.tick(elapsed);
-        player2.tick(elapsed);
-        for (Entity entity : entities) {
-            entity.tick(elapsed);
+        updateTime += elapsed;
+        if (updateTime > 24) {
+            player1.tick(elapsed);
+            player2.tick(elapsed);
+            for (Entity entity : entities) {
+                entity.tick(elapsed);
+            }
+            camera.tick(elapsed);
+            updateTime=0;
         }
-        camera.tick(elapsed);
+
     }
 
     public void paint(Graphics g) {
@@ -84,8 +90,5 @@ public class GameSession {
     int getLevelHeight() {
         return map.realHeight();
     }
-
-
-
 
 }
