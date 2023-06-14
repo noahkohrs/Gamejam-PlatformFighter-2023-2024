@@ -90,35 +90,71 @@ public class CanvasListener implements GameCanvasListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
+    int index;
     System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
         GameSession.gameSession.camera.toggleDebugMode();
         break;
-      case KeyEvent.VK_T:
-        GameSession.gameSession.player1.takeDamage(10);
-        break;
-      case KeyEvent.VK_Z:
-        GameSession.gameSession.player1.move(Direction.UPPER);
-        break;
       case KeyEvent.VK_D:
-        GameSession.gameSession.player1.move(Direction.RIGHT);
-        break;
-      case KeyEvent.VK_S:
-        GameSession.gameSession.player1.move(Direction.BOTTOM);
+        index = GameSession.gameSession.findKEy('d');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Q:
-        GameSession.gameSession.player1.move(Direction.LEFT);
+        //System.out.println("Qq");
+        index = GameSession.gameSession.findKEy('q');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_S:
+        index = GameSession.gameSession.findKEy('s');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_Z:
+        //System.out.println("Qq");
+        index = GameSession.gameSession.findKEy('z');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_F:
-        GameSession.gameSession.player1.weapon.shoot();
+        index = GameSession.gameSession.findKEy('f');
+        GameSession.gameSession.keys.get(index).pressed = true;
         break;
     }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
+    int index;
     System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    switch (e.getKeyCode()) {
+      case KeyEvent.VK_D:
+        index = GameSession.gameSession.findKEy('d');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_Q:
+        index = GameSession.gameSession.findKEy('q');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_S:
+        index = GameSession.gameSession.findKEy('s');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_Z:
+        index = GameSession.gameSession.findKEy('z');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_F:
+        index = GameSession.gameSession.findKEy('f');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        break;
+    }
   }
 
   @Override

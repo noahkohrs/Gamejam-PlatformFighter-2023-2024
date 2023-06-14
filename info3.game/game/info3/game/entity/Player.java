@@ -60,17 +60,19 @@ public class Player extends DynamicEntity {
    */
   public void tick(long elapsed) {
     weapon.tick(elapsed);
-    moveElapsed += elapsed;
-    if (moveElapsed > 24) {
-      moveElapsed = 0;
+    try {
+      this.automate.step();
+    } catch (Exception e) {
+      System.out.println("Normally we should not reach here");
+      e.printStackTrace();
     }
   }
 
   @Override
   public void move(Direction direction) {
     if (!hitbox.inCollision(direction)) {
-      x += direction.x * 8;
-      y += direction.y * 8;
+      x += direction.x;
+      y += direction.y;
       affectTor();
     }
   }
@@ -79,14 +81,12 @@ public class Player extends DynamicEntity {
 
   @Override
   public void wizz() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    System.out.println("wizz");
   }
 
   @Override
   public void pop() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    weapon.shoot();
   }
 
 }

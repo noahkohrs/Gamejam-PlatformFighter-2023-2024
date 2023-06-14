@@ -19,7 +19,7 @@ package info3.game.automata.ast;
 
 public class Condition extends Node {
 
-  Expression expression;
+  public Expression expression;
 
   public Condition(Expression expression) {
     this.expression = expression;
