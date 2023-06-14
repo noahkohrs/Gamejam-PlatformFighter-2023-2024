@@ -81,7 +81,7 @@ public class Player extends MovingEntity {
 
   @Override
   public void pop() {
-    System.out.println("pop");
+    weapon.shoot();
   }
 
 }

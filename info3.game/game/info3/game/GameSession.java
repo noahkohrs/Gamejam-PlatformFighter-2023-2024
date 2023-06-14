@@ -53,6 +53,7 @@ public class GameSession {
         keys.add((Key) parser.autos.get(0).trans.get(1).cond);
         keys.add((Key) parser.autos.get(0).trans.get(2).cond);
         keys.add((Key) parser.autos.get(0).trans.get(3).cond);
+        keys.add((Key) parser.autos.get(0).trans.get(4).cond);
     }
 
     private void loadEntities(String filename) throws IOException {
