@@ -24,8 +24,6 @@ public abstract class Entity {
     int jumptime =0;//init at 0 for implementation but represent the numbers of frames in which the player will be jumping
     boolean jumpcd = false; // checking if the jump is on cd same purpose as Isjumping
 
-    //constant regulating the movement of entitites
-    PhysicConstant model;
 
     long moveElapsed;
 
