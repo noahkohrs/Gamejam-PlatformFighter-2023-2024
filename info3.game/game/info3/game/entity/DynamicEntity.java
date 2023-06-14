@@ -2,11 +2,14 @@ package info3.game.entity;
 
 import java.io.IOException;
 
-public class Block extends Entity {
-    public static final int BLOCK_SIZE = 32;
+import info3.game.GameSession;
+import info3.game.automate.Automate;
 
-    public Block(int x, int y, String blockTexture) throws IOException {
-        super(x*BLOCK_SIZE, y*BLOCK_SIZE, null, blockTexture, 1, 1);
+public class DynamicEntity extends Entity {
+
+    public DynamicEntity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
+        super(x, y, automate, filename, nrows, ncols);
+        GameSession.gameSession.addEntities(this);
     }
 
     @Override
@@ -14,8 +17,6 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
-
-
 
     @Override
     public void move(Direction direction) {
@@ -34,4 +35,5 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
+
 }
