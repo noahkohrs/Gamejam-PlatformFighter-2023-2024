@@ -1,8 +1,8 @@
 Player(Init){
   * (Init)
+  | Key(z) ? Move(N)  :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
-  | Key(z) ? Move(N)  :(Init)
   | Key(s) ? Move(S)  :(Init)
   | True() ?          :(Init)
 }
