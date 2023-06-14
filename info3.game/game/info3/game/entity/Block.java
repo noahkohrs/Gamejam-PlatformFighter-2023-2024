@@ -25,7 +25,7 @@ public class Block extends Entity {
 
 
     @Override
-    public void move(String direction) {
+    public void move(Direction direction) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }

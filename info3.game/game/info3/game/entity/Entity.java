@@ -14,7 +14,6 @@ import info3.game.automate.Automate;
 public abstract class Entity {
     public int x;
     public int y;
-
     long moveElapsed;
 
     Automate automate;
@@ -42,7 +41,7 @@ public abstract class Entity {
         // Camera.drawEntity(this, g); (same result)
     }
 
-    public abstract void move(String direction);
+    public abstract void move(Direction direction);
 
     public abstract void wizz();
 
