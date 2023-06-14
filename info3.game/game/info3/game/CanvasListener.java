@@ -118,6 +118,9 @@ public class CanvasListener implements GameCanvasListener {
         GameSession.gameSession.keys.get(index).pressed = true;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
+      case KeyEvent.VK_F:
+        GameSession.gameSession.player1.weapon.shoot();
+        break;
     }
   }
 
