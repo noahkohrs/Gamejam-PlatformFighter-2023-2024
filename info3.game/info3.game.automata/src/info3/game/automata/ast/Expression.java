@@ -24,4 +24,5 @@ public abstract class Expression extends Node {
 
   public abstract String toString();
 
+  public abstract String name();
 }
