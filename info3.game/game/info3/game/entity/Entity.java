@@ -1,13 +1,11 @@
 package info3.game.entity;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import info3.game.Camera;
 import info3.game.automate.Automate;
 
 public abstract class Entity {
@@ -22,19 +20,12 @@ public abstract class Entity {
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
-        this.view = new EntityView(filename, nrows, ncols);
+        this.view = new EntityView(filename, nrows, ncols,this);
 
         this.automate = automate;
     }
 
     public abstract void tick(long elapsed) ;
-
-    public void paint(Graphics g) {
-        BufferedImage img = getImage();
-        Camera.drawImage(g, img, x, y, getWidth(), getHeight());
-        // OR
-        // Camera.drawEntity(this, g); (same result)
-    }
 
     public abstract void move(Direction direction);
 

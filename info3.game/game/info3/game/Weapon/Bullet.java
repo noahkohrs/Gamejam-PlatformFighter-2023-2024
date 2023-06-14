@@ -9,10 +9,10 @@ import info3.game.Camera;
 import info3.game.automate.Automate;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
-import info3.game.entity.Entity;
 import info3.game.entity.HitBox;
+import info3.game.entity.MovingEntity;
 
-public class Bullet extends Entity {
+public class Bullet extends MovingEntity {
 
   private HitBox hitBox;
   private Direction dir;

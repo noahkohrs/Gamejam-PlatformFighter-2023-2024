@@ -131,24 +131,8 @@ public class HitBox {
                 if (y + height >= maxBoundY)
                     return true;
         }
-        /*
-         * 
-         * if (x + width >= maxBoundX)
-         * return true;
-         * 
-         * if (y + height >= maxBoundY)
-         * return true;
-         */
 
         return false;
-    }
-
-    public void paint(Graphics g) {
-        int x = entity.x + offsetX;
-        int y = entity.y + offsetY;
-        g.setColor(Color.green);
-        g.drawRect(x, y, width, height);
-
     }
 
 }
