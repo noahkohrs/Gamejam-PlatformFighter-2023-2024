@@ -22,6 +22,8 @@ package info3.game.entity;
 
 import java.io.IOException;
 
+import info3.game.Camera;
+import info3.game.GameSession;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
 import info3.game.entity.life.LifeBar;
@@ -69,8 +71,11 @@ public class Player extends MovingEntity {
     if (!hitbox.inCollision(direction)) {
       x += direction.x * 8;
       y += direction.y * 8;
+      affectTor();
     }
   }
+
+
 
   @Override
   public void wizz() {
