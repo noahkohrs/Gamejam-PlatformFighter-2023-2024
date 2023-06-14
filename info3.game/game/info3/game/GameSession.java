@@ -36,7 +36,9 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
-
+        gameSession = this;
+        player1=new Player(1);
+        player2=new Player(2);
         ParserToAutomate parser= new ParserToAutomate();
         AST ast;
         ast=AutomataParser.from_file(GalFile);
@@ -51,9 +53,7 @@ public class GameSession {
         keys.add((Key) parser.autos.get(0).trans.get(1).cond);
         keys.add((Key) parser.autos.get(0).trans.get(2).cond);
         keys.add((Key) parser.autos.get(0).trans.get(3).cond);
-        gameSession = this;
-        player1 = new Player(1);
-        player2 = new Player(2);
+        keys.add((Key) parser.autos.get(0).trans.get(4).cond);
     }
 
     private void loadEntities(String filename) throws IOException {

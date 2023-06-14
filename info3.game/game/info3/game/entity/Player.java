@@ -57,7 +57,7 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    view.tick(elapsed);
+    weapon.tick(elapsed);
     try {
       this.automate.step();
     } catch (Exception e) {
@@ -67,44 +67,21 @@ public class Player extends DynamicEntity {
   }
 
   @Override
-  public void paint(Graphics g) {
-    BufferedImage img = getImage();
-    Camera.drawImage(g, img, x, y, getWidth(), getHeight());
-    // OR
-    // Camera.drawEntity(this, g);
-  }
-
-
-  @Override
-  public void move(String direction) {
-    System.out.println(direction);
-    switch(direction){
-      case  "E":
-        x = (x + 2) % GameSession.gameSession.map.realWidth();
-        break;
-      case  "W":
-        x = x- 2;
-        break;
-      case  "N":
-        y = y-2;
-        break;
-      case  "S":
-        y = y+2;
-      break;
+  public void move(Direction direction) {
+    if (!hitbox.inCollision(direction)) {
+      x += direction.x;
+      y += direction.y;
     }
-    //x = (x + 2) % GameSession.gameSession.map.realWidth();
   }
 
   @Override
   public void wizz() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    System.out.println("wizz");
   }
 
   @Override
   public void pop() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    weapon.shoot();
   }
 
 }
