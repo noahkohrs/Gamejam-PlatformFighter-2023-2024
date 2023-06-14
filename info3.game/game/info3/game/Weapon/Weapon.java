@@ -1,73 +1,88 @@
 package info3.game.Weapon;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
-import info3.game.Block;
-import info3.game.Game;
+import info3.game.entity.Direction;
+import info3.game.entity.Player;
 
 public class Weapon {
 
-    public final int cooldown; // in tick
-    public final int reloadAmmo;
-    public int ammo;
-    public int currentCooldown;
-    public int clips;
-    public int damage;
+    private Player player;
+
+    private final int cooldown; // in ms
+    private int currentCooldown;
+    private int clips;
+
+    private int damage;
+
+    private final int clipSize;
+    private int ammo;
 
     private Bullet[] bullets;
 
-    public Weapon() {
-        this.cooldown = 100;
-        this.currentCooldown = 0;
-        this.reloadAmmo = 15;
-        this.ammo = 15;
-        this.clips = 3;
+    public Weapon(Player player) {
+        cooldown = 100;
+        clipSize = 15;
+        ammo = clipSize;
+        clips = 3;
         damage = 25;
-        this.bullets = new Bullet[this.ammo];
+        currentCooldown = 0;
+        bullets = new Bullet[clipSize];
+        this.player = player;
+    }
+
+    public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) {
+        this.cooldown = cooldown;
+        this.clips = clips;
+        this.damage = damage;
+        this.clipSize = clipSize;
+        this.currentCooldown = 0;
+        this.ammo = clipSize;
+        bullets = new Bullet[clipSize];
     }
 
     public void reload() {
         if (clips-- > 0) {
-            ammo = reloadAmmo;
-            currentCooldown = 1000;
+            ammo = clipSize;
+            currentCooldown = cooldown;
         }
     }
 
-    public void shoot(int starx, int starty) {
+    private void createBullet(int startx, int starty) {
+        try {
+            bullets[ammo] = new Bullet(startx, starty, Direction.RIGHT);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void shoot() {
         if (currentCooldown <= 0) {
             if (ammo-- > 0) {
-                bullets[ammo] = new Bullet(starx, starty, 5, 5);
+                createBullet(player.x, player.y);
             }
             currentCooldown = cooldown;
         }
     }
 
-    public void tick() {
-        if (currentCooldown > 0)
-            currentCooldown--;
-            for (int i = 0; i < this.reloadAmmo; i++) {
-                Bullet b = bullets[i];
-                if (b != null) {
-                    b.tick();
-                }
-            }
-        
-    }
-
     public void paint(Graphics g) {
-        for (int i = 0; i < this.reloadAmmo; i++) {
-            if (bullets[i] != null) {
-                Bullet b = bullets[i];
+        for (int i = 0; i < this.clipSize; i++) {
+            Bullet b = bullets[i];
+            if (b != null) {
                 b.paint(g);
             }
         }
     }
 
-    public void viewportView(Graphics g, double scale) {
-        for (int i = 0; i < this.reloadAmmo; i++) {
-            if (bullets[i] != null) {
-                Bullet b = bullets[i];
-                b.viewportView(g, scale);
+    public void tick(long elapsed) {
+        if (currentCooldown > 0)
+            currentCooldown -= elapsed;
+        for (int i = 0; i < this.clipSize; i++) {
+            Bullet b = bullets[i];
+            if (b != null) {
+                b.tick(elapsed);
             }
         }
     }

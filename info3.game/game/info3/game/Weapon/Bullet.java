@@ -2,45 +2,59 @@ package info3.game.Weapon;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import info3.game.Entity;
-import info3.game.Viewport;
+import info3.game.Camera;
+import info3.game.automate.Automate;
+import info3.game.entity.Block;
+import info3.game.entity.Direction;
+import info3.game.entity.Entity;
+import info3.game.entity.HitBox;
 
 public class Bullet extends Entity{
-  HitBox hitbox;
-  Direction dir = Direction.BOTTOM;
 
-  public Bullet(int x, int y, int width, int height){
-    super(x,y,width,height);
-    this.hitbox = new HitBox(-5, -5, 128, 128, this);
+  private HitBox hitBox;
+  private Direction dir;
 
+  public Bullet(int x, int y, Direction dir)
+      throws IOException {
+    super(x,y, new Automate(), "resources/blocks/1.png", 1, 1);
+
+    this.dir = dir;
+    hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, this);
   }
 
-
-  public boolean tick() {
-    if (!hitbox.inCollision(dir)) {
-      m_x += dir.x;
-      m_y += dir.y;
-      return false;
-    }
-    else
-    {
-      return true;
+  @Override
+  public void tick(long elapsed) {
+    view.tick(elapsed);
+    if (!hitBox.inCollision(dir)) {
+      x += dir.x;
+      y += dir.y;
     }
   }
 
   public void paint(Graphics g) {
-    g.setColor(Color.RED);
-    g.fillRect(m_x, m_y, m_width, m_height);
-    hitbox.paint(g);
-
+    BufferedImage img = getImage();
+    Camera.drawImage(g, img, x, y, getWidth(), getHeight());
   }
 
-  public void viewportView(Graphics g, double scale) {
-    hitbox.viewportView(g, scale);
-    g.setColor(Color.RED);
-    g.fillRect(Viewport.OnCamViewX(m_x, scale), Viewport.OnCamViewY(m_y, scale), Viewport.realSize(m_width, scale),
-        Viewport.realSize(m_height, scale));
 
+  @Override
+  public void move(Direction direction) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'move'");
+  }
+
+  @Override
+  public void wizz() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+  }
+
+  @Override
+  public void pop() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'pop'");
   }
 }
