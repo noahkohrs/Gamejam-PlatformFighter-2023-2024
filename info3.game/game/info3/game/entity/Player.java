@@ -60,7 +60,7 @@ public class Player extends Entity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    System.out.println(hitbox.inCollision(Direction.RIGHT));
+    //System.out.println(hitbox.inCollision(Direction.RIGHT));
     view.tick(elapsed);
     try {
       this.automate.step();
@@ -90,14 +90,12 @@ public class Player extends Entity {
 
   @Override
   public void wizz() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    System.out.println("wizz");
   }
 
   @Override
   public void pop() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    System.out.println("pop");
   }
 
 }

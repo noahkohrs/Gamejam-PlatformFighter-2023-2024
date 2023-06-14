@@ -217,7 +217,14 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public void enter(Automaton automaton) {
-        String className = "info3.game.entity."+automaton.toString();
+        String add="";
+        if(automaton.toString().contains("0")){
+            add=add+automaton.toString().split("0")[0]+".";
+            add=add+automaton.toString().split("0")[1];
+        }
+        else
+            add=add+automaton.toString();
+        String className = "info3.game.entity."+add;
                 
         // Load the class dynamically
         Class<?> entityClass=null;

@@ -2,6 +2,7 @@ package info3.game.automate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import info3.game.entity.Entity;
 
@@ -25,9 +26,20 @@ public class Automate {
     }
 
     public void step() throws Exception{
+        Random random=new Random();
         for(int i=0;i<trans.size();i++){
             if(src.name.equals(trans.get(i).src.name) && trans.get(i).cond!=null && trans.get(i).cond.eval(e)){
-                src=trans.get(i).dest;
+                if(trans.get(i).dest.name.equals("_"))
+                    {
+                        int randint=random.nextInt(this.states.size());
+                        while(states.get(randint).name.equals("_")){
+                            randint=random.nextInt(this.states.size());
+                        }
+                        src=states.get(randint);
+                    }
+                else
+                    src=trans.get(i).dest;
+
                 if(trans.get(i).action==null)
                     return;
                 String direction=trans.get(i).action.Direction;
