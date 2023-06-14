@@ -31,9 +31,9 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
+        gameSession = this;
         player1 = new Player(1);
         player2 = new Player(2);
-        gameSession = this;
     }
 
     private void loadEntities(String filename) throws IOException {

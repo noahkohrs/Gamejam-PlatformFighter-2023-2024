@@ -31,7 +31,7 @@ import info3.game.hitbox.HitBox;
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
  */
-public class Player extends Entity {
+public class Player extends MovingEntity {
   long m_imageElapsed;
   
   public LifeBar lifeBar;
@@ -57,7 +57,6 @@ public class Player extends Entity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    view.tick(elapsed);
     weapon.tick(elapsed);
     moveElapsed += elapsed;
     if (moveElapsed > 24) {
