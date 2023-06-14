@@ -1,16 +1,12 @@
 package info3.game.Weapon;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import info3.game.Camera;
+import java.io.IOException;
 import info3.game.automate.Automate;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
-import info3.game.entity.HitBox;
 import info3.game.entity.MovingEntity;
+import info3.game.hitbox.HitBox;
 
 public class Bullet extends MovingEntity {
 
@@ -34,10 +30,6 @@ public class Bullet extends MovingEntity {
     }
   }
 
-  public void paint(Graphics g) {
-    BufferedImage img = getImage();
-    Camera.drawImage(g, img, x, y, getWidth(), getHeight());
-  }
 
   @Override
   public void move(Direction direction) {

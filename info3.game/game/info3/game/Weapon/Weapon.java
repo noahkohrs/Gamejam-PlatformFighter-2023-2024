@@ -1,6 +1,5 @@
 package info3.game.Weapon;
 
-import java.awt.Graphics;
 import java.io.IOException;
 
 import info3.game.entity.Direction;
@@ -67,24 +66,9 @@ public class Weapon {
         }
     }
 
-    public void paint(Graphics g) {
-        for (int i = 0; i < this.clipSize; i++) {
-            Bullet b = bullets[i];
-            if (b != null) {
-                b.paint(g);
-            }
-        }
-    }
-
     public void tick(long elapsed) {
         if (currentCooldown > 0)
             currentCooldown -= elapsed;
-        for (int i = 0; i < this.clipSize; i++) {
-            Bullet b = bullets[i];
-            if (b != null) {
-                b.tick(elapsed);
-            }
-        }
-    }
 
+    }
 }
