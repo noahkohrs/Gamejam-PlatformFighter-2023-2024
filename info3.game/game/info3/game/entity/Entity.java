@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import info3.game.Camera;
+import info3.game.GameSession;
 import info3.game.automate.Automate;
 import info3.game.hitbox.HitBox;
 
@@ -25,7 +27,7 @@ public abstract class Entity {
         this.automate = automate;
     }
 
-    public abstract void tick(long elapsed) ;
+    public abstract void tick(long elapsed);
 
     public abstract void move(Direction direction);
 
@@ -63,5 +65,20 @@ public abstract class Entity {
 
     public int getHeight() {
         return view.height;
+    }
+
+    protected void affectTor() {
+        if (Camera.centeredCoordinateX(this) < 0) {
+            x = GameSession.gameSession.map.realWidth() - getWidth();
+        }
+        if (Camera.centeredCoordinateX(this) > GameSession.gameSession.map.realWidth()) {
+            x = 0;
+        }
+        if (Camera.centeredCoordinateY(this) < 0) {
+            y = GameSession.gameSession.map.realHeight() - getHeight();
+        }
+        if (Camera.centeredCoordinateY(this) > GameSession.gameSession.map.realHeight()) {
+            y = 0;
+        }
     }
 }
