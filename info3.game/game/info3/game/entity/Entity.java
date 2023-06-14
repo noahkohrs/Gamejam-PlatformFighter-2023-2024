@@ -22,7 +22,6 @@ public abstract class Entity {
         this.x = x;
         this.y = y;
         this.view = new EntityView(filename, nrows, ncols,this);
-
         this.automate = automate;
     }
 
