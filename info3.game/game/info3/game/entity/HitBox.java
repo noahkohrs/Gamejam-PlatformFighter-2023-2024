@@ -15,6 +15,8 @@ public class HitBox {
 
     private final HitBoxView view;
 
+    private boolean mapCollisionEnabled;
+
     public HitBox(int offsetX, int offsetY, int width, int height, Entity entity) {
         this.height = height;
         this.width = width;
@@ -22,51 +24,48 @@ public class HitBox {
         this.offsetY = offsetY;
         this.entity = entity;
         view = new HitBoxView(this);
+        mapCollisionEnabled = false;
     }
 
-    public void showHitBox(Graphics g)
-    {
+    public HitBox(int offsetX, int offsetY, int width, int height, boolean mapCollisionEnabled, Entity entity) {
+        this.height = height;
+        this.width = width;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+        this.entity = entity;
+        view = new HitBoxView(this);
+        this.mapCollisionEnabled = mapCollisionEnabled;
+    }
+
+    public void showHitBox(Graphics g) {
         view.paint(g);
     }
 
-    public int getTopX()
-    {
+    public int getTopX() {
         return entity.x + offsetX;
     }
 
-    public int getTopY()
-    {{
-        return entity.y + offsetY;
-    }}
+    public int getTopY() {
+        {
+            return entity.y + offsetY;
+        }
+    }
 
     public boolean inCollision(Direction dir) {
         int x, y;
-        int maxBoundX = GameSession.gameSession.map.realWidth();
-        int maxBoundY = GameSession.gameSession.map.realHeight();
-        if (dir.x == 1) {
+        if (dir.x == 1)
             x = (entity.x + offsetX + width);
-            if (x >= maxBoundX)
-                return true;
-        } else {
+        else
             x = (entity.x + offsetX);
-            if (x + width >= maxBoundX)
-                return true;
-        }
-        if (x < 0)
-            return true;
 
-        if (dir.y == 1) {
+        if (dir.y == 1)
             y = (entity.y + offsetY + height);
-            if (y >= maxBoundY)
-                return true;
-        } else {
+        else
             y = (entity.y + offsetY);
-            if (y + height >= maxBoundY)
-                return true;
-        }
 
-        if (y < 0)
-            return true;
+        if (mapCollisionEnabled)
+            if (checkMapCollision(x, y, dir))
+                return true;
 
         int blockX = x / Block.BLOCK_SIZE;
         int blockY = y / Block.BLOCK_SIZE;
@@ -107,7 +106,29 @@ public class HitBox {
     }
 
     // Need to check in function of Direction after proto
-    private boolean checkMapCollision() {
+    private boolean checkMapCollision(int x, int y, Direction dir) {
+
+        if (x < 0)
+            return true;
+
+        if (y < 0)
+            return true;
+
+        int maxBoundX = GameSession.gameSession.map.realWidth();
+        int maxBoundY = GameSession.gameSession.map.realHeight();
+
+        if (x >= maxBoundX)
+            return true;
+
+        if (y >= maxBoundY)
+            return true;
+
+        if (x + width >= maxBoundX)
+            return true;
+
+        if (y + height >= maxBoundY)
+            return true;
+
         return false;
     }
 
