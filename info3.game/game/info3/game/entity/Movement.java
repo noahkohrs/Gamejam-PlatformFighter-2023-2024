@@ -28,6 +28,22 @@ public class Movement {
 
     // here everything that handles jumping and gravity affectd movement
     static public void jump(Entity E, long deltatime) {
+        if (E.statusJump()) {
+            System.out.println("Vely:"+E.velY+" ajd jumptime:"+E.jumptime+" and E.y:"+E.y+" cd:"+E.jumpcd);
+            //affect jump when key pressed
+            if (E.jumptime == 0 && !E.jumpcd) {
+                E.jumpcd = true;
+                E.jumptime = 60;
+                E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
+                //affect Y velocity if still wqnting to jump aka Z key not release
+            } else if (E.jumptime > 0) {
+                E.jumptime-= deltatime;
+                E.velY = ((E.jumptime / 2.2f) * 1.1f);
+                E.jumpcd = false;
+                //E.velY=1;
+            } else {
+                //end of jump, starting to fall
+                E.velY += PhysicConstant.gravity * (PhysicConstant.fallmultiplier - 1) * deltatime;
         if (E.statusJump()) { //regarde si la touche de saut est enfoncé
             if (E.jumptime == 0 && !E.jumpcd) {//regarde si la durée du saut courant est bien a 0 et qu'on a le droit de sauter
 

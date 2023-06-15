@@ -3,12 +3,15 @@ package info3.game.entity;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 
+import info3.game.GameSession;
 import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.automate.State;
 import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
@@ -19,11 +22,15 @@ public abstract class Entity {
     //here are the velocities at which the entity is moving
     public float velX;
     public float velY;
+    public State state ;
 
     int facing = 0;// where the entity is facing -1 for left and 1 for right
     public boolean IsJumping = false; // just checking if the player is currently jumping to prevent any illegal moves
     int jumptime =0;//init at 0 for implementation but represent the numbers of frames in which the player will be jumping
     boolean jumpcd = false; // checking if the jump is on cd same purpose as Isjumping
+
+    //constant regulating the movement of entitites
+    PhysicConstant model;
 
     long moveElapsed;
 
@@ -35,8 +42,19 @@ public abstract class Entity {
     public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
-        this.view = new EntityView(filename, nrows, ncols,this);
-        this.automate = automate;
+        this.view = new EntityView(filename, nrows, ncols, this);
+        this.automate = loadAutomate();
+        
+        if(this.automate==null)
+          this.automate=GameSession.gameSession.defaultAutomate;
+
+        state = this.automate.initalState ;
+    }
+
+    private Automate loadAutomate() {
+      System.out.println("Loading automate for " + this.getClass().getSimpleName());
+      String className = this.getClass().getSimpleName();
+      return GameSession.gameSession.findAutomate(className);
     }
 
     public abstract void tick(long elapsed);
@@ -129,7 +147,7 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
     return IsJumping;
   }
   public void StartJump(){
-    velY = -5;
+    velY = -1;
 
   }
 }
