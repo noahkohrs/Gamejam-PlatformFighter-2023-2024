@@ -15,9 +15,14 @@ import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.ParserToAutomate;
 import info3.game.automate.condition.Key;
 import info3.game.entity.Block;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.Malus;
 import info3.game.entity.Player;
+import info3.game.entity.PowerUp;
+import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.PowerUpBlock;
 
 
 public class GameSession {
@@ -29,17 +34,18 @@ public class GameSession {
 
     public Camera camera;
 
-    List<Entity> entities;
+    List<DynamicEntity> entities;
     List<Key> keys;
     public Map map;
 
     public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
-        entities = new ArrayList<Entity>();
+        gameSession = this;
+        entities = new ArrayList<DynamicEntity>();
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
-        gameSession = this;
+        
         player1=new Player(1);
         player2=new Player(2);
         ParserToAutomate parser= new ParserToAutomate();
@@ -57,6 +63,7 @@ public class GameSession {
         keys.add((Key) parser.autos.get(0).trans.get(2).cond);
         keys.add((Key) parser.autos.get(0).trans.get(3).cond);
         keys.add((Key) parser.autos.get(0).trans.get(4).cond);
+
     }
 
     private void loadEntities(String filename) throws IOException {
@@ -70,7 +77,7 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags));
+            IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags);
         }
     }
 
@@ -80,12 +87,16 @@ public class GameSession {
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
+            case "PowerUpBlock" :
+                return new PowerUpBlock(x, y, null, 1, 1);
+            case "MalusBlock" :
+                return new MalusBlock(x, y, null, 1, 1);
             default :
                 return null ;
         }
     }
 
-    public void addEntities(Entity entity)
+    public void addEntities(DynamicEntity entity)
     {
         this.entities.add(0, entity);
     }

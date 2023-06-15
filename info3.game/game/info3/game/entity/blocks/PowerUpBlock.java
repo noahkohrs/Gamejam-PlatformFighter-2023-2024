@@ -13,12 +13,10 @@ public class PowerUpBlock extends DynamicEntity{
 
     public PowerUp powerUp;
 
-    public PowerUpBlock(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException{
-        super(x, y, null, filename, 1, 1);
-        int powerUpY = y-32;
-        String f = "resources/powerUp/ammo.png";
-        powerUp = new PowerUp(x, powerUpY, null, f, 1, 1);
+    public PowerUpBlock(int x, int y, Automate automate, int nrows, int ncols) throws IOException{
+        super(x, y, null, "resources/blocks/powerUpBlock.png", 1, 1);
     }
+
 
     @Override
     public void tick(long elapsed) {

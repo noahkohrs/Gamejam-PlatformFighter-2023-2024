@@ -13,11 +13,8 @@ public class MalusBlock extends DynamicEntity{
 
     public Malus malus;
 
-    public MalusBlock(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException{
-        super(x, y, null, filename, 1, 1);
-        int malusY = y-32;
-        String f = "resources/powerUp/speed.png";
-        malus = new Malus(x, malusY, null, f, 1, 1);
+    public MalusBlock(int x, int y, Automate automate, int nrows, int ncols) throws IOException{
+        super(x, y, null, "resources/blocks/malusBlock.png", 1, 1);
     }
 
     @Override
