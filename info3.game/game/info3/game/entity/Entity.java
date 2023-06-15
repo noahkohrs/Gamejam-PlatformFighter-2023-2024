@@ -57,12 +57,6 @@ public abstract class Entity {
 
     public abstract void tick(long elapsed);
 
-    public abstract void move(Direction direction);
-
-    public abstract void wizz();
-
-    public abstract void pop();
-
     public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
         File imageFile = new File(filename);
         if (imageFile.exists()) {
@@ -148,4 +142,18 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
             y = 0;
         }
     }
+
+
+    // Actions 
+
+    public abstract void move(Direction direction);
+    public abstract void turn() ;
+    public abstract void wizz();
+    public abstract void pop();
+
+    // Conditions 
+
+    public abstract boolean gotPower() ;
+
+    
 }

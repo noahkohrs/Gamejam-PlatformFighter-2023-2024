@@ -93,4 +93,16 @@ public class Weapon extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
+
+    @Override
+    public boolean gotPower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+    }
+
+    @Override
+    public void turn() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'turn'");
+    }
 }

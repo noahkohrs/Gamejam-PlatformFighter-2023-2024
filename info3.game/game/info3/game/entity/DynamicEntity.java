@@ -39,4 +39,18 @@ public class DynamicEntity extends Entity {
     void kill() {
         GameSession.gameSession.removeEntity(this);
     }
+
+    @Override
+    public boolean gotPower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+    }
+
+    @Override
+    public void turn() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+    }
+
+    
 }

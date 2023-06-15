@@ -105,8 +105,6 @@ public class GameSession {
     public void tick(long elapsed) {
         testelapsed += elapsed;
         if (testelapsed >= 24) {
-            player1.tick(testelapsed);
-            player2.tick(testelapsed);
             for (DynamicEntity entity : entities) {
                 entity.tick(testelapsed);
             }
