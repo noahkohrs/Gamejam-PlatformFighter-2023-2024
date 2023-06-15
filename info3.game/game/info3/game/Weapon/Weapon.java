@@ -91,7 +91,6 @@ public class Weapon extends DynamicEntity {
 
     @Override
     public void wizz() {
-        System.out.println("reload");
         reload();
     }
 
