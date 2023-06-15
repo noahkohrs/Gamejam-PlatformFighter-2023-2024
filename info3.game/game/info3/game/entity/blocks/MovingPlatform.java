@@ -14,7 +14,7 @@ public class MovingPlatform extends Entity {
 
 
     public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, null, "resources/blocks/2.png", 1, 1);
+        super(x, y, "resources/blocks/2.png", 1, 1);
         maxPower = blockMove ;
         power = maxPower ;
         

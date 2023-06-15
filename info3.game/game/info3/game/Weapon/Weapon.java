@@ -23,18 +23,7 @@ public class Weapon extends Entity {
     private Bullet[] bullets;
 
     public Weapon( Player player) throws IOException {
-        super(0, 0, new Automate(), "", 0, 0);
-        cooldown = 500;
-        clipSize = 15;
-        ammo = clipSize;
-        clips = 3;
-        damage = 25;
-        currentCooldown = 0;
-        bullets = new Bullet[clipSize];
-        this.player = player;
-    }
-    public Weapon(Automate automate, Player player) throws IOException {
-        super(0, 0, automate, "", 0, 0);
+        super(0, 0, "", 0, 0);
         cooldown = 500;
         clipSize = 15;
         ammo = clipSize;
@@ -45,8 +34,8 @@ public class Weapon extends Entity {
         this.player = player;
     }
 
-    public Weapon(int cooldown, int clips, int damage, int clipSize, Automate automate, Player player) throws IOException {
-        super(0, 0, automate, "", 0, 0);
+    public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
+        super(0, 0, "", 0, 0);
         this.cooldown = cooldown;
         this.clips = clips;
         this.damage = damage;

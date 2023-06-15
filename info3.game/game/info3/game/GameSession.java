@@ -22,6 +22,7 @@ import info3.game.automate.condition.True;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.entity.blocks.MovingPlatform;
 
 public class GameSession {
     public Game game;
@@ -58,6 +59,15 @@ public class GameSession {
 
     }
 
+    private void loadKeys() {
+        for (Automate current : this.allAutomates) {
+            for (Transitions transition : current.trans) {
+                if (transition.cond instanceof Key)
+                    keys.add((Key) transition.cond);
+            }
+        }
+    }
+
     private void loadEntities(String filename) throws IOException {
         String content = Map.readFile(filename);
         JSONObject json = new JSONObject(content);
@@ -69,18 +79,18 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags));
+            entities.add(IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags));
         }
     }
 
     private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
-            case "MovingPlatform" :
+            case "MovingPlatform":
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
-                return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
-            default :
-                return null ;
+                return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+            default:
+                return null;
         }
     }
 
@@ -139,7 +149,7 @@ public class GameSession {
 
     public void loadAutomates(String GalFile) throws Exception {
         List<Transitions> trans = new ArrayList<Transitions>();
-        List <State> states = new ArrayList<State>();
+        List<State> states = new ArrayList<State>();
         State state = new State("default");
         states.add(state);
         trans.add(new Transitions(state, state, null, new True()));
