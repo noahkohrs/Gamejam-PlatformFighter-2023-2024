@@ -20,6 +20,7 @@ import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
 import info3.game.automate.condition.True;
 import info3.game.entity.Block;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 import info3.game.entity.blocks.MovingPlatform;
@@ -35,7 +36,7 @@ public class GameSession {
 
     long testelapsed;
 
-    List<Entity> entities;
+    List<DynamicEntity> entities;
     List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
@@ -50,7 +51,7 @@ public class GameSession {
         keys = new ArrayList<>();
         loadKeys();
 
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<DynamicEntity>();
         player1 = new Player(1);
         player2 = new Player(2);
         map = new Map(mapPath);
@@ -79,11 +80,11 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags));
+            IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags);
         }
     }
 
-    private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+    private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
             case "MovingPlatform":
                 int moveX = tags.getInt("blockMove");
@@ -94,7 +95,7 @@ public class GameSession {
         }
     }
 
-    public void addEntities(Entity entity) {
+    public void addEntities(DynamicEntity entity) {
         this.entities.add(0, entity);
     }
 
@@ -103,7 +104,7 @@ public class GameSession {
         if (testelapsed >= 24) {
             player1.tick(testelapsed);
             player2.tick(testelapsed);
-            for (Entity entity : entities) {
+            for (DynamicEntity entity : entities) {
                 entity.tick(testelapsed);
             }
             camera.tick(testelapsed);

@@ -5,9 +5,10 @@ import java.io.IOException;
 import info3.game.automate.Automate;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 
-public class MovingPlatform extends Entity {
+public class MovingPlatform extends DynamicEntity {
     int velX ;
     int minX, maxX;
     int power, maxPower ;
