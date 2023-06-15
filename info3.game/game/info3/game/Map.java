@@ -85,7 +85,7 @@ public class Map {
                 if (fixedMap[i][j] != null)
                     fixedMap[i][j].view.paint(g);
         g.setColor(Color.yellow);
-        Camera.drawRect(g, 0, 0, realWidth(), realWidth());
+        Camera.drawRect(g, 0, 0, realWidth(), realHeight());
     }
 
     static String readFile(String file) throws IOException {

@@ -64,6 +64,7 @@ public class Player extends DynamicEntity {
     // Movement.Walk(this);
     // Movement.jump(this, elapsed);
     weapon.tick(elapsed);
+    affectTor();
     //System.out.println(y);
     if (!hitbox.inCollision(Direction.BOTTOM))
       y=(int) (y-PhysicConstant.gravity);
