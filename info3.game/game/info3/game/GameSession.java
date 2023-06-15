@@ -95,7 +95,7 @@ public class GameSession {
         }
     }
 
-    public void addEntities(DynamicEntity entity) {
+    public void addEntity(Entity entity) {
         this.entities.add(0, entity);
     }
     public void removeEntity(DynamicEntity entity) {

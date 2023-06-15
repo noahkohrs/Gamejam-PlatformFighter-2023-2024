@@ -9,7 +9,7 @@ public class DynamicEntity extends Entity {
 
     public DynamicEntity(int x, int y, String filename, int nrows, int ncols) throws IOException {
         super(x, y, filename, nrows, ncols);
-        GameSession.gameSession.addEntities(this);
+        GameSession.gameSession.addEntity(this);
     }
 
     @Override
