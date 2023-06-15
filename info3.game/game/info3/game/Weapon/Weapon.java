@@ -2,12 +2,12 @@ package info3.game.Weapon;
 
 import java.io.IOException;
 
-import info3.game.automate.Automate;
+
 import info3.game.entity.Direction;
-import info3.game.entity.Entity;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Player;
 
-public class Weapon extends Entity {
+public class Weapon extends DynamicEntity {
 
     private Player player;
 
@@ -23,7 +23,7 @@ public class Weapon extends Entity {
     private Bullet[] bullets;
 
     public Weapon( Player player) throws IOException {
-        super(0, 0, "", 0, 0);
+        super(0, 0, "resources/blocks/3.png", 1, 1);
         cooldown = 500;
         clipSize = 15;
         ammo = clipSize;
@@ -35,7 +35,7 @@ public class Weapon extends Entity {
     }
 
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
-        super(0, 0, "", 0, 0);
+        super(0, 0, "", 1, 1);
         this.cooldown = cooldown;
         this.clips = clips;
         this.damage = damage;
@@ -54,7 +54,7 @@ public class Weapon extends Entity {
 
     private void createBullet(int startx, int starty) {
         try {
-            bullets[ammo] = new Bullet(startx, starty, Direction.RIGHT);
+            bullets[ammo] = new Bullet(startx, starty, player.facingDirection);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -71,6 +71,14 @@ public class Weapon extends Entity {
     }
 
     public void tick(long elapsed) {
+        this.x=player.x;
+        this.y=player.y;
+        try {
+            automate.step(this);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         if (currentCooldown > 0)
             currentCooldown -= elapsed;
 
@@ -84,13 +92,11 @@ public class Weapon extends Entity {
 
     @Override
     public void wizz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+        reload();
     }
 
     @Override
     public void pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+        shoot();
     }
 }

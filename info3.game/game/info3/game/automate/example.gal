@@ -1,6 +1,5 @@
 Player(Init){
   * (Init)
-  | Key(f) ? Pop()    :(Init)
   | Key(z) ? Move(N)  :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
@@ -11,4 +10,16 @@ Player(Init){
 Player(Init){
   * (Init)
   | True() ?   :(Init)
+}
+
+Weapon(Init){
+  * (Init)
+  | Key(f) ? Pop()    :(Init)
+  | Key(r) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
+
+Bullet(Init){
+    * (Init)
+  | True() ? Move()  :(Init)
 }
