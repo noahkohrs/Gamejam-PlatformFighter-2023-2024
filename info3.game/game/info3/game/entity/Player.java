@@ -38,6 +38,8 @@ public class Player extends DynamicEntity {
   
   public LifeBar lifeBar;
   public Weapon weapon;
+  public int health = 4;
+  public int firePower = 1;
 
   public Player() throws IOException {
     this(1);
