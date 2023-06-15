@@ -2,7 +2,6 @@ package info3.game.entity.blocks;
 
 import java.io.IOException;
 
-import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.PowerUp;
 
@@ -24,21 +23,13 @@ public class PowerUpBlock extends DynamicEntity{
     }
 
     @Override
-    public void move(Direction direction) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'move'");
+    public void egg() {
+        
     }
 
-    @Override
-    public void wizz() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    public boolean GotPower(){
+        return true;
     }
 
-    @Override
-    public void pop() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'pop'");
-    }
     
 }

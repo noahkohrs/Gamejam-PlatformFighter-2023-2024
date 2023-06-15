@@ -35,4 +35,16 @@ public class DynamicEntity extends Entity {
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
 
+    @Override
+    public void egg() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    }
+
+    @Override
+    public boolean GotPower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    }
+
 }

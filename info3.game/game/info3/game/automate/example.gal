@@ -12,3 +12,16 @@ Player(Init){
   * (Init)
   | True() ?   :(Init)
 }
+
+PowerUpBlock(Init){
+  * (Init)
+  | True ? :(_)
+  * (Speed)
+  | GotPower() ? Egg()  :(Init)
+  * (Shield)
+  | GotPower() ? Egg()  :(Init)
+  * (Ammo)
+  | GotPower() ? Egg()  :(Init)
+  * (Dommage)
+  | GotPower() ? Egg()  :(Init)
+}

@@ -63,6 +63,10 @@ public abstract class Entity {
 
     public abstract void pop();
 
+    public abstract void egg();
+
+    public abstract boolean GotPower();
+
     public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
         File imageFile = new File(filename);
         if (imageFile.exists()) {

@@ -34,4 +34,16 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
+
+    @Override
+    public void egg() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+    }
+
+    @Override
+    public boolean GotPower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    }
 }
