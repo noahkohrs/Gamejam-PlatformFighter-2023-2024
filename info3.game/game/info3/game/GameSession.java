@@ -159,15 +159,24 @@ public class GameSession {
         return -1;
     }
 
-    public Automate findAutomate(String className) {
-        for (int i = 0; i < this.allAutomates.size(); i++) {
-            if (this.allAutomates.get(i).className.equals(className)) {
+    public Automate findAutomate(Entity entity) {
+        String className = entity.getClass().getSimpleName();
+        for (Automate automate : this.allAutomates) {
+            if (automate.className.equals(className)) {
                 // System.out.println("Found");
-                return this.allAutomates.get(i);
+                return automate;
+            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+                if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
+                    return automate;
+                } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
+                    return automate;
+                }
             }
+
         }
-        return null;
+        return defaultAutomate;
     }
+
 
     public void loadAutomates(String GalFile) throws Exception {
         List<Transitions> trans = new ArrayList<Transitions>();

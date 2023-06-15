@@ -39,11 +39,12 @@ public abstract class Entity {
     public int team ;
 
     public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
+        this.team = team;
         this.x = x;
         this.y = y;
         this.view = new EntityView(filename, nrows, ncols, this);
         this.automate = loadAutomate();
-        this.team = team;
+        
 
         
         if(this.automate==null)
@@ -54,8 +55,7 @@ public abstract class Entity {
 
     private Automate loadAutomate() {
       System.out.println("Loading automate for " + this.getClass().getSimpleName());
-      String className = this.getClass().getSimpleName();
-      return GameSession.gameSession.findAutomate(className);
+      return GameSession.gameSession.findAutomate(this);
     }
 
     public abstract void tick(long elapsed);
