@@ -91,8 +91,6 @@ public class GameSession {
     }
 
     public void tick(long elapsed) {
-        player1.tick(elapsed);
-        player2.tick(elapsed);
         for (Entity entity : entities) {
             entity.tick(elapsed);
         }
@@ -105,8 +103,6 @@ public class GameSession {
         for (Entity entity : entities) {
             entity.view.paint(g);
         }
-        player1.view.paint(g);
-        player2.view.paint(g);
     }
 
     int getLevelWidth() {
