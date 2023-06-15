@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,8 +18,8 @@ import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
 
 public class Map {
-    int width;
-    int height;
+    private int width;
+    private int height;
     // Tab of blocks
     Block fixedMap[][];
 
@@ -42,13 +43,14 @@ public class Map {
             String id = jsonBlock.getString("id");
             int x = jsonBlock.getInt("x");
             int y = jsonBlock.getInt("y");
-            JSONObject tags = jsonBlock.getJSONObject("tags");
+            Set<String> tags = jsonBlock.getJSONObject("tags").keySet();
+
             // If it need somes tags...
-            fixedMap[x][y] = IdToBlock(id, x, y);
+            fixedMap[x][y] = IdToBlock(id, x, y, tags);
         }
     }
 
-    Block IdToBlock(String id, int x, int y) throws IOException {
+    Block IdToBlock(String id, int x, int y, Set<String> tags) throws IOException {
         switch (id) {
             case "GrassBlock" :
                 return new GrassBlock(x, y);

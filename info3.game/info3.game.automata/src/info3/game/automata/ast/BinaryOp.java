@@ -33,6 +33,10 @@ public class BinaryOp extends Expression {
 		return left_operand.toString() + " " + operator + " " + right_operand.toString();
 	}
 
+	public String name() {
+		return "";
+	}
+	
 	Object accept(IVisitor visitor) {
 		Object left = left_operand.accept(visitor);
 		Object right = right_operand.accept(visitor);

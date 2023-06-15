@@ -39,7 +39,7 @@ public class Game {
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			game = new Game();
+			game = new Game(args[0]);
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -53,10 +53,10 @@ public class Game {
 	Sound m_music;
 	public static GameSession m_game_session;
 
-	Game() throws Exception {
+	Game(String GalFile) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_game_session = new GameSession(this, "level.json");
+		m_game_session = new GameSession(this, "level.json",GalFile);
 		
 		// creating a listener for all the events
 		// from the game canvas, that would be

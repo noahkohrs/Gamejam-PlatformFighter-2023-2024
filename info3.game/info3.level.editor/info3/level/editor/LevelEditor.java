@@ -48,7 +48,7 @@ public class LevelEditor {
 	LevelEditor() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		level = new Level(48,30);
+		level = new Level(40,24);
 		//get Real Canvas Size 
 		brushSelector = new ElementList((int)(1024*0.85), 40);
 		selected = brushSelector.elems.get(0);

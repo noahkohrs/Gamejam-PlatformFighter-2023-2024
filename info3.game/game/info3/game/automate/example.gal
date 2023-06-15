@@ -1,0 +1,14 @@
+Player(Init){
+  * (Init)
+  | Key(f) ? Pop()    :(Init)
+  | Key(z) ? Move(N)  :(Init)
+  | Key(d) ? Move(E)  :(Init)
+  | Key(q) ? Move(W)  :(Init)
+  | Key(s) ? Move(S)  :(Init)
+  | True() ?          :(Init)
+}
+
+Player(Init){
+  * (Init)
+  | True() ?   :(Init)
+}

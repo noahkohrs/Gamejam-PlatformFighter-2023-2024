@@ -18,4 +18,19 @@ public enum Direction {
         this.x = x;
         this.y = y;
     }
+
+    public static Direction fromString(String directionString) {
+        switch (directionString.toUpperCase()) {
+            case "N":
+                return UPPER;
+            case "S":
+                return BOTTOM;
+            case "W":
+                return LEFT;
+            case "E":
+                return RIGHT;
+            default:
+                throw new IllegalArgumentException("Invalid direction string: " + directionString);
+        }
+    }
 }

@@ -5,10 +5,16 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import info3.game.automata.ast.AST;
+import info3.game.automata.parser.AutomataParser;
+import info3.game.automate.ParserToAutomate;
+import info3.game.automate.condition.Key;
+import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 
@@ -24,17 +30,33 @@ public class GameSession {
     public Camera camera;
 
     List<Entity> entities;
+    List<Key> keys;
     public Map map;
 
-    public GameSession(Game game, String mapPath) throws IOException {
+    public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
         entities = new ArrayList<Entity>();
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
         gameSession = this;
-        player1 = new Player(1);
-        player2 = new Player(2);
+        player1=new Player(1);
+        player2=new Player(2);
+        ParserToAutomate parser= new ParserToAutomate();
+        AST ast;
+        ast=AutomataParser.from_file(GalFile);
+        ast.accept(parser);
+        parser.autos.get(0).e=player1;
+        parser.autos.get(1).e=player2;
+        player1.automate=parser.autos.get(0);
+        player2.automate=parser.autos.get(1);
+        
+        keys=new ArrayList<>();
+        keys.add((Key) parser.autos.get(0).trans.get(0).cond);
+        keys.add((Key) parser.autos.get(0).trans.get(1).cond);
+        keys.add((Key) parser.autos.get(0).trans.get(2).cond);
+        keys.add((Key) parser.autos.get(0).trans.get(3).cond);
+        keys.add((Key) parser.autos.get(0).trans.get(4).cond);
     }
 
     private void loadEntities(String filename) throws IOException {
@@ -48,14 +70,18 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x, y));
+            entities.add(IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags));
         }
     }
 
-    private Entity IdToEntity(String id, int x, int y) {
+    private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
-            default:
-                return null;
+            case "MovingPlatform" :
+                int moveX = tags.getInt("blockMove");
+                int speed = tags.getInt("speed");
+                return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
+            default :
+                return null ;
         }
     }
 
@@ -84,8 +110,6 @@ public class GameSession {
         for (Entity entity : entities) {
             entity.view.paint(g);
         }
-        player1.view.paint(g);
-        player2.view.paint(g);
     }
 
     int getLevelWidth() {
@@ -94,6 +118,18 @@ public class GameSession {
 
     int getLevelHeight() {
         return map.realHeight();
+    }
+
+
+    int findKEy(char letter){
+        for(int i=0;i<this.keys.size();i++){
+            if(this.keys.get(i).letter==letter)
+            {
+                System.out.println("Found");    
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
