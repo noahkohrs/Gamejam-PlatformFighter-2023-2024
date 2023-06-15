@@ -29,6 +29,7 @@ import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
   Game m_game;
+  //int[] IsPressed = new int[]{0, 0, 0, 0};
 
   CanvasListener(Game game) {
     m_game = game;
@@ -114,6 +115,8 @@ public class CanvasListener implements GameCanvasListener {
         break;
       case KeyEvent.VK_Z:
         //System.out.println("Qq");
+        GameSession.gameSession.player1.IsJumping = true;
+        // GameSession.gameSession.player1.StartJump();
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = true;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
@@ -149,6 +152,7 @@ public class CanvasListener implements GameCanvasListener {
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = false;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        GameSession.gameSession.player1.IsJumping = false;
         break;
       case KeyEvent.VK_F:
         index = GameSession.gameSession.findKEy('f');
@@ -160,6 +164,22 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
+    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('d')).pressed == true){
+    //   GameSession.gameSession.player1.SetVelX(5);
+    //   GameSession.gameSession.player1.FaceRight();
+    // }
+    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('q')).pressed == true){
+    //   GameSession.gameSession.player1.SetVelX(5);
+    //   GameSession.gameSession.player1.FaceLeft();
+    // }
+    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('z')).pressed == true){
+    //   GameSession.gameSession.player1.IsJumping = true;
+    //   GameSession.gameSession.player1.StartJump();
+    // }
+    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('d')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('z')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('q')).pressed == false) {
+    //   GameSession.gameSession.player1.reSetVelX();
+    //  GameSession.gameSession.player1.Idle();
+    // }
   }
 
   @Override

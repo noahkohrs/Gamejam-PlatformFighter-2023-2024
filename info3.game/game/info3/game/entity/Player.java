@@ -33,7 +33,7 @@ import info3.game.hitbox.HitBox;
  */
 public class Player extends MovingEntity {
   long m_imageElapsed;
-  
+
   public LifeBar lifeBar;
   public Weapon weapon;
 
@@ -43,7 +43,7 @@ public class Player extends MovingEntity {
 
   public Player(int team) throws IOException {
     super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
-    view = new PlayerView("resources/winchester-4x6.png", 4, 6,this);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
     weapon = new Weapon(this);
@@ -57,7 +57,12 @@ public class Player extends MovingEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    // Movement.Walk(this);
+    // Movement.jump(this, elapsed);
     weapon.tick(elapsed);
+    //System.out.println(y);
+    if (!hitbox.inCollision(Direction.BOTTOM))
+      y=(int) (y-PhysicConstant.gravity);
     try {
       this.automate.step();
     } catch (Exception e) {
@@ -68,10 +73,29 @@ public class Player extends MovingEntity {
 
   @Override
   public void move(Direction direction) {
-    if (!hitbox.inCollision(direction)) {
-      x += direction.x;
-      y += direction.y;
+
+    if (direction == Direction.RIGHT) {
+      this.SetVelX(5);
+      this.FaceRight();
     }
+    if (direction == Direction.LEFT) {
+      this.SetVelX(5);
+      this.FaceLeft();
+    }
+
+    if (!hitbox.inCollision(direction)) {
+      if (direction == Direction.UPPER) {
+        //this.IsJumping = true;
+        this.StartJump();
+        Movement.jump(this, 1);
+        y--;
+        // Movement.Walk(this);
+      } else {
+        x += direction.x;
+        y += direction.y;
+      }
+    }
+
   }
 
   @Override

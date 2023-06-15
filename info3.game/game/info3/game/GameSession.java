@@ -115,7 +115,7 @@ public class GameSession {
         for(int i=0;i<this.keys.size();i++){
             if(this.keys.get(i).letter==letter)
             {
-                System.out.println("Found");    
+                //System.out.println("Found");    
                 return i;
             }
         }

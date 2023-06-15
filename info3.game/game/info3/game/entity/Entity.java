@@ -10,8 +10,22 @@ import info3.game.automate.Automate;
 import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
+    //here are the coords where the entity is
     public int x;
     public int y;
+
+    //here are the velocities at which the entity is moving
+    public float velX;
+    public float velY;
+
+    int facing = 0;// where the entity is facing -1 for left and 1 for right
+    public boolean IsJumping = false; // just checking if the player is currently jumping to prevent any illegal moves
+    int jumptime =0;//init at 0 for implementation but represent the numbers of frames in which the player will be jumping
+    boolean jumpcd = false; // checking if the jump is on cd same purpose as Isjumping
+
+    //constant regulating the movement of entitites
+    PhysicConstant model;
+
     long moveElapsed;
 
     public Automate automate;
@@ -26,7 +40,7 @@ public abstract class Entity {
         this.automate = automate;
     }
 
-    public abstract void tick(long elapsed) ;
+    public abstract void tick(long elapsed);
 
     public abstract void move(Direction direction);
 
@@ -65,4 +79,43 @@ public abstract class Entity {
     public int getHeight() {
         return view.height;
     }
+
+  //checking where the entity is looking
+  public boolean stFaceLeft(){
+    return -1 == facing;
+  }
+  public boolean stFaceRight(){
+    return 1 == facing;
+  }
+  public void FaceLeft(){
+    facing =-1;
+  }
+  public void FaceRight(){
+    facing =1;
+  }
+  public void Idle(){
+    facing =0;
+  }
+
+  
+public void SetVelX(int VelX){//Set the velocity at which the entity will move
+   if(velX == 0){
+    velX = VelX;
+   } else {
+    velX = velX * 1.01f;
+   }
+   
+  }
+  public void reSetVelX(){//Reset velocity to be called on button release
+    velX = 0;
+  }
+
+  //jump management
+    public boolean statusJump(){
+    return IsJumping;
+  }
+  public void StartJump(){
+    velY = -1;
+
+  }
 }
