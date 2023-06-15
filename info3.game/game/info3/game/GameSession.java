@@ -86,7 +86,7 @@ public class GameSession {
         }
     }
 
-    private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+    private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
             case "MovingPlatform":
                 int moveX = tags.getInt("blockMove");
@@ -105,13 +105,16 @@ public class GameSession {
     {
         this.entities.add(0, entity);
     }
+    public void removeEntity(DynamicEntity entity) {
+        this.entities.remove(entity);
+    }
 
     public void tick(long elapsed) {
         testelapsed += elapsed;
         if (testelapsed >= 24) {
             player1.tick(testelapsed);
             player2.tick(testelapsed);
-            for (Entity entity : entities) {
+            for (DynamicEntity entity : entities) {
                 entity.tick(testelapsed);
             }
             camera.tick(testelapsed);

@@ -47,4 +47,7 @@ public class DynamicEntity extends Entity {
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
 
+    void kill() {
+        GameSession.gameSession.removeEntity(this);
+    }
 }

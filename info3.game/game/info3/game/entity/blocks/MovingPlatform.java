@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
+import info3.game.entity.Entity;
 
 public class MovingPlatform extends DynamicEntity {
     int velX ;
