@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ import info3.game.automate.State;
 import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
 import info3.game.automate.condition.True;
+import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 
@@ -67,23 +69,18 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x, y));
+            entities.add(IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags));
         }
     }
 
-    private void loadKeys() {
-        for (Automate current : this.allAutomates) {
-            for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key)
-                    keys.add((Key) transition.cond);
-            }
-        }
-    }
-
-    private Entity IdToEntity(String id, int x, int y) {
+    private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
-            default:
-                return null;
+            case "MovingPlatform" :
+                int moveX = tags.getInt("blockMove");
+                int speed = tags.getInt("speed");
+                return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
+            default :
+                return null ;
         }
     }
 
@@ -110,8 +107,6 @@ public class GameSession {
         for (Entity entity : entities) {
             entity.view.paint(g);
         }
-        player1.view.paint(g);
-        player2.view.paint(g);
     }
 
     int getLevelWidth() {

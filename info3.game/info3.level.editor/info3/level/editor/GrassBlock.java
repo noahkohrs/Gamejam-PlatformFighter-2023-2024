@@ -19,8 +19,4 @@ public class GrassBlock extends Block {
         return "GrassBlock";
     }
 
-    public JSONObject toJSON() {
-        JSONObject obj = new JSONObject();
-        return obj;
-    }
 }

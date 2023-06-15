@@ -5,9 +5,9 @@ import java.io.IOException;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
 
-public class MovingEntity extends Entity {
+public class DynamicEntity extends Entity {
 
-    public MovingEntity(int x, int y, String filename, int nrows, int ncols) throws IOException {
+    public DynamicEntity(int x, int y, String filename, int nrows, int ncols) throws IOException {
         super(x, y, filename, nrows, ncols);
         GameSession.gameSession.addEntities(this);
     }

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 public class SpawnerPoint extends AnimatedEntity {
     
         public SpawnerPoint() throws IOException {
-            super("resources/blocks/3.png");
+            super("resources/blocks/32.png");
         }
     
         public Element copy() throws IOException {

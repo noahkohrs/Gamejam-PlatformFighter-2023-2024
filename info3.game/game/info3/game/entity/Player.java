@@ -22,6 +22,8 @@ package info3.game.entity;
 
 import java.io.IOException;
 
+import info3.game.Camera;
+import info3.game.GameSession;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
 import info3.game.entity.life.LifeBar;
@@ -31,7 +33,7 @@ import info3.game.hitbox.HitBox;
  * A simple class that holds the images of a sprite for an animated cowbow.
  *
  */
-public class Player extends MovingEntity {
+public class Player extends DynamicEntity {
   long m_imageElapsed;
 
   public LifeBar lifeBar;
@@ -93,6 +95,7 @@ public class Player extends MovingEntity {
       } else {
         x += direction.x;
         y += direction.y;
+        affectTor();
       }
     }
 

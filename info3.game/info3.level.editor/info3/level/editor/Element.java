@@ -49,5 +49,6 @@ public abstract class Element {
 
     abstract public void setTags(JSONObject tags) ;
     
+    abstract public String toString();
 
 }
