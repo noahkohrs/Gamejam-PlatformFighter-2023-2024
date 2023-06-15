@@ -2,7 +2,6 @@ package info3.game.Weapon;
 
 import java.io.IOException;
 
-
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Player;
@@ -22,7 +21,7 @@ public class Weapon extends DynamicEntity {
 
     private Bullet[] bullets;
 
-    public Weapon( Player player) throws IOException {
+    public Weapon(Player player) throws IOException {
         super(0, 0, "resources/blocks/3.png", 1, 1);
         cooldown = 500;
         clipSize = 15;
@@ -46,9 +45,11 @@ public class Weapon extends DynamicEntity {
     }
 
     public void reload() {
-        if (clips-- > 0) {
-            ammo = clipSize;
-            currentCooldown = cooldown;
+        if (currentCooldown <= 0) {
+            if (clips-- > 0) {
+                ammo = clipSize;
+                currentCooldown = cooldown;
+            }
         }
     }
 
@@ -71,8 +72,6 @@ public class Weapon extends DynamicEntity {
     }
 
     public void tick(long elapsed) {
-        this.x=player.x;
-        this.y=player.y;
         try {
             automate.step(this);
         } catch (Exception e) {
@@ -92,6 +91,7 @@ public class Weapon extends DynamicEntity {
 
     @Override
     public void wizz() {
+        System.out.println("reload");
         reload();
     }
 

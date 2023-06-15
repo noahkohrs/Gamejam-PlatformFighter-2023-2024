@@ -34,6 +34,9 @@ public class Bullet extends DynamicEntity {
       x += dir.x*8;
       y += dir.y*8;
     }
+    else{
+      kill();
+    }
   }
 
   @Override
