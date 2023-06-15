@@ -22,6 +22,8 @@ package info3.game.entity;
 
 import java.io.IOException;
 
+import info3.game.Camera;
+import info3.game.GameSession;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
 import info3.game.entity.life.LifeBar;
@@ -42,7 +44,7 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team) throws IOException {
-    super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
+    super(20, 20, new Automate(), "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6,this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
@@ -71,8 +73,11 @@ public class Player extends DynamicEntity {
     if (!hitbox.inCollision(direction)) {
       x += direction.x;
       y += direction.y;
+      affectTor();
     }
   }
+
+
 
   @Override
   public void wizz() {
