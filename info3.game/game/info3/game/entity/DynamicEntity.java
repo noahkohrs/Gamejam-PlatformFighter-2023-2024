@@ -3,12 +3,11 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.GameSession;
-import info3.game.automate.Automate;
 
 public class DynamicEntity extends Entity {
 
-    public DynamicEntity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
-        super(x, y, automate, filename, nrows, ncols);
+    public DynamicEntity(int x, int y, String filename, int nrows, int ncols) throws IOException {
+        super(x, y, filename, nrows, ncols);
         GameSession.gameSession.addEntities(this);
     }
 

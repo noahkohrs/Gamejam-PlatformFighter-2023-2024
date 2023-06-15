@@ -35,7 +35,7 @@ import info3.game.hitbox.HitBox;
  */
 public class Player extends DynamicEntity {
   long m_imageElapsed;
-  
+
   public LifeBar lifeBar;
   public Weapon weapon;
   public int health = 4;
@@ -46,8 +46,8 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team) throws IOException {
-    super(20, 20, new Automate(), "resources/winchester-4x6.png", 4, 6);
-    view = new PlayerView("resources/winchester-4x6.png", 4, 6,this);
+    super(10, 10, "resources/winchester-4x6.png", 4, 6);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
     weapon = new Weapon(this);
@@ -61,9 +61,14 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    // Movement.Walk(this);
+    // Movement.jump(this, elapsed);
     weapon.tick(elapsed);
+    //System.out.println(y);
+    if (!hitbox.inCollision(Direction.BOTTOM))
+      y=(int) (y-PhysicConstant.gravity);
     try {
-      this.automate.step();
+      this.automate.step(this);
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
@@ -72,14 +77,30 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
-    if (!hitbox.inCollision(direction)) {
-      x += direction.x;
-      y += direction.y;
-      affectTor();
+
+    if (direction == Direction.RIGHT) {
+      this.SetVelX(5);
+      this.FaceRight();
     }
+    if (direction == Direction.LEFT) {
+      this.SetVelX(5);
+      this.FaceLeft();
+    }
+
+    if (!hitbox.inCollision(direction)) {
+      if (direction == Direction.UPPER) {
+        //this.IsJumping = true;
+        this.StartJump();
+        Movement.jump(this, 1);
+        y--;
+        // Movement.Walk(this);
+      } else {
+        x += direction.x;
+        y += direction.y;
+      }
+    }
+
   }
-
-
 
   @Override
   public void wizz() {

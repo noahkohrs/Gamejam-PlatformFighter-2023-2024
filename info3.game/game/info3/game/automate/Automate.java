@@ -4,72 +4,94 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import info3.game.automate.action.Action;
+import info3.game.automate.condition.Condition;
 import info3.game.entity.Entity;
 
 public class Automate {
     public List<Transitions> trans;
-    public Entity e;
-    State src;
-    List<State> states;
+    public List<State> states;
+    public State initalState ;
+    public String className;
 
     public Automate(){
         trans=new ArrayList<Transitions>();
-        e=null;
-        src=null;
         states=new ArrayList<State>();
     }
-    public Automate(List<Transitions> trans, Entity e,State src,List<State> states) {
+    public Automate(List<Transitions> trans,List<State> states, State initialState) {
         this.trans = trans;
-        this.e = e;
-        this.src=src;
         this.states=states;
     }
-
-    public void step() throws Exception{
+    public Automate(List<Transitions> trans,List<State> states,State iniState, String className){
+        this.trans = trans;
+        this.states=states;
+        this.initalState=iniState;
+        this.className=className;
+    }
+    public void step(Entity e) throws Exception{
         Random random=new Random();
         for(int i=0;i<trans.size();i++){
-            if(src.name.equals(trans.get(i).src.name) && trans.get(i).cond!=null && trans.get(i).cond.eval(e)){
-                if(trans.get(i).dest.name.equals("_"))
+            Transitions transition= trans.get(i) ;
+            State source =  transition.src;
+            State dest = transition.dest;
+            if(source==null || dest==null){
+                System.out.println("Etat sans transition");
+                return;
+            }
+            Condition cond = transition.cond;
+            Action action = transition.action;
+            if(source==e.state && cond.eval(e)){
+                //If we want to go to a random state
+                if(dest.name.equals("_"))
                     {
                         int randint=random.nextInt(this.states.size());
                         while(states.get(randint).name.equals("_")){
                             randint=random.nextInt(this.states.size());
                         }
-                        src=states.get(randint);
+                        e.state=states.get(randint);
                     }
                 else
-                    src=trans.get(i).dest;
-
-                if(trans.get(i).action==null)
+                    e.state=dest;
+                //If there is no action, just exit the function
+                if(action==null)
                     return;
-                String direction=trans.get(i).action.Direction;
-                trans.get(i).action.exec(e, direction);
+                //else do the action of the transition.
+                String direction=action.Direction;
+                action.exec(e, direction);
                 return;
             }
         }
-        System.out.println("Etat qu'on peut pas partir\n");
+        System.out.println("State unescapable\n");
     }
 
-    public State existe(State state){
+    public State existe(String stateName){
+        //If there are no states, we create the ArrayList and return the stete of the argument
         if(states==null){
             states=new ArrayList<State>();
-            return state;
+            return null;
         }
-        for(int i=0;i<states.size();i++){
-            if(state.name.equals(states.get(i).name))
-                return null;
+        //We search if the state already exist. If yes, return null
+        for(State state : states){
+            if(stateName.equals(state.name))
+                return state;
         }
-        return state;
+        //Else return the state of the argument
+        return null;
     }
 
-    public void addState(State state){
-        State toAdd=existe(state);
-        if(toAdd!=null)
+    public State getState(String stateName){
+        State toAdd=existe(stateName);
+        if(toAdd == null) {
+            toAdd = new State(stateName);
             states.add(toAdd);
+        }
+            
+
+        return toAdd;
     }
 
     public void prettyPrint(){
-        System.out.println("Automate for "+this.e.getClass().getName().toString());
+        //System.out.println("Automate for "+this.e.getClass().getName().toString());
         for(int i=0;i<trans.size();i++){
             if(trans.get(i).dest==null){
                 System.out.println("Etat finale sans transition");
