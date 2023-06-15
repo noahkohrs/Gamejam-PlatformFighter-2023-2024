@@ -98,6 +98,9 @@ public class GameSession {
     public void addEntities(DynamicEntity entity) {
         this.entities.add(0, entity);
     }
+    public void removeEntity(DynamicEntity entity) {
+        this.entities.remove(entity);
+    }
 
     public void tick(long elapsed) {
         testelapsed += elapsed;
