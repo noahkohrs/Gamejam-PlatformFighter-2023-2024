@@ -98,8 +98,9 @@ public class CanvasListener implements GameCanvasListener {
         GameSession.gameSession.camera.toggleDebugMode();
         break;
       case KeyEvent.VK_Z:
-        IsPressed[2] = 1;
-        break;
+      index = GameSession.gameSession.findKEy('z');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        GameSession.gameSession.player1.IsJumping =true;
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = true;
@@ -149,6 +150,7 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_Z:
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = false;
+        GameSession.gameSession.player1.IsJumping = false;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_F:
@@ -161,22 +163,22 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
-    if(IsPressed[0] == 1){
-      GameSession.gameSession.player1.SetVelX(2);
-      GameSession.gameSession.player1.FaceRight();
-    }
-    if(IsPressed[1] == 1){
-      GameSession.gameSession.player1.SetVelX(2);
-      GameSession.gameSession.player1.FaceLeft();
-    } 
-    if(IsPressed[2] == 1){
-        GameSession.gameSession.player1.IsJumping = true;
-        GameSession.gameSession.player1.StartJump();
-    } if(IsPressed[0] == 0 && IsPressed[1] == 0 && IsPressed[2] == 0)
-    {
-      GameSession.gameSession.player1.reSetVelX();
-     GameSession.gameSession.player1.Idle();
-    }
+    // if(IsPressed[0] == 1){
+    //   GameSession.gameSession.player1.SetVelX(2);
+    //   GameSession.gameSession.player1.FaceRight();
+    // }
+    // if(IsPressed[1] == 1){
+    //   GameSession.gameSession.player1.SetVelX(2);
+    //   GameSession.gameSession.player1.FaceLeft();
+    // } 
+    // if(IsPressed[2] == 1){
+    //     GameSession.gameSession.player1.IsJumping = true;
+    //     GameSession.gameSession.player1.StartJump();
+    // } if(IsPressed[0] == 0 && IsPressed[1] == 0 && IsPressed[2] == 0)
+    // {
+    //   GameSession.gameSession.player1.reSetVelX();
+    //  GameSession.gameSession.player1.Idle();
+    // }
   }
 
   @Override

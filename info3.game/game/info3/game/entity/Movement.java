@@ -58,7 +58,7 @@ public class Movement {
 
     static private void InitJump(Entity E, long deltatime){//initialise la vitesse au début du saut ainsi que le temps que va durer le saut
         E.jumpcd = true;
-        E.jumptime = 102;
+        E.jumptime = 112;
         E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime* 0.99f;
     }
 
@@ -68,9 +68,9 @@ public class Movement {
             E.velY =0;
         }
 
-        if(E.y > 400){//juste la pour avoir un plancher pour ne aps tomber dans le vide lors des tests
-                E.velY =0;
-            }
+        // if(E.y > 400){//juste la pour avoir un plancher pour ne aps tomber dans le vide lors des tests
+        //         E.velY =0;
+        //     }
     }
 
      static private void LongJump(Entity E, long deltatime){//décroissance de la vitesse quand on maintient la touche de saut enfoncé

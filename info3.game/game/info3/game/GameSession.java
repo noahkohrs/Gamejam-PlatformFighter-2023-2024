@@ -17,6 +17,7 @@ import info3.game.automate.condition.Key;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.entity.blocks.MovingPlatform;
 
 public class GameSession {
     public Game game;
@@ -93,12 +94,10 @@ public class GameSession {
     public void tick(long elapsed) {
         updateTime += elapsed;
         if (updateTime > 24) {
-            player1.tick(elapsed);
-            player2.tick(elapsed);
             for (Entity entity : entities) {
-                entity.tick(elapsed);
+                    entity.tick(updateTime);
             }
-            camera.tick(elapsed);
+            camera.tick(updateTime);
             updateTime=0;
         }
 

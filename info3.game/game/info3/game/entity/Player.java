@@ -59,9 +59,8 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    Movement.Walk(this);
-    Movement.jump(this, elapsed);
-    weapon.tick(elapsed);
+    // Movement.Walk(this);
+    // Movement.jump(this, elapsed);
     try {
       this.automate.step();
     } catch (Exception e) {

@@ -56,8 +56,9 @@ public class Game {
 	Game(String GalFile) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_game_session = new GameSession(this, "level.json",GalFile);
+				m_game_session = new GameSession(this, "resources/maps/basicSandbox.json",GalFile);
 		
+
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -65,6 +66,7 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		
 
 
 

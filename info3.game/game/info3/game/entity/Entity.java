@@ -40,7 +40,6 @@ public abstract class Entity {
     }
 
     public abstract void tick(long elapsed);
-    public abstract void tick(long elapsed);
 
     public abstract void move(Direction direction);
 
