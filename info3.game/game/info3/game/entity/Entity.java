@@ -3,10 +3,13 @@ package info3.game.entity;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 
+import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.automate.State;
 import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
@@ -17,6 +20,7 @@ public abstract class Entity {
     //here are the velocities at which the entity is moving
     public float velX;
     public float velY;
+    public State state ;
 
     int facing = 0;// where the entity is facing -1 for left and 1 for right
     public boolean IsJumping = false; // just checking if the player is currently jumping to prevent any illegal moves
@@ -32,12 +36,22 @@ public abstract class Entity {
     HitBox hitbox;
     public EntityView view;
 
-    public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
+    public Entity(int x, int y, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
-        this.view = new EntityView(filename, nrows, ncols,this);
+        this.view = new EntityView(filename, nrows, ncols, this);
+        this.automate = loadAutomate();
+        
+        if(this.automate==null)
+          this.automate=GameSession.gameSession.defaultAutomate;
 
-        this.automate = automate;
+        state = this.automate.initalState ;
+    }
+
+    private Automate loadAutomate() {
+      System.out.println("Loading automate for " + this.getClass().getSimpleName());
+      String className = this.getClass().getSimpleName();
+      return GameSession.gameSession.findAutomate(className);
     }
 
     public abstract void tick(long elapsed);

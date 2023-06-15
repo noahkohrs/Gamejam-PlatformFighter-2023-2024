@@ -27,12 +27,13 @@ public class Movement {
             //affect jump when key pressed
             if (E.jumptime == 0 && !E.jumpcd) {
                 E.jumpcd = true;
-                E.jumptime = 100;
-                E.velY = 1-PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
+                E.jumptime = 60;
+                E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
                 //affect Y velocity if still wqnting to jump aka Z key not release
             } else if (E.jumptime > 0) {
                 E.jumptime-= deltatime;
                 E.velY = ((E.jumptime / 2.2f) * 1.1f);
+                E.jumpcd = false;
                 //E.velY=1;
             } else {
                 //end of jump, starting to fall

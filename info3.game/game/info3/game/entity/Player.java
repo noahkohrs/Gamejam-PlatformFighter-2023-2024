@@ -42,7 +42,7 @@ public class Player extends MovingEntity {
   }
 
   public Player(int team) throws IOException {
-    super(10, 10, new Automate(), "resources/winchester-4x6.png", 4, 6);
+    super(10, 10, "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
@@ -64,7 +64,7 @@ public class Player extends MovingEntity {
     if (!hitbox.inCollision(Direction.BOTTOM))
       y=(int) (y-PhysicConstant.gravity);
     try {
-      this.automate.step();
+      this.automate.step(this);
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();

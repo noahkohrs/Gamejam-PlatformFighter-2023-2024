@@ -15,7 +15,7 @@ public class Bullet extends MovingEntity {
 
   public Bullet(int x, int y, Direction dir)
       throws IOException {
-    super(x, y, new Automate(), "resources/blocks/1.png", 1, 1);
+    super(x, y, "resources/blocks/1.png", 1, 1);
 
     this.dir = dir;
     hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, true, this);
