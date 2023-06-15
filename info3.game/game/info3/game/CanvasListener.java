@@ -115,7 +115,7 @@ public class CanvasListener implements GameCanvasListener {
         break;
       case KeyEvent.VK_Z:
         //System.out.println("Qq");
-        GameSession.gameSession.player1.IsJumping = true;
+        //GameSession.gameSession.player1.IsJumping = true;
         // GameSession.gameSession.player1.StartJump();
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = true;

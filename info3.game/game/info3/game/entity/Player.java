@@ -89,7 +89,7 @@ public class Player extends DynamicEntity {
 
     if (!hitbox.inCollision(direction)) {
       if (direction == Direction.UPPER) {
-        // this.IsJumping = true;
+        this.IsJumping = true;
         this.StartJump();
         Movement.jump(this, 1);
         y--;
