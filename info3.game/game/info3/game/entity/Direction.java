@@ -13,7 +13,6 @@ public enum Direction {
 
     EMPTY(0, 0);
 
-    DEFAULT(0,0);
     public final int x;
     public final int y;
 
@@ -32,7 +31,7 @@ public enum Direction {
                 return LEFT;
             case "E":
                 return RIGHT;
-            case "F":
+            case "NONE":
                 return EMPTY;
             default:
                 throw new IllegalArgumentException("Invalid direction string: " + directionString);
