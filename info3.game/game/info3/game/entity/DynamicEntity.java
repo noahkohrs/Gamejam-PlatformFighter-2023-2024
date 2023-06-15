@@ -7,8 +7,8 @@ import info3.game.automate.Automate;
 
 public class DynamicEntity extends Entity {
 
-    public DynamicEntity(int x, int y, String filename, int nrows, int ncols) throws IOException {
-        super(x, y, filename, nrows, ncols);
+    public DynamicEntity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
+        super(x, y, team, filename, nrows, ncols);
         GameSession.gameSession.addEntity(this);
     }
 

@@ -24,6 +24,7 @@ import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MovingPlatform;
 
 public class GameSession {
@@ -58,8 +59,8 @@ public class GameSession {
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
-        player1 = new Player(1);
-        player2 = new Player(2);
+        player1 = new Player(TEAM.BLUE);
+        player2 = new Player(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();

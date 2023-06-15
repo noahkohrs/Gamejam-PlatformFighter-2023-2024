@@ -7,6 +7,7 @@ import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.TEAM;
 
 public class MovingPlatform extends DynamicEntity {
     int velX;
@@ -14,7 +15,7 @@ public class MovingPlatform extends DynamicEntity {
     int power, maxPower;
 
     public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, "resources/blocks/2.png", 1, 1);
+        super(x, y, TEAM.NONE, "resources/blocks/2.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;
 

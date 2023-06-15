@@ -11,9 +11,9 @@ public class Bullet extends DynamicEntity {
   private HitBox hitBox;
   private Direction dir;
 
-  public Bullet(int x, int y, Direction dir)
+  public Bullet(int x, int y, Direction dir, int team)
       throws IOException {
-    super(x, y, "resources/blocks/1.png", 1, 1);
+    super(x, y, team, "resources/blocks/1.png", 1, 1);
     hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, true, this);
     this.dir = dir;
   }

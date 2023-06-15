@@ -36,12 +36,15 @@ public abstract class Entity {
     public Automate automate;
     HitBox hitbox;
     public EntityView view;
+    public int team ;
 
-    public Entity(int x, int y, String filename, int nrows, int ncols) throws IOException {
+    public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
         this.view = new EntityView(filename, nrows, ncols, this);
         this.automate = loadAutomate();
+        this.team = team;
+
         
         if(this.automate==null)
           this.automate=GameSession.gameSession.defaultAutomate;

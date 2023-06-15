@@ -22,7 +22,7 @@ public class Weapon extends DynamicEntity {
     private Bullet[] bullets;
 
     public Weapon(Player player) throws IOException {
-        super(0, 0, "resources/blocks/3.png", 1, 1);
+        super(0, 0, player.team, "resources/blocks/3.png", 1, 1);
         cooldown = 500;
         clipSize = 15;
         ammo = clipSize;
@@ -34,7 +34,7 @@ public class Weapon extends DynamicEntity {
     }
 
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
-        super(0, 0, "", 1, 1);
+        super(0, 0, player.team, "", 1, 1);
         this.cooldown = cooldown;
         this.clips = clips;
         this.damage = damage;
@@ -55,7 +55,7 @@ public class Weapon extends DynamicEntity {
 
     private void createBullet(int startx, int starty) {
         try {
-            bullets[ammo] = new Bullet(startx, starty, player.facingDirection);
+            bullets[ammo] = new Bullet(startx, starty, player.facingDirection, player.team);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
