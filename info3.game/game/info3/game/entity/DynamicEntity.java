@@ -36,7 +36,7 @@ public class DynamicEntity extends Entity {
     }
 
     @Override
-    public void egg() {
+    public void egg(Entity type) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }

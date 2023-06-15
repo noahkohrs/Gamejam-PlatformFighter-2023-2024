@@ -63,7 +63,7 @@ public abstract class Entity {
 
     public abstract void pop();
 
-    public abstract void egg();
+    public abstract void egg(Entity type);
 
     public abstract boolean GotPower();
 
