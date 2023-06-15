@@ -9,6 +9,10 @@ public class Move extends Action{
     public Move(String Direction){
         super(Direction);
     }
+
+    public Move(String[] Direction){
+        
+    }
     @Override
     public void exec(Entity e, String Direction) {
         e.move(info3.game.entity.Direction.fromString(Direction));

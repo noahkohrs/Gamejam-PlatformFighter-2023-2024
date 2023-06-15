@@ -39,7 +39,7 @@ public abstract class Entity {
     public EntityView view;
 
 
-    public Entity(int x, int y, Automate automate, String filename, int nrows, int ncols) throws IOException {
+    public Entity(int x, int y, String filename, int nrows, int ncols) throws IOException {
         this.x = x;
         this.y = y;
         this.view = new EntityView(filename, nrows, ncols, this);
@@ -146,8 +146,8 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
     public boolean statusJump(){
     return IsJumping;
   }
-  public void StartJump(){
-    velY = -1;
+  // public void StartJump(){
+  //   velY = -1;
 
-  }
+  // }
 }

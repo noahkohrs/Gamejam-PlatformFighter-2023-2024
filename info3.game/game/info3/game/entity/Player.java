@@ -39,6 +39,8 @@ public class Player extends DynamicEntity {
   public LifeBar lifeBar;
   public Weapon weapon;
 
+  long deltatime;
+
   public Player() throws IOException {
     this(1);
   }
@@ -59,46 +61,38 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    deltatime = elapsed;
     // Movement.Walk(this);
     // Movement.jump(this, elapsed);
     weapon.tick(elapsed);
     //System.out.println(y);
-    if (!hitbox.inCollision(Direction.BOTTOM))
-      y=(int) (y-PhysicConstant.gravity);
+    // if (!hitbox.inCollision(Direction.BOTTOM))
+    //   y=(int) (y-PhysicConstant.gravity);
     try {
       this.automate.step(this);
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
     }
+    Movement.jump(this, deltatime);
+    Movement.Walk(this);
   }
 
   @Override
   public void move(Direction direction) {
-
     if (direction == Direction.RIGHT) {
       this.SetVelX(5);
       this.FaceRight();
-    }
-    if (direction == Direction.LEFT) {
+    } else if (direction == Direction.LEFT) {
       this.SetVelX(5);
       this.FaceLeft();
-    }
-
-    if (!hitbox.inCollision(direction)) {
-      if (direction == Direction.UPPER) {
-        //this.IsJumping = true;
-        this.StartJump();
-        Movement.jump(this, 1);
-        y--;
-        // Movement.Walk(this);
+    } else if (direction == Direction.UPPER) {
+        this.IsJumping = true;
+        // this.StartJump();
       } else {
-        x += direction.x;
-        y += direction.y;
+        this.reSetVelX();
       }
     }
-
-  }
 
 
 
