@@ -5,13 +5,11 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
-import info3.game.automata.ast.Transition;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
@@ -22,9 +20,7 @@ import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
-import info3.game.entity.Malus;
 import info3.game.entity.Player;
-import info3.game.entity.PowerUp;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
@@ -43,7 +39,6 @@ public class GameSession {
     List<DynamicEntity> entities;
     long testelapsed;
 
-    List<Entity> entities;
     List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
@@ -58,7 +53,7 @@ public class GameSession {
         keys = new ArrayList<>();
         loadKeys();
 
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<DynamicEntity>();
         player1 = new Player(1);
         player2 = new Player(2);
         map = new Map(mapPath);
@@ -91,16 +86,16 @@ public class GameSession {
         }
     }
 
-    private Entity IdToEntity(String id, int x, int y) {
+    private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException{
         switch (id) {
             case "MovingPlatform" :
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
             case "PowerUpBlock" :
-                return new PowerUpBlock(x, y, null, 1, 1);
+                return new PowerUpBlock(x, y, 1, 1);
             case "MalusBlock" :
-                return new MalusBlock(x, y, null, 1, 1);
+                return new MalusBlock(x, y, 1, 1);
             default :
                 return null ;
         }
@@ -174,5 +169,4 @@ public class GameSession {
         ast.accept(parser);
         allAutomates = parser.autos;
     }
-
 }

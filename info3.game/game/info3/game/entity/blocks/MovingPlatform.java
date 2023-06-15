@@ -2,11 +2,8 @@ package info3.game.entity.blocks;
 
 import java.io.IOException;
 
-import info3.game.automate.Automate;
-import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
-import info3.game.entity.Entity;
 
 public class MovingPlatform extends DynamicEntity {
     int velX ;
@@ -15,7 +12,7 @@ public class MovingPlatform extends DynamicEntity {
 
 
     public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, null, "resources/blocks/2.png", 1, 1);
+        super(x, y, "resources/blocks/2.png", 1, 1);
         maxPower = blockMove ;
         power = maxPower ;
         

@@ -2,7 +2,6 @@ package info3.game.entity.blocks;
 
 import java.io.IOException;
 
-import info3.game.automate.Automate;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Malus;
@@ -13,8 +12,8 @@ public class MalusBlock extends DynamicEntity{
 
     public Malus malus;
 
-    public MalusBlock(int x, int y, Automate automate, int nrows, int ncols) throws IOException{
-        super(x, y, null, "resources/blocks/malusBlock.png", 1, 1);
+    public MalusBlock(int x, int y, int nrows, int ncols) throws IOException{
+        super(x, y, "resources/blocks/malusBlock.png", 1, 1);
     }
 
     @Override
