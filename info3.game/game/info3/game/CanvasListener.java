@@ -125,6 +125,10 @@ public class CanvasListener implements GameCanvasListener {
         index = GameSession.gameSession.findKEy('f');
         GameSession.gameSession.keys.get(index).pressed = true;
         break;
+      case KeyEvent.VK_R:
+        index = GameSession.gameSession.findKEy('r');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        break;
     }
   }
 
@@ -156,6 +160,10 @@ public class CanvasListener implements GameCanvasListener {
         break;
       case KeyEvent.VK_F:
         index = GameSession.gameSession.findKEy('f');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        break;
+      case KeyEvent.VK_R:
+        index = GameSession.gameSession.findKEy('r');
         GameSession.gameSession.keys.get(index).pressed = false;
         break;
     }

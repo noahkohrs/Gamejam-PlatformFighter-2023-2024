@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -37,6 +38,9 @@ public class GameSession {
     long testelapsed;
 
     List<DynamicEntity> entities;
+    List<DynamicEntity> toAddEntities;
+    List<DynamicEntity> toRemoveEntities;
+
     List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
@@ -52,6 +56,8 @@ public class GameSession {
         loadKeys();
 
         entities = new ArrayList<DynamicEntity>();
+        toAddEntities = new ArrayList<DynamicEntity>();
+        toRemoveEntities = new ArrayList<DynamicEntity>();
         player1 = new Player(1);
         player2 = new Player(2);
         map = new Map(mapPath);
@@ -95,21 +101,34 @@ public class GameSession {
         }
     }
 
-    public void addEntities(DynamicEntity entity) {
-        this.entities.add(0, entity);
+    public void addEntity(DynamicEntity entity) {
+        this.toAddEntities.add(0, entity);
     }
+
     public void removeEntity(DynamicEntity entity) {
-        this.entities.remove(entity);
+        this.toRemoveEntities.add(0, entity);
     }
 
     public void tick(long elapsed) {
         testelapsed += elapsed;
+        Iterator<DynamicEntity> removeIterator = toRemoveEntities.iterator();
+        while (removeIterator.hasNext()) {
+            DynamicEntity entity = removeIterator.next();
+            entities.remove(entity);
+            removeIterator.remove();
+        }
         if (testelapsed >= 24) {
             for (DynamicEntity entity : entities) {
                 entity.tick(testelapsed);
             }
             camera.tick(testelapsed);
             testelapsed = 0;
+        }
+        Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
+        while (addIterator.hasNext()) {
+            DynamicEntity entity = addIterator.next();
+            entities.add(entity);
+            addIterator.remove();
         }
     }
 

@@ -12,6 +12,17 @@ Player(Init){
   | True() ?   :(Init)
 }
 
+Weapon(Init){
+  * (Init)
+  | Key(f) ? Pop()    :(Init)
+  | Key(r) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
+
+Bullet(Init){
+    * (Init)
+  | True() ? Move()  :(Init)
+}
 MovingPlatform(Init){
   * (Init)
   | GotPower() ? Move() :(Init)
