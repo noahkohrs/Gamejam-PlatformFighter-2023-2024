@@ -9,20 +9,23 @@ public class Movement {
             if (E.velX > PhysicConstant.maxVelX) {
                 E.velX = PhysicConstant.maxVelX;
             } // capping player speed
-            if(E.hitbox.inCollision(Direction.LEFT)){
-                E.velX = 0;
-            }
             E.x -= E.velX; // moving E
+            if(E.hitbox.inCollision(Direction.LEFT)){
+                E.velX = 0.01f;
+                E.x += E.velX;
+            }
         }
         if (E.stFaceRight()) {
             if (E.velX > PhysicConstant.maxVelX) {
                 E.velX = PhysicConstant.maxVelX;
             } // same as above except other direction
-            if(E.hitbox.inCollision(Direction.RIGHT)){
-                E.velX = 0;
-            }
             E.x += E.velX;
+            if(E.hitbox.inCollision(Direction.RIGHT)){
+                E.velX = -0.01f;
+                E.x += E.velX;
+            }
         }
+         E.affectTor();
         // if(E.facing==0){
         //     E.velX =0;
 
@@ -34,9 +37,10 @@ public class Movement {
     // here everything that handles jumping and gravity affectd movement
     static public void jump(Entity E, long deltatime) {
         if (E.statusJump()) { //regarde si la touche de saut est enfoncé
-            if (E.jumptime == 0 && !E.jumpcd) {//regarde si la durée du saut courant est bien a 0 et qu'on a le droit de sauter
+            if (E.jumptime == 0 && !E.jumpcd && E.hitbox.inCollision(Direction.BOTTOM)) {//regarde si la durée du saut courant est bien a 0 et qu'on a le droit de sauter
 
                 InitJump(E, deltatime);//MALAKAS
+
             } else if (E.jumptime > 0) {//regarde si il nous reste du temps de saut//ici  car apres check de touche saut enfoncé donc on veut longjump
                 LongJump(E, deltatime);
             } else {// il nous reste plus de temps de saut on tombe
@@ -57,6 +61,8 @@ public class Movement {
         }
         //modification de la position
         E.y -= E.velY;
+         E.affectTor();
+        
     }
 
 
@@ -69,7 +75,7 @@ public class Movement {
     static private void Gravity(Entity E, long deltatime){//accélération de la gravité -> affectation au joueur
          E.velY += PhysicConstant.gravity * (PhysicConstant.fallmultiplier - 1) * deltatime;
         if(E.hitbox.inCollision(Direction.BOTTOM)){
-            E.velY =0.01f;
+            E.velY =-0.1f;
         }
 
         // if(E.y > 400){//juste la pour avoir un plancher pour ne aps tomber dans le vide lors des tests
@@ -78,8 +84,8 @@ public class Movement {
     }
 
      static private void LongJump(Entity E, long deltatime){//décroissance de la vitesse quand on maintient la touche de saut enfoncé
-        E.jumptime-= deltatime;
         E.velY = ((E.jumptime / 2.2f) * 2.1f);
+        E.jumptime-= deltatime;
      }
 
      static private void LowJump(Entity E, long deltatime){//décroissance de la vitesse quand on relache la touche de saut avant la fin du tamps alloué au saut(jumptime)

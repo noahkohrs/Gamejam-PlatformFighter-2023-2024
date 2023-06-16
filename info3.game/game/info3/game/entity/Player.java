@@ -89,7 +89,8 @@ public class Player extends DynamicEntity {
     } else if (direction == Direction.UPPER) {
         this.IsJumping = true;
         // this.StartJump();
-      } else {
+      }
+       else {
         this.reSetVelX();
       }
     }
