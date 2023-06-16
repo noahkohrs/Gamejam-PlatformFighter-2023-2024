@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +21,10 @@ import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
 import info3.game.automate.condition.True;
 import info3.game.entity.Block;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MovingPlatform;
 
 public class GameSession {
@@ -37,7 +40,10 @@ public class GameSession {
 
     long testelapsed;
 
-    List<Entity> entities;
+    List<DynamicEntity> entities;
+    List<DynamicEntity> toAddEntities;
+    List<DynamicEntity> toRemoveEntities;
+
     List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
@@ -52,13 +58,24 @@ public class GameSession {
         keys = new ArrayList<>();
         loadKeys();
 
-        entities = new ArrayList<Entity>();
-        player1 = new Player(1);
-        player2 = new Player(2);
+        entities = new ArrayList<DynamicEntity>();
+        toAddEntities = new ArrayList<DynamicEntity>();
+        toRemoveEntities = new ArrayList<DynamicEntity>();
+        player1 = new Player(TEAM.BLUE);
+        player2 = new Player(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
 
+    }
+
+    private void loadKeys() {
+        for (Automate current : this.allAutomates) {
+            for (Transitions transition : current.trans) {
+                if (transition.cond instanceof Key)
+                    keys.add((Key) transition.cond);
+            }
+        }
     }
 
     private void loadEntities(String filename) throws IOException {
@@ -72,42 +89,49 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            entities.add(IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags));
+            IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags);
         }
     }
 
-    private void loadKeys() {
-        for (Automate current : this.allAutomates) {
-            for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key)
-                    keys.add((Key) transition.cond);
-            }
-        }
-    }
-
-    private Entity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+    private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
-            case "MovingPlatform" :
+            case "MovingPlatform":
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
-                return new MovingPlatform(x, y, moveX*Block.BLOCK_SIZE, speed);
+                return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
             default:
                 return null;
         }
     }
 
-    public void addEntities(Entity entity) {
-        this.entities.add(0, entity);
+    public void addEntity(DynamicEntity entity) {
+        this.toAddEntities.add(0, entity);
+    }
+
+    public void removeEntity(DynamicEntity entity) {
+        this.toRemoveEntities.add(0, entity);
     }
 
     public void tick(long elapsed) {
-        updateTime += elapsed;
-        if (updateTime > 24) {
-            for (Entity entity : entities) {
-                    entity.tick(updateTime);
+        testelapsed += elapsed;
+        Iterator<DynamicEntity> removeIterator = toRemoveEntities.iterator();
+        while (removeIterator.hasNext()) {
+            DynamicEntity entity = removeIterator.next();
+            entities.remove(entity);
+            removeIterator.remove();
+        }
+        if (testelapsed >= 24) {
+            for (DynamicEntity entity : entities) {
+                entity.tick(testelapsed);
             }
-            camera.tick(updateTime);
-            updateTime=0;
+            camera.tick(testelapsed);
+            testelapsed = 0;
+        }
+        Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
+        while (addIterator.hasNext()) {
+            DynamicEntity entity = addIterator.next();
+            entities.add(entity);
+            addIterator.remove();
         }
 
     }
@@ -138,19 +162,28 @@ public class GameSession {
         return -1;
     }
 
-    public Automate findAutomate(String className) {
-        for (int i = 0; i < this.allAutomates.size(); i++) {
-            if (this.allAutomates.get(i).className.equals(className)) {
+    public Automate findAutomate(Entity entity) {
+        String className = entity.getClass().getSimpleName();
+        for (Automate automate : this.allAutomates) {
+            if (automate.className.equals(className)) {
                 // System.out.println("Found");
-                return this.allAutomates.get(i);
+                return automate;
+            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+                if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
+                    return automate;
+                } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
+                    return automate;
+                }
             }
+
         }
-        return null;
+        return defaultAutomate;
     }
+
 
     public void loadAutomates(String GalFile) throws Exception {
         List<Transitions> trans = new ArrayList<Transitions>();
-        List <State> states = new ArrayList<State>();
+        List<State> states = new ArrayList<State>();
         State state = new State("default");
         states.add(state);
         trans.add(new Transitions(state, state, null, new True()));

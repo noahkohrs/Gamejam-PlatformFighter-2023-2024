@@ -37,13 +37,16 @@ public abstract class Entity {
     public Automate automate;
     HitBox hitbox;
     public EntityView view;
+    public int team ;
 
-
-    public Entity(int x, int y, String filename, int nrows, int ncols) throws IOException {
+    public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
+        this.team = team;
         this.x = x;
         this.y = y;
         this.view = new EntityView(filename, nrows, ncols, this);
         this.automate = loadAutomate();
+        
+
         
         if(this.automate==null)
           this.automate=GameSession.gameSession.defaultAutomate;
@@ -53,17 +56,10 @@ public abstract class Entity {
 
     private Automate loadAutomate() {
       System.out.println("Loading automate for " + this.getClass().getSimpleName());
-      String className = this.getClass().getSimpleName();
-      return GameSession.gameSession.findAutomate(className);
+      return GameSession.gameSession.findAutomate(this);
     }
 
     public abstract void tick(long elapsed);
-
-    public abstract void move(Direction direction);
-
-    public abstract void wizz();
-
-    public abstract void pop();
 
     public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
         File imageFile = new File(filename);
@@ -149,5 +145,34 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
   // public void StartJump(){
   //   velY = -1;
 
-  // }
+  }
+
+    protected void affectTor() {
+        if (Camera.centeredCoordinateX(this) < 0) {
+            x = GameSession.gameSession.map.realWidth() - getWidth();
+        }
+        if (Camera.centeredCoordinateX(this) > GameSession.gameSession.map.realWidth()) {
+            x = 0;
+        }
+        if (Camera.centeredCoordinateY(this) < 0) {
+            y = GameSession.gameSession.map.realHeight() - getHeight();
+        }
+        if (Camera.centeredCoordinateY(this) > GameSession.gameSession.map.realHeight()) {
+            y = 0;
+        }
+    }
+
+
+    // Actions 
+
+    public abstract void move(Direction direction);
+    public abstract void turn() ;
+    public abstract void wizz();
+    public abstract void pop();
+
+    // Conditions 
+
+    public abstract boolean gotPower() ;
+
+    
 }

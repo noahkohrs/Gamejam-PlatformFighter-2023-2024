@@ -38,6 +38,8 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
+  public Direction facingDirection;
+
 
   long deltatime;
 
@@ -46,11 +48,12 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team) throws IOException {
-    super(10, 10, "resources/winchester-4x6.png", 4, 6);
+    super(10, 10, team, "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
     weapon = new Weapon(this);
+    this.facingDirection = Direction.RIGHT;
   }
 
   public void takeDamage(int ammount) {
@@ -80,6 +83,7 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
+    this.facingDirection = direction;
     if (direction == Direction.RIGHT) {
       this.SetVelX(5);
       this.FaceRight();
@@ -95,16 +99,13 @@ public class Player extends DynamicEntity {
       }
     }
 
+  }
+
 
 
   @Override
   public void wizz() {
     System.out.println("wizz");
-  }
-
-  @Override
-  public void pop() {
-    weapon.shoot();
   }
 
 }

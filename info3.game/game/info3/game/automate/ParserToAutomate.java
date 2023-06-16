@@ -13,6 +13,7 @@ import info3.game.automata.ast.BinaryOp;
 import info3.game.automata.ast.Category;
 import info3.game.automata.ast.Condition;
 import info3.game.automata.ast.Direction;
+import info3.game.automata.ast.Expression;
 import info3.game.automata.ast.FunCall;
 import info3.game.automata.ast.IVisitor;
 import info3.game.automata.ast.Mode;
@@ -80,30 +81,32 @@ public class ParserToAutomate implements IVisitor {
     @Override
     public Object visit(UnaryOp operator, Object expression) {
         // System.out.println("9 "+operator.toString()+" "+expression.toString());
+        info3.game.automate.Automate currentAutomate = autos.get(autos.size() - 1);
+        info3.game.automate.Transitions currentTransition = currentAutomate.trans.get(currentAutomate.trans.size() - 1);
+        if (operator.operator.equals("!"))
+            currentTransition.cond.notOp = true;
         return null;
     }
 
     @Override
     public Object visit(State state) {
-        String statename = state.name;
         info3.game.automate.State stateRes;
         info3.game.automate.Automate currentAutomate = autos.get(autos.size() - 1);
-        info3.game.automate.State existe=currentAutomate.existe(state.name);
         stateRes = currentAutomate.getState(state.name);
-        //If there is no states
+        // If there is no states
         if (currentAutomate.initalState == null)
             currentAutomate.initalState = stateRes;
 
-        //If there are not transitions, just exit.
+        // If there are not transitions, just exit.
         if (currentAutomate.trans == null)
             return null;
         Transitions tr = currentAutomate.trans.get(currentAutomate.trans.size() - 1);
-        //If the transition does not have a src. 
+        // If the transition does not have a src.
         if (tr.src == null) {
             tr.src = stateRes;
         }
-        //else if the transition does not have a dest
-        else if (tr.dest == null){
+        // else if the transition does not have a dest
+        else if (tr.dest == null) {
             tr.dest = stateRes;
         }
         return null;
@@ -112,12 +115,13 @@ public class ParserToAutomate implements IVisitor {
     @Override
     public void enter(Mode mode) {
         // System.out.println(mode.toString());
+        Automate currentAutomate = autos.get(autos.size() - 1);
         int index = 0;
-        if (autos.get(autos.size() - 1).trans == null) {
-            autos.get(autos.size() - 1).trans = new ArrayList<Transitions>();
+        if (currentAutomate.trans == null) {
+            currentAutomate.trans = new ArrayList<Transitions>();
         } else
-            index = autos.get(autos.size() - 1).trans.size();
-        autos.get(autos.size() - 1).trans.add(index, new Transitions(null, null, null, null));
+            index = currentAutomate.trans.size();
+        currentAutomate.trans.add(index, new Transitions(null, null, null, null));
         return;
     }
 
@@ -135,7 +139,13 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public void enter(Condition condition) {
-        String className = "info3.game.automate.condition." + condition.expression.name().toString();
+        Expression expression = condition.expression;
+        if (expression instanceof UnaryOp) 
+            expression = ((UnaryOp)expression).operand; 
+        FunCall conditionfuncall = (FunCall)expression;
+        String expressionName = expression.name();
+        String className = "info3.game.automate.condition." + expressionName;
+
         // Load the class dynamically
         Class<?> condClass = null;
         try {
@@ -148,14 +158,14 @@ public class ParserToAutomate implements IVisitor {
         // Create an instance of the condition class
         Object condInstance = null;
         try {
-            if (((FunCall) condition.expression).parameters.size() == 0)
+            if (conditionfuncall.parameters.size() == 0)
                 condInstance = condClass.getDeclaredConstructor().newInstance();
-            else if (((FunCall) condition.expression).parameters.size() == 1)
+            else if (conditionfuncall.parameters.size() == 1)
                 condInstance = condClass.getDeclaredConstructor(String.class)
-                        .newInstance(((FunCall) condition.expression).parameters.get(0).toString());
-            else if (((FunCall) condition.expression).parameters.size() == 2) {
-                String param1 = ((FunCall) condition.expression).parameters.get(0).toString();
-                String param2 = ((FunCall) condition.expression).parameters.get(1).toString();
+                        .newInstance(conditionfuncall.parameters.get(0).toString());
+            else if (conditionfuncall.parameters.size() == 2) {
+                String param1 = conditionfuncall.parameters.get(0).toString();
+                String param2 = conditionfuncall.parameters.get(1).toString();
                 condInstance = condClass.getDeclaredConstructor(String.class, String.class).newInstance(param1, param2);
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -163,11 +173,12 @@ public class ParserToAutomate implements IVisitor {
 
             e.printStackTrace();
         }
-        if (autos.get(autos.size() - 1).trans.get(autos.get(autos.size() - 1).trans.size() - 1).cond != null) {
-            Automate a = autos.get(autos.size() - 1);
-            a.trans.add(a.trans.size(), new Transitions(autos.get(autos.size() - 1).initalState, null, null, null));
+        Automate currentAutomate = autos.get(autos.size() - 1);
+        if (currentAutomate.trans.get(currentAutomate.trans.size() - 1).cond != null) {
+            Automate a = currentAutomate;
+            a.trans.add(a.trans.size(), new Transitions(currentAutomate.initalState, null, null, null));
         }
-        autos.get(autos.size() - 1).trans.get(autos.get(autos.size() - 1).trans.size()
+        currentAutomate.trans.get(currentAutomate.trans.size()
                 - 1).cond = (info3.game.automate.condition.Condition) condInstance;
     }
 
@@ -179,6 +190,7 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public void enter(Action action) {
+        Automate currentAutomate = autos.get(autos.size() - 1);
         if (action.calls == null || action.calls.size() == 0)
             return;
         String className = "info3.game.automate.action." + action.calls.get(0).name;
@@ -211,7 +223,7 @@ public class ParserToAutomate implements IVisitor {
 
             e.printStackTrace();
         }
-        autos.get(autos.size() - 1).trans.get(autos.get(autos.size() - 1).trans.size()
+        currentAutomate.trans.get(currentAutomate.trans.size()
                 - 1).action = (info3.game.automate.action.Action) actionInstance;
     }
 
@@ -231,18 +243,18 @@ public class ParserToAutomate implements IVisitor {
     public void enter(Automaton automaton) {
         // String add = "";
         // if (automaton.toString().contains("0")) {
-        //     add = add + automaton.toString().split("0")[0] + ".";
-        //     add = add + automaton.toString().split("0")[1];
+        // add = add + automaton.toString().split("0")[0] + ".";
+        // add = add + automaton.toString().split("0")[1];
         // } else
-        //     add = add + automaton.toString();
-        String className =  automaton.toString();
+        // add = add + automaton.toString();
+        String className = automaton.toString();
 
         // // Load the class dynamically
         // Class<?> entityClass = null;
         // try {
-        //     entityClass = Class.forName(className);
+        // entityClass = Class.forName(className);
         // } catch (ClassNotFoundException e) {
-        //     e.printStackTrace();
+        // e.printStackTrace();
         // }
 
         // Create an instance of the entity class
@@ -254,7 +266,7 @@ public class ParserToAutomate implements IVisitor {
         // | NoSuchMethodException | SecurityException e) {
         // e.printStackTrace();
         // }
-        Automate auto = new Automate(null, null,null,className);
+        Automate auto = new Automate(null, null, null, className);
         // auto.e.automate=auto;
         autos.add(autos.size(), auto);
     }

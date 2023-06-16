@@ -7,9 +7,9 @@ import info3.game.automate.Automate;
 
 public class DynamicEntity extends Entity {
 
-    public DynamicEntity(int x, int y, String filename, int nrows, int ncols) throws IOException {
-        super(x, y, filename, nrows, ncols);
-        GameSession.gameSession.addEntities(this);
+    public DynamicEntity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
+        super(x, y, team, filename, nrows, ncols);
+        GameSession.gameSession.addEntity(this);
     }
 
     @Override
@@ -36,4 +36,21 @@ public class DynamicEntity extends Entity {
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
 
+    public void kill() {
+        GameSession.gameSession.removeEntity(this);
+    }
+
+    @Override
+    public boolean gotPower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+    }
+
+    @Override
+    public void turn() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+    }
+
+    
 }

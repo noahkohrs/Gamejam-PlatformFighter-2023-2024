@@ -6,7 +6,7 @@ public class Block extends Entity {
     public static final int BLOCK_SIZE = 32;
 
     public Block(int x, int y, String blockTexture) throws IOException {
-        super(x*BLOCK_SIZE, y*BLOCK_SIZE, blockTexture, 1, 1);
+        super(x*BLOCK_SIZE, y*BLOCK_SIZE, TEAM.NONE, blockTexture, 1, 1);
     }
 
     @Override
@@ -34,4 +34,17 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
+
+    @Override
+    public boolean gotPower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+    }
+
+    @Override
+    public void turn() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+    }
+    
 }
