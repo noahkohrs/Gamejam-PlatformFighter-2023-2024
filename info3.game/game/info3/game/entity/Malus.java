@@ -7,7 +7,7 @@ import info3.game.automate.Automate;
 public class Malus extends DynamicEntity{
 
     public Malus(int x, int y, String filename, int nrows, int ncols) throws IOException {
-        super(x, y, filename, nrows, ncols);
+        super(x, y, TEAM.NONE, filename, nrows, ncols);
     }
 
     public void tick(long elapsed){}

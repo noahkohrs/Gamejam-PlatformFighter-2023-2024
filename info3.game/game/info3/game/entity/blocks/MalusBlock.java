@@ -5,6 +5,7 @@ import java.io.IOException;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Malus;
+import info3.game.entity.TEAM;
 
 
 
@@ -13,7 +14,7 @@ public class MalusBlock extends DynamicEntity{
     public Malus malus;
 
     public MalusBlock(int x, int y, int nrows, int ncols) throws IOException{
-        super(x, y, "resources/blocks/malusBlock.png", 1, 1);
+        super(x, y, TEAM.NONE, "resources/blocks/malusBlock.png", 1, 1);
     }
 
     @Override
@@ -38,6 +39,11 @@ public class MalusBlock extends DynamicEntity{
     public void pop() {
         // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    }
+
+    @Override
+    public boolean gotPower(){
+        return true;
     }
     
 }

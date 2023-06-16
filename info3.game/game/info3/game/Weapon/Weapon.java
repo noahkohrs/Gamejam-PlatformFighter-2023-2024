@@ -97,8 +97,7 @@ public class Weapon extends DynamicEntity {
 
     @Override
     public void pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+        shoot();
     }
 
     @Override
@@ -114,10 +113,9 @@ public class Weapon extends DynamicEntity {
     }
 
     @Override
-    public void egg(Entity type) {
+    public void egg(Entity e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'egg'");
     }
-
 
 }

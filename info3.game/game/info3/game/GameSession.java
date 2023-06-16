@@ -23,6 +23,7 @@ import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 import info3.game.entity.TEAM;
+import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
 
@@ -37,7 +38,6 @@ public class GameSession {
 
     public Camera camera;
 
-    List<DynamicEntity> entities;
     long testelapsed;
 
     List<DynamicEntity> entities;

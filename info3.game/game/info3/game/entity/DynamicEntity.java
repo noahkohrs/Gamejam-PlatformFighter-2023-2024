@@ -39,10 +39,10 @@ public class DynamicEntity extends Entity {
     @Override
     public void egg(Entity type) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+        throw new UnsupportedOperationException("Unimplemented method 'egg'");
     }
 
-    void kill() {
+    public void kill() {
         GameSession.gameSession.removeEntity(this);
     }
 
