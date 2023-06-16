@@ -11,12 +11,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
+import info3.game.automata.ast.BinaryOp;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
 import info3.game.automate.State;
 import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
+import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.automate.condition.True;
@@ -74,8 +76,13 @@ public class GameSession {
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key)
-                    keys.add((Key) transition.cond);
+                if (transition.cond instanceof Key){
+                    if(findKEy(((Key)transition.cond).letter)==-1)
+                        keys.add((Key) transition.cond);
+                }
+                else if(transition.cond instanceof Binary){
+                    keys.addAll(((Binary)transition.cond).loadKeys());
+                }
             }
         }
     }
@@ -158,7 +165,7 @@ public class GameSession {
         return map.realHeight();
     }
 
-    int findKEy(char letter) {
+    public int findKEy(char letter) {
         for (int i = 0; i < this.keys.size(); i++) {
             if (this.keys.get(i).letter == letter) {
                 // System.out.println("Found");
