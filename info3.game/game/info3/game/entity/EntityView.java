@@ -22,11 +22,14 @@ public class EntityView {
 
     public EntityView(String filename, int nrows, int ncols, Entity entity) {
         try {
-            if(!filename.equals(""))
-            {
-            images = Entity.loadSprite(filename, nrows, ncols);
-            this.width = images[0].getWidth();
-            this.height = images[0].getHeight();
+            if (!filename.equals("")) {
+                images = Entity.loadSprite(filename, nrows, ncols);
+                this.width = images[0].getWidth();
+                this.height = images[0].getHeight();
+            } else {
+                this.width = 0;
+                this.height = 0;
+                this.images = null;
             }
             this.entity = entity;
         } catch (Exception e) {
@@ -43,8 +46,8 @@ public class EntityView {
     }
 
     public void paint(Graphics g) {
-        Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight());
+        if (width != 0)
+            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight());
     }
-
 
 }

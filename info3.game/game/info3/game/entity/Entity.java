@@ -34,7 +34,7 @@ public abstract class Entity {
     long moveElapsed;
 
     public Automate automate;
-    HitBox hitbox;
+    public HitBox hitbox;
     public EntityView view;
     public int team ;
 

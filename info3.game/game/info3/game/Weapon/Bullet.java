@@ -1,5 +1,6 @@
 package info3.game.Weapon;
 
+import java.awt.Graphics;
 import java.io.IOException;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
@@ -13,9 +14,14 @@ public class Bullet extends DynamicEntity {
 
   public Bullet(int x, int y, Direction dir, int team)
       throws IOException {
-    super(x, y, team, "resources/blocks/1.png", 1, 1);
-    hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, true, this);
+    super(x-5, y+25, team, "resources/bullets/1.png", 1, 1);
+    hitBox = new HitBox(0, 0, 10, 10, true, this);
     this.dir = dir;
+  }
+
+  public void showHitBox(Graphics g)
+  {
+    hitBox.showHitBox(g);
   }
 
   @Override
@@ -31,8 +37,12 @@ public class Bullet extends DynamicEntity {
   @Override
   public void move(Direction direction) {
     if (!hitBox.inCollision(dir)) {
-      x += dir.x*8;
-      y += dir.y*8;
+      int nextX = x + dir.x*8;
+      int nextY = y + dir.y*8;
+      if(hitBox.vectorInPLayerCollision(nextX,nextY, dir))
+        kill();
+      x = nextX;
+      y = nextY;
     }
     else{
       kill();
