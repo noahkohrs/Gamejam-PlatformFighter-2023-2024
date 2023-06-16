@@ -65,11 +65,14 @@ public class Weapon extends DynamicEntity {
     }
 
     public void shoot() {
-        if (currentCooldown <= 0) {
-            if (ammo-- > 0) {
-                createBullet(player.x, player.y);
+        if(player.facingDirection != Direction.IDLE)
+        {
+            if (currentCooldown <= 0) {
+                if (ammo-- > 0) {
+                    createBullet(player.x, player.y);
+                }
+                currentCooldown = cooldown;
             }
-            currentCooldown = cooldown;
         }
     }
 
