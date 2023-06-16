@@ -134,9 +134,13 @@ public class GameSession {
     }
 
     public void paint(Graphics g) {
+        boolean Opti = true;
         camera.paint(g);
-        map.paint(g);
+        map.paint(g, camera, Opti);
         for (Entity entity : entities) {
+            if ((entity.x + entity.getWidth() < camera.camX || entity.x > camera.camX + camera.camWidth
+                || entity.y + entity.getHeight() < camera.camY || entity.y > camera.camY + camera.camHeight)
+                && Opti) continue;
             entity.view.paint(g);
         }
     }
