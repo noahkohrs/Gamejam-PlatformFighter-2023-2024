@@ -37,6 +37,7 @@ public class Movement {
     // here everything that handles jumping and gravity affectd movement
     static public void jump(Entity E, long deltatime) {
         if (E.statusJump()) { //regarde si la touche de saut est enfoncé
+            System.out.println(E +" "+ E.hitbox.inCollision(Direction.BOTTOM));
             if (E.jumptime == 0 && !E.jumpcd && E.hitbox.inCollision(Direction.BOTTOM)) {//regarde si la durée du saut courant est bien a 0 et qu'on a le droit de sauter
 
                 InitJump(E, deltatime);//MALAKAS
@@ -68,7 +69,7 @@ public class Movement {
 
     static private void InitJump(Entity E, long deltatime){//initialise la vitesse au début du saut ainsi que le temps que va durer le saut
         E.jumpcd = true;
-        E.jumptime = 102;
+        E.jumptime = 42;
         E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
     }
 
@@ -84,12 +85,12 @@ public class Movement {
     }
 
      static private void LongJump(Entity E, long deltatime){//décroissance de la vitesse quand on maintient la touche de saut enfoncé
-        E.velY = ((E.jumptime / 2.2f) * 2.1f);
+        E.velY = ((E.jumptime / 2.2f) * 1.1f);
         E.jumptime-= deltatime;
      }
 
      static private void LowJump(Entity E, long deltatime){//décroissance de la vitesse quand on relache la touche de saut avant la fin du tamps alloué au saut(jumptime)
         E.velY *= 0.35f;
-        E.jumptime -= deltatime;
+        E.jumptime = 0;
      }
 }

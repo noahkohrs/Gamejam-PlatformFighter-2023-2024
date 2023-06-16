@@ -116,7 +116,7 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
    if(velX == 0){
     velX = VelX;
    } else {
-    velX = velX * 1.01f;
+    velX = velX * 1.1f;
    }
    
   }

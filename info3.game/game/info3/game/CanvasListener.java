@@ -221,6 +221,10 @@ public class CanvasListener implements GameCanvasListener {
       GameSession.gameSession.player1.reSetVelX();
      GameSession.gameSession.player1.Idle();
     }
+    if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('1')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('2')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('3')).pressed == false) {
+      GameSession.gameSession.player2.reSetVelX();
+     GameSession.gameSession.player2.Idle();
+    }
   }
 
   @Override
