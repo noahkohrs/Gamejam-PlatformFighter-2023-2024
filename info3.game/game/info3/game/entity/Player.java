@@ -52,6 +52,8 @@ public class Player extends DynamicEntity {
     hitbox = new HitBox(12, 8, 20, 35, this);
     weapon = new Weapon(this);
     this.facingDirection = Direction.RIGHT;
+    jumpAmount = 2;
+    jumpCounter = jumpAmount;
   }
 
   public void takeDamage(int amount) {
@@ -62,27 +64,28 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
       Direction prevDir = facingDirection ;
       this.facingDirection = Direction.IDLE ;
       this.automate.step(this);
       if (facingDirection != prevDir) 
-        acceleration = 0.1 ;
+        accelerationX = 0.1 ;
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
     }
-    Movement.jump(this, deltatime);
     Movement.Walk(this);
+    Movement.affectGravity(this);
   }
 
   @Override
   public void move(Direction direction) {
-    acceleration += 0.04;
+    accelerationX += 0.04;
     facingDirection = direction ;
     if (direction == Direction.UPPER)
-      this.IsJumping = true;
+      Movement.Jump(this) ;
   }  
 
   @Override

@@ -62,7 +62,6 @@ public class GameSession {
         keys = new ArrayList<>();
         loadKeys();
 
-
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
@@ -71,7 +70,6 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
-
     }
 
     private void loadKeys() {
