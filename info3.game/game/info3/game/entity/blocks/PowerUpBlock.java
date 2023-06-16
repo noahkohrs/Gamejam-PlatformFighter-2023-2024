@@ -8,10 +8,6 @@ import info3.game.entity.PowerUp;
 import info3.game.entity.TEAM;
 import info3.game.entity.Block;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class PowerUpBlock extends DynamicEntity {
 
     public PowerUp powerUp;
@@ -39,21 +35,15 @@ public class PowerUpBlock extends DynamicEntity {
         if (powerUp == null) {
             String powerUpName = e.state.name;
 
-            Random random = new Random();
-            int r = random.nextInt(4);
-            System.out.println(r);
-
-            if (r == 0) {
+            if (powerUpName.equals("Speed")) {
                 powerUpName = "speed";
-            } else if (r == 1) {
+            } else if (powerUpName.equals("Ammo")) {
                 powerUpName = "ammo";
-            } else if (r == 2) {
+            } else if (powerUpName.equals("Shield")) {
                 powerUpName = "shield";
-            } else if (r == 3) {
+            } else if (powerUpName.equals("Pow")) {
                 powerUpName = "power";
             }
-
-            System.out.println("egg");
 
             String powerUpPath = "resources/powerUp/" + powerUpName + ".png";
             try {
@@ -67,12 +57,10 @@ public class PowerUpBlock extends DynamicEntity {
 
     @Override
     public boolean gotPower() {
-        // System.out.println(timer);
-        if (timer >= 5000) { // 2 transitions donc /2 le temps souhaité
+        if (timer >= 5000) {
             timer = 0;
             return true;
         }
-
         return false;
     }
 

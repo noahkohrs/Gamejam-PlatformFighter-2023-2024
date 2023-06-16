@@ -36,6 +36,23 @@ MovingPlatform(Init){
 
 PowerUpBlock(Init){
   * (Init)
-  | GotPower()? Egg() :(Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
   | True()? :(Init)
+
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+  
 }
