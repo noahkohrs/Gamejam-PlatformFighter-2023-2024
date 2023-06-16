@@ -176,24 +176,9 @@ public class HitBox {
             playerYRight = player2HitBox.getBottomRightY();
         }
 
-        // Check if collision in between current and new position
-        switch (dir) {
-            case RIGHT:
-            case LEFT:
-                if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
-                    // all case in one
-                    if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
-                        return true;
-                }
-                break;
-            case UPPER:
-            case BOTTOM:
-                if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY)) {
-                    // all case in one
-                    if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX))
-                        return true;
-                }
-                break;
+        if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
+            if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
+                return true;
         }
         return false;
     }
