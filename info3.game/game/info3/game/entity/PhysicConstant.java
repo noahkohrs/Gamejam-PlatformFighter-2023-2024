@@ -7,5 +7,5 @@ public class PhysicConstant {
   public static final float fallmultiplier = 1.1f;
   public static final float lowJumpmultiplier = 1.2f;
   public static final float Longjumpmultiplier = 0;
-    
+  public static final int TerminalVelocity = 20;
 }

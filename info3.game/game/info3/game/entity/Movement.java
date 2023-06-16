@@ -69,12 +69,13 @@ public class Movement {
 
     static private void InitJump(Entity E, long deltatime){//initialise la vitesse au début du saut ainsi que le temps que va durer le saut
         E.jumpcd = true;
-        E.jumptime = 42;
+        E.jumptime = 102;
         E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
     }
 
     static private void Gravity(Entity E, long deltatime){//accélération de la gravité -> affectation au joueur
          E.velY += PhysicConstant.gravity * (PhysicConstant.fallmultiplier - 1) * deltatime;
+        if(E.velY < PhysicConstant.TerminalVelocity){ E.velY = -PhysicConstant.TerminalVelocity;}
         if(E.hitbox.inCollision(Direction.BOTTOM)){
             E.velY =-0.1f;
         }
