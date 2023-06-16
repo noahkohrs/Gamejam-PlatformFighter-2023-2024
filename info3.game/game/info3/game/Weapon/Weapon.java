@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
+import info3.game.entity.Entity;
 import info3.game.entity.Player;
 
 public class Weapon extends DynamicEntity {
@@ -110,4 +111,11 @@ public class Weapon extends DynamicEntity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'turn'");
     }
+
+    @Override
+    public void egg(Entity e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+    }
+
 }

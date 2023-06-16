@@ -6,26 +6,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
-import info3.game.automata.ast.Transition;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
 import info3.game.automate.State;
 import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
-import info3.game.automate.condition.True;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
+import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 import info3.game.entity.TEAM;
+import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.PowerUpBlock;
+
+
 
 public class GameSession {
     public Game game;
@@ -89,7 +91,7 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags);
+            IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags);
         }
     }
 
@@ -99,6 +101,10 @@ public class GameSession {
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+            case "PowerUpBlock" :
+                return new PowerUpBlock(x, y, 1, 1);
+            case "MalusBlock" :
+                return new MalusBlock(x, y, 1, 1);
             default:
                 return null;
         }
@@ -195,5 +201,4 @@ public class GameSession {
         ast.accept(parser);
         allAutomates = parser.autos;
     }
-
 }
