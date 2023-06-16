@@ -38,7 +38,7 @@ public abstract class Entity {
   long moveElapsed;
 
   public Automate automate;
-  HitBox hitbox;
+  public HitBox hitbox;
   public EntityView view;
   public int team;
   public int jumpCounter ;
@@ -145,6 +145,12 @@ public abstract class Entity {
 
   void updateVelocityY() {
     this.velY = (float) (Math.max(velY+PhysicConstant.gravity, -PhysicConstant.maxVelY));
+  }
+
+  void updateJumpVelocity(){
+    if(jumpCooldown>0){
+      this.velY =(float) (this.velY*(1-Math.exp(-this.velY)));
+    }
   }
 
   // Actions

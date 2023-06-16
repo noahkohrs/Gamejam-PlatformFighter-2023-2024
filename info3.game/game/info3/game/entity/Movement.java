@@ -35,6 +35,7 @@ public class Movement {
     }
 
     public static void affectGravity(Player E) {
+        E.updateJumpVelocity();
         E.updateVelocityY();
         E.y -= E.velY;
         while (E.hitbox.inCollision(Direction.UPPER)) {
