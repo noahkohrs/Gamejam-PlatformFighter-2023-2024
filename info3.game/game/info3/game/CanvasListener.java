@@ -177,7 +177,6 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_Z:
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = false;
-        GameSession.gameSession.player1.IsJumping = false;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_F:

@@ -12,6 +12,7 @@ import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
 import info3.game.automate.State;
+import info3.game.automate.action.Move;
 import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
@@ -25,23 +26,23 @@ public abstract class Entity {
   public State state;
 
   public Direction facingDirection;
-  public boolean IsJumping = false; // just checking if the player is currently jumping to prevent any illegal moves
-  int jumptime = 0;// init at 0 for implementation but represent the numbers of frames in which the
-                   // player will be jumping
-  boolean jumpcd = false; // checking if the jump is on cd same purpose as Isjumping
 
   // constant regulating the movement of entitites
   PhysicConstant model;
-  //acceleration far computing velocity
-  double acceleration ;
+  // acceleration far computing velocity
+  double accelerationX;
+  // double accelerationY ;
 
-    //elapsed time necessary for movements
-    long moveElapsed;
+  // elapsed time necessary for movements
+  long moveElapsed;
 
   public Automate automate;
   HitBox hitbox;
   public EntityView view;
   public int team;
+  public int jumpCounter ;
+  public int jumpCooldown ;
+  public int jumpAmount ;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this.team = team;
@@ -49,6 +50,7 @@ public abstract class Entity {
     this.y = y;
     this.view = new EntityView(filename, nrows, ncols, this);
     this.automate = loadAutomate();
+
 
     if (this.automate == null)
       this.automate = GameSession.gameSession.defaultAutomate;
@@ -117,12 +119,8 @@ public abstract class Entity {
   }
 
   // jump management
-  public boolean statusJump() {
-    return IsJumping;
-  }
   // public void StartJump(){
-  //   velY = -1;
-
+  // velY = -1;
 
   protected void affectTor() {
     if (Camera.centeredCoordinateX(this) < 0) {
@@ -140,7 +138,11 @@ public abstract class Entity {
   }
 
   void updateVelocityX() {
-    this.velX = (float)  (PhysicConstant.maxVelX*(1 - Math.exp(-acceleration)));
+    this.velX = (float) (PhysicConstant.maxVelX * (1 - Math.exp(-accelerationX)));
+  }
+
+  void updateVelocityY() {
+    this.velY = (float) (Math.max(velY+PhysicConstant.gravity, -PhysicConstant.maxVelY));
   }
 
   // Actions
