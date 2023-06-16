@@ -39,10 +39,10 @@ public abstract class Entity {
     //elapsed time necessary for movements
     long moveElapsed;
 
-  public Automate automate;
-  HitBox hitbox;
-  public EntityView view;
-  public int team;
+    public Automate automate;
+    public HitBox hitbox;
+    public EntityView view;
+    public int team ;
 
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
