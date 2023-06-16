@@ -32,6 +32,8 @@ public abstract class Entity {
 
   // constant regulating the movement of entitites
   PhysicConstant model;
+  //acceleration far computing velocity
+  double acceleration ;
 
     //elapsed time necessary for movements
     long moveElapsed;
@@ -94,39 +96,24 @@ public abstract class Entity {
   }
 
   // checking where the entity is looking
-  @Deprecated
   public boolean stFaceLeft() {
     return facingDirection == Direction.LEFT;
   }
 
-  @Deprecated
   public boolean stFaceRight() {
     return facingDirection == Direction.RIGHT;
   }
 
   public void FaceLeft() {
-    facingDirection = Direction.RIGHT;
+    facingDirection = Direction.LEFT;
   }
 
   public void FaceRight() {
-    facingDirection = Direction.LEFT;
+    facingDirection = Direction.RIGHT;
   }
 
   public void Idle() {
     facingDirection = Direction.IDLE;
-  }
-
-  public void SetVelX(int VelX) {// Set the velocity at which the entity will move
-    if (velX == 0) {
-      velX = VelX;
-    } else {
-      velX = velX * 1.01f;
-    }
-
-  }
-
-  public void reSetVelX() {// Reset velocity to be called on button release
-    velX = 0;
   }
 
   // jump management
@@ -150,6 +137,10 @@ public abstract class Entity {
     if (Camera.centeredCoordinateY(this) > GameSession.gameSession.map.realHeight()) {
       y = 0;
     }
+  }
+
+  void updateVelocityX() {
+    this.velX = (float)  (PhysicConstant.maxVelX*(1 - Math.exp(-acceleration)));
   }
 
   // Actions

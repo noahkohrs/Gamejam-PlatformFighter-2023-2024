@@ -39,16 +39,14 @@ public class Player extends DynamicEntity {
   public LifeBar lifeBar;
   public Weapon weapon;
 
-
   long deltatime;
-
 
   public Player() throws IOException {
     this(1);
   }
 
   public Player(int team) throws IOException {
-    super(10, 10, team, "resources/winchester-4x6.png", 4, 6);
+    super(40, 40, team, "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
@@ -56,8 +54,8 @@ public class Player extends DynamicEntity {
     this.facingDirection = Direction.RIGHT;
   }
 
-  public void takeDamage(int ammount) {
-    lifeBar.life.removeHealth(ammount);
+  public void takeDamage(int amount) {
+    lifeBar.life.removeHealth(amount);
   }
 
   /*
@@ -65,14 +63,12 @@ public class Player extends DynamicEntity {
    */
   public void tick(long elapsed) {
     deltatime = elapsed;
-    // Movement.Walk(this);
-    // Movement.jump(this, elapsed);
-    weapon.tick(elapsed);
-    //System.out.println(y);
-    // if (!hitbox.inCollision(Direction.BOTTOM))
-    //   y=(int) (y-PhysicConstant.gravity);
     try {
+      Direction prevDir = facingDirection ;
+      this.facingDirection = Direction.IDLE ;
       this.automate.step(this);
+      if (facingDirection != prevDir) 
+        acceleration = 0.1 ;
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
@@ -83,28 +79,14 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
-    this.facingDirection = direction;
-    if (direction == Direction.RIGHT) {
-      this.SetVelX(5);
-      this.FaceRight();
-    } else if (direction == Direction.LEFT) {
-      this.SetVelX(5);
-      this.FaceLeft();
-    } else if (direction == Direction.UPPER) {
-        this.IsJumping = true;
-        // this.StartJump();
-      }
-       else {
-        this.reSetVelX();
-      }
-    }
-
-
-
+    acceleration += 0.04;
+    facingDirection = direction ;
+    if (direction == Direction.UPPER)
+      this.IsJumping = true;
+  }  
 
   @Override
   public void wizz() {
     System.out.println("wizz");
   }
-
 }

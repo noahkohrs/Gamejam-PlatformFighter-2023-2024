@@ -24,8 +24,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import info3.game.entity.Direction;
-import info3.game.entity.Movement;
 import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
@@ -101,14 +99,13 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = true;
-        GameSession.gameSession.player1.SetVelX(5);
+
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Q:
         //System.out.println("Qq");
         index = GameSession.gameSession.findKEy('q');
         GameSession.gameSession.keys.get(index).pressed = true;
-        GameSession.gameSession.player1.SetVelX(5);
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_S:
@@ -217,14 +214,6 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
-    if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('d')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('z')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('q')).pressed == false) {
-      GameSession.gameSession.player1.reSetVelX();
-     GameSession.gameSession.player1.Idle();
-    }
-    if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('1')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('2')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('3')).pressed == false) {
-      GameSession.gameSession.player2.reSetVelX();
-     GameSession.gameSession.player2.Idle();
-    }
   }
 
   @Override
