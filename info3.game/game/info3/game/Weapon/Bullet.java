@@ -1,8 +1,6 @@
 package info3.game.Weapon;
 
-
 import java.io.IOException;
-import info3.game.automate.Automate;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
@@ -13,28 +11,32 @@ public class Bullet extends DynamicEntity {
   private HitBox hitBox;
   private Direction dir;
 
-  public Bullet(int x, int y, Direction dir)
+  public Bullet(int x, int y, Direction dir, int team)
       throws IOException {
-    super(x, y, "resources/blocks/1.png", 1, 1);
-
-    this.dir = dir;
+    super(x, y, team, "resources/blocks/1.png", 1, 1);
     hitBox = new HitBox(0, 0, Block.BLOCK_SIZE, Block.BLOCK_SIZE, true, this);
+    this.dir = dir;
   }
 
   @Override
   public void tick(long elapsed) {
-    view.tick(elapsed);
-    if (!hitBox.inCollision(dir)) {
-      x += dir.x;
-      y += dir.y;
+    try {
+      automate.step(this);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 
-
   @Override
   public void move(Direction direction) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'move'");
+    if (!hitBox.inCollision(dir)) {
+      x += dir.x*8;
+      y += dir.y*8;
+    }
+    else{
+      kill();
+    }
   }
 
   @Override

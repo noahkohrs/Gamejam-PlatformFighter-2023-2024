@@ -1,6 +1,5 @@
-Player(Init){
+Player1(Init){
   * (Init)
-  | Key(f) ? Pop()    :(Init)
   | Key(z) ? Move(N)  :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
@@ -8,9 +7,31 @@ Player(Init){
   | True() ?          :(Init)
 }
 
-Player(Init){
+Player2(Init){
   * (Init)
+  | Key(1) ? Move(N)  :(Init)
+  | Key(4) ? Move(E)  :(Init)
+  | Key(3) ? Move(W)  :(Init)
+  | Key(2) ? Move(S)  :(Init)
+  | True() ?          :(Init)
+}
+
+Weapon(Init){
+  * (Init)
+  | Key(f) ? Pop()    :(Init)
+  | Key(r) ? Wizz()    :(Init)
   | True() ?   :(Init)
+}
+
+Bullet(Init){
+    * (Init)
+  | True() ? Move()  :(Init)
+}
+
+MovingPlatform(Init){
+  * (Init)
+  | GotPower() ? Move() :(Init)
+  | !GotPower() ? Turn() :(Init)
 }
 
 PowerUpBlock(Init){

@@ -38,19 +38,19 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
-  public int health = 4;
-  public int firePower = 1;
+  public Direction facingDirection;
 
   public Player() throws IOException {
     this(1);
   }
 
   public Player(int team) throws IOException {
-    super(10, 10, "resources/winchester-4x6.png", 4, 6);
+    super(10, 10, team, "resources/winchester-4x6.png", 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 22, 35, this);
     weapon = new Weapon(this);
+    this.facingDirection = Direction.RIGHT;
   }
 
   public void takeDamage(int ammount) {
@@ -63,11 +63,10 @@ public class Player extends DynamicEntity {
   public void tick(long elapsed) {
     // Movement.Walk(this);
     // Movement.jump(this, elapsed);
-    weapon.tick(elapsed);
     affectTor();
-    //System.out.println(y);
+    // System.out.println(y);
     if (!hitbox.inCollision(Direction.BOTTOM))
-      y=(int) (y-PhysicConstant.gravity);
+      y = (int) (y - PhysicConstant.gravity);
     try {
       this.automate.step(this);
     } catch (Exception e) {
@@ -78,7 +77,7 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
-
+    this.facingDirection = direction;
     if (direction == Direction.RIGHT) {
       this.SetVelX(5);
       this.FaceRight();
@@ -90,7 +89,7 @@ public class Player extends DynamicEntity {
 
     if (!hitbox.inCollision(direction)) {
       if (direction == Direction.UPPER) {
-        //this.IsJumping = true;
+        this.IsJumping = true;
         this.StartJump();
         Movement.jump(this, 1);
         y--;
@@ -106,11 +105,6 @@ public class Player extends DynamicEntity {
   @Override
   public void wizz() {
     System.out.println("wizz");
-  }
-
-  @Override
-  public void pop() {
-    weapon.shoot();
   }
 
 }

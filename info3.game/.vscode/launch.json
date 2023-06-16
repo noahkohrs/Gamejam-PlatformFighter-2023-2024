@@ -9,7 +9,8 @@
             "name": "LevelEditor",
             "request": "launch",
             "mainClass": "info3.level.editor.LevelEditor",
-            "projectName": "info3.game.given.2021"
+            "projectName": "info3.game.given.2021",
+            "args" : "game/info3/game/automate/example.gal"
         },
         {
             "type": "java",

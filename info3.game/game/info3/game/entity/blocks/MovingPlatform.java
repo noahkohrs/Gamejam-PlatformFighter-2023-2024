@@ -5,30 +5,29 @@ import java.io.IOException;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.TEAM;
 
 public class MovingPlatform extends DynamicEntity {
-    int velX ;
+    int velX;
     int minX, maxX;
-    int power, maxPower ;
-
+    int power, maxPower;
 
     public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, "resources/blocks/2.png", 1, 1);
-        maxPower = blockMove ;
-        power = maxPower ;
-        
+        super(x, y, TEAM.NONE, "resources/blocks/2.png", 1, 1);
+        maxPower = blockMove;
+        power = maxPower;
+
         velX = speed;
     }
 
     @Override
     public void tick(long elapsed) {
-        if (power <= 0) {
-            velX = -velX;
-            power = maxPower;
+        try {
+            automate.step(this);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        power -= Math.abs(velX);
-
-        x += velX;
     }
 
     @Override
@@ -45,8 +44,19 @@ public class MovingPlatform extends DynamicEntity {
 
     @Override
     public void move(Direction direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        x += velX;
+        power -= Math.abs(velX);
+    }
+
+    @Override
+    public boolean gotPower() {
+        return power >= 0;
+    }
+
+    @Override
+    public void turn() {
+        velX = -velX;
+        power = maxPower;
     }
 
 }

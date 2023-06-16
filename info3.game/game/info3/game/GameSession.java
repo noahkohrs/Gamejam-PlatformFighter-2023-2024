@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -21,7 +22,7 @@ import info3.game.entity.DynamicEntity;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
-import info3.game.entity.blocks.MalusBlock;
+import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
 
@@ -39,6 +40,10 @@ public class GameSession {
     List<DynamicEntity> entities;
     long testelapsed;
 
+    List<DynamicEntity> entities;
+    List<DynamicEntity> toAddEntities;
+    List<DynamicEntity> toRemoveEntities;
+
     List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
@@ -54,8 +59,10 @@ public class GameSession {
         loadKeys();
 
         entities = new ArrayList<DynamicEntity>();
-        player1 = new Player(1);
-        player2 = new Player(2);
+        toAddEntities = new ArrayList<DynamicEntity>();
+        toRemoveEntities = new ArrayList<DynamicEntity>();
+        player1 = new Player(TEAM.BLUE);
+        player2 = new Player(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
@@ -101,24 +108,34 @@ public class GameSession {
         }
     }
 
-    public void addEntities(DynamicEntity entity)
-    {
-        this.entities.add(0, entity);
+    public void addEntity(DynamicEntity entity) {
+        this.toAddEntities.add(0, entity);
     }
+
     public void removeEntity(DynamicEntity entity) {
-        this.entities.remove(entity);
+        this.toRemoveEntities.add(0, entity);
     }
 
     public void tick(long elapsed) {
         testelapsed += elapsed;
+        Iterator<DynamicEntity> removeIterator = toRemoveEntities.iterator();
+        while (removeIterator.hasNext()) {
+            DynamicEntity entity = removeIterator.next();
+            entities.remove(entity);
+            removeIterator.remove();
+        }
         if (testelapsed >= 24) {
-            player1.tick(testelapsed);
-            player2.tick(testelapsed);
             for (DynamicEntity entity : entities) {
                 entity.tick(testelapsed);
             }
             camera.tick(testelapsed);
             testelapsed = 0;
+        }
+        Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
+        while (addIterator.hasNext()) {
+            DynamicEntity entity = addIterator.next();
+            entities.add(entity);
+            addIterator.remove();
         }
     }
 
@@ -148,15 +165,24 @@ public class GameSession {
         return -1;
     }
 
-    public Automate findAutomate(String className) {
-        for (int i = 0; i < this.allAutomates.size(); i++) {
-            if (this.allAutomates.get(i).className.equals(className)) {
+    public Automate findAutomate(Entity entity) {
+        String className = entity.getClass().getSimpleName();
+        for (Automate automate : this.allAutomates) {
+            if (automate.className.equals(className)) {
                 // System.out.println("Found");
-                return this.allAutomates.get(i);
+                return automate;
+            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+                if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
+                    return automate;
+                } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
+                    return automate;
+                }
             }
+
         }
-        return null;
+        return defaultAutomate;
     }
+
 
     public void loadAutomates(String GalFile) throws Exception {
         List<Transitions> trans = new ArrayList<Transitions>();

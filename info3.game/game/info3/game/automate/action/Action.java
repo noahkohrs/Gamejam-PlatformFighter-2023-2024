@@ -6,7 +6,7 @@ public abstract class Action {
     public String Direction;
 
     public Action(){
-        this.Direction="F";
+        this.Direction="NONE";
     }
     
     public Action(String Direction) {
