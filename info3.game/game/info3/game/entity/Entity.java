@@ -93,20 +93,6 @@ public abstract class Entity {
         return view.height;
     }
 
-    protected void affectTor() {
-        if (Camera.centeredCoordinateX(this) < 0) {
-            x = GameSession.gameSession.map.realWidth() - getWidth();
-        }
-        if (Camera.centeredCoordinateX(this) > GameSession.gameSession.map.realWidth()) {
-            x = 0;
-        }
-        if (Camera.centeredCoordinateY(this) < 0) {
-            y = GameSession.gameSession.map.realHeight() - getHeight();
-        }
-        if (Camera.centeredCoordinateY(this) > GameSession.gameSession.map.realHeight()) {
-            y = 0;
-        }
-    }
 
   //checking where the entity is looking
   public boolean stFaceLeft(){
@@ -145,7 +131,6 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
   // public void StartJump(){
   //   velY = -1;
 
-  }
 
     protected void affectTor() {
         if (Camera.centeredCoordinateX(this) < 0) {
