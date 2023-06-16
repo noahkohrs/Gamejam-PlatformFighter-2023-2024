@@ -25,7 +25,9 @@ import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.Mexican;
 import info3.game.entity.Player;
+import info3.game.entity.Raptor;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MovingPlatform;
 
@@ -61,7 +63,7 @@ public class GameSession {
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
-        player1 = new Player(TEAM.BLUE);
+        player1 = new Mexican(TEAM.BLUE);
         player2 = new Player(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
@@ -172,7 +174,7 @@ public class GameSession {
             if (automate.className.equals(className)) {
                 // System.out.println("Found");
                 return automate;
-            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+            } else if (entity instanceof Player && automate.className.startsWith("Player")) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
