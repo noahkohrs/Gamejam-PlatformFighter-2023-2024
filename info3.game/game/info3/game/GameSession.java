@@ -31,6 +31,8 @@ public class GameSession {
     public Game game;
     public static GameSession gameSession;
 
+    private long updateTime;
+
     public Player player1;
     public Player player2;
 
@@ -131,6 +133,7 @@ public class GameSession {
             entities.add(entity);
             addIterator.remove();
         }
+
     }
 
     public void paint(Graphics g) {

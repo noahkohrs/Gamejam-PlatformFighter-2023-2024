@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 
+import info3.game.GameSession;
 import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
@@ -32,7 +33,8 @@ public abstract class Entity {
   // constant regulating the movement of entitites
   PhysicConstant model;
 
-  long moveElapsed;
+    //elapsed time necessary for movements
+    long moveElapsed;
 
   public Automate automate;
   HitBox hitbox;
@@ -131,11 +133,9 @@ public abstract class Entity {
   public boolean statusJump() {
     return IsJumping;
   }
+  // public void StartJump(){
+  //   velY = -1;
 
-  public void StartJump() {
-    velY = -1;
-
-  }
 
   protected void affectTor() {
     if (Camera.centeredCoordinateX(this) < 0) {
