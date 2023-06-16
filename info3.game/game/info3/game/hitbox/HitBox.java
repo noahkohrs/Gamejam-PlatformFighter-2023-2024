@@ -200,9 +200,24 @@ public class HitBox {
                 }
             }
         } else if (dir == Direction.UPPER) {
+            if (playerYRight <= getTopLeftY() && playerYRight >= getTopLeftY(newX)) {
+                if (playerXLeft <= getBottomRightY() && playerXRight >= getBottomRightY()) {
+                    return true;
+                }
+                if (playerXRight <= getTopLeftY() && playerXLeft >= getTopLeftY()) {
+                    return true;
+                }
+            }
 
         } else if (dir == Direction.BOTTOM) {
-
+            if (playerYLeft <= getBottomRightY() && playerYRight >= getBottomRightY(newX)) {
+                if (playerXLeft <= getBottomRightY() && playerXRight >= getBottomRightY()) {
+                    return true;
+                }
+                if (playerXRight <= getTopLeftY() && playerXLeft >= getTopLeftY()) {
+                    return true;
+                }
+            }
         }
 
         return false;
