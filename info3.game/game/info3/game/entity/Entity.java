@@ -32,6 +32,7 @@ public abstract class Entity {
     //constant regulating the movement of entitites
     PhysicConstant model;
 
+    //elapsed time necessary for movements
     long moveElapsed;
 
     public Automate automate;
