@@ -76,7 +76,7 @@ public class ParserToAutomate implements IVisitor {
     public Object visit(BinaryOp operator, Object left, Object right) {
         Automate currentAutomate=this.autos.get(this.autos.size()-1);
         Transitions currentTransition=currentAutomate.trans.get(currentAutomate.trans.size()-1);
-        if(currentTransition!=null)
+        if(currentTransition.cond!=null)
             return null;
         if (left instanceof UnaryOp)
             left = ((UnaryOp) left).operand;

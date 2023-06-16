@@ -72,10 +72,12 @@ public class GameSession {
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key)
-                    keys.add((Key) transition.cond);
+                if (transition.cond instanceof Key){
+                    if(findKEy(((Key)transition.cond).letter)==-1)
+                        keys.add((Key) transition.cond);
+                }
                 else if(transition.cond instanceof Binary){
-
+                    keys.addAll(((Binary)transition.cond).loadKeys());
                 }
             }
         }

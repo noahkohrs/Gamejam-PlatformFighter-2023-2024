@@ -32,6 +32,7 @@ public class Binary extends Condition{
 
     @Override
     public boolean eval(Entity e) {
+        
         switch(this.operator){
             case "&":
                 return right.eval(e) && left.eval(e);
@@ -44,10 +45,15 @@ public class Binary extends Condition{
 
     public List<Key> loadKeys(){
         List<Key> keys=new ArrayList<>();
-        // if(this.right instanceof Key)
-        //     if(GameSession.gameSession.findKEy((Key)this.right.))
-        //     keys.add((Key)right);
-        // while()
+        if(this.left instanceof Key)
+            if(GameSession.gameSession.findKEy(((Key)this.left).letter)==-1)
+                keys.add((Key)left);
+       if(this.right instanceof Binary){
+            keys.addAll(((Binary)this.right).loadKeys());
+        }
+        if(this.right instanceof Key)
+            if(GameSession.gameSession.findKEy(((Key)this.right).letter)==-1)
+                keys.add((Key)right);
         return keys;
     }
     
