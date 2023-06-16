@@ -182,7 +182,7 @@ public class HitBox {
             case LEFT:
                 if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
                     // all case in one
-                    if (getTopLeftY() >= playerYLeft || getBottomRightY() >= playerYLeft)
+                    if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
                         return true;
                 }
                 break;
@@ -190,7 +190,7 @@ public class HitBox {
             case BOTTOM:
                 if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY)) {
                     // all case in one
-                    if (getTopLeftX() >= playerXLeft || getBottomRightX() >= playerXLeft)
+                    if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX))
                         return true;
                 }
                 break;
