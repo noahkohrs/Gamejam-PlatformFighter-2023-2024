@@ -5,12 +5,12 @@ public enum Direction {
     RIGHT(1,0),
     UPPER(0,-1),
     BOTTOM(0,1),
-    IDLE(0, 0),
 
     LEFT_TOP(0, 0),
     LEFT_BOTTOM(0, 0),
     RIGHT_TOP(0, 0),
     RIGHT_BOTTOM(0, 0),
+    IDLE(0, 0),
 
     EMPTY(0, 0);
 

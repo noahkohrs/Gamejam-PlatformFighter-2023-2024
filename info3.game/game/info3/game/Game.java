@@ -34,6 +34,7 @@ import info3.game.sound.RandomFileInputStream;
 
 public class Game {
 
+
 	public static Game game;
 
 	public static void main(String args[]) throws Exception {
@@ -56,7 +57,7 @@ public class Game {
 	Game(String GalFile) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-				m_game_session = new GameSession(this, "resources/maps/basicSandbox.json",GalFile);
+		m_game_session = new GameSession(this, "level.json",GalFile);
 		
 
 		// creating a listener for all the events

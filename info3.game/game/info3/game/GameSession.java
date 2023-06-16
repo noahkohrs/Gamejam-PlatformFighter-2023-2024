@@ -62,6 +62,7 @@ public class GameSession {
         keys = new ArrayList<>();
         loadKeys();
 
+
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
@@ -181,7 +182,7 @@ public class GameSession {
             if (automate.className.equals(className)) {
                 // System.out.println("Found");
                 return automate;
-            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+            } else if (entity instanceof Player && automate.className.startsWith("Player")) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
