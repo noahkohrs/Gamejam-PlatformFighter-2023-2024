@@ -38,7 +38,6 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
-  public Direction facingDirection;
 
   public Player() throws IOException {
     this(1);
@@ -82,11 +81,20 @@ public class Player extends DynamicEntity {
       this.SetVelX(5);
       this.FaceRight();
     }
-    if (direction == Direction.LEFT) {
+    else if (direction == Direction.LEFT) {
       this.SetVelX(5);
       this.FaceLeft();
+    } else {
+      this.reSetVelX();
+      Idle();
     }
-
+    x += direction.x;
+    y += direction.y;
+    while (hitbox.inCollision(direction)) {
+      x-=direction.x;
+      y-=direction.y;
+    }
+      
     if (!hitbox.inCollision(direction)) {
       if (direction == Direction.UPPER) {
         this.IsJumping = true;
@@ -94,10 +102,7 @@ public class Player extends DynamicEntity {
         Movement.jump(this, 1);
         y--;
         // Movement.Walk(this);
-      } else {
-        x += direction.x;
-        y += direction.y;
-      }
+      } 
     }
 
   }

@@ -10,6 +10,7 @@ public enum Direction {
     LEFT_BOTTOM(0, 0),
     RIGHT_TOP(0, 0),
     RIGHT_BOTTOM(0, 0),
+    IDLE(0, 0),
 
     EMPTY(0, 0);
 
