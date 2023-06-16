@@ -177,47 +177,19 @@ public class HitBox {
         }
 
         // Check if collision in between current and new position
-        if (dir == Direction.RIGHT) {
-            if (playerXLeft >= getBottomRightX() && playerXLeft <= getBottomRightX(newX)) {
-                // Y Haut --> Bas
-                if (playerYLeft <= getBottomRightY() && playerYRight >= getBottomRightY()) {
-                    return true;
+        switch (dir) {
+            case RIGHT:
+            case LEFT:
+                if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
+                    // all case in one
+                    if (getTopLeftY() >= playerYLeft || getBottomRightY() >= playerYLeft)
+                        return true;
                 }
-                // Y Bas --> Haut
-                if (playerYRight <= getTopLeftY() && playerYLeft >= getTopLeftY()) {
-                    return true;
-                }
-            }
-        } else if (dir == Direction.LEFT) {
-            // X Gauche --> Droite
-            if (playerXRight <= getTopLeftX() && playerXRight >= getTopLeftX(newX)) {
-                if (playerYLeft <= getBottomRightY() && playerYRight >= getBottomRightY()) {
-                    return true;
-                }
-                // Y Bas --> Haut
-                if (playerYRight <= getTopLeftY() && playerYLeft >= getTopLeftY()) {
-                    return true;
-                }
-            }
-        } else if (dir == Direction.UPPER) {
-            if (playerYRight <= getTopLeftY() && playerYRight >= getTopLeftY(newX)) {
-                if (playerXLeft <= getBottomRightY() && playerXRight >= getBottomRightY()) {
-                    return true;
-                }
-                if (playerXRight <= getTopLeftY() && playerXLeft >= getTopLeftY()) {
-                    return true;
-                }
-            }
+                break;
+            case UPPER:
+            case BOTTOM:
+                break;
 
-        } else if (dir == Direction.BOTTOM) {
-            if (playerYLeft <= getBottomRightY() && playerYRight >= getBottomRightY(newX)) {
-                if (playerXLeft <= getBottomRightY() && playerXRight >= getBottomRightY()) {
-                    return true;
-                }
-                if (playerXRight <= getTopLeftY() && playerXLeft >= getTopLeftY()) {
-                    return true;
-                }
-            }
         }
 
         return false;

@@ -37,8 +37,8 @@ public class Bullet extends DynamicEntity {
   @Override
   public void move(Direction direction) {
     if (!hitBox.inCollision(dir)) {
-      int nextX = x + dir.x*30;
-      int nextY = y + dir.y*30;
+      int nextX = x + dir.x*10;
+      int nextY = y + dir.y*10;
       if(hitBox.vectorInPLayerCollision(nextX,nextY, dir)){
         System.out.println("Touched player");
         kill();
