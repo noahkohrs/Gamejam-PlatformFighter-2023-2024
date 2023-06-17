@@ -84,10 +84,7 @@ public class Map {
             for (int j = 0; j < height; j++)
             if (fixedMap[i][j] != null) {
                     Entity entity = fixedMap[i][j];
-                    if ((entity.x + entity.getWidth() < camera.camX || entity.x > camera.camX + camera.camWidth
-                        || entity.y + entity.getHeight() < camera.camY || entity.y > camera.camY + camera.camHeight)
-                        && Opti) continue;
-                    fixedMap[i][j].view.paint(g);
+                    entity.view.paint(g);
             }
         g.setColor(Color.yellow);
         Camera.drawRect(g, 0, 0, realWidth(), realHeight());
