@@ -11,6 +11,7 @@ import info3.game.entity.Entity;
 public class Camera {
 
     public static boolean debugMode = true;
+    private static boolean Opti = true;
 
     void toggleDebugMode() {
         debugMode = !debugMode;
@@ -116,6 +117,12 @@ public class Camera {
     }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {
+        if ((x + Math.abs(width) < camera.camX || x > camera.camX + camera.camWidth
+                || y + Math.abs(height) < camera.camY || y > camera.camY + camera.camHeight)
+                && Opti)
+            return ;
+        x += Math.max(0, -width);
+        y += Math.max(0, -height);
         if (debugMode) {
             g.drawImage(img, x, y, width, height, null);
         } else {
@@ -128,9 +135,35 @@ public class Camera {
 
     }
 
+    static public void drawEntity(Entity e, Graphics g, boolean invertedX, boolean invertedY) {
+        BufferedImage img = e.getImage();
+        if (invertedX && invertedY) {
+            drawImage(g, img, e.x, e.y, -img.getWidth(), -img.getHeight());
+        } else if (invertedX) {
+            drawImage(g, img, e.x, e.y, -img.getWidth(), img.getHeight());
+        } else if (invertedY) {
+            drawImage(g, img, e.x, e.y, img.getWidth(), -img.getHeight());
+        } else {
+            drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
+        }
+    }
+
     static public void drawEntity(Entity e, Graphics g) {
         BufferedImage img = e.getImage();
         drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
+    }
+
+    static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height, boolean invertedX,
+            boolean invertedY) {
+        if (invertedX && invertedY) {
+            drawImage(g, img, x, y, -width, -height);
+        } else if (invertedX) {
+            drawImage(g, img, x, y, -width, height);
+        } else if (invertedY) {
+            drawImage(g, img, x, y, width, -height);
+        } else {
+            drawImage(g, img, x, y, width, height);
+        }
     }
 
     static public void drawRect(Graphics g, int x, int y, int width, int height) {

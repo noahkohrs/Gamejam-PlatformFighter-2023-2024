@@ -79,11 +79,13 @@ public class Map {
         return this.fixedMap[x][y];
     }
 
-    void paint(Graphics g) {
+    void paint(Graphics g, Camera camera, boolean Opti) {
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
-                if (fixedMap[i][j] != null)
-                    fixedMap[i][j].view.paint(g);
+            if (fixedMap[i][j] != null) {
+                    Entity entity = fixedMap[i][j];
+                    entity.view.paint(g);
+            }
         g.setColor(Color.yellow);
         Camera.drawRect(g, 0, 0, realWidth(), realHeight());
     }
