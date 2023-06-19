@@ -1,4 +1,4 @@
-package info3.game.Weapon;
+package info3.game.weapon;
 
 import java.awt.Graphics;
 import java.io.IOException;
