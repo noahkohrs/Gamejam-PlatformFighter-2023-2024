@@ -46,9 +46,9 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team) throws IOException {
-    this(team,"resources/winchester-4x6.png");
+    this(team, "resources/winchester-4x6.png");
   }
-  
+
   public Player(int team, String filename) throws IOException {
     super(10, 10, team, filename, 4, 6);
     view = new PlayerView(filename, 4, 6, this);
@@ -113,10 +113,25 @@ public class Player extends DynamicEntity {
   }
 
   @Override
-  public void cell(Direction direction, String category) {
-    if( category.equals("P")){
-      System.out.println("cell");
+  public boolean cell(Direction direction, String category) {
+    if (category.equals("P")) {
+
+      Block[] blocksBottom = hitbox.recupBlockMap();
+      if (blocksBottom[0] != null) {
+        System.out.println("block[0]" + blocksBottom[0].getClass().getSimpleName());
+
+      }
+      if (blocksBottom[1] != null) {
+        System.out.println("block[1]" + blocksBottom[1].getClass().getSimpleName());
+      }
+
+      return true;
     }
+    return false;
+  }
+
+  @Override
+  public void pick() {
   }
 
 }

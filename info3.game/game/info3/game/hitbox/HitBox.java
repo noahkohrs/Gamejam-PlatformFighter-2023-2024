@@ -188,7 +188,6 @@ public class HitBox {
         return false;
     }
 
-
     // Need to check in function of Direction after proto
     private boolean checkMapCollision(int x, int y, Direction dir) {
         if (x < 0)
@@ -217,6 +216,21 @@ public class HitBox {
         }
 
         return false;
+    }
+
+    public Block[] recupBlockMap() {
+
+        int x = (entity.x);
+        int y = (entity.y + offsetY + height);
+
+        int blockX = x / Block.BLOCK_SIZE;
+        int blockY = y / Block.BLOCK_SIZE;
+
+        Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY);
+        Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + 1, blockY);
+        
+        Block[] blocks = { b1, b2 };
+        return blocks;
     }
 
 }

@@ -21,7 +21,7 @@ public class Map {
     private int width;
     private int height;
     // Tab of blocks
-    Block fixedMap[][];
+    public Block fixedMap[][];
 
     public Map(String filename) throws IOException {
         loadTiles(filename);

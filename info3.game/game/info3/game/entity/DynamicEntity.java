@@ -62,4 +62,10 @@ public class DynamicEntity extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cell'");
     }
+
+    @Override
+    public void pick() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pick'");
+    }
 }

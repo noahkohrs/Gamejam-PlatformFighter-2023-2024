@@ -1,10 +1,10 @@
 Player1(Init){
   * (Init)
-  | Cell(B, P) ? Pick() :(Init)
   | Key(z) ? Move(N)  :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
+  | Cell(S, P) ? Pick() :(Init)
   | Key(w) ?          :(Ra)
   | True() ?          :(Init)
 
@@ -15,11 +15,11 @@ Player1(Init){
 
 Player2(Init){
   * (Init)
-  | Cell(B, P) ? Pick() :(Init)
   | Key(1) ? Move(N)  :(Init)
   | Key(4) ? Move(E)  :(Init)
   | Key(3) ? Move(W)  :(Init)
   | Key(2) ? Move(S)  :(Init)
+  | Cell(S, P) ? Pick() :(Init)
   | True() ?          :(Init)
 }
 

@@ -162,11 +162,12 @@ public abstract class Entity {
 
   public abstract void egg(Entity type);
 
-  public abstract void cell(Direction direction, String category);
+  public abstract boolean cell(Direction direction, String category);
+
+  public abstract void pick();
 
   // Conditions
 
     public abstract boolean gotPower() ;
-    public abstract boolean cell(Direction direction,String category);
     
 }

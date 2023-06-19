@@ -166,18 +166,6 @@ public class Camera {
         }
     }
 
-    static public void drawEntity(Entity e, Graphics g, boolean invertedX, boolean invertedY) {
-        BufferedImage img = e.getImage();
-        if (invertedX && invertedY) {
-            drawImage(g, img, e.x + img.getWidth(), e.y + img.getHeight(), -img.getWidth(), -img.getHeight());
-        } else if (invertedX) {
-            drawImage(g, img, e.x + img.getWidth(), e.y, -img.getWidth(), img.getHeight());
-        } else if (invertedY) {
-            drawImage(g, img, e.x, e.y + img.getHeight(), img.getWidth(), -img.getHeight());
-        } else {
-            drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
-        }
-    }
 
     static public void drawRect(Graphics g, int x, int y, int width, int height) {
         if (debugMode) {
