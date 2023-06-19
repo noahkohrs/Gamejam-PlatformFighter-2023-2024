@@ -25,10 +25,10 @@ public class Mexican extends Player {
 
     @Override
     public void wizz(String direction) {
-        System.out.println("wizz mexican avec movingDirection:"+movingDirection.toString());
+        System.out.println("wizz mexican avec movingDirection:"+facingDirection.toString());
         raptorCooldown = 1000;
         try {
-            new Raptor(this.x, this.y, this.team, "resources/raptor-2x8.png", 2, 8,movingDirection);
+            new Raptor(this.x, this.y, this.team, "resources/raptor-2x8.png", 2, 8,facingDirection);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,12 +36,12 @@ public class Mexican extends Player {
 
     @Override
     public boolean gotPower() {
-        System.out.print(raptorCooldown);
         return raptorCooldown <= 0;
     }
 
     @Override
     public boolean MyDir(String direction){
-        return movingDirection.equals(Direction.fromString(direction));
+        System.out.println(direction+" "+facingDirection.toString());
+        return facingDirection.equals(Direction.fromString(direction));
     }
 }
