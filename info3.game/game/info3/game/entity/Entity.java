@@ -186,6 +186,7 @@ public abstract class Entity {
 
   // Conditions
 
-  public abstract boolean gotPower();
-
+    public abstract boolean gotPower() ;
+    public abstract boolean cell(Direction direction,String category);
+    
 }

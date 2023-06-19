@@ -34,7 +34,7 @@ public class Movement {
         }
     }
 
-    public static void affectGravity(Player E) {
+    public static void affectGravity(Entity E) {
         E.updateJumpVelocity();
         E.updateVelocityY();
         E.y -= E.velY;
