@@ -46,5 +46,10 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'Turn'");
     }
-    
+
+     @Override
+    public void egg(Entity type) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+    }
 }

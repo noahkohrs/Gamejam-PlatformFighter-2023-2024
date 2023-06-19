@@ -34,6 +34,7 @@ import info3.game.sound.RandomFileInputStream;
 
 public class Game {
 
+
 	public static Game game;
 
 	public static void main(String args[]) throws Exception {
@@ -58,6 +59,7 @@ public class Game {
 		// in an Model-View-Controller pattern (MVC)
 		m_game_session = new GameSession(this, "level.json",GalFile);
 		
+
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -65,6 +67,7 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		
 
 
 
@@ -125,7 +128,7 @@ public class Game {
 	}
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
+	private String[] m_musicNames = new String[] { "BGSOUND" };
 
 	private long m_textElapsed;
 

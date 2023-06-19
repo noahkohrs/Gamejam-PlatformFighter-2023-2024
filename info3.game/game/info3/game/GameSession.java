@@ -6,30 +6,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
-import info3.game.automata.ast.Transition;
+import info3.game.automata.ast.BinaryOp;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
 import info3.game.automate.State;
 import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
-import info3.game.automate.condition.True;
+import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
+import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
 import info3.game.entity.TEAM;
+import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.PowerUpBlock;
+
+
 
 public class GameSession {
     public Game game;
     public static GameSession gameSession;
+
+    private long updateTime;
 
     public Player player1;
     public Player player2;
@@ -64,14 +70,18 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
-
     }
 
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key)
-                    keys.add((Key) transition.cond);
+                if (transition.cond instanceof Key){
+                    if(findKEy(((Key)transition.cond).letter)==-1)
+                        keys.add((Key) transition.cond);
+                }
+                else if(transition.cond instanceof Binary){
+                    keys.addAll(((Binary)transition.cond).loadKeys());
+                }
             }
         }
     }
@@ -87,7 +97,7 @@ public class GameSession {
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags);
+            IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags);
         }
     }
 
@@ -97,6 +107,10 @@ public class GameSession {
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+            case "PowerUpBlock" :
+                return new PowerUpBlock(x, y, 1, 1);
+            case "MalusBlock" :
+                return new MalusBlock(x, y, 1, 1);
             default:
                 return null;
         }
@@ -131,6 +145,7 @@ public class GameSession {
             entities.add(entity);
             addIterator.remove();
         }
+
     }
 
     public void paint(Graphics g) {
@@ -150,7 +165,7 @@ public class GameSession {
         return map.realHeight();
     }
 
-    int findKEy(char letter) {
+    public int findKEy(char letter) {
         for (int i = 0; i < this.keys.size(); i++) {
             if (this.keys.get(i).letter == letter) {
                 // System.out.println("Found");
@@ -166,7 +181,7 @@ public class GameSession {
             if (automate.className.equals(className)) {
                 // System.out.println("Found");
                 return automate;
-            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+            } else if (entity instanceof Player && automate.className.startsWith("Player")) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
@@ -193,5 +208,4 @@ public class GameSession {
         ast.accept(parser);
         allAutomates = parser.autos;
     }
-
 }

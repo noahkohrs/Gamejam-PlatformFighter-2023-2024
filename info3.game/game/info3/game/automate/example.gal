@@ -1,6 +1,6 @@
 Player1(Init){
   * (Init)
-  | Key(z) ? Move(N)  :(Init)
+  | Key(z) & True() & True()?  Move(N):(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
@@ -27,8 +27,53 @@ Bullet(Init){
     * (Init)
   | True() ? Move()  :(Init)
 }
+
 MovingPlatform(Init){
   * (Init)
   | GotPower() ? Move() :(Init)
   | !GotPower() ? Turn() :(Init)
+}
+
+PowerUpBlock(Init){
+  * (Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
+  | True()? :(Init)
+
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+}
+
+MalusBlock(Init){
+  * (Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
+  | True()? :(Init)
+
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
 }

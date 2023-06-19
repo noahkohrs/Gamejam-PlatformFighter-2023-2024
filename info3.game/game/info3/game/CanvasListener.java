@@ -24,7 +24,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import info3.game.entity.Direction;
 import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
@@ -40,10 +39,16 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
+    System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
+    System.out.println("Mouse pressed: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
     System.out.println("Mouse pressed: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
@@ -54,10 +59,16 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse released: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
+    System.out.println("Mouse released: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
+    System.out.println("Mouse entered: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
     System.out.println("Mouse entered: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
@@ -68,10 +79,16 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse exited: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
+    System.out.println("Mouse exited: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
   }
 
   @Override
   public void mouseDragged(MouseEvent e) {
+    System.out.println("Mouse dragged: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
     System.out.println("Mouse dragged: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
@@ -82,10 +99,14 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse moved: (" + e.getX() + "," + e.getY() + ")");
     System.out.println("   modifiers=" + e.getModifiersEx());
     System.out.println("   buttons=" + e.getButton());
+    System.out.println("Mouse moved: (" + e.getX() + "," + e.getY() + ")");
+    System.out.println("   modifiers=" + e.getModifiersEx());
+    System.out.println("   buttons=" + e.getButton());
   }
 
   @Override
   public void keyTyped(KeyEvent e) {
+    System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
     System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
   }
 
@@ -100,6 +121,7 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = true;
+
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Q:
@@ -160,11 +182,13 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = false;
+        // GameSession.gameSession.player1.SetVelX(5);
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Q:
         index = GameSession.gameSession.findKEy('q');
         GameSession.gameSession.keys.get(index).pressed = false;
+        // GameSession.gameSession.player1.SetVelX(5);
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_S:
@@ -176,7 +200,6 @@ public class CanvasListener implements GameCanvasListener {
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = false;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        GameSession.gameSession.player1.IsJumping = false;
         break;
       case KeyEvent.VK_F:
         index = GameSession.gameSession.findKEy('f');
@@ -212,22 +235,6 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void tick(long elapsed) {
     m_game.tick(elapsed);
-    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('d')).pressed == true){
-    //   GameSession.gameSession.player1.SetVelX(5);
-    //   GameSession.gameSession.player1.FaceRight();
-    // }
-    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('q')).pressed == true){
-    //   GameSession.gameSession.player1.SetVelX(5);
-    //   GameSession.gameSession.player1.FaceLeft();
-    // }
-    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('z')).pressed == true){
-    //   GameSession.gameSession.player1.IsJumping = true;
-    //   GameSession.gameSession.player1.StartJump();
-    // }
-    // if(GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('d')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('z')).pressed == false && GameSession.gameSession.keys.get(GameSession.gameSession.findKEy('q')).pressed == false) {
-    //   GameSession.gameSession.player1.reSetVelX();
-    //  GameSession.gameSession.player1.Idle();
-    // }
   }
 
   @Override

@@ -2,8 +2,6 @@ package info3.game.entity.blocks;
 
 import java.io.IOException;
 
-import info3.game.automate.Automate;
-import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;

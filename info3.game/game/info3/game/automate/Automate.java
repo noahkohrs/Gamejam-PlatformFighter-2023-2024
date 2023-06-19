@@ -6,6 +6,7 @@ import java.util.Random;
 
 import info3.game.automate.action.Action;
 import info3.game.automate.condition.Condition;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 
 public class Automate {
@@ -41,6 +42,13 @@ public class Automate {
             Condition cond = transition.cond;
             Action action = transition.action;
             if(source==e.state && cond.eval(e)){
+                if(action!=null){
+                //else do the action of the transition.
+                String direction=action.Direction;
+                action.exec(e, direction);
+                e.state=dest;
+                }
+                else{
                 //If we want to go to a random state
                 if(dest.name.equals("_"))
                     {
@@ -50,16 +58,15 @@ public class Automate {
                         }
                         e.state=states.get(randint);
                     }
+                else if(dest.name.equals(""))
+                    ((DynamicEntity) e).kill();
                 else
                     e.state=dest;
                 //If there is no action, just exit the function
-                if(action==null)
-                    return;
-                //else do the action of the transition.
-                String direction=action.Direction;
-                action.exec(e, direction);
+                }
                 return;
             }
+        
         }
         System.out.println("State unescapable\n");
     }
