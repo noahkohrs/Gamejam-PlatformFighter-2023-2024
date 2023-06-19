@@ -26,6 +26,7 @@ import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
+import info3.game.automate.condition.GotPower;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 
@@ -110,5 +111,4 @@ public class Player extends DynamicEntity {
   public void wizz() {
     System.out.println("wizz");
   }
-
 }

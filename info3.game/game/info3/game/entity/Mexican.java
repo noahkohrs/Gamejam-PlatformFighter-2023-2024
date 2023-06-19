@@ -3,6 +3,7 @@ package info3.game.entity;
 import java.io.IOException;
 
 public class Mexican extends Player {
+    int raptorCooldown;
 
     public Mexican() throws IOException {
         super();
@@ -11,17 +12,42 @@ public class Mexican extends Player {
     public Mexican(int team) throws IOException {
         super(team);
     }
-    public Mexican(int team,String filename) throws IOException {
-        super(team,filename);
+
+    public Mexican(int team, String filename) throws IOException {
+        super(team, filename);
     }
+
     @Override
-    public void wizz(){
+    public void tick(long elapsed) {
+        raptorCooldown-=elapsed;
+        // Movement.Walk(this);
+        // Movement.jump(this, elapsed);
+        affectTor();
+        // System.out.println(y);
+        if (!hitbox.inCollision(Direction.BOTTOM))
+            y = (int) (y - PhysicConstant.gravity);
+        try {
+            this.automate.step(this);
+        } catch (Exception e) {
+            System.out.println("Normally we should not reach here");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void wizz() {
         System.out.println("wizz mexican");
+        raptorCooldown = 1000;
         try {
             new Raptor(this.x, this.y, this.team, "resources/raptor-2x8.png", 2, 8);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
+    @Override
+    public boolean gotPower() {
+        return raptorCooldown <= 0;
+    }
+
 }

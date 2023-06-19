@@ -46,5 +46,11 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'Turn'");
     }
+
+    @Override
+    public boolean cell(Direction direction, String category) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'cell'");
+    }
     
 }

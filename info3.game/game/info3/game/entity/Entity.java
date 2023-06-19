@@ -34,7 +34,7 @@ public abstract class Entity {
     long moveElapsed;
 
     public Automate automate;
-    HitBox hitbox;
+    public HitBox hitbox;
     public EntityView view;
     public int team ;
 
@@ -157,6 +157,6 @@ public void SetVelX(int VelX){//Set the velocity at which the entity will move
     // Conditions 
 
     public abstract boolean gotPower() ;
-
+    public abstract boolean cell(Direction direction,String category);
     
 }
