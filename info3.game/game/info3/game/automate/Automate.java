@@ -32,46 +32,42 @@ public class Automate {
         this.className = className;
     }
 
-    public void step(Entity e) throws Exception{
-        Random random=new Random();
-        for(int i=0;i<trans.size();i++){
-            Transitions transition= trans.get(i) ;
-            State source =  transition.src;
+    public void step(Entity e) throws Exception {
+        Random random = new Random();
+        for (int i = 0; i < trans.size(); i++) {
+            Transitions transition = trans.get(i);
+            State source = transition.src;
             State dest = transition.dest;
-            if(source==null || dest==null){
+            if (source == null || dest == null) {
                 System.out.println("Etat without transition");
                 return;
             }
             Condition cond = transition.cond;
             Action action = transition.action;
-            if(source==e.state && cond.eval(e)){
-                if(action!=null){
-                //else do the action of the transition.
-                String direction=action.Direction;
-                action.exec(e, direction);
-                e.state=dest;
+            if (source == e.state && cond.eval(e)) {
+                if (action != null) {
+                    // else do the action of the transition.
+                    String direction = action.Direction;
+                    action.exec(e, direction);
                 }
-                else{
-                //If we want to go to a random state
-                if(dest.name.equals("_"))
-                    {
-                        int randint=random.nextInt(this.states.size());
-                        while(states.get(randint).name.equals("_")){
-                            randint=random.nextInt(this.states.size());
-                        }
-                        e.state=states.get(randint);
+                e.state = dest;
+                // If we want to go to a random state
+                if (dest.name.equals("_")) {
+                    int randint = random.nextInt(this.states.size());
+                    while (states.get(randint).name.equals("_")) {
+                        randint = random.nextInt(this.states.size());
                     }
-                else
-                    e.state=dest;
-                //If there is no action, just exit the function
+                    e.state = states.get(randint);
+                }
+                if (dest.name.equals("")) {
+                    ((DynamicEntity) e).kill();
                 }
                 return;
             }
-        
+
         }
         System.out.println("State unescapable\n");
     }
-
 
     public State existe(String stateName) {
         // If there are no states, we create the ArrayList and return the stete of the

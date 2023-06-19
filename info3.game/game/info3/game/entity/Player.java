@@ -39,8 +39,6 @@ public class Player extends DynamicEntity {
   public LifeBar lifeBar;
   public Weapon weapon;
 
-  long deltatime;
-
   public Player() throws IOException {
     this(1);
   }
@@ -76,7 +74,6 @@ public class Player extends DynamicEntity {
    */
   public void tick(long elapsed) {
     jumpCooldown -= elapsed;
-    deltatime = elapsed;
     try {
       movingDirection = Direction.IDLE ;
       this.automate.step(this);

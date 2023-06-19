@@ -10,8 +10,8 @@ Player1(Init){
   | True() ?          :(Init)
 
   *(Ra)
-  |GotPower() ? Wizz():(Init)
-  |!GotPower()?       :(Init)
+  | GotPower() ? Wizz():(Init)
+  | !GotPower()?       :(Init) 
 }
 
 Player2(Init){

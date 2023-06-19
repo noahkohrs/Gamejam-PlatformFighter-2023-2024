@@ -22,34 +22,26 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void tick(long elapsed) {
-        time -= elapsed;
-        view.tick(elapsed);
-        affectTor();
-        try {
-            Direction prevDir = facingDirection;
-            this.facingDirection = Direction.IDLE;
-            this.automate.step(this);
-            if (facingDirection != prevDir)
-                accelerationX = 0.1;
-        } catch (Exception e) {
-            System.out.println("Normally we should not reach here");
-            e.printStackTrace();
-        }
-        Movement.Walk(this);
-        Movement.affectGravity(this);
+    jumpCooldown -= elapsed;
+    try {
+      movingDirection = Direction.IDLE ;
+      this.automate.step(this);
+      if (movingDirection.x != 0)
+        facingDirection = movingDirection;
+      if (facingDirection != movingDirection) 
+        accelerationX = 0.1 ;
+    } catch (Exception e) {
+      System.out.println("Normally we should not reach here");
+      e.printStackTrace();
+    }
+    Movement.Walk(this);
+    Movement.affectGravity(this);
     }
 
     @Override
     public void move(Direction direction) {
-        ((RaptorView) this.view).direction = direction;
-        // if (direction == Direction.RIGHT || direction == Direction.LEFT)
-        // this.facingDirection = direction;
-
-        // if (!hitbox.inCollision(direction)) {
-        // x += direction.x * 3;
-        // }
         accelerationX += 0.04;
-        facingDirection = direction;
+        movingDirection = direction ;
     }
 
     @Override

@@ -36,6 +36,7 @@ public class Mexican extends Player {
 
     @Override
     public boolean gotPower() {
+        System.out.print(raptorCooldown);
         return raptorCooldown <= 0;
     }
 
