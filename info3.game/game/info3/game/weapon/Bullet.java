@@ -1,4 +1,4 @@
-package info3.game.Weapon;
+package info3.game.weapon;
 
 import java.awt.Graphics;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Bullet extends DynamicEntity {
 
   public Bullet(int x, int y, Direction dir, int team)
       throws IOException {
-    super(x-5, y+25, team, "resources/bullets/1.png", 1, 1);
+    super(x, y, team, "resources/bullets/1.png", 1, 1);
     hitBox = new HitBox(0, 0, 10, 10, true, this);
     this.dir = dir;
   }
@@ -37,9 +37,9 @@ public class Bullet extends DynamicEntity {
   @Override
   public void move(Direction direction) {
     if (!hitBox.inCollision(dir)) {
-      int nextX = x + dir.x*10;
-      int nextY = y + dir.y*10;
-      if(hitBox.vectorInPLayerCollision(nextX,nextY, dir)){
+      int nextX = x + dir.x*20;
+      int nextY = y + dir.y*20;
+      if(hitBox.inPlayerVectorCollision(nextX,nextY, dir)){
         System.out.println("Touched player");
         kill();
       }

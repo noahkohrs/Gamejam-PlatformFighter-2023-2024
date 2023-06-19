@@ -270,6 +270,8 @@ public class ParserToAutomate implements IVisitor {
                 previousTransition = a.trans.get(a.trans.size()-1);
                 currentState=previousTransition.src;
             }
+            else if(a.trans.size()==1)
+                currentState=a.states.get(0);
             else
                 currentState=a.states.get(a.states.size()-1);
             a.trans.add(a.trans.size(), new Transitions(currentState, null, null, null));

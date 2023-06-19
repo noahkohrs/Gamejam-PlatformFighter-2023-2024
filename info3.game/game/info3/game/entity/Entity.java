@@ -46,6 +46,7 @@ public abstract class Entity {
   public int jumpCounter ;
   public int jumpCooldown ;
   public int jumpAmount ;
+  long deltatime ;
   public float timer = 0;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
@@ -195,5 +196,11 @@ public abstract class Entity {
   // Conditions
 
     public abstract boolean gotPower() ;
+    public abstract boolean cell(Direction direction,String category);
+
+    public abstract boolean MyDir(String direction);
+
+    public void wizz(String direction) {
+    }
     
 }

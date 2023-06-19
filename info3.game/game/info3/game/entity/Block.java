@@ -61,6 +61,12 @@ public class Block extends DynamicEntity {
     }
 
     @Override
+    public boolean MyDir(String direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
+    }
+
+    @Override
     public void pick() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'egg'");

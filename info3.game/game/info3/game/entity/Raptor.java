@@ -10,26 +10,30 @@ public class Raptor extends DynamicEntity {
     private int time = 20000;
     Player ennemi;
 
-    public Raptor(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
-        super(x, y, team, filename, nrows, ncols);
+    public Raptor(int x, int y, int team, Direction direction) throws IOException {
+        super(x, y, team, "resources/raptor-2x8.png", 2, 8);
         if (GameSession.gameSession.player1.team == team) {
             ennemi = GameSession.gameSession.player2;
         } else
             ennemi = GameSession.gameSession.player1;
         hitbox = new HitBox(4, 16, 48, 16, this);
-        view = new RaptorView(filename, 2, 8, this);
+        view = new RaptorView("resources/raptor-2x8.png", 2, 8, this);
+        while (hitbox.inCollision(Direction.BOTTOM))
+            this.y -= 1;
+        this.facingDirection = direction;
     }
 
     @Override
     public void tick(long elapsed) {
+        jumpCooldown -= elapsed;
         time -= elapsed;
         view.tick(elapsed);
-        affectTor();
         try {
-            Direction prevDir = facingDirection;
-            this.facingDirection = Direction.IDLE;
+            movingDirection = Direction.IDLE;
             this.automate.step(this);
-            if (facingDirection != prevDir)
+            if (movingDirection.x != 0)
+                facingDirection = movingDirection;
+            if (facingDirection != movingDirection)
                 accelerationX = 0.1;
         } catch (Exception e) {
             System.out.println("Normally we should not reach here");
@@ -41,15 +45,8 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void move(Direction direction) {
-        ((RaptorView) this.view).direction = direction;
-        // if (direction == Direction.RIGHT || direction == Direction.LEFT)
-        // this.facingDirection = direction;
-
-        // if (!hitbox.inCollision(direction)) {
-        // x += direction.x * 3;
-        // }
         accelerationX += 0.04;
-        facingDirection = direction;
+        movingDirection = direction;
     }
 
     @Override
@@ -70,10 +67,17 @@ public class Raptor extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            if (distanceTo(ennemi)<=100)
+            if (distanceTo(ennemi) <= 100)
                 ((RaptorView) this.view).attack = true;
-            return distanceTo(ennemi)<=33;
+            return distanceTo(ennemi) <= 33;
         }
     }
 
+    @Override
+    public boolean MyDir(String direction) {
+        System.out.println("Movind Direction" + this.facingDirection.toString() + "and MyDir(direction)"
+                + Direction.fromString(direction).toString());
+        boolean res = this.facingDirection.equals(Direction.fromString(direction));
+        return res;
+    }
 }

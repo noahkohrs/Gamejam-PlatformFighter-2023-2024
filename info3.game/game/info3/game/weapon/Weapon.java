@@ -1,8 +1,9 @@
-package info3.game.Weapon;
+package info3.game.weapon;
 
 import java.awt.Graphics;
 import java.io.IOException;
 
+import info3.game.Camera;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
@@ -69,7 +70,7 @@ public class Weapon extends DynamicEntity {
         {
             if (currentCooldown <= 0) {
                 if (ammo-- > 0) {
-                    createBullet(player.x, player.y);
+                    createBullet(Camera.centeredCoordinateX(player), Camera.centeredCoordinateY(player));
                 }
                 currentCooldown = cooldown;
             }

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
+import info3.game.entity.blocks.GroundBlock;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 

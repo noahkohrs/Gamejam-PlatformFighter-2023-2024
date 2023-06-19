@@ -1,5 +1,6 @@
 Player1(Init){
   * (Init)
+  | Key(w) ?          :(Ra)
   | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
   | Key(z) ? Move(N) :(Init)
@@ -11,12 +12,15 @@ Player1(Init){
   | True() ?          :(Init)
 
   *(Ra)
-  |GotPower() ? Wizz():(Init)
+  |GotPower() & MyDir(E) ? Wizz(E):(Init)
+  |GotPower() & MyDir(W) ? Wizz(W):(Init)
   |!GotPower()?       :(Init)
 }
 
 Player2(Init){
   * (Init)
+  | Key(1) & Key(3) ? Move(NW) :(Init)
+  | Key(1) & Key(4) ? Move(NE) :(Init)
   | Key(1) ? Move(N)  :(Init)
   | Key(4) ? Move(E)  :(Init)
   | Key(3) ? Move(W)  :(Init)
@@ -89,8 +93,9 @@ MalusBlock(Init){
 
 Raptor(Init){
   *(Init)
-  |GotPower ?  :(Right)
   |!GotPower ?  :()
+  |MyDir(E)?  :(Right)
+  |MyDir(W) ?  :(Left)
 
   *(Right)
   |Cell(E,A) ? Pop()    :()
