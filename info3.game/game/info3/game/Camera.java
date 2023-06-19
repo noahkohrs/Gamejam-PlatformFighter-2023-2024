@@ -75,13 +75,13 @@ public class Camera {
         int distX = Math.abs(p1X - p2X);
         int distY = Math.abs(p1Y - p2Y);
 
-        camWidth = distX + 300;
-        camHeight = distY + 200;
+        camWidth = distX + 500;
+        camHeight = distY + 350;
 
-        if (camWidth < 300)
-            camWidth = 300;
-        if (camHeight < 200)
-            camHeight = 200;
+        if (camWidth < 500)
+            camWidth = 500;
+        if (camHeight < 350)
+            camHeight = 350;
 
         camX = centerX - camWidth / 2;
         camY = centerY - camHeight / 2;
