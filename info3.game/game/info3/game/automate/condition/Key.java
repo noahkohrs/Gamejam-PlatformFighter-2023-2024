@@ -1,5 +1,6 @@
 package info3.game.automate.condition;
 
+import info3.game.GameSession;
 import info3.game.entity.Entity;
 
 public class Key extends Condition{
@@ -15,6 +16,16 @@ public class Key extends Condition{
     }
     @Override
     public boolean eval(Entity e) {
-        return affectNotOp(pressed);
+        int index = GameSession.gameSession.findKEy(letter);
+        Key key = GameSession.gameSession.keys.get(index);
+        if (key == this) {
+            return affectNotOp(pressed);
+        } else {
+            return affectNotOp(key.getPressed());
+        }
+        
+    }
+    public boolean getPressed() {
+        return pressed;
     }
 }

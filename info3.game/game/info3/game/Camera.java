@@ -11,10 +11,11 @@ import info3.game.entity.Entity;
 public class Camera {
 
     public static boolean debugMode = true;
-    private static boolean Opti = true;
+    private static boolean Opti = false;
 
     void toggleDebugMode() {
         debugMode = !debugMode;
+        Opti = !Opti;
     }
 
     public static Camera camera;
@@ -156,16 +157,15 @@ public class Camera {
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height, boolean invertedX,
             boolean invertedY) {
         if (invertedX && invertedY) {
-            drawImage(g, img, x + width, y + height, -width, -height);
+            drawImage(g, img, x, y, -width, -height);
         } else if (invertedX) {
-            drawImage(g, img, x + width, y, -width, height);
+            drawImage(g, img, x, y, -width, height);
         } else if (invertedY) {
-            drawImage(g, img, x, y + height, width, -height);
+            drawImage(g, img, x, y, width, -height);
         } else {
             drawImage(g, img, x, y, width, height);
         }
     }
-
 
     static public void drawRect(Graphics g, int x, int y, int width, int height) {
         if (debugMode) {

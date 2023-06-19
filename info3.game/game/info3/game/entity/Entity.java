@@ -7,10 +7,12 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 
+import info3.game.GameSession;
 import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
 import info3.game.automate.State;
+import info3.game.automate.action.Move;
 import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
@@ -18,26 +20,31 @@ public abstract class Entity {
   public int x;
   public int y;
 
+
   // here are the velocities at which the entity is moving
   public float velX;
   public float velY;
   public State state;
 
-  int facing = 0;// where the entity is facing -1 for left and 1 for right
-  public boolean IsJumping = false; // just checking if the player is currently jumping to prevent any illegal moves
-  int jumptime = 0;// init at 0 for implementation but represent the numbers of frames in which the
-                   // player will be jumping
-  boolean jumpcd = false; // checking if the jump is on cd same purpose as Isjumping
+  public Direction facingDirection;
+  public Direction movingDirection;
 
   // constant regulating the movement of entitites
   PhysicConstant model;
+  // acceleration far computing velocity
+  double accelerationX;
+  // double accelerationY ;
 
+  // elapsed time necessary for movements
   long moveElapsed;
 
-    public Automate automate;
-    public HitBox hitbox;
-    public EntityView view;
-    public int team ;
+  public Automate automate;
+  public HitBox hitbox;
+  public EntityView view;
+  public int team;
+  public int jumpCounter ;
+  public int jumpCooldown ;
+  public int jumpAmount ;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this.team = team;
@@ -45,6 +52,7 @@ public abstract class Entity {
     this.y = y;
     this.view = new EntityView(filename, nrows, ncols, this);
     this.automate = loadAutomate();
+
 
     if (this.automate == null)
       this.automate = GameSession.gameSession.defaultAutomate;
@@ -58,6 +66,7 @@ public abstract class Entity {
   }
 
   public abstract void tick(long elapsed);
+
 
   public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
     File imageFile = new File(filename);
@@ -93,47 +102,28 @@ public abstract class Entity {
 
   // checking where the entity is looking
   public boolean stFaceLeft() {
-    return -1 == facing;
+    return facingDirection == Direction.LEFT;
   }
 
   public boolean stFaceRight() {
-    return 1 == facing;
+    return facingDirection == Direction.RIGHT;
   }
 
   public void FaceLeft() {
-    facing = -1;
+    facingDirection = Direction.LEFT;
   }
 
   public void FaceRight() {
-    facing = 1;
+    facingDirection = Direction.RIGHT;
   }
 
   public void Idle() {
-    facing = 0;
-  }
-
-  public void SetVelX(int VelX) {// Set the velocity at which the entity will move
-    if (velX == 0) {
-      velX = VelX;
-    } else {
-      velX = velX * 1.01f;
-    }
-
-  }
-
-  public void reSetVelX() {// Reset velocity to be called on button release
-    velX = 0;
+    facingDirection = Direction.IDLE;
   }
 
   // jump management
-  public boolean statusJump() {
-    return IsJumping;
-  }
-
-  public void StartJump() {
-    velY = -1;
-
-  }
+  // public void StartJump(){
+  // velY = -1;
 
   protected void affectTor() {
     if (Camera.centeredCoordinateX(this) < 0) {
@@ -147,6 +137,39 @@ public abstract class Entity {
     }
     if (Camera.centeredCoordinateY(this) > GameSession.gameSession.map.realHeight()) {
       y = 0;
+    }
+  }
+
+  public int distanceTo(Entity e) {
+    return (int) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
+  }
+
+  public DynamicEntity nearestEnemyEntity() {
+    DynamicEntity nearest = null;
+    int minDist = Integer.MAX_VALUE;
+    for (DynamicEntity e : GameSession.gameSession.entities) {
+      if (e.team != this.team) {
+        int dist = distanceTo(e);
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = e;
+        }
+      }
+    }
+    return nearest;
+  }
+
+  void updateVelocityX() {
+    this.velX = (float) (PhysicConstant.maxVelX * (1 - Math.exp(-accelerationX)));
+  }
+
+  void updateVelocityY() {
+    this.velY = (float) (Math.max(velY+PhysicConstant.gravity, -PhysicConstant.maxVelY));
+  }
+
+  void updateJumpVelocity(){
+    if(jumpCooldown>0){
+      this.velY =(float) (this.velY*(1-Math.exp(-this.velY)));
     }
   }
 

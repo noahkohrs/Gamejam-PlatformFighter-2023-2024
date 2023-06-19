@@ -12,14 +12,12 @@ import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
 import info3.game.automata.ast.BinaryOp;
-import info3.game.automata.ast.Transition;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
 import info3.game.automate.State;
 import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
-import info3.game.automate.condition.True;
 import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
@@ -39,6 +37,8 @@ public class GameSession {
     public Game game;
     public static GameSession gameSession;
 
+    private long updateTime;
+
     public Player player1;
     public Player player2;
 
@@ -46,11 +46,11 @@ public class GameSession {
 
     long testelapsed;
 
-    List<DynamicEntity> entities;
+    public List<DynamicEntity> entities;
     List<DynamicEntity> toAddEntities;
     List<DynamicEntity> toRemoveEntities;
 
-    List<Key> keys;
+    public List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
@@ -72,7 +72,6 @@ public class GameSession {
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
-
     }
 
     private void loadKeys() {
@@ -144,12 +143,12 @@ public class GameSession {
             entities.add(entity);
             addIterator.remove();
         }
+
     }
 
     public void paint(Graphics g) {
-        boolean Opti = true;
         camera.paint(g);
-        map.paint(g, camera, Opti);
+        map.paint(g, camera);
         for (Entity entity : entities) {
             entity.view.paint(g);
         }

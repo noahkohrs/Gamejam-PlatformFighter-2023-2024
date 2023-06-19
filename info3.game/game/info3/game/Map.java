@@ -83,7 +83,7 @@ public class Map {
         return this.fixedMap[x][y];
     }
 
-    void paint(Graphics g, Camera camera, boolean Opti) {
+    void paint(Graphics g, Camera camera) {
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
             if (fixedMap[i][j] != null) {

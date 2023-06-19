@@ -1,5 +1,6 @@
 package info3.game.Weapon;
 
+import java.awt.Graphics;
 import java.io.IOException;
 
 import info3.game.entity.Direction;
@@ -64,11 +65,22 @@ public class Weapon extends DynamicEntity {
     }
 
     public void shoot() {
-        if (currentCooldown <= 0) {
-            if (ammo-- > 0) {
-                createBullet(player.x, player.y);
+        if(player.facingDirection != Direction.IDLE)
+        {
+            if (currentCooldown <= 0) {
+                if (ammo-- > 0) {
+                    createBullet(player.x, player.y);
+                }
+                currentCooldown = cooldown;
             }
-            currentCooldown = cooldown;
+        }
+    }
+
+    public void showHitBox(Graphics g) {
+        for (int i = 0; i < clipSize; i++) {
+            Bullet b = bullets[i];
+            if (b != null)
+                b.showHitBox(g);
         }
     }
 

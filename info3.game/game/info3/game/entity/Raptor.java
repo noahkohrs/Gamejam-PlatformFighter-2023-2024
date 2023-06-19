@@ -25,7 +25,7 @@ public class Raptor extends DynamicEntity {
         time -= elapsed;
         view.tick(elapsed);
         affectTor();
-        // System.out.println(y);
+        Movement.affectGravity(this);
         if (!hitbox.inCollision(Direction.BOTTOM))
             y = (int) (y - PhysicConstant.gravity);
         try {
@@ -38,33 +38,18 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void move(Direction direction) {
-        ((RaptorView)this.view).direction=direction;
-        if (direction == Direction.RIGHT) {
-            this.SetVelX(5);
-            this.FaceRight();
-        }
-        if (direction == Direction.LEFT) {
-            this.SetVelX(5);
-            this.FaceLeft();
-        }
+        ((RaptorView) this.view).direction = direction;
+        if (direction == Direction.RIGHT || direction == Direction.LEFT)
+            this.facingDirection = direction;
 
         if (!hitbox.inCollision(direction)) {
-
-            if (direction == Direction.UPPER) {
-                this.IsJumping = true;
-                this.StartJump();
-                Movement.jump(this, 1);
-                y--;
-                // Movement.Walk(this);
-            } else {
-                x += direction.x * 3;
-                y += direction.y;
-            }
+            x += direction.x * 3;
         }
     }
 
     @Override
     public boolean gotPower() {
+        System.out.println("i GOT THE POWERR");
         return time > 0;
     }
 
@@ -75,15 +60,14 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public boolean cell(Direction direction, String category) {
-        if(category.equals("O")){
-        return hitbox.inCollision(direction);
-        }
-        else{
+        if (category.equals("O")) {
+            return hitbox.inCollision(direction);
+        } else {
             int nextX = x + direction.x * 8;
-            int nextY = y + direction.y ;
-            if(hitbox.vectorInPLayerCollision(nextX*2,nextY+10,direction))
-                ((RaptorView)this.view).attack=true;
-            return hitbox.vectorInPLayerCollision(nextX,nextY,direction);
+            int nextY = y + direction.y;
+            if (hitbox.vectorInPLayerCollision(nextX * 2, nextY + 10, direction))
+                ((RaptorView) this.view).attack = true;
+            return hitbox.vectorInPLayerCollision(nextX, nextY, direction);
         }
     }
 }
