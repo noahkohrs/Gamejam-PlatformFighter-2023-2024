@@ -67,11 +67,7 @@ public class Player extends DynamicEntity {
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
-      Direction prevDir = facingDirection ;
-      this.facingDirection = Direction.IDLE ;
       this.automate.step(this);
-      if (facingDirection != prevDir) 
-        accelerationX = 0.1 ;
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
@@ -82,9 +78,12 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
-    accelerationX += 0.04;
+    if (direction.x == this.facingDirection.x)
+      accelerationX += 0.04;
+    else
+      accelerationX = 0.1;
     facingDirection = direction ;
-    if (direction == Direction.UPPER)
+    if (direction.y == Direction.UPPER.y)
       Movement.Jump(this) ;
   }  
 
