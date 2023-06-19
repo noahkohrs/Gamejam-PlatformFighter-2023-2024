@@ -90,6 +90,7 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
+    System.out.println(direction);
     if (direction.x == this.facingDirection.x)
       accelerationX += 0.04;
     else
