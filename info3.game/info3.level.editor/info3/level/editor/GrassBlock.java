@@ -8,7 +8,7 @@ public class GrassBlock extends Block {
 
 
     public GrassBlock() throws IOException {
-        super("resources/blocks/1.png");
+        super("resources/blocks/grass.png");
     }
     
     public Element copy() throws IOException {

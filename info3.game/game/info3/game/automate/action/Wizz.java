@@ -10,6 +10,6 @@ public class Wizz extends Action{
     }
     @Override
     public void exec(Entity e, String Direction) {
-        e.wizz();
+        e.wizz(Direction);
     }
 }

@@ -63,4 +63,10 @@ public class DynamicEntity extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cell'");
     }
+
+    @Override
+    public boolean MyDir(String direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
+    }
 }
