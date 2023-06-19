@@ -47,13 +47,6 @@ public class Block extends DynamicEntity {
         throw new UnsupportedOperationException("Unimplemented method 'Turn'");
     }
 
-<<<<<<<<< Temporary merge branch 1
-     @Override
-    public void egg(Entity type) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'egg'");
-    }
-=========
     @Override
     public boolean cell(Direction direction, String category) {
         // TODO Auto-generated method stub

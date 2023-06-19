@@ -43,7 +43,6 @@ MovingPlatform(Init){
   | !GotPower() ? Turn() :(Init)
 }
 
-<<<<<<<<< Temporary merge branch 1
 PowerUpBlock(Init){
   * (Init)
   | True() ? :(_)

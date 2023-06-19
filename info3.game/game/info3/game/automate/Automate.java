@@ -45,25 +45,26 @@ public class Automate {
             Condition cond = transition.cond;
             Action action = transition.action;
             if (source == e.state && cond.eval(e)) {
-                // If we want to go to a random state
-                if (dest.name.equals("_")) {
-                    int randint = random.nextInt(this.states.size());
-                    while (states.get(randint).name.equals("_")) {
-                        randint = random.nextInt(this.states.size());
-                    }
-                    e.state = states.get(randint);
-                } else if (dest.name.equals(""))
-                    ((DynamicEntity) e).kill();
-                else
+                if (action != null) {
+                    // else do the action of the transition.
+                    String direction = action.Direction;
+                    action.exec(e, direction);
                     e.state = dest;
-                // If there is no action, just exit the function
-                if (action == null)
-                    return;
-                // else do the action of the transition.
-                String direction = action.Direction;
-                action.exec(e, direction);
+                } else {
+                    // If we want to go to a random state
+                    if (dest.name.equals("_")) {
+                        int randint = random.nextInt(this.states.size());
+                        while (states.get(randint).name.equals("_")) {
+                            randint = random.nextInt(this.states.size());
+                        }
+                        e.state = states.get(randint);
+                    } else
+                        e.state = dest;
+                    // If there is no action, just exit the function
+                }
                 return;
             }
+
         }
         System.out.println("State unescapable\n");
     }
