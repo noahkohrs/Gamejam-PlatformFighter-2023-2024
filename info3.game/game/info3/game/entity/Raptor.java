@@ -7,7 +7,7 @@ import info3.game.hitbox.HitBox;
 
 public class Raptor extends DynamicEntity {
 
-    private int time = 20000; // 30sec
+    private int time = 20000;
     Player ennemi;
 
     public Raptor(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
@@ -26,30 +26,30 @@ public class Raptor extends DynamicEntity {
         view.tick(elapsed);
         affectTor();
         try {
-            Direction prevDir = facingDirection ;
-            this.facingDirection = Direction.IDLE ;
+            Direction prevDir = facingDirection;
+            this.facingDirection = Direction.IDLE;
             this.automate.step(this);
-            if (facingDirection != prevDir) 
-              accelerationX = 0.1 ;
-          } catch (Exception e) {
+            if (facingDirection != prevDir)
+                accelerationX = 0.1;
+        } catch (Exception e) {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
-          }
-          Movement.Walk(this);
-          Movement.affectGravity(this);
+        }
+        Movement.Walk(this);
+        Movement.affectGravity(this);
     }
 
     @Override
     public void move(Direction direction) {
         ((RaptorView) this.view).direction = direction;
         // if (direction == Direction.RIGHT || direction == Direction.LEFT)
-        //     this.facingDirection = direction;
+        // this.facingDirection = direction;
 
         // if (!hitbox.inCollision(direction)) {
-        //     x += direction.x * 3;
+        // x += direction.x * 3;
         // }
         accelerationX += 0.04;
-        facingDirection = direction ;
+        facingDirection = direction;
     }
 
     @Override
@@ -65,16 +65,15 @@ public class Raptor extends DynamicEntity {
     @Override
     public boolean cell(Direction direction, String category) {
         if (category.equals("O")) {
-            this.x+=direction.x;
-            boolean res=hitbox.inCollision(direction);
-            this.x-=direction.x;
+            this.x += direction.x;
+            boolean res = hitbox.inCollision(direction);
+            this.x -= direction.x;
             return res;
         } else {
-            int nextX = (int) (x + velX)+1;
-            int nextY = (int) (y + velY)+1;
-            if (hitbox.vectorInPLayerCollision(nextX, nextY, direction))
+            if (distanceTo(ennemi)<=100)
                 ((RaptorView) this.view).attack = true;
-            return hitbox.vectorInPLayerCollision(nextX, nextY, direction);
+            return distanceTo(ennemi)<=33;
         }
     }
+
 }

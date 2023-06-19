@@ -140,7 +140,8 @@ public abstract class Entity {
   }
 
   public int distanceTo(Entity e) {
-    return (int) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
+    return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2) 
+    + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
   }
 
   public DynamicEntity nearestEnemyEntity() {
