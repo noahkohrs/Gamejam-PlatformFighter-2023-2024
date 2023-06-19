@@ -159,8 +159,7 @@ public class HitBox {
         return false;
     }
 
-    // WORKING ONLY FOR BULLET FOR NOW
-    public boolean vectorInPLayerCollision(int newX, int newY, Direction dir) {
+    public boolean inPlayerVectorCollision(int newX, int newY, Direction dir) {
         int playerXLeft, playerYLeft, playerXRight, playerYRight;
         HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
         HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
@@ -175,10 +174,27 @@ public class HitBox {
             playerXRight = player2HitBox.getBottomRightX();
             playerYRight = player2HitBox.getBottomRightY();
         }
-
-        if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
-            if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
-                return true;
+        switch (dir) {
+            case LEFT:
+                if (getTopLeftX(newX) <= playerXRight && playerXLeft <= getBottomRightX())
+                    if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY())
+                        return true;
+                break;
+            case RIGHT:
+                if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX))
+                    if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY())
+                        return true;
+                break;
+            case UPPER:
+                if (getTopLeftY(newY) <= playerYRight && playerYLeft <= getBottomRightY())
+                    if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX())
+                        return true;
+                break;
+            case BOTTOM:
+                if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
+                    if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX())
+                        return true;
+                break;
         }
         return false;
     }
