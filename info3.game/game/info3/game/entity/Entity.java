@@ -139,6 +139,25 @@ public abstract class Entity {
     }
   }
 
+  public int distanceTo(Entity e) {
+    return (int) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
+  }
+
+  public DynamicEntity nearestEnemyEntity() {
+    DynamicEntity nearest = null;
+    int minDist = Integer.MAX_VALUE;
+    for (DynamicEntity e : GameSession.gameSession.entities) {
+      if (e.team != this.team) {
+        int dist = distanceTo(e);
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = e;
+        }
+      }
+    }
+    return nearest;
+  }
+
   void updateVelocityX() {
     this.velX = (float) (PhysicConstant.maxVelX * (1 - Math.exp(-accelerationX)));
   }
