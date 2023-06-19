@@ -83,6 +83,7 @@ public class Player extends DynamicEntity {
    */
   public void tick(long elapsed) {
     jumpCooldown -= elapsed;
+    deltatime = elapsed;
     try {
       movingDirection = Direction.IDLE ;
       this.automate.step(this);

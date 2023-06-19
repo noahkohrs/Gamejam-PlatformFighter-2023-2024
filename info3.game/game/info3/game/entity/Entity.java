@@ -45,6 +45,7 @@ public abstract class Entity {
   public int jumpCounter ;
   public int jumpCooldown ;
   public int jumpAmount ;
+  long deltatime ;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this.team = team;
