@@ -66,7 +66,7 @@ public class Automate {
             }
 
         }
-        System.out.println("State unescapable\n");
+        //System.out.println("State unescapable\n");
     }
 
     public State existe(String stateName) {
