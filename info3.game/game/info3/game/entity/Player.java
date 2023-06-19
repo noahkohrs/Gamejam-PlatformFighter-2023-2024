@@ -97,6 +97,7 @@ public class Player extends DynamicEntity {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
     }
+    view.tick(deltatime);
     Movement.Walk(this);
     Movement.affectGravity(this);
   }

@@ -21,8 +21,12 @@ public class PlayerView extends EntityView {
     public void tick(long elapsed) {
         m_imageElapsed += elapsed;
         if (m_imageElapsed > 200) {
-            m_imageElapsed = 0;
-            imageIndex = (imageIndex + 1) % images.length;
+             m_imageElapsed = 0;
+            if(((Player)entity).accelerationX == 0.1){
+            imageIndex = (imageIndex + 1) % 2;
+            } else {
+                imageIndex= (imageIndex +1 )%4;
+            }
         }
     }
 
@@ -33,24 +37,13 @@ public class PlayerView extends EntityView {
         ((Player)entity).weapon.showHitBox(g);
         ((Player)entity).lifeBar.showLifeBar(g);
         //didnt know a better way to implement it ATM
-        if(((Player)entity).accelerationX == 0.1){
-            if(((Player)entity).deltatime%2 == 0.) imageIndex = (imageIndex +1)%2;
          if(((Player)entity).facingDirection==Direction.LEFT){
             Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),false,false);
         }
         else{
             Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),true,false);
         }
-    } else { 
-        imageIndex = ((imageIndex+1)%4);
-        if(((Player)entity).facingDirection==Direction.LEFT){
-         Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),false,false);
-        }
-        else {
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),true,false);
-        }
 
     }
-        }
 }
 
