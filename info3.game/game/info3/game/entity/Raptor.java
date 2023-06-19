@@ -75,8 +75,6 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public boolean MyDir(String direction) {
-        System.out.println("Movind Direction" + this.facingDirection.toString() + "and MyDir(direction)"
-                + Direction.fromString(direction).toString());
         boolean res = this.facingDirection.equals(Direction.fromString(direction));
         return res;
     }

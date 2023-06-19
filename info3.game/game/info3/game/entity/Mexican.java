@@ -43,7 +43,6 @@ public class Mexican extends Player {
 
     @Override
     public boolean MyDir(String direction){
-        System.out.println(direction+" "+facingDirection.toString());
         return facingDirection.equals(Direction.fromString(direction));
     }
 }
