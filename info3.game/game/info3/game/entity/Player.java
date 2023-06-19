@@ -44,10 +44,10 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team) throws IOException {
-    super(40, 40, team, "resources/winchester-4x6.png", 4, 6);
-    view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
+    super(40, 40, team, Getchar(team) + "PlayerSprite.png", 2, 2);
+    view = new PlayerView(Getchar(team)+ "PlayerSprite.png", 2, 2, this);
     this.lifeBar = new LifeBar(team);
-    hitbox = new HitBox(12, 8, 20, 35, this);
+    hitbox = new HitBox(12, 8, 15, 21, this);
     weapon = new Weapon(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
@@ -64,6 +64,15 @@ public class Player extends DynamicEntity {
     jumpAmount = 2;
     jumpCounter = jumpAmount;
   }
+
+
+ static private String Getchar(int team){
+  if(team == 1){
+    return "resources/Mexicain/";
+  } else {
+    return "resources/Ingenieur/";
+  }
+ }
 
   public void takeDamage(int amount) {
     lifeBar.life.removeHealth(amount);
@@ -85,6 +94,7 @@ public class Player extends DynamicEntity {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
     }
+    view.tick(deltatime);
     Movement.Walk(this);
     Movement.affectGravity(this);
   }
