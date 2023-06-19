@@ -9,8 +9,8 @@ public class Raptor extends DynamicEntity {
 
     private int time = 20000;
     Player ennemi;
-    String direction;
-    public Raptor(int x, int y, int team, String filename, int nrows, int ncols,String direction) throws IOException {
+    Direction movingDirection;
+    public Raptor(int x, int y, int team, String filename, int nrows, int ncols,Direction direction) throws IOException {
         super(x, y, team, filename, nrows, ncols);
         if (GameSession.gameSession.player1.team == team) {
             ennemi = GameSession.gameSession.player2;
@@ -18,7 +18,7 @@ public class Raptor extends DynamicEntity {
             ennemi = GameSession.gameSession.player1;
         hitbox = new HitBox(4, 16, 48, 16, this);
         view = new RaptorView(filename, 2, 8, this);
-        this.direction=direction;
+        this.movingDirection=direction;
     }
 
     @Override
@@ -79,6 +79,8 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public boolean MyDir(String direction){
-        return this.direction.equals(direction);
+        System.out.println("Movind Direction"+this.movingDirection.toString()+"and MyDir(direction)"+Direction.fromString(direction).toString());
+        boolean res=this.movingDirection.equals(Direction.fromString(direction));
+        return res;
     }
 }

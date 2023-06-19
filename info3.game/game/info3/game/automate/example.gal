@@ -1,10 +1,10 @@
 Player1(Init){
   * (Init)
+  | Key(w) ?          :(Ra)
   | Key(z) & True() ? Move(N)  :(Init)
   | Key(d) & True() ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
-  | Key(w) ?          :(Ra)
   | True() ?          :(Init)
 
   *(Ra)
@@ -87,9 +87,9 @@ MalusBlock(Init){
 
 Raptor(Init){
   *(Init)
-  |GotPower & MyDir(E)?  :(Right)
-  |GotPower & MyDir(W)?  :(Left)
   |!GotPower ?  :()
+  |MyDir(E)?  :(Right)
+  |MyDir(W) ?  :(Left)
 
   *(Right)
   |Cell(E,A) ? Pop()    :()
