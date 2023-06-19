@@ -1,8 +1,6 @@
 package info3.game.weapon;
 
-import java.awt.Graphics;
 import java.io.IOException;
-
 import info3.game.Camera;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
@@ -17,12 +15,9 @@ public class Weapon extends DynamicEntity {
     private int currentCooldown;
     private int clips;
 
-    private int damage;
-
     private final int clipSize;
     private int ammo;
-
-    private Bullet[] bullets;
+    private int damage;
 
     public Weapon(Player player) throws IOException {
         super(0, 0, player.team, "resources/blocks/3.png", 1, 1);
@@ -32,7 +27,6 @@ public class Weapon extends DynamicEntity {
         clips = 3;
         damage = 25;
         currentCooldown = 0;
-        bullets = new Bullet[clipSize];
         this.player = player;
     }
 
@@ -44,7 +38,6 @@ public class Weapon extends DynamicEntity {
         this.clipSize = clipSize;
         this.currentCooldown = 0;
         this.ammo = clipSize;
-        bullets = new Bullet[clipSize];
     }
 
     public void reload() {
@@ -58,7 +51,7 @@ public class Weapon extends DynamicEntity {
 
     private void createBullet(int startx, int starty) {
         try {
-            bullets[ammo] = new Bullet(startx, starty, player.facingDirection, player.team);
+            new Bullet(startx, starty, damage, player.facingDirection, player.team);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -77,14 +70,6 @@ public class Weapon extends DynamicEntity {
         }
     }
 
-    public void showHitBox(Graphics g) {
-        for (int i = 0; i < clipSize; i++) {
-            Bullet b = bullets[i];
-            if (b != null)
-                b.showHitBox(g);
-        }
-    }
-
     public void tick(long elapsed) {
         try {
             automate.step(this);
@@ -99,7 +84,6 @@ public class Weapon extends DynamicEntity {
 
     @Override
     public void move(Direction direction) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
 

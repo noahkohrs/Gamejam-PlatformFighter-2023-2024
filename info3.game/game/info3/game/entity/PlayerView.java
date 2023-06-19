@@ -34,7 +34,6 @@ public class PlayerView extends EntityView {
     public void paint(Graphics g) {
         // Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight());
         entity.hitbox.showHitBox(g);
-        ((Player)entity).weapon.showHitBox(g);
         ((Player)entity).lifeBar.showLifeBar(g);
         //didnt know a better way to implement it ATM
          if(((Player)entity).facingDirection==Direction.LEFT){
