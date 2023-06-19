@@ -11,10 +11,11 @@ import info3.game.entity.Entity;
 public class Camera {
 
     public static boolean debugMode = true;
-    private static boolean Opti = true;
+    private static boolean Opti = false;
 
     void toggleDebugMode() {
         debugMode = !debugMode;
+        Opti = !Opti;
     }
 
     public static Camera camera;

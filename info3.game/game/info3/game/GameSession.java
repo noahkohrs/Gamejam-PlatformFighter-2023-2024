@@ -149,9 +149,8 @@ public class GameSession {
     }
 
     public void paint(Graphics g) {
-        boolean Opti = true;
         camera.paint(g);
-        map.paint(g, camera, Opti);
+        map.paint(g, camera);
         for (Entity entity : entities) {
             entity.view.paint(g);
         }
