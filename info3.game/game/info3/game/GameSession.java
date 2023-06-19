@@ -44,7 +44,7 @@ public class GameSession {
 
     long testelapsed;
 
-    List<DynamicEntity> entities;
+    public List<DynamicEntity> entities;
     List<DynamicEntity> toAddEntities;
     List<DynamicEntity> toRemoveEntities;
 
