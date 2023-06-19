@@ -1,7 +1,7 @@
 Player1(Init){
   * (Init)
+  | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
-  | Key(z) & Key(q) ? Move(NW) :(Init)
   | Key(z) ? Move(N) :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)

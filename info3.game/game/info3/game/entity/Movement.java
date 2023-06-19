@@ -6,7 +6,7 @@ public class Movement {
 
     static public void Walk(Entity E) {
         E.updateVelocityX();
-        E.x += E.velX * E.facingDirection.x;
+        E.x += E.velX * E.movingDirection.x;
         while (E.hitbox.inCollision(Direction.LEFT))
             E.x += 1;
         while (E.hitbox.inCollision(Direction.RIGHT))

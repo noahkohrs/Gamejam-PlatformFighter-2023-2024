@@ -27,6 +27,7 @@ public abstract class Entity {
   public State state;
 
   public Direction facingDirection;
+  public Direction movingDirection;
 
   // constant regulating the movement of entitites
   PhysicConstant model;

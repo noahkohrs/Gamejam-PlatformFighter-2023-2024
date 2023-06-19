@@ -26,7 +26,6 @@ import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
-import info3.game.automate.condition.GotPower;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 
@@ -57,7 +56,7 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
-  public Player(int team, String filename) throws IOException {
+    public Player(int team, String filename) throws IOException {
     super(40, 40, team, filename, 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
@@ -79,7 +78,12 @@ public class Player extends DynamicEntity {
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
+      movingDirection = Direction.IDLE ;
       this.automate.step(this);
+      if (movingDirection.x != 0)
+        facingDirection = movingDirection;
+      if (facingDirection != movingDirection) 
+        accelerationX = 0.1 ;
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
@@ -90,12 +94,8 @@ public class Player extends DynamicEntity {
 
   @Override
   public void move(Direction direction) {
-    System.out.println(direction);
-    if (direction.x == this.facingDirection.x)
-      accelerationX += 0.04;
-    else
-      accelerationX = 0.1;
-    facingDirection = direction ;
+    accelerationX += 0.04;
+    movingDirection = direction ;
     if (direction.y == Direction.UPPER.y)
       Movement.Jump(this) ;
   }  
