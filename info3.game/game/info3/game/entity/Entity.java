@@ -143,11 +143,11 @@ public abstract class Entity {
     return (int) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
   }
 
-  public DynamicEntity nearestEntity() {
+  public DynamicEntity nearestEnemyEntity() {
     DynamicEntity nearest = null;
     int minDist = Integer.MAX_VALUE;
     for (DynamicEntity e : GameSession.gameSession.entities) {
-      if (e != this && e.team != this.team) {
+      if (e.team != this.team) {
         int dist = distanceTo(e);
         if (dist < minDist) {
           minDist = dist;
