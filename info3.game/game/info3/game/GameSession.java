@@ -48,7 +48,7 @@ public class GameSession {
     List<DynamicEntity> toAddEntities;
     List<DynamicEntity> toRemoveEntities;
 
-    List<Key> keys;
+    public List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
