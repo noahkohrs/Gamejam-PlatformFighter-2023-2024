@@ -9,14 +9,16 @@ public class Raptor extends DynamicEntity {
 
     private int time = 20000;
     Player ennemi;
-    public Raptor(int x, int y, int team, String filename, int nrows, int ncols,Direction direction) throws IOException {
-        super(x, y, team, filename, nrows, ncols);
+    public Raptor(int x, int y, int team, Direction direction) throws IOException {
+        super(x, y, team, "resources/raptor-2x8.png", 2, 8);
         if (GameSession.gameSession.player1.team == team) {
             ennemi = GameSession.gameSession.player2;
         } else
             ennemi = GameSession.gameSession.player1;
         hitbox = new HitBox(4, 16, 48, 16, this);
-        view = new RaptorView(filename, 2, 8, this);
+        view = new RaptorView("resources/raptor-2x8.png", 2, 8, this);
+        while (hitbox.inCollision(Direction.BOTTOM))
+            this.y -= 1;
         this.facingDirection=direction;
     }
 

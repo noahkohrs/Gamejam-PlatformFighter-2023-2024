@@ -2,6 +2,8 @@ package info3.game.entity;
 
 import java.io.IOException;
 
+import info3.game.Camera;
+
 public class Mexican extends Player {
     int raptorCooldown;
 
@@ -28,7 +30,7 @@ public class Mexican extends Player {
         System.out.println("wizz mexican avec movingDirection:"+facingDirection.toString());
         raptorCooldown = 1000;
         try {
-            new Raptor(this.x, this.y, this.team, "resources/raptor-2x8.png", 2, 8,facingDirection);
+            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team,facingDirection);
         } catch (IOException e) {
             e.printStackTrace();
         }
