@@ -47,7 +47,7 @@ public class Player extends DynamicEntity {
     super(40, 40, team, Getchar(team) + "PlayerSprite.png", 2, 2);
     view = new PlayerView(Getchar(team) + "PlayerSprite.png", 2, 2, this);
     this.lifeBar = new LifeBar(team);
-    hitbox = new HitBox(12, 8, 15, 21, this);
+    hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Weapon(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;

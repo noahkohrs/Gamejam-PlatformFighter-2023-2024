@@ -37,12 +37,7 @@ public class PlayerView extends EntityView {
         ((Player)entity).weapon.showHitBox(g);
         ((Player)entity).lifeBar.showLifeBar(g);
         //didnt know a better way to implement it ATM
-         if(((Player)entity).facingDirection==Direction.LEFT){
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),false,false);
-        }
-        else{
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),true,false);
-        }
+        Camera.drawEntity(entity, g);
 
     }
 }

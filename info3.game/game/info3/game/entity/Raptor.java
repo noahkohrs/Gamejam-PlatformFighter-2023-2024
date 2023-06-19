@@ -16,7 +16,7 @@ public class Raptor extends DynamicEntity {
             ennemi = GameSession.gameSession.player2;
         } else
             ennemi = GameSession.gameSession.player1;
-        hitbox = new HitBox(4, 16, 48, 16, this);
+        hitbox = new HitBox(4, 16, 48, 16, this); //64-48-4=12
         view = new RaptorView("resources/raptor-2x8.png", 2, 8, this);
         while (hitbox.inCollision(Direction.BOTTOM))
             this.y -= 1;
