@@ -11,13 +11,15 @@ import info3.game.entity.TEAM;
 
 
 
-public class MalusBlock extends DynamicEntity{
+public class MalusBlock extends Block{
 
     public Malus malus;
     float timer = 0;
+    private static String blockTexture = "resources/blocks/malusBlock.png";
 
-    public MalusBlock(int x, int y, int nrows, int ncols) throws IOException{
-        super(x, y, TEAM.NONE, "resources/blocks/malusBlock.png", 1, 1);
+
+    public MalusBlock(int x, int y) throws IOException{
+        super(x, y, blockTexture);
     }
 
     @Override

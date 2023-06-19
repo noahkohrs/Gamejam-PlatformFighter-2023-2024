@@ -1,5 +1,6 @@
 Player1(Init){
   * (Init)
+  | Cell(B, P) ? Pick() :(Init)
   | Key(z) ? Move(N)  :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
@@ -9,6 +10,7 @@ Player1(Init){
 
 Player2(Init){
   * (Init)
+  | Cell(B, P) ? Pick() :(Init)
   | Key(1) ? Move(N)  :(Init)
   | Key(4) ? Move(E)  :(Init)
   | Key(3) ? Move(W)  :(Init)
@@ -63,7 +65,6 @@ MalusBlock(Init){
   * (Speed)
   | GotPower() ? Egg() :(Init)
   | True()? :(Init)
-
 
   * (Shield)
   | GotPower() ? Egg() :(Init)

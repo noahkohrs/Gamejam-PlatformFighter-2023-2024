@@ -99,10 +99,6 @@ public class GameSession {
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
-            case "PowerUpBlock" :
-                return new PowerUpBlock(x, y, 1, 1);
-            case "MalusBlock" :
-                return new MalusBlock(x, y, 1, 1);
             default:
                 return null;
         }

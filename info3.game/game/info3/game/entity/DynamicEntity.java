@@ -35,7 +35,6 @@ public class DynamicEntity extends Entity {
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
 
-
     @Override
     public void egg(Entity type) {
         // TODO Auto-generated method stub
@@ -58,5 +57,9 @@ public class DynamicEntity extends Entity {
         throw new UnsupportedOperationException("Unimplemented method 'Turn'");
     }
 
-    
+    @Override
+    public void cell(Direction direction, String category) {
+        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+    }
+
 }

@@ -162,6 +162,8 @@ public abstract class Entity {
 
   public abstract void egg(Entity type);
 
+  public abstract void cell(Direction direction, String category);
+
   // Conditions
 
   public abstract boolean gotPower();

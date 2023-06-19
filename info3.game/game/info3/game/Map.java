@@ -6,8 +6,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -16,6 +14,8 @@ import org.json.JSONObject;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
+import info3.game.entity.blocks.MalusBlock;
+import info3.game.entity.blocks.PowerUpBlock;
 
 public class Map {
     private int width;
@@ -54,6 +54,10 @@ public class Map {
         switch (id) {
             case "GrassBlock" :
                 return new GrassBlock(x, y);
+            case "PowerUpBlock" :
+                return new PowerUpBlock(x,y);
+            case "MalusBlock" :
+                return new MalusBlock(x,y);
             default :
                 return new GrassBlock(x, y);
         }

@@ -2,7 +2,7 @@ package info3.game.entity;
 
 import java.io.IOException;
 
-public class Block extends Entity {
+public class Block extends DynamicEntity {
     public static final int BLOCK_SIZE = 32;
 
     public Block(int x, int y, String blockTexture) throws IOException {
@@ -12,7 +12,7 @@ public class Block extends Entity {
     @Override
     public void tick(long elapsed) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
+        // throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
 
 

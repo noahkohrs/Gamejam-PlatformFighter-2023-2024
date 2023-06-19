@@ -107,4 +107,11 @@ public class Player extends DynamicEntity {
     System.out.println("wizz");
   }
 
+  @Override
+  public void cell(Direction direction, String category) {
+    if( category.equals("P")){
+      System.out.println("cell");
+    }
+  }
+
 }
