@@ -25,6 +25,7 @@ public class Raptor extends DynamicEntity {
     @Override
     public void tick(long elapsed) {
     jumpCooldown -= elapsed;
+    time -= elapsed;
     view.tick(elapsed) ;
     try {
       movingDirection = Direction.IDLE ;
