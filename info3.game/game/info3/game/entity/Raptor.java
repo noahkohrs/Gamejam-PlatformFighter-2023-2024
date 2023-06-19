@@ -7,7 +7,7 @@ import info3.game.hitbox.HitBox;
 
 public class Raptor extends DynamicEntity {
 
-    private int time = 20000; // 30sec
+    private int time = 20000;
     Player ennemi;
 
     public Raptor(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
@@ -16,7 +16,7 @@ public class Raptor extends DynamicEntity {
             ennemi = GameSession.gameSession.player2;
         } else
             ennemi = GameSession.gameSession.player1;
-        hitbox = new HitBox(12, -2, 22, 35, this);
+        hitbox = new HitBox(4, 16, 48, 16, this);
         view = new RaptorView(filename, 2, 8, this);
     }
 
@@ -25,31 +25,35 @@ public class Raptor extends DynamicEntity {
         time -= elapsed;
         view.tick(elapsed);
         affectTor();
-        Movement.affectGravity(this);
-        if (!hitbox.inCollision(Direction.BOTTOM))
-            y = (int) (y - PhysicConstant.gravity);
         try {
+            Direction prevDir = facingDirection;
+            this.facingDirection = Direction.IDLE;
             this.automate.step(this);
+            if (facingDirection != prevDir)
+                accelerationX = 0.1;
         } catch (Exception e) {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
+        Movement.Walk(this);
+        Movement.affectGravity(this);
     }
 
     @Override
     public void move(Direction direction) {
         ((RaptorView) this.view).direction = direction;
-        if (direction == Direction.RIGHT || direction == Direction.LEFT)
-            this.facingDirection = direction;
+        // if (direction == Direction.RIGHT || direction == Direction.LEFT)
+        // this.facingDirection = direction;
 
-        if (!hitbox.inCollision(direction)) {
-            x += direction.x * 3;
-        }
+        // if (!hitbox.inCollision(direction)) {
+        // x += direction.x * 3;
+        // }
+        accelerationX += 0.04;
+        facingDirection = direction;
     }
 
     @Override
     public boolean gotPower() {
-        System.out.println("i GOT THE POWERR");
         return time > 0;
     }
 
@@ -61,13 +65,15 @@ public class Raptor extends DynamicEntity {
     @Override
     public boolean cell(Direction direction, String category) {
         if (category.equals("O")) {
-            return hitbox.inCollision(direction);
+            this.x += direction.x;
+            boolean res = hitbox.inCollision(direction);
+            this.x -= direction.x;
+            return res;
         } else {
-            int nextX = x + direction.x * 8;
-            int nextY = y + direction.y;
-            if (hitbox.vectorInPLayerCollision(nextX * 2, nextY + 10, direction))
+            if (distanceTo(ennemi)<=100)
                 ((RaptorView) this.view).attack = true;
-            return hitbox.vectorInPLayerCollision(nextX, nextY, direction);
+            return distanceTo(ennemi)<=33;
         }
     }
+
 }
