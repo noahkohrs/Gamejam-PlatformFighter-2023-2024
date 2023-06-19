@@ -42,38 +42,6 @@ public class HitBox {
         view.paint(g);
     }
 
-    public int getTopLeftX() {
-        return entity.x + offsetX;
-    }
-
-    public int getTopLeftY() {
-        return entity.y + offsetY;
-    }
-
-    public int getBottomRightX() {
-        return entity.x + offsetX + width;
-    }
-
-    public int getBottomRightY() {
-        return entity.y + offsetY + height;
-    }
-
-    public int getTopLeftX(int x) {
-        return x + offsetX;
-    }
-
-    public int getTopLeftY(int y) {
-        return y + offsetY;
-    }
-
-    public int getBottomRightX(int x) {
-        return x + offsetX + width;
-    }
-
-    public int getBottomRightY(int y) {
-        return y + offsetY + height;
-    }
-
     public boolean inCollision(Direction dir) {
         int x, y;
         if (dir.x == 1)
@@ -128,6 +96,87 @@ public class HitBox {
         }
         return false;
     }
+
+    public int getTopLeftY() {
+        return entity.y + offsetY;
+    }
+
+    public int getTopLeftX() {
+        return entity.x + offsetX;
+    }
+
+    public int getBottomRightX() {
+        return entity.x + offsetX + width;
+    }
+
+    public int getBottomRightY() {
+        return entity.y + offsetY + height;
+    }
+
+    public int getTopLeftX(int x) {
+        return x + offsetX;
+    }
+
+    public int getTopLeftY(int y) {
+        return y + offsetY;
+    }
+
+    public int getBottomRightX(int x) {
+        return x + offsetX + width;
+    }
+
+    public int getBottomRightY(int y) {
+        return y + offsetY + height;
+    }
+
+    public boolean vectorInPLayerCollision(int newX, int newY, Direction dir) {
+        int playerXLeft, playerYLeft, playerXRight, playerYRight;
+        HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
+        HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
+        if (entity.team == GameSession.gameSession.player2.team) {
+            playerXLeft = player1HitBox.getTopLeftX();
+            playerYLeft = player1HitBox.getTopLeftY();
+            playerXRight = player1HitBox.getBottomRightX();
+            playerYRight = player1HitBox.getBottomRightY();
+        } else {
+            playerXLeft = player2HitBox.getTopLeftX();
+            playerYLeft = player2HitBox.getTopLeftY();
+            playerXRight = player2HitBox.getBottomRightX();
+            playerYRight = player2HitBox.getBottomRightY();
+        }
+
+        // Check if collision in between current and new position
+        if (dir == Direction.RIGHT) {
+            if (playerXLeft >= getBottomRightX() && playerXLeft <= getBottomRightX(newX)) {
+                // Y Haut --> Bas
+                if (playerYLeft <= getBottomRightY() && playerYRight >= getBottomRightY()) {
+                    return true;
+                }
+                // Y Bas --> Haut
+                if (playerYRight <= getTopLeftY() && playerYLeft >= getTopLeftY()) {
+                    return true;
+                }
+            }
+        } else if (dir == Direction.LEFT) {
+            // X Gauche --> Droite
+            if (playerXRight <= getTopLeftX() && playerXRight >= getTopLeftX(newX)) {
+                if (playerYLeft <= getBottomRightY() && playerYRight >= getBottomRightY()) {
+                    return true;
+                }
+                // Y Bas --> Haut
+                if (playerYRight <= getTopLeftY() && playerYLeft >= getTopLeftY()) {
+                    return true;
+                }
+            }
+        } else if (dir == Direction.UPPER) {
+
+        } else if (dir == Direction.BOTTOM) {
+
+        }
+
+        return false;
+    }
+
 
     // Need to check in function of Direction after proto
     private boolean checkMapCollision(int x, int y, Direction dir) {

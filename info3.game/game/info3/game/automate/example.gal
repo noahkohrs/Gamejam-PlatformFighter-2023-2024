@@ -1,10 +1,17 @@
 Player1(Init){
   * (Init)
-  | Key(z) & True() & True()?  Move(N):(Init)
+  | Key(q) & Key(z) ? Move(NW) :(Init)
+  | Key(z) & Key(d) ? Move(NE) :(Init)
+  | Key(z) ? Move(N) :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
+  | Key(w) ?          :(Ra)
   | True() ?          :(Init)
+
+  *(Ra)
+  |GotPower() ? Wizz():(Init)
+  |!GotPower()?       :(Init)
 }
 
 Player2(Init){
@@ -76,4 +83,23 @@ MalusBlock(Init){
   * (Pow)
   | GotPower() ? Egg() :(Init)
   | True() ? :(Init)
+}
+
+
+Raptor(Init){
+  *(Init)
+  |GotPower ?  :(Right)
+  |!GotPower ?  :()
+
+  *(Right)
+  |Cell(E,A) ? Pop()    :()
+  |!Cell(E,O)?         :(Left)
+  |!GotPower ?  :()
+  |True()    ? Move(E) :(Right)
+
+  *(Left)
+  |Cell(W,A) ? Pop()    :()
+  |!Cell(W,O)?          :(Right)
+  |!GotPower ?          :()
+  |True()    ? Move(W)  :(Left)
 }

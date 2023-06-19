@@ -12,23 +12,26 @@ import info3.game.entity.Entity;
 public class Automate {
     public List<Transitions> trans;
     public List<State> states;
-    public State initalState ;
+    public State initalState;
     public String className;
 
-    public Automate(){
-        trans=new ArrayList<Transitions>();
-        states=new ArrayList<State>();
+    public Automate() {
+        trans = new ArrayList<Transitions>();
+        states = new ArrayList<State>();
     }
-    public Automate(List<Transitions> trans,List<State> states, State initialState) {
+
+    public Automate(List<Transitions> trans, List<State> states, State initialState) {
         this.trans = trans;
-        this.states=states;
+        this.states = states;
     }
-    public Automate(List<Transitions> trans,List<State> states,State iniState, String className){
+
+    public Automate(List<Transitions> trans, List<State> states, State iniState, String className) {
         this.trans = trans;
-        this.states=states;
-        this.initalState=iniState;
-        this.className=className;
+        this.states = states;
+        this.initalState = iniState;
+        this.className = className;
     }
+
     public void step(Entity e) throws Exception{
         Random random=new Random();
         for(int i=0;i<trans.size();i++){
@@ -36,7 +39,7 @@ public class Automate {
             State source =  transition.src;
             State dest = transition.dest;
             if(source==null || dest==null){
-                System.out.println("Etat sans transition");
+                System.out.println("Etat without transition");
                 return;
             }
             Condition cond = transition.cond;
@@ -58,8 +61,6 @@ public class Automate {
                         }
                         e.state=states.get(randint);
                     }
-                else if(dest.name.equals(""))
-                    ((DynamicEntity) e).kill();
                 else
                     e.state=dest;
                 //If there is no action, just exit the function
@@ -71,40 +72,43 @@ public class Automate {
         System.out.println("State unescapable\n");
     }
 
-    public State existe(String stateName){
-        //If there are no states, we create the ArrayList and return the stete of the argument
-        if(states==null){
-            states=new ArrayList<State>();
+
+    public State existe(String stateName) {
+        // If there are no states, we create the ArrayList and return the stete of the
+        // argument
+        if (states == null) {
+            states = new ArrayList<State>();
             return null;
         }
-        //We search if the state already exist. If yes, return null
-        for(State state : states){
-            if(stateName.equals(state.name))
+        // We search if the state already exist. If yes, return null
+        for (State state : states) {
+            if (stateName.equals(state.name))
                 return state;
         }
-        //Else return the state of the argument
+        // Else return the state of the argument
         return null;
     }
 
-    public State getState(String stateName){
-        State toAdd=existe(stateName);
-        if(toAdd == null) {
+    public State getState(String stateName) {
+        State toAdd = existe(stateName);
+        if (toAdd == null) {
             toAdd = new State(stateName);
             states.add(toAdd);
         }
-            
 
         return toAdd;
     }
 
-    public void prettyPrint(){
-        //System.out.println("Automate for "+this.e.getClass().getName().toString());
-        for(int i=0;i<trans.size();i++){
-            if(trans.get(i).dest==null){
+    public void prettyPrint() {
+        // System.out.println("Automate for "+this.e.getClass().getName().toString());
+        for (int i = 0; i < trans.size(); i++) {
+            if (trans.get(i).dest == null) {
                 System.out.println("Etat finale sans transition");
                 return;
             }
-            System.out.println(trans.get(i).src.name+"->"+trans.get(i).dest.name+" |if "+trans.get(i).cond.getClass().getName().toString()+" then "+trans.get(i).action.getClass().getName().toString());
+            System.out.println(trans.get(i).src.name + "->" + trans.get(i).dest.name + " |if "
+                    + trans.get(i).cond.getClass().getName().toString() + " then "
+                    + trans.get(i).action.getClass().getName().toString());
         }
     }
 }

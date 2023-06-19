@@ -76,7 +76,7 @@ public class ParserToAutomate implements IVisitor {
     public Object visit(BinaryOp operator, Object left, Object right) {
         Automate currentAutomate=this.autos.get(this.autos.size()-1);
         Transitions currentTransition=currentAutomate.trans.get(currentAutomate.trans.size()-1);
-        if(currentTransition.cond!=null)
+        if(left==null || right==null)
             return null;
         if (left instanceof UnaryOp)
             left = ((UnaryOp) left).operand;
@@ -120,7 +120,7 @@ public class ParserToAutomate implements IVisitor {
                 right = ((UnaryOp) right).operand;
             FunCall conditionfuncall2 = (FunCall) right;
             String expressionName2 = ((Expression) right).name();
-            String className2 = "info3.game.automate.condition." + expressionName;
+            String className2 = "info3.game.automate.condition." + expressionName2;
 
             // Load the class dynamically
             Class<?> condClass2 = null;
@@ -264,7 +264,14 @@ public class ParserToAutomate implements IVisitor {
         Automate currentAutomate = autos.get(autos.size() - 1);
         if (currentAutomate.trans.get(currentAutomate.trans.size() - 1).cond != null) {
             Automate a = currentAutomate;
-            info3.game.automate.State currentState=a.states.get(a.states.size()-1);
+            Transitions previousTransition;
+            info3.game.automate.State currentState;
+            if(a.trans.size()>1){
+                previousTransition = a.trans.get(a.trans.size()-1);
+                currentState=previousTransition.src;
+            }
+            else
+                currentState=a.states.get(a.states.size()-1);
             a.trans.add(a.trans.size(), new Transitions(currentState, null, null, null));
         }
         currentAutomate.trans.get(currentAutomate.trans.size()

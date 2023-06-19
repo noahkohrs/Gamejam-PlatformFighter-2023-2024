@@ -23,7 +23,9 @@ import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
+import info3.game.entity.Mexican;
 import info3.game.entity.Player;
+import info3.game.entity.Raptor;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
@@ -48,7 +50,7 @@ public class GameSession {
     List<DynamicEntity> toAddEntities;
     List<DynamicEntity> toRemoveEntities;
 
-    List<Key> keys;
+    public List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
@@ -65,7 +67,7 @@ public class GameSession {
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
-        player1 = new Player(TEAM.BLUE);
+        player1 = new Mexican(TEAM.BLUE);
         player2 = new Player(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);

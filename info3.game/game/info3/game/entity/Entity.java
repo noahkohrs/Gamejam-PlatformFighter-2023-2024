@@ -27,6 +27,7 @@ public abstract class Entity {
   public State state;
 
   public Direction facingDirection;
+  public Direction movingDirection;
 
   // constant regulating the movement of entitites
   PhysicConstant model;
@@ -140,7 +141,8 @@ public abstract class Entity {
   }
 
   public int distanceTo(Entity e) {
-    return (int) Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
+    return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2) 
+    + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
   }
 
   public DynamicEntity nearestEnemyEntity() {
@@ -186,6 +188,7 @@ public abstract class Entity {
 
   // Conditions
 
-  public abstract boolean gotPower();
-
+    public abstract boolean gotPower() ;
+    public abstract boolean cell(Direction direction,String category);
+    
 }
