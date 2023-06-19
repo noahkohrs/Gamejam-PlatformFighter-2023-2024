@@ -5,7 +5,12 @@ Player1(Init){
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
+  | Key(w) ?          :(Ra)
   | True() ?          :(Init)
+
+  *(Ra)
+  |GotPower() ? Wizz():(Init)
+  |!GotPower()?       :(Init)
 }
 
 Player2(Init){
@@ -34,6 +39,24 @@ MovingPlatform(Init){
   * (Init)
   | GotPower() ? Move() :(Init)
   | !GotPower() ? Turn() :(Init)
+}
+
+Raptor(Init){
+  *(Init)
+  |GotPower ?  :(Right)
+  |!GotPower ?  :()
+
+  *(Right)
+  |Cell(E,A) ? Pop()    :()
+  |!Cell(E,O)?         :(Left)
+  |!GotPower ?  :()
+  |True()    ? Move(E) :(Right)
+
+  *(Left)
+  |Cell(W,A) ? Pop()    :()
+  |!Cell(W,O)?          :(Right)
+  |!GotPower ?          :()
+  |True()    ? Move(W)  :(Left)
 }
 
 PowerUpBlock(Init){

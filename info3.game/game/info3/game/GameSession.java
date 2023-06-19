@@ -11,17 +11,23 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
+import info3.game.automata.ast.BinaryOp;
+import info3.game.automata.ast.Transition;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
 import info3.game.automate.State;
 import info3.game.automate.Transitions;
 import info3.game.automate.condition.Key;
+import info3.game.automate.condition.True;
+import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
+import info3.game.entity.Mexican;
 import info3.game.entity.Player;
+import info3.game.entity.Raptor;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
@@ -61,7 +67,7 @@ public class GameSession {
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
-        player1 = new Player(TEAM.BLUE);
+        player1 = new Mexican(TEAM.BLUE);
         player2 = new Player(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
@@ -72,8 +78,13 @@ public class GameSession {
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key)
-                    keys.add((Key) transition.cond);
+                if (transition.cond instanceof Key){
+                    if(findKEy(((Key)transition.cond).letter)==-1)
+                        keys.add((Key) transition.cond);
+                }
+                else if(transition.cond instanceof Binary){
+                    keys.addAll(((Binary)transition.cond).loadKeys());
+                }
             }
         }
     }
@@ -152,7 +163,7 @@ public class GameSession {
         return map.realHeight();
     }
 
-    int findKEy(char letter) {
+    public int findKEy(char letter) {
         for (int i = 0; i < this.keys.size(); i++) {
             if (this.keys.get(i).letter == letter) {
                 // System.out.println("Found");
@@ -168,7 +179,7 @@ public class GameSession {
             if (automate.className.equals(className)) {
                 // System.out.println("Found");
                 return automate;
-            } else if (className.equals("Player") && automate.className.startsWith(className)) {
+            } else if (entity instanceof Player && automate.className.startsWith("Player")) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {

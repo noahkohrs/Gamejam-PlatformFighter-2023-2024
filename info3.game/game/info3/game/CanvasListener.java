@@ -135,6 +135,11 @@ public class CanvasListener implements GameCanvasListener {
         GameSession.gameSession.keys.get(index).pressed = true;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
+      case KeyEvent.VK_W:
+        index = GameSession.gameSession.findKEy('w');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
       case KeyEvent.VK_Z:
         //System.out.println("Qq");
         //GameSession.gameSession.player1.IsJumping = true;
@@ -191,6 +196,11 @@ public class CanvasListener implements GameCanvasListener {
         break;
       case KeyEvent.VK_S:
         index = GameSession.gameSession.findKEy('s');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_W:
+        index = GameSession.gameSession.findKEy('w');
         GameSession.gameSession.keys.get(index).pressed = false;
         //System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;

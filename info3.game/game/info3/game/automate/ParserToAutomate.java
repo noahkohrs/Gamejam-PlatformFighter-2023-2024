@@ -22,6 +22,7 @@ import info3.game.automata.ast.UnaryOp;
 import info3.game.automata.ast.Underscore;
 import info3.game.automata.ast.Value;
 import info3.game.entity.Entity;
+import info3.game.automate.condition.Binary;
 
 public class ParserToAutomate implements IVisitor {
 
@@ -73,9 +74,86 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public Object visit(BinaryOp operator, Object left, Object right) {
-        // System.out.println("8 "+left.toString()+" "+operator.toString()+"
-        // "+right.toString());
-        return null;
+        Automate currentAutomate=this.autos.get(this.autos.size()-1);
+        Transitions currentTransition=currentAutomate.trans.get(currentAutomate.trans.size()-1);
+        if(currentTransition.cond!=null)
+            return null;
+        if (left instanceof UnaryOp)
+            left = ((UnaryOp) left).operand;
+        FunCall conditionfuncall = (FunCall) left;
+        String expressionName = ((Expression) left).name();
+        String className = "info3.game.automate.condition." + expressionName;
+
+        // Load the class dynamically
+        Class<?> condClass = null;
+        try {
+            condClass = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+        }
+
+        // Create an instance of the condition class
+        Object condInstance = null;
+        try {
+            if (conditionfuncall.parameters.size() == 0)
+                condInstance = condClass.getDeclaredConstructor().newInstance();
+            else if (conditionfuncall.parameters.size() == 1)
+                condInstance = condClass.getDeclaredConstructor(String.class)
+                        .newInstance(conditionfuncall.parameters.get(0).toString());
+            else if (conditionfuncall.parameters.size() == 2) {
+                String param1 = conditionfuncall.parameters.get(0).toString();
+                String param2 = conditionfuncall.parameters.get(1).toString();
+                condInstance = condClass.getDeclaredConstructor(String.class, String.class).newInstance(param1, param2);
+            }
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
+
+            e.printStackTrace();
+        }
+        Object condInstance2;
+        if (right instanceof BinaryOp) {
+            condInstance2 = visit((BinaryOp) right, (Expression) ((BinaryOp) right).left_operand,
+                    (Expression) ((BinaryOp) right).right_operand);
+        } else {
+            if (right instanceof UnaryOp)
+                right = ((UnaryOp) right).operand;
+            FunCall conditionfuncall2 = (FunCall) right;
+            String expressionName2 = ((Expression) right).name();
+            String className2 = "info3.game.automate.condition." + expressionName;
+
+            // Load the class dynamically
+            Class<?> condClass2 = null;
+            try {
+                condClass2 = Class.forName(className2);
+            } catch (ClassNotFoundException e) {
+
+                e.printStackTrace();
+            }
+
+            // Create an instance of the condition class
+            condInstance2 = null;
+            try {
+                if (conditionfuncall2.parameters.size() == 0)
+                    condInstance2 = condClass2.getDeclaredConstructor().newInstance();
+                else if (conditionfuncall2.parameters.size() == 1)
+                    condInstance2 = condClass2.getDeclaredConstructor(String.class)
+                            .newInstance(conditionfuncall2.parameters.get(0).toString());
+                else if (conditionfuncall2.parameters.size() == 2) {
+                    String param1 = conditionfuncall2.parameters.get(0).toString();
+                    String param2 = conditionfuncall2.parameters.get(1).toString();
+                    condInstance2 = condClass2.getDeclaredConstructor(String.class, String.class).newInstance(param1,
+                            param2);
+                }
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException
+                    | NoSuchMethodException | SecurityException e) {
+
+                e.printStackTrace();
+            }
+        }
+        return new Binary((info3.game.automate.condition.Condition) condInstance,
+                (info3.game.automate.condition.Condition) condInstance2, operator.operator);
     }
 
     @Override
@@ -140,43 +218,60 @@ public class ParserToAutomate implements IVisitor {
     @Override
     public void enter(Condition condition) {
         Expression expression = condition.expression;
-        if (expression instanceof UnaryOp) 
-            expression = ((UnaryOp)expression).operand; 
-        FunCall conditionfuncall = (FunCall)expression;
-        String expressionName = expression.name();
-        String className = "info3.game.automate.condition." + expressionName;
+        String expressionName = "";
+        Object condInstance;
+        FunCall conditionfuncall = new FunCall(0, expressionName, null);
+        if (expression instanceof BinaryOp) {
+            BinaryOp bi = (BinaryOp) expression;
+            condInstance = this.visit(bi, (Expression) bi.left_operand, (Expression) bi.right_operand);
+        } else {
+            if (expression instanceof UnaryOp)
+                expression = ((UnaryOp) expression).operand;
+            conditionfuncall = (FunCall) expression;
+            expressionName = expression.name();
+            String className = "info3.game.automate.condition." + expressionName;
 
-        // Load the class dynamically
-        Class<?> condClass = null;
-        try {
-            condClass = Class.forName(className);
-        } catch (ClassNotFoundException e) {
+            // Load the class dynamically
+            Class<?> condClass = null;
+            try {
+                condClass = Class.forName(className);
+            } catch (ClassNotFoundException e) {
 
-            e.printStackTrace();
-        }
-
-        // Create an instance of the condition class
-        Object condInstance = null;
-        try {
-            if (conditionfuncall.parameters.size() == 0)
-                condInstance = condClass.getDeclaredConstructor().newInstance();
-            else if (conditionfuncall.parameters.size() == 1)
-                condInstance = condClass.getDeclaredConstructor(String.class)
-                        .newInstance(conditionfuncall.parameters.get(0).toString());
-            else if (conditionfuncall.parameters.size() == 2) {
-                String param1 = conditionfuncall.parameters.get(0).toString();
-                String param2 = conditionfuncall.parameters.get(1).toString();
-                condInstance = condClass.getDeclaredConstructor(String.class, String.class).newInstance(param1, param2);
+                e.printStackTrace();
             }
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException e) {
 
-            e.printStackTrace();
+            // Create an instance of the condition class
+            condInstance = null;
+            try {
+                if (conditionfuncall.parameters.size() == 0)
+                    condInstance = condClass.getDeclaredConstructor().newInstance();
+                else if (conditionfuncall.parameters.size() == 1)
+                    condInstance = condClass.getDeclaredConstructor(String.class)
+                            .newInstance(conditionfuncall.parameters.get(0).toString());
+                else if (conditionfuncall.parameters.size() == 2) {
+                    String param1 = conditionfuncall.parameters.get(0).toString();
+                    String param2 = conditionfuncall.parameters.get(1).toString();
+                    condInstance = condClass.getDeclaredConstructor(String.class, String.class).newInstance(param1,
+                            param2);
+                }
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException
+                    | NoSuchMethodException | SecurityException e) {
+
+                e.printStackTrace();
+            }
         }
         Automate currentAutomate = autos.get(autos.size() - 1);
         if (currentAutomate.trans.get(currentAutomate.trans.size() - 1).cond != null) {
             Automate a = currentAutomate;
-            info3.game.automate.State currentState=a.states.get(a.states.size()-1);
+            Transitions previousTransition;
+            info3.game.automate.State currentState;
+            if(a.trans.size()>1){
+                previousTransition = a.trans.get(a.trans.size()-1);
+                currentState=previousTransition.src;
+            }
+            else
+                currentState=a.states.get(a.states.size()-1);
             a.trans.add(a.trans.size(), new Transitions(currentState, null, null, null));
         }
         currentAutomate.trans.get(currentAutomate.trans.size()

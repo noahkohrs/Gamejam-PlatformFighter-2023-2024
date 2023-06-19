@@ -58,8 +58,8 @@ public class DynamicEntity extends Entity {
     }
 
     @Override
-    public void cell(Direction direction, String category) {
-        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+    public boolean cell(Direction direction, String category) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'cell'");
     }
-
 }

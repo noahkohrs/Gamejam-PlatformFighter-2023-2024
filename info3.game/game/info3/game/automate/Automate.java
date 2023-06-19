@@ -6,6 +6,7 @@ import java.util.Random;
 
 import info3.game.automate.action.Action;
 import info3.game.automate.condition.Condition;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 
 public class Automate {
@@ -57,6 +58,8 @@ public class Automate {
                         }
                         e.state=states.get(randint);
                     }
+                else if(dest.name.equals(""))
+                    ((DynamicEntity) e).kill();
                 else
                     e.state=dest;
                 //If there is no action, just exit the function

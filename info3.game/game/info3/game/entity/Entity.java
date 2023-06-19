@@ -34,10 +34,10 @@ public abstract class Entity {
 
   long moveElapsed;
 
-  public Automate automate;
-  HitBox hitbox;
-  public EntityView view;
-  public int team;
+    public Automate automate;
+    public HitBox hitbox;
+    public EntityView view;
+    public int team ;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this.team = team;
@@ -166,6 +166,7 @@ public abstract class Entity {
 
   // Conditions
 
-  public abstract boolean gotPower();
-
+    public abstract boolean gotPower() ;
+    public abstract boolean cell(Direction direction,String category);
+    
 }

@@ -52,4 +52,11 @@ public class Block extends DynamicEntity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'egg'");
     }
+
+    @Override
+    public boolean cell(Direction direction, String category) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'cell'");
+    }
+    
 }
