@@ -184,7 +184,9 @@ public class Player extends DynamicEntity {
           case "power":
             break;
         }
+        ListPowerUp.remove(p);
       }
+
     }
 
   }
