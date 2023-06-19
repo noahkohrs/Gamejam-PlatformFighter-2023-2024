@@ -15,8 +15,8 @@ public class HitBoxView {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.RED);
-        Camera.drawRect(g, hitBox.getTopX(), hitBox.getTopY(), hitBox.width, hitBox.height);
+        g.setColor(Color.GREEN);
+        Camera.drawRect(g, hitBox.getTopLeftX(), hitBox.getTopLeftY(), hitBox.width, hitBox.height);
       }
 
 }

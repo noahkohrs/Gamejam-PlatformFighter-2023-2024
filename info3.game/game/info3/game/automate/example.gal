@@ -32,11 +32,57 @@ Bullet(Init){
     * (Init)
   | True() ? Move()  :(Init)
 }
+
 MovingPlatform(Init){
   * (Init)
   | GotPower() ? Move() :(Init)
   | !GotPower() ? Turn() :(Init)
 }
+
+PowerUpBlock(Init){
+  * (Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
+  | True()? :(Init)
+
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+}
+
+MalusBlock(Init){
+  * (Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
+  | True()? :(Init)
+
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+}
+
 
 Raptor(Init){
   *(Init)

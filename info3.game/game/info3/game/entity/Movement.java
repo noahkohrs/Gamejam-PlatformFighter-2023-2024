@@ -5,52 +5,49 @@ import info3.game.GameSession;
 public class Movement {
 
     static public void Walk(Entity E) {
-        if (E.stFaceLeft()) {
-            if (E.velX > E.model.maxVelX) {
-                E.velX = E.model.maxVelX;
-            } // capping player speed
-            E.x -= E.velX; // moving E
-        }
-        if (E.stFaceRight()) {
-            if (E.velX > E.model.maxVelX) {
-                E.velX = E.model.maxVelX;
-            } // same as above except other direction
-            E.x += E.velX;
-        }
-
+        E.updateVelocityX();
+        E.x += E.velX * E.facingDirection.x;
+        while (E.hitbox.inCollision(Direction.LEFT))
+            E.x += 1;
+        while (E.hitbox.inCollision(Direction.RIGHT))
+            E.x -= 1;
+        E.affectTor();
     }
 
-    // here everything that handles jumping and gravity affectd movement
-    static public void jump(Entity E, long deltatime) {
-        if (E.statusJump()) {
-            System.out.println("Vely:"+E.velY+" ajd jumptime:"+E.jumptime+" and E.y:"+E.y+" cd:"+E.jumpcd);
-            //affect jump when key pressed
-            if (E.jumptime == 0 && !E.jumpcd) {
-                E.jumpcd = true;
-                E.jumptime = 60;
-                E.velY = -PhysicConstant.gravity * PhysicConstant.lowJumpmultiplier * deltatime;
-                //affect Y velocity if still wqnting to jump aka Z key not release
-            } else if (E.jumptime > 0) {
-                E.jumptime-= deltatime;
-                E.velY = ((E.jumptime / 2.2f) * 1.1f);
-                E.jumpcd = false;
-                //E.velY=1;
-            } else {
-                //end of jump, starting to fall
-                E.velY += PhysicConstant.gravity * (PhysicConstant.fallmultiplier - 1) * deltatime;
+    public static void manageAirJump(Entity E) {
+            E.y += 1;
+            if (!E.hitbox.inCollision(Direction.BOTTOM) && E.jumpCounter == E.jumpAmount) {
+                E.jumpCounter-=1;
+                if (E.jumpCounter == 0) {
+                    return;
+                }
             }
-        //deccelerate jump if z key released early
-        } else if (E.jumptime > 0) {
-            E.velY *= 0.35f;
-            //E.velY=1;
-            E.jumptime = 0;
-        //affect gravity
-        } else {
-            E.jumpcd = false;
-            E.jumptime = 0;
-            E.velY += PhysicConstant.gravity * (PhysicConstant.fallmultiplier - 1) * deltatime;
-        }
-        E.y -= E.velY;
+            E.y -= 1;
     }
+
+    public static void Jump(Player E) {
+        if (E.jumpCounter > 0 && E.jumpCooldown < 0) {
+            manageAirJump(E);
+            E.velY = PhysicConstant.jumpForce;
+            E.jumpCounter--;
+            E.jumpCooldown = 250;
+        }
+    }
+
+    public static void affectGravity(Player E) {
+        E.updateJumpVelocity();
+        E.updateVelocityY();
+        E.y -= E.velY;
+        while (E.hitbox.inCollision(Direction.UPPER)) {
+            E.y += 1;
+            E.velY = Math.min(0, E.velY);
+        }
+        while (E.hitbox.inCollision(Direction.BOTTOM)) {
+            E.y -= 1;
+            E.velY = PhysicConstant.gravity;
+            E.jumpCounter = E.jumpAmount;
+        }
+    }
+
 
 }

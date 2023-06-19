@@ -42,6 +42,13 @@ public class Automate {
             Condition cond = transition.cond;
             Action action = transition.action;
             if(source==e.state && cond.eval(e)){
+                if(action!=null){
+                //else do the action of the transition.
+                String direction=action.Direction;
+                action.exec(e, direction);
+                e.state=dest;
+                }
+                else{
                 //If we want to go to a random state
                 if(dest.name.equals("_"))
                     {
@@ -56,13 +63,10 @@ public class Automate {
                 else
                     e.state=dest;
                 //If there is no action, just exit the function
-                if(action==null)
-                    return;
-                //else do the action of the transition.
-                String direction=action.Direction;
-                action.exec(e, direction);
+                }
                 return;
             }
+        
         }
         System.out.println("State unescapable\n");
     }

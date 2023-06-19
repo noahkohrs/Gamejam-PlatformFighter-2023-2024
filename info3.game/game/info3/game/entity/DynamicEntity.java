@@ -3,7 +3,6 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.GameSession;
-import info3.game.automate.Automate;
 
 public class DynamicEntity extends Entity {
 
@@ -34,6 +33,13 @@ public class DynamicEntity extends Entity {
     public void pop() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    }
+
+
+    @Override
+    public void egg(Entity type) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'egg'");
     }
 
     public void kill() {
