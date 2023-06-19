@@ -41,10 +41,12 @@ public abstract class Entity {
   public Automate automate;
   public HitBox hitbox;
   public EntityView view;
+  public int personalValX = PhysicConstant.maxVelX;
   public int team;
   public int jumpCounter ;
   public int jumpCooldown ;
   public int jumpAmount ;
+  public float timer = 0;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this.team = team;
@@ -161,7 +163,7 @@ public abstract class Entity {
   }
 
   void updateVelocityX() {
-    this.velX = (float) (PhysicConstant.maxVelX * (1 - Math.exp(-accelerationX)));
+    this.velX = (float) (Math.max(PhysicConstant.maxVelX, this.personalValX)* (1 - Math.exp(-accelerationX)));
   }
 
   void updateVelocityY() {

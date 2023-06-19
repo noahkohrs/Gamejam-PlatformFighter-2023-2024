@@ -4,9 +4,11 @@ import java.io.IOException;
 
 
 public class PowerUp extends DynamicEntity{
+    public String name;
 
-    public PowerUp(int x, int y, String filename, int nrows, int ncols) throws IOException {
+    public PowerUp(int x, int y, String filename, int nrows, int ncols, String name) throws IOException {
         super(x, y, TEAM.NONE, filename, nrows, ncols);
+        this.name = name;
     }
 
     

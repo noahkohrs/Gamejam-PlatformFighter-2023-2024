@@ -209,26 +209,26 @@ public class HitBox {
 
     // // WORKING ONLY FOR BULLET FOR NOW
     // public boolean vectorInPLayerCollision(int newX, int newY, Direction dir) {
-    //     int playerXLeft, playerYLeft, playerXRight, playerYRight;
-    //     HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
-    //     HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
-    //     if (entity.team == GameSession.gameSession.player2.team) {
-    //         playerXLeft = player1HitBox.getTopLeftX();
-    //         playerYLeft = player1HitBox.getTopLeftY();
-    //         playerXRight = player1HitBox.getBottomRightX();
-    //         playerYRight = player1HitBox.getBottomRightY();
-    //     } else {
-    //         playerXLeft = player2HitBox.getTopLeftX();
-    //         playerYLeft = player2HitBox.getTopLeftY();
-    //         playerXRight = player2HitBox.getBottomRightX();
-    //         playerYRight = player2HitBox.getBottomRightY();
-    //     }
+    // int playerXLeft, playerYLeft, playerXRight, playerYRight;
+    // HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
+    // HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
+    // if (entity.team == GameSession.gameSession.player2.team) {
+    // playerXLeft = player1HitBox.getTopLeftX();
+    // playerYLeft = player1HitBox.getTopLeftY();
+    // playerXRight = player1HitBox.getBottomRightX();
+    // playerYRight = player1HitBox.getBottomRightY();
+    // } else {
+    // playerXLeft = player2HitBox.getTopLeftX();
+    // playerYLeft = player2HitBox.getTopLeftY();
+    // playerXRight = player2HitBox.getBottomRightX();
+    // playerYRight = player2HitBox.getBottomRightY();
+    // }
 
-    //     if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
-    //         if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
-    //             return true;
-    //     }
-    //     return false;
+    // if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
+    // if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
+    // return true;
+    // }
+    // return false;
     // }
 
     public Block[] recupBlockMap() {
@@ -239,11 +239,12 @@ public class HitBox {
         int blockX = x / Block.BLOCK_SIZE;
         int blockY = y / Block.BLOCK_SIZE;
 
-        Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY);
-        Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + 1, blockY);
-        
+        Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + 1);
+        Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + 1, blockY + 1);
+
         Block[] blocks = { b1, b2 };
         return blocks;
     }
+
 
 }

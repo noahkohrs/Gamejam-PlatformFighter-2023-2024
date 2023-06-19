@@ -23,9 +23,13 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.Camera;
+
+import java.util.ArrayList;
+import java.util.List;
 import info3.game.GameSession;
 import info3.game.Weapon.Weapon;
 import info3.game.automate.Automate;
+import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 
@@ -38,7 +42,8 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
-
+  PowerUpBlock powerUpBlock;
+  List<PowerUp> ListPowerUp = new ArrayList<PowerUp>();
   long deltatime;
 
   public Player() throws IOException {
@@ -56,7 +61,7 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
-    public Player(int team, String filename) throws IOException {
+  public Player(int team, String filename) throws IOException {
     super(40, 40, team, filename, 4, 6);
     view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
     this.lifeBar = new LifeBar(team);
@@ -75,15 +80,18 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    timer += elapsed;
+    TimerPowerEffect();
+    System.out.println(Math.max(PhysicConstant.maxVelX, this.personalValX));
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
-      movingDirection = Direction.IDLE ;
+      movingDirection = Direction.IDLE;
       this.automate.step(this);
       if (movingDirection.x != 0)
         facingDirection = movingDirection;
-      if (facingDirection != movingDirection) 
-        accelerationX = 0.1 ;
+      if (facingDirection != movingDirection)
+        accelerationX = 0.1;
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
@@ -95,10 +103,10 @@ public class Player extends DynamicEntity {
   @Override
   public void move(Direction direction) {
     accelerationX += 0.04;
-    movingDirection = direction ;
+    movingDirection = direction;
     if (direction.y == Direction.UPPER.y)
-      Movement.Jump(this) ;
-  }  
+      Movement.Jump(this);
+  }
 
   @Override
   public void wizz() {
@@ -110,21 +118,66 @@ public class Player extends DynamicEntity {
     if (category.equals("P")) {
 
       Block[] blocksBottom = hitbox.recupBlockMap();
-      if (blocksBottom[0] != null) {
-        System.out.println("block[0]" + blocksBottom[0].getClass().getSimpleName());
 
+      for (int i = 0; i <= 1; i++) {
+        if (blocksBottom[i] != null) {
+          if (blocksBottom[i].getClass().getSimpleName().equals("PowerUpBlock")) {
+            List<PowerUpBlock> powerUpBlocks = GameSession.gameSession.map.powerUpBlocks;
+            for (PowerUpBlock p : powerUpBlocks) {
+              if (p.x == blocksBottom[i].x && p.y == blocksBottom[i].y) {
+                powerUpBlock = p;
+              }
+            }
+            return true;
+          }
+        }
       }
-      if (blocksBottom[1] != null) {
-        System.out.println("block[1]" + blocksBottom[1].getClass().getSimpleName());
-      }
-
-      return true;
     }
     return false;
   }
 
   @Override
   public void pick() {
+    PowerUp powerUp = powerUpBlock.powerUp;
+    if (powerUp != null) {
+      switch (powerUp.name) {
+        case "ammo":
+          break;
+        case "speed":
+          personalValX += PhysicConstant.maxVelX / 2;
+          ListPowerUp.add(powerUp);
+          powerUp.timer = timer;
+          break;
+        case "shield":
+          break;
+        case "power":
+          break;
+      }
+      System.out.println(powerUp.name);
+
+      powerUpBlock.deletePowerUp();
+    }
+
+  }
+
+  public void TimerPowerEffect() {
+    for (PowerUp p : ListPowerUp) {
+      // System.out.println(timer - p.timer);
+      if (timer - p.timer >= 5000) {
+        switch (p.name) {
+          case "ammo":
+            break;
+          case "speed":
+            personalValX -= PhysicConstant.maxVelX / 2;
+            break;
+          case "shield":
+            break;
+          case "power":
+            break;
+        }
+      }
+    }
+
   }
 
 }

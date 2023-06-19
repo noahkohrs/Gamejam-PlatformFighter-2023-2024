@@ -39,10 +39,4 @@ public class Mexican extends Player {
         return raptorCooldown <= 0;
     }
 
-    public void pick() {
-    // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method 'pick'");
-    System.out.println("pick");
-  }
-
 }

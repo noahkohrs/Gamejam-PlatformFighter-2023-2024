@@ -10,9 +10,7 @@ import info3.game.entity.Block;
 public class PowerUpBlock extends Block {
 
     public PowerUp powerUp;
-    float timer = 0;
     private static String blockTexture = "resources/blocks/powerUpBlock.png";
-
 
     public PowerUpBlock(int x, int y) throws IOException {
         super(x, y, blockTexture);
@@ -48,7 +46,7 @@ public class PowerUpBlock extends Block {
 
             String powerUpPath = "resources/powerUp/" + powerUpName + ".png";
             try {
-                this.powerUp = new PowerUp(x, y - Block.BLOCK_SIZE, powerUpPath, 1, 1);
+                this.powerUp = new PowerUp(x, y - Block.BLOCK_SIZE, powerUpPath, 1, 1, powerUpName);
             } catch (IOException c) {
                 c.printStackTrace();
             }
@@ -63,6 +61,11 @@ public class PowerUpBlock extends Block {
             return true;
         }
         return false;
+    }
+
+    public void deletePowerUp() {
+        powerUp.kill();
+        powerUp = null;
     }
 
 }
