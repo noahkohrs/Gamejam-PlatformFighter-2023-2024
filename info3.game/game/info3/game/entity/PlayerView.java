@@ -23,7 +23,7 @@ public class PlayerView extends EntityView {
         if (m_imageElapsed > 200) {
              m_imageElapsed = 0;
             if(((Player)entity).accelerationX == 0.1){
-            imageIndex = (imageIndex + 1) % 2;
+                imageIndex = (imageIndex + 1) % 2;
             } else {
                 imageIndex= (imageIndex +1 )%4;
             }
@@ -36,7 +36,8 @@ public class PlayerView extends EntityView {
         entity.hitbox.showHitBox(g);
         ((Player)entity).weapon.showHitBox(g);
         ((Player)entity).lifeBar.showLifeBar(g);
-        //didnt know a better way to implement it ATM
+
+        //just here for directions
          if(((Player)entity).facingDirection==Direction.LEFT){
             Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),false,false);
         }
