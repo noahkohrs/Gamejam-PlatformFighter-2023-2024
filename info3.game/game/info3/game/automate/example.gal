@@ -8,7 +8,8 @@ Player1(Init){
   | True() ?          :(Init)
 
   *(Ra)
-  |GotPower() ? Wizz():(Init)
+  |GotPower() & MyDir(E) ? Wizz(E):(Init)
+  |GotPower() & MyDir(W) ? Wizz(W):(Init)
   |!GotPower()?       :(Init)
 }
 
@@ -86,7 +87,8 @@ MalusBlock(Init){
 
 Raptor(Init){
   *(Init)
-  |GotPower ?  :(Right)
+  |GotPower & MyDir(E)?  :(Right)
+  |GotPower & MyDir(W)?  :(Left)
   |!GotPower ?  :()
 
   *(Right)

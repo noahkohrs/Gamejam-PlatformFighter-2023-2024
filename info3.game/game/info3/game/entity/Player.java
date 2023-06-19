@@ -39,9 +39,8 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
-
   long deltatime;
-
+  Direction movingDirection;
   public Player() throws IOException {
     this(1);
   }
@@ -96,7 +95,9 @@ public class Player extends DynamicEntity {
   public void move(Direction direction) {
     accelerationX += 0.04;
     facingDirection = direction ;
-    if (direction == Direction.UPPER)
+    if(direction==Direction.LEFT || direction==Direction.RIGHT)
+      movingDirection=direction;
+    else if (direction == Direction.UPPER)
       Movement.Jump(this) ;
   }  
 
