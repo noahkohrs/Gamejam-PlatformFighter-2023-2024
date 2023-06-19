@@ -57,6 +57,17 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
+  public Player(int team, String filename) throws IOException {
+    super(40, 40, team, filename, 4, 6);
+    view = new PlayerView("resources/winchester-4x6.png", 4, 6, this);
+    this.lifeBar = new LifeBar(team);
+    hitbox = new HitBox(12, 8, 20, 35, this);
+    weapon = new Weapon(this);
+    this.facingDirection = Direction.RIGHT;
+    jumpAmount = 2;
+    jumpCounter = jumpAmount;
+  }
+
   public void takeDamage(int amount) {
     lifeBar.life.removeHealth(amount);
   }

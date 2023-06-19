@@ -42,38 +42,6 @@ public class HitBox {
         view.paint(g);
     }
 
-    public int getTopLeftX() {
-        return entity.x + offsetX;
-    }
-
-    public int getTopLeftY() {
-        return entity.y + offsetY;
-    }
-
-    public int getBottomRightX() {
-        return entity.x + offsetX + width;
-    }
-
-    public int getBottomRightY() {
-        return entity.y + offsetY + height;
-    }
-
-    public int getTopLeftX(int x) {
-        return x + offsetX;
-    }
-
-    public int getTopLeftY(int y) {
-        return y + offsetY;
-    }
-
-    public int getBottomRightX(int x) {
-        return x + offsetX + width;
-    }
-
-    public int getBottomRightY(int y) {
-        return y + offsetY + height;
-    }
-
     public boolean inCollision(Direction dir) {
         int x, y;
         if (dir.x == 1)
@@ -240,28 +208,28 @@ public class HitBox {
         return false;
     }
 
-    // WORKING ONLY FOR BULLET FOR NOW
-    public boolean vectorInPLayerCollision(int newX, int newY, Direction dir) {
-        int playerXLeft, playerYLeft, playerXRight, playerYRight;
-        HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
-        HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
-        if (entity.team == GameSession.gameSession.player2.team) {
-            playerXLeft = player1HitBox.getTopLeftX();
-            playerYLeft = player1HitBox.getTopLeftY();
-            playerXRight = player1HitBox.getBottomRightX();
-            playerYRight = player1HitBox.getBottomRightY();
-        } else {
-            playerXLeft = player2HitBox.getTopLeftX();
-            playerYLeft = player2HitBox.getTopLeftY();
-            playerXRight = player2HitBox.getBottomRightX();
-            playerYRight = player2HitBox.getBottomRightY();
-        }
+    // // WORKING ONLY FOR BULLET FOR NOW
+    // public boolean vectorInPLayerCollision(int newX, int newY, Direction dir) {
+    //     int playerXLeft, playerYLeft, playerXRight, playerYRight;
+    //     HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
+    //     HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
+    //     if (entity.team == GameSession.gameSession.player2.team) {
+    //         playerXLeft = player1HitBox.getTopLeftX();
+    //         playerYLeft = player1HitBox.getTopLeftY();
+    //         playerXRight = player1HitBox.getBottomRightX();
+    //         playerYRight = player1HitBox.getBottomRightY();
+    //     } else {
+    //         playerXLeft = player2HitBox.getTopLeftX();
+    //         playerYLeft = player2HitBox.getTopLeftY();
+    //         playerXRight = player2HitBox.getBottomRightX();
+    //         playerYRight = player2HitBox.getBottomRightY();
+    //     }
 
-        if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
-            if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
-                return true;
-        }
-        return false;
-    }
+    //     if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX)) {
+    //         if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY(newY))
+    //             return true;
+    //     }
+    //     return false;
+    // }
 
 }

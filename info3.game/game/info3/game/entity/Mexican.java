@@ -20,18 +20,7 @@ public class Mexican extends Player {
     @Override
     public void tick(long elapsed) {
         raptorCooldown-=elapsed;
-        // Movement.Walk(this);
-        // Movement.jump(this, elapsed);
-        affectTor();
-        // System.out.println(y);
-        if (!hitbox.inCollision(Direction.BOTTOM))
-            y = (int) (y - PhysicConstant.gravity);
-        try {
-            this.automate.step(this);
-        } catch (Exception e) {
-            System.out.println("Normally we should not reach here");
-            e.printStackTrace();
-        }
+        super.tick(elapsed);
     }
 
     @Override
