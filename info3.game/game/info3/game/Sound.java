@@ -20,25 +20,38 @@
  */
 package info3.game;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
+import java.io.RandomAccessFile;
 import info3.game.graphics.GameCanvas;
-public class Sound {
-  GameCanvas m_canvas;
-  String m_name;
-  String m_filename;
+import info3.game.sound.RandomFileInputStream;
 
-  Sound(GameCanvas canvas) {
-    m_canvas = canvas;
+public class Sound {
+
+  public long duration;
+  public float volume;
+
+  private GameCanvas canvas;
+  private String name;
+  private String filename;
+
+  public Sound(GameCanvas canvas, String name, String filename, long duration, float volume) {
+    this.canvas = canvas;
+    this.name = name;
+    this.duration = duration;
+    this.volume = volume;
+    this.filename = filename;
   }
 
-  public void load(String name, String filename, long duration, float volume) throws IOException {
-    m_name = name;
-    m_filename = filename;
-    File file = new File(filename);
-    FileInputStream fis = new FileInputStream(file);
-    m_canvas.playSound(name, fis, duration,volume);
+  public void playSound() {
+    RandomAccessFile file;
+    RandomFileInputStream fis;
+    
+    try {
+      file = new RandomAccessFile(filename, "r");
+      fis = new RandomFileInputStream(file);
+      canvas.playSound(name, fis, duration, volume);
+    } catch (Exception e) {
+      // TODO Auto-generated catch blockd
+      e.printStackTrace();
+    }
   }
 }

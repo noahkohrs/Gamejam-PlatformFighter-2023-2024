@@ -5,8 +5,8 @@ public class Life {
     public static final int DEFAULT_HEALTH = 100;
     public static final int DEFAULT_MAX_HEALTH = 100;
 
-    private int health;
-    private int maxHealth;
+    public int health;
+    public int maxHealth;
 
     public Life(int health, int maxHealth) {
         this.health = health;

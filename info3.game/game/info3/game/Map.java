@@ -7,12 +7,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
+import info3.game.entity.blocks.GroundBlock;
+import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 
@@ -56,8 +59,14 @@ public class Map {
         switch (id) {
             case "GrassBlock":
                 return new GrassBlock(x, y);
+            case "SpawnerPoint":
+                SpawnerPoint res = new SpawnerPoint(x, y);
+                GameSession.gameSession.spawnerPoints.add(res);
+                return res;
+            case "GroundBlock":
+                return new GroundBlock(x, y);
             default:
-                return new GrassBlock(x, y);
+                throw new IOException("Unknown block id: " + id);
         }
     }
 
@@ -108,5 +117,15 @@ public class Map {
         } finally {
             reader.close();
         }
+    }
+
+    public List<Block> getBlocks() {
+        List<Block> blocks = new ArrayList<Block>();
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                if (fixedMap[i][j] != null) {
+                    blocks.add(fixedMap[i][j]);
+                }
+        return blocks;
     }
 }

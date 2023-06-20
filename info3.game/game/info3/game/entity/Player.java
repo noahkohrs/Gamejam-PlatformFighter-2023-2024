@@ -20,10 +20,14 @@
  */
 package info3.game.entity;
 
+import java.util.List;
 import java.io.IOException;
+import java.util.Random;
 
 import info3.game.Camera;
-
+import info3.game.GameSession;
+import info3.game.automate.Automate;
+import info3.game.entity.blocks.SpawnerPoint;
 import java.util.ArrayList;
 import java.util.List;
 import info3.game.GameSession;
@@ -51,7 +55,9 @@ public class Player extends DynamicEntity {
   boolean isPowerUp = false;
   boolean isMalus = false;
 
-  long deltatime;
+  public boolean dead = false;
+  private boolean respawned = true;
+  private int respawnTimer = 3000;
 
   public Player() throws IOException {
     this(1);
@@ -91,13 +97,46 @@ public class Player extends DynamicEntity {
     lifeBar.life.removeHealth(amount);
   }
 
+  private boolean isDead() {
+    return this.lifeBar.life.health <= 0;
+  }
+
+  private void respawn() {
+    if (respawnTimer <= 0) {
+      Random random = new Random();
+      int size = GameSession.gameSession.spawnerPoints.size();
+      if (size > 0) {
+        int randomIndex = random.nextInt(size);
+        SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
+        this.x = spawner.x;
+        this.y = spawner.y - 50;
+      } else {
+        this.x = 50;
+        this.y = 50;
+      }
+      this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
+      this.weapon.reset();
+      respawnTimer = 3000;
+      respawned = true;
+      this.dead = false;
+    }
+  }
+
   /*
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    System.out.println(PhysicConstant.maxVelX + addVelX);
     timer += elapsed;
     TimerEffect();
 
+    if (isDead()) {
+      this.dead = true;
+      if (!respawned)
+        respawnTimer -= elapsed;
+      respawn();
+    }
+    respawned = false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
@@ -114,6 +153,7 @@ public class Player extends DynamicEntity {
     view.tick(deltatime);
     Movement.Walk(this);
     Movement.affectGravity(this);
+
   }
 
   @Override
@@ -126,7 +166,8 @@ public class Player extends DynamicEntity {
 
   @Override
   public void wizz() {
-    System.out.println("wizz");
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
 
   @Override
@@ -186,8 +227,8 @@ public class Player extends DynamicEntity {
           break;
       }
       powerUp.parent.deletePowerUp();
-      ListPowerUp.add(powerUp);
       powerUp.timer = timer;
+      ListPowerUp.add(powerUp);
     }
   }
 
@@ -212,8 +253,8 @@ public class Player extends DynamicEntity {
       }
 
       malus.parent.deleteMalus();
-      ListMalus.add(malus);
       malus.timer = timer;
+      ListMalus.add(malus);
     }
   }
 
@@ -231,6 +272,7 @@ public class Player extends DynamicEntity {
   public void TimerEffect() {
     PowerUp removePowerUp = null;
     for (PowerUp p : ListPowerUp) {
+      // System.out.println(timer - p.timer);
       if (timer - p.timer >= 5000) {
         switch (p.name) {
           case "ammo":

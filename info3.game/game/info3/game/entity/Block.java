@@ -7,6 +7,7 @@ public class Block extends Entity {
 
     public Block(int x, int y, String blockTexture) throws IOException {
         super(x*BLOCK_SIZE, y*BLOCK_SIZE, TEAM.NONE, blockTexture, 1, 1);
+        solid = true;
     }
 
     @Override
@@ -70,5 +71,11 @@ public class Block extends Entity {
     public void pick() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'egg'");
+    }
+
+    @Override
+    public void wizz(String direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
     }
 }

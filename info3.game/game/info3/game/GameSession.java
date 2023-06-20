@@ -1,11 +1,14 @@
 package info3.game;
 
 import java.awt.Graphics;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +23,7 @@ import info3.game.automate.condition.Key;
 import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
+import info3.game.entity.Engineer;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Malus;
@@ -30,6 +34,7 @@ import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
+import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.weapon.Weapon;
 
 
@@ -58,11 +63,18 @@ public class GameSession {
     public Map map;
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
+    public List<SpawnerPoint> spawnerPoints;
+    public BufferedImage image;
 
     public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
         gameSession = this;
-
+        File imageFile=new File("resources/maps/BG2.png");
+        try {
+            image=ImageIO.read(imageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadAutomates(GalFile);
 
         keys = new ArrayList<>();
@@ -71,13 +83,13 @@ public class GameSession {
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
+        spawnerPoints=new ArrayList<SpawnerPoint>();
         player1 = new Mexican(TEAM.BLUE);
-        player2 = new Player(TEAM.RED);
+        player2 = new Engineer(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
     }
-    
 
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
@@ -184,6 +196,8 @@ static public List<Malus> getMalus(){
         camera.paint(g);
         map.paint(g, camera);
         for (Entity entity : entities) {
+            if(entity instanceof Player && ((Player)entity).dead)
+                continue;
             entity.view.paint(g);
         }
     }

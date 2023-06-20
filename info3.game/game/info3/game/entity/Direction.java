@@ -35,6 +35,7 @@ public enum Direction {
             case "E":
                 return RIGHT;
             case "NONE":
+            case "H":
                 return EMPTY;
             default:
                 throw new IllegalArgumentException("Invalid direction string: " + directionString);
