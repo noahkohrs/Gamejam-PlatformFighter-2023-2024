@@ -286,7 +286,7 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void endOfPlay(String name) {
     // if (!m_expired) // only reload if it was a forced reload by timer
-    m_game.loadMusic();
+    // m_game.loadMusic();
     // m_expired = false;
   }
 
