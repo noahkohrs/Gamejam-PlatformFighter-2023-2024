@@ -1,11 +1,17 @@
 package info3.game.weapon;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import info3.game.Camera;
+import info3.game.Game;
+import info3.game.Sound;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.sound.RandomFileInputStream;
 
 public class Weapon extends DynamicEntity {
 
@@ -18,6 +24,7 @@ public class Weapon extends DynamicEntity {
     private final int clipSize;
     public int ammo;
     private int damage;
+    private Sound soundEffect;
 
     public Weapon(Player player) throws IOException {
         super(0, 0, player.team);
@@ -29,6 +36,7 @@ public class Weapon extends DynamicEntity {
         currentCooldown = 0;
         this.player = player;
         this.view = new WeaponView(this);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound", "resources/bullets/shot2.ogg", 0, 1.0F);
     }
 
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
@@ -41,6 +49,7 @@ public class Weapon extends DynamicEntity {
         this.ammo = clipSize;
         this.player = player;
         this.view = new WeaponView(this);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound", "resources/bullets/shot2.ogg", 0, 1.0F);
     }
 
     public void reload() {
@@ -53,8 +62,14 @@ public class Weapon extends DynamicEntity {
         }
     }
 
+    public void reset() {
+        ammo = clipSize;
+        clips = 3;
+    }
+
     private void createBullet(int startx, int starty) {
         try {
+            soundEffect.playSound();
             new Bullet(startx, starty, damage, player.facingDirection, player.team);
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -66,6 +81,15 @@ public class Weapon extends DynamicEntity {
         if (player.facingDirection != Direction.IDLE) {
             if (currentCooldown <= 0) {
                 if (ammo > 0) {
+                    RandomAccessFile file;
+                    try {
+                        file = new RandomAccessFile("resources/bullets/shot2.ogg", "r");
+                        RandomFileInputStream fis = new RandomFileInputStream(file);
+                        Game.game.m_canvas.playSound("bullet", fis, 0, 1.0F);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch blockd
+                        e.printStackTrace();
+                    }
                     createBullet(Camera.centeredCoordinateX(player), Camera.centeredCoordinateY(player));
                     ammo--;
                 }
@@ -92,8 +116,7 @@ public class Weapon extends DynamicEntity {
     }
 
     @Override
-    public void wizz() {
-        System.out.println("wizz");
+    public void wizz(String Direction) {
         reload();
     }
 

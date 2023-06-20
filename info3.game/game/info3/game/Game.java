@@ -40,7 +40,7 @@ public class Game {
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			game = new Game(args[0]);
+			new Game(args[0]);
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -57,9 +57,7 @@ public class Game {
 	Game(String GalFile) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_game_session = new GameSession(this, "level.json",GalFile);
-		
-
+		this.game = this;
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -67,6 +65,8 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		
+		m_game_session = new GameSession(this, "level.json",GalFile);
 		
 
 
@@ -111,6 +111,9 @@ public class Game {
 	/*
 	 * Called from the GameCanvas listener when the frame
 	 */
+	private int m_musicIndex = 0;
+	private String[] m_musicNames = new String[] { "gameMusic" };
+
 	String m_musicName;
 
 	void loadMusic() {
@@ -126,10 +129,6 @@ public class Game {
 			System.exit(-1);
 		}
 	}
-
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "gameMusic" };
-
 	private long m_textElapsed;
 
 	/*

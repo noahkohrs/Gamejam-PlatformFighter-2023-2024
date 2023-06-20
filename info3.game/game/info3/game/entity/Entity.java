@@ -153,6 +153,8 @@ public abstract class Entity {
   }
 
   public int distanceTo(Entity e) {
+    if(e instanceof Player && ((Player)e).dead)
+      return 101;
     return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2)
         + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
   }
@@ -206,7 +208,6 @@ public abstract class Entity {
 
   public abstract boolean MyDir(String direction);
 
-  public void wizz(String direction) {
-  }
+  public abstract void wizz(String direction);
 
 }
