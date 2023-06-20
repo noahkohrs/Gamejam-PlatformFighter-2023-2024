@@ -16,11 +16,6 @@ public class DynamicEntity extends Entity {
         GameSession.gameSession.addEntity(this);
     }
 
-    public DynamicEntity(int x, int y, int team, EntityView view) throws IOException {
-        super(x, y, team,view);
-        GameSession.gameSession.addEntity(this);
-    }
-
     @Override
     public void tick(long elapsed) {
         // TODO Auto-generated method stub

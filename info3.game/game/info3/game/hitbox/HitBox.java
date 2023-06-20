@@ -28,6 +28,16 @@ public class HitBox {
         mapCollisionEnabled = false;
     }
 
+    public HitBox(Entity e) {
+        this.height = e.getHeight();
+        this.width = e.getWidth();
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.entity = e;
+        view = new HitBoxView(this);
+        mapCollisionEnabled = false;
+    } 
+
     public HitBox(int offsetX, int offsetY, int width, int height, boolean mapCollisionEnabled, Entity entity) {
         this.height = height;
         this.width = width;
@@ -57,7 +67,7 @@ public class HitBox {
         if (mapCollisionEnabled)
             if (checkMapCollision(x, y, dir))
                 return true;
-
+ 
         int blockX = x / Block.BLOCK_SIZE;
         int blockY = y / Block.BLOCK_SIZE;
         int blockHeight = (int) Math.floor(height / Block.BLOCK_SIZE) + 1;

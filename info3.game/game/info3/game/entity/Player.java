@@ -23,13 +23,8 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.Camera;
-
-import java.util.ArrayList;
-import java.util.List;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
-import info3.game.entity.blocks.MalusBlock;
-import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Weapon;

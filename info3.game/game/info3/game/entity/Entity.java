@@ -44,14 +44,9 @@ public abstract class Entity {
   public int addVelX = 0;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
-    this.team = team;
-    this.x = x;
-    this.y = y;
+    this(x, y, team);
     this.view = new EntityView(filename, nrows, ncols, this);
-    this.automate = loadAutomate();
-    if (this.automate == null)
-      this.automate = GameSession.gameSession.defaultAutomate;
-    state = this.automate.initalState;
+    this.hitbox = new HitBox(this);
   }
 
   public Entity(int x, int y, int team) throws IOException {
@@ -63,18 +58,6 @@ public abstract class Entity {
       this.automate = GameSession.gameSession.defaultAutomate;
     state = this.automate.initalState;
   }
-
-  public Entity(int x, int y, int team, EntityView view) throws IOException {
-    this.team = team;
-    this.x = x;
-    this.y = y;
-    this.automate = loadAutomate();
-    if (this.automate == null)
-      this.automate = GameSession.gameSession.defaultAutomate;
-    state = this.automate.initalState;
-    this.view=view;
-  }
-
   private Automate loadAutomate() {
     System.out.println("Loading automate for " + this.getClass().getSimpleName());
     return GameSession.gameSession.findAutomate(this);
