@@ -14,7 +14,7 @@ public class MovingPlatform extends DynamicEntity {
     int power, maxPower;
 
     public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/2.png", 1, 1);
+        super(x, y, TEAM.NONE, "resources/blocks/obsidian.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;
         solid = true;
