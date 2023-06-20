@@ -7,17 +7,10 @@ import info3.game.Camera;
 public class Mexican extends Player {
     int raptorCooldown;
 
-    public Mexican() throws IOException {
-        super();
-    }
-
     public Mexican(int team) throws IOException {
         super(team);
     }
 
-    public Mexican(int team, String filename) throws IOException {
-        super(team, filename);
-    }
 
     @Override
     public void tick(long elapsed) {

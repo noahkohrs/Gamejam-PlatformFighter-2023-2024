@@ -46,7 +46,7 @@ public abstract class Entity {
     this(x, y, team);
     this.view = new EntityView(filename, nrows, ncols, this);
     this.hitbox = new HitBox(this);
-    solid = true;
+    solid = false;
   }
 
   public Entity(int x, int y, int team) throws IOException {
@@ -170,6 +170,10 @@ public abstract class Entity {
     if (jumpCooldown > 0) {
       this.velY = (float) (this.velY * (1 - Math.exp(-this.velY)));
     }
+  }
+
+  public boolean isSittingOn(Entity e) {
+    return hitbox.isSittingOn(e);
   }
 
   // Actions

@@ -37,7 +37,7 @@ public class HitBox {
         this.entity = e;
         view = new HitBoxView(this);
         mapCollisionEnabled = false;
-    } 
+    }
 
     public HitBox(int offsetX, int offsetY, int width, int height, boolean mapCollisionEnabled, Entity entity) {
         this.height = height;
@@ -52,76 +52,59 @@ public class HitBox {
     public void showHitBox(Graphics g) {
         view.paint(g);
     }
-    public boolean checkbyHeight(int y) {
-        int mx = entity.x + offsetX;
-        for (DynamicEntity e : GameSession.gameSession.entities) {
-            if (e != this.entity && e.solid) {
-                int entY = e.y + e.hitbox.offsetX ;
-                if (entY <= y && y <= entY + e.hitbox.height) {
-                    int entX = e.x + e.hitbox.offsetX;
-                    if ((mx < entX && entX < mx + width) || (mx < entX + e.hitbox.width && entX + e.hitbox.width < mx + width))
-                        return true;
-                }
-            }
-        }
-        for (Block b : GameSession.gameSession.map.getBlocks()) {
-            if (b.solid) {
-                int entY = b.y + b.hitbox.offsetY;
-                if (entY < y && y < entY + b.hitbox.height) {
-                    int entX = b.x + b.hitbox.offsetX;
-                    if ((mx < entX && entX < mx + width) || (mx < entX + b.hitbox.width && entX + b.hitbox.width < mx + width))
-                        return true;
-                }
-            }
-        }
-        return false ;
-    } 
-
-    public boolean checkbyWidth(int x){
-        int my = entity.y + offsetY;
-        for (DynamicEntity e : GameSession.gameSession.entities) {
-            if (e != this.entity && e.solid) {
-                int entX = e.x + e.hitbox.offsetX;
-                if (entX < x && x < entX + e.hitbox.width) {
-                    int entY = e.y + e.hitbox.offsetY;
-                    if ((my < entY && entY < my + height) || (my < entY + e.hitbox.height && entY + e.hitbox.height < my + height))
-                        return true;
-                }
-            }
-        }
-        for (Block b : GameSession.gameSession.map.getBlocks()) {
-            if (b.solid) {
-                int entX = b.x + b.hitbox.offsetX;
-                if (entX < x && x < entX + b.hitbox.width) {
-                    int entY = b.y + b.hitbox.offsetY;
-                    if ((my < entY && entY < my + height) || (my < entY + b.hitbox.height && entY + b.hitbox.height < my + height))
-                        return true;
-                }
-            }
-        }
-        return false ;
-    }
 
     public boolean inCollision(Direction dir) {
-        int x= dir.x==1 ? (entity.x + offsetX + width) : (entity.x + offsetX);
-        int y= dir.y==1 ? (entity.y + offsetY + height) : (entity.y + offsetY);
+        int newX = dir.x == 1 ? (entity.x + offsetX + width) : (entity.x + offsetX);
+        int newY = dir.y == 1 ? (entity.y + offsetY + height) : (entity.y + offsetY);
+        int x = entity.x + offsetX;
+        int y = entity.y + offsetY;
 
-        if (mapCollisionEnabled)
-            if (checkMapCollision(x, y, dir))
-                return true;
-
-        switch (dir) {
-            case UPPER:
-            case BOTTOM: 
-                return checkbyHeight(y);
-            case LEFT:
-            case RIGHT:
-            case LEFT_TOP:
-            case RIGHT_TOP:
-                return checkbyWidth(x);
-
+        if (mapCollisionEnabled && checkMapCollision(newX, newY, dir)) {
+            return true;
         }
+        switch (dir) {
+            case LEFT:
+                return pointColliding(x, y) || pointColliding(x, y + height);
+            case RIGHT:
+                return pointColliding(x + width, y) || pointColliding(x + width, y + height);
+            case UPPER:
+                return pointColliding(x, y) || pointColliding(x + width, y);
+            case BOTTOM:
+                return pointColliding(x, y + height) || pointColliding(x + width, y + height);
+        }
+
         return false;
+    }
+
+    private boolean pointInHitbox(int x, int y) {
+        int topLeftX = entity.x + offsetX;
+        int topLeftY = entity.y + offsetY;
+        int bottomRightX = topLeftX + width;
+        int bottomRightY = topLeftY + height;
+
+        return x >= topLeftX && x <= bottomRightX && y >= topLeftY && y <= bottomRightY;
+    }
+
+    private boolean pointColliding(int x, int y) {
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e != entity && e.solid && e.hitbox.pointInHitbox(x, y)) {
+                return true; // Collision detected with entity
+            }
+        }
+
+        for (Block b : GameSession.gameSession.map.getBlocks()) {
+            if (b.solid && b.hitbox.pointInHitbox(x, y)) {
+                return true; // Collision detected with block
+            }
+        }
+
+        return false; // No collision
+    }
+
+    public boolean isSittingOn(Entity e) {
+        int x = entity.x + offsetX;
+        int y = entity.y + offsetY + height + 1;
+        return e.hitbox.pointInHitbox(x+width/2, y);
     }
 
     public int getTopLeftY() {
