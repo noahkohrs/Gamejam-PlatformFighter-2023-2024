@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +20,7 @@ public class Map {
     private int width;
     private int height;
     // Tab of blocks
-    Block fixedMap[][];
+    public Block fixedMap[][];
 
     public Map(String filename) throws IOException {
         loadTiles(filename);
@@ -108,5 +110,15 @@ public class Map {
         } finally {
             reader.close();
         }
+    }
+
+    public List<Block> getBlocks() {
+        List<Block> blocks = new ArrayList<Block>();
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                if (fixedMap[i][j] != null) {
+                    blocks.add(fixedMap[i][j]);
+                }
+        return blocks;
     }
 }
