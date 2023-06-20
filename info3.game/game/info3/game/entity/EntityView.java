@@ -13,7 +13,11 @@ public class EntityView {
 
     public Entity entity;
 
-    EntityView(BufferedImage[] images, Entity entity) {
+    public EntityView(Entity entity) {
+        this.entity = entity;
+    }
+
+    public EntityView(BufferedImage[] images, Entity entity) {
         this.images = images;
         this.width = images[0].getWidth();
         this.height = images[0].getHeight();
@@ -22,15 +26,9 @@ public class EntityView {
 
     public EntityView(String filename, int nrows, int ncols, Entity entity) {
         try {
-            if (!filename.equals("")) {
-                images = Entity.loadSprite(filename, nrows, ncols);
-                this.width = images[0].getWidth();
-                this.height = images[0].getHeight();
-            } else {
-                this.width = 0;
-                this.height = 0;
-                this.images = null;
-            }
+            images = Entity.loadSprite(filename, nrows, ncols);
+            this.width = images[0].getWidth();
+            this.height = images[0].getHeight();
             this.entity = entity;
         } catch (Exception e) {
             System.out.println("Error loading sprite: " + filename);
@@ -46,8 +44,7 @@ public class EntityView {
     }
 
     public void paint(Graphics g) {
-        if (width != 0)
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight());
+        Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight());
     }
 
 }
