@@ -28,7 +28,7 @@ import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
   Game m_game;
-  //int[] IsPressed = new int[]{0, 0, 0, 0};
+  // int[] IsPressed = new int[]{0, 0, 0, 0};
 
   CanvasListener(Game game) {
     m_game = game;
@@ -122,31 +122,31 @@ public class CanvasListener implements GameCanvasListener {
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = true;
 
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Q:
-        //System.out.println("Qq");
+        // System.out.println("Qq");
         index = GameSession.gameSession.findKEy('q');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_S:
         index = GameSession.gameSession.findKEy('s');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_W:
         index = GameSession.gameSession.findKEy('w');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Z:
-        //System.out.println("Qq");
-        //GameSession.gameSession.player1.IsJumping = true;
+        // System.out.println("Qq");
+        // GameSession.gameSession.player1.IsJumping = true;
         // GameSession.gameSession.player1.StartJump();
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_F:
         index = GameSession.gameSession.findKEy('f');
@@ -159,22 +159,32 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_UP:
         index = GameSession.gameSession.findKEy('1');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_DOWN:
         index = GameSession.gameSession.findKEy('2');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_LEFT:
         index = GameSession.gameSession.findKEy('3');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_RIGHT:
         index = GameSession.gameSession.findKEy('4');
         GameSession.gameSession.keys.get(index).pressed = true;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_M:
+        index = GameSession.gameSession.findKEy('m');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_N:
+        index = GameSession.gameSession.findKEy('n');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
     }
   }
@@ -188,28 +198,28 @@ public class CanvasListener implements GameCanvasListener {
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = false;
         // GameSession.gameSession.player1.SetVelX(5);
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Q:
         index = GameSession.gameSession.findKEy('q');
         GameSession.gameSession.keys.get(index).pressed = false;
         // GameSession.gameSession.player1.SetVelX(5);
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_S:
         index = GameSession.gameSession.findKEy('s');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_W:
         index = GameSession.gameSession.findKEy('w');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_Z:
         index = GameSession.gameSession.findKEy('z');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_F:
         index = GameSession.gameSession.findKEy('f');
@@ -222,22 +232,32 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_UP:
         index = GameSession.gameSession.findKEy('1');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_DOWN:
         index = GameSession.gameSession.findKEy('2');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_LEFT:
         index = GameSession.gameSession.findKEy('3');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
       case KeyEvent.VK_RIGHT:
         index = GameSession.gameSession.findKEy('4');
         GameSession.gameSession.keys.get(index).pressed = false;
-        //System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_M:
+        index = GameSession.gameSession.findKEy('m');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_N:
+        index = GameSession.gameSession.findKEy('n');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
     }
   }

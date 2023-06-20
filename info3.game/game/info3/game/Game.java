@@ -128,7 +128,7 @@ public class Game {
 	}
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "BGSOUND" };
+	private String[] m_musicNames = new String[] { "gameMusic" };
 
 	private long m_textElapsed;
 

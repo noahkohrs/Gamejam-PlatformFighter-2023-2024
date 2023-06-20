@@ -5,14 +5,9 @@ import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;

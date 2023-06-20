@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info3.game.automata.ast.AST;
-import info3.game.automata.ast.BinaryOp;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automate.Automate;
 import info3.game.automate.ParserToAutomate;
@@ -25,11 +24,11 @@ import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Mexican;
 import info3.game.entity.Player;
-import info3.game.entity.Raptor;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
+import info3.game.weapon.Weapon;
 
 
 
@@ -180,9 +179,8 @@ public class GameSession {
         String className = entity.getClass().getSimpleName();
         for (Automate automate : this.allAutomates) {
             if (automate.className.equals(className)) {
-                // System.out.println("Found");
                 return automate;
-            } else if (entity instanceof Player && automate.className.startsWith("Player")) {
+            } else if ((entity instanceof Player && automate.className.startsWith("Player")) || (entity instanceof Weapon && automate.className.startsWith("Weapon"))) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {

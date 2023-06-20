@@ -21,7 +21,6 @@ import info3.game.automata.ast.Transition;
 import info3.game.automata.ast.UnaryOp;
 import info3.game.automata.ast.Underscore;
 import info3.game.automata.ast.Value;
-import info3.game.entity.Entity;
 import info3.game.automate.condition.Binary;
 
 public class ParserToAutomate implements IVisitor {
