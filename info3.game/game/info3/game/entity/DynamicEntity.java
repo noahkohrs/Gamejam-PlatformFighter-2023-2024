@@ -11,6 +11,16 @@ public class DynamicEntity extends Entity {
         GameSession.gameSession.addEntity(this);
     }
 
+    public DynamicEntity(int x, int y, int team) throws IOException {
+        super(x, y, team);
+        GameSession.gameSession.addEntity(this);
+    }
+
+    public DynamicEntity(int x, int y, int team, EntityView view) throws IOException {
+        super(x, y, team,view);
+        GameSession.gameSession.addEntity(this);
+    }
+
     @Override
     public void tick(long elapsed) {
         // TODO Auto-generated method stub
@@ -62,5 +72,11 @@ public class DynamicEntity extends Entity {
     public boolean cell(Direction direction, String category) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cell'");
+    }
+
+    @Override
+    public boolean MyDir(String direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
     }
 }

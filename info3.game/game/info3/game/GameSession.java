@@ -31,6 +31,7 @@ import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.gametimer.GameTimer;
+import info3.game.weapon.Weapon;
 
 
 
@@ -186,9 +187,8 @@ public class GameSession {
         String className = entity.getClass().getSimpleName();
         for (Automate automate : this.allAutomates) {
             if (automate.className.equals(className)) {
-                // System.out.println("Found");
                 return automate;
-            } else if (entity instanceof Player && automate.className.startsWith("Player")) {
+            } else if ((entity instanceof Player && automate.className.startsWith("Player")) || (entity instanceof Weapon && automate.className.startsWith("Weapon"))) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {

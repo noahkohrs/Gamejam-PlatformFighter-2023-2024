@@ -23,9 +23,10 @@ public class ElementList {
         elems = new ArrayList<ElementContainer>();
         elems.add(new ElementContainer(new VoidBlock(), 0, 0, true));
         elems.add(new ElementContainer(new GrassBlock(), 0, 1));
-        elems.add(new ElementContainer(new MovingPlatform(), 0, 2));
-        elems.add(new ElementContainer(new PowerUpBlock(), 0, 3));
-        elems.add(new ElementContainer(new MalusBlock(), 0, 4));
+        elems.add(new ElementContainer(new GroundBlock(), 0, 2));
+        elems.add(new ElementContainer(new MovingPlatform(), 0, 3));
+        elems.add(new ElementContainer(new PowerUpBlock(), 0, 4));
+        elems.add(new ElementContainer(new MalusBlock(), 0, 5));
     }
     public ElementContainer select(int x, int y) {
         int i = 0 ;

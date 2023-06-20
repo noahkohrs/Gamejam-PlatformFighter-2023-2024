@@ -9,7 +9,6 @@ public class RaptorView extends EntityView{
 
     private int runningCount ; 
     boolean attack=false;
-    public Direction direction;
     RaptorView(BufferedImage[] images, Entity entity) {
         super(images, entity);
         //TODO Auto-generated constructor stub
@@ -33,10 +32,7 @@ public class RaptorView extends EntityView{
     @Override
     public void paint(Graphics g){
         entity.hitbox.showHitBox(g);
-        if(direction==Direction.RIGHT)
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),false,false);
-        else
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),true,false);
-        }
+        Camera.drawEntity(entity, g);
+    }
 }
 

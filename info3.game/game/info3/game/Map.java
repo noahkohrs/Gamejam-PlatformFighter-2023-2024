@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
+import info3.game.entity.blocks.GroundBlock;
 
 public class Map {
     private int width;
@@ -55,7 +56,8 @@ public class Map {
             case "GrassBlock" :
                 return new GrassBlock(x, y);
             default :
-                return new GrassBlock(x, y);
+            case "GroundBlock" :
+                return new GroundBlock(x, y);
         }
     }
 

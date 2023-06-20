@@ -1,21 +1,24 @@
 Player1(Init){
   * (Init)
+  | Key(w) ?          :(Ra)
   | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
   | Key(z) ? Move(N) :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
-  | Key(w) ?          :(Ra)
   | True() ?          :(Init)
 
   *(Ra)
-  |GotPower() ? Wizz():(Init)
+  |GotPower() & MyDir(E) ? Wizz(E):(Init)
+  |GotPower() & MyDir(W) ? Wizz(W):(Init)
   |!GotPower()?       :(Init)
 }
 
 Player2(Init){
   * (Init)
+  | Key(1) & Key(3) ? Move(NW) :(Init)
+  | Key(1) & Key(4) ? Move(NE) :(Init)
   | Key(1) ? Move(N)  :(Init)
   | Key(4) ? Move(E)  :(Init)
   | Key(3) ? Move(W)  :(Init)
@@ -23,10 +26,17 @@ Player2(Init){
   | True() ?          :(Init)
 }
 
-Weapon(Init){
+Weapon1(Init){
   * (Init)
   | Key(f) ? Pop()    :(Init)
   | Key(r) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
+
+Weapon2(Init){
+  * (Init)
+  | Key(m) ? Pop()    :(Init)
+  | Key(n) ? Wizz()    :(Init)
   | True() ?   :(Init)
 }
 
@@ -88,8 +98,9 @@ MalusBlock(Init){
 
 Raptor(Init){
   *(Init)
-  |GotPower ?  :(Right)
   |!GotPower ?  :()
+  |MyDir(E)?  :(Right)
+  |MyDir(W) ?  :(Left)
 
   *(Right)
   |Cell(E,A) ? Pop()    :()

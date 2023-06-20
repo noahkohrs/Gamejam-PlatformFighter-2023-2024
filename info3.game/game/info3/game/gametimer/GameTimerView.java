@@ -25,24 +25,23 @@ public class GameTimerView {
      * @param Gametime
      */
     public void paint(Graphics g, int time_left) {
-        x = (Game.game.m_canvas.getWidth() - m_images[0].getWidth() * mul) / 2;
-        g.drawImage(m_images[0], x, y, m_images[0].getWidth() * mul, m_images[0].getHeight() * mul, null);
-        if (time_left > 0) {
-            int min = GameTimer.getMinute(time_left);
-            int sec = GameTimer.GetSeconde(time_left);
+            x = (Game.game.m_canvas.getWidth() - m_images[0].getWidth() * mul) / 2;
+            g.drawImage(m_images[0], x, y, m_images[0].getWidth() * mul, m_images[0].getHeight() * mul, null);
+            if (time_left > 0) {
+                int min = GameTimer.getMinute(time_left);
+                int sec = GameTimer.GetSeconde(time_left);
 
-            g.setColor(Color.BLACK);
-            int size = 14;
-            g.setFont(new Font("Arial", Font.BOLD, size)); // Définir la police de dessin
-            g.drawString("" + min, x + 8, y * mul + size + 8);
-            g.drawString("" + sec, x + 32 + 4, y * mul + size + 8);
-        }
-        else{
-            g.setColor(Color.BLACK);
-            int size = 14;
-            g.setFont(new Font("Arial", Font.BOLD, size)); // Définir la police de dessin
-            g.drawString("0", x + 8, y * mul + size + 8);
-            g.drawString("0", x + 32 + 4, y * mul + size + 8);
+                g.setColor(Color.BLACK);
+                int size = 14;
+                g.setFont(new Font("Arial", Font.BOLD, size)); // Définir la police de dessin
+                g.drawString("" + min, x + 8, y * mul + size + 8);
+                g.drawString("" + sec, x + 32 + 4, y * mul + size + 8);
+            } else {
+                g.setColor(Color.BLACK);
+                int size = 14;
+                g.setFont(new Font("Arial", Font.BOLD, size)); // Définir la police de dessin
+                g.drawString("0", x + 8, y * mul + size + 8);
+                g.drawString("0", x + 32 + 4, y * mul + size + 8);
         }
 
     }

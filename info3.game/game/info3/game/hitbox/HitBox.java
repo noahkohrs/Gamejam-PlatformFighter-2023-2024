@@ -7,8 +7,8 @@ import info3.game.entity.Direction;
 import info3.game.entity.Entity;
 
 public class HitBox {
-    private final int offsetX;
-    private final int offsetY;
+    public final int offsetX;
+    public final int offsetY;
     private Entity entity;
 
     public final int width;
@@ -79,7 +79,9 @@ public class HitBox {
                 break;
             }
             case LEFT:
-            case RIGHT: {
+            case RIGHT:
+            case LEFT_TOP:
+            case RIGHT_TOP: {
                 for (int i = 0; i < blockHeight; i += 2) {
                     Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + i);
                     Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + i + 1);
@@ -175,9 +177,25 @@ public class HitBox {
             playerYRight = player2HitBox.getBottomRightY();
         }
         switch (dir) {
+            case LEFT_TOP:
+                if (getTopLeftX(newX) <= playerXRight && playerXLeft <= getBottomRightX())
+                    if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY())
+                        return true;
+                if (getTopLeftY(newY) <= playerYRight && playerYLeft <= getBottomRightY())
+                    if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX())
+                        return true;
+                break;
             case LEFT:
                 if (getTopLeftX(newX) <= playerXRight && playerXLeft <= getBottomRightX())
                     if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY())
+                        return true;
+                break;
+            case RIGHT_TOP:
+                if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX(newX))
+                    if (getTopLeftY() <= playerYRight && playerYLeft <= getBottomRightY())
+                        return true;
+                if (getTopLeftY(newY) <= playerYRight && playerYLeft <= getBottomRightY())
+                    if (getTopLeftX() <= playerXRight && playerXLeft <= getBottomRightX())
                         return true;
                 break;
             case RIGHT:
