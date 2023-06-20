@@ -28,6 +28,7 @@ import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Mexican;
 import info3.game.entity.Player;
+import info3.game.entity.PowerUp;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
@@ -99,6 +100,17 @@ public class GameSession {
             }
         }
     }
+
+static public List<PowerUp> getPowerUps(){
+    List<PowerUp> arr = new ArrayList<>();
+    for (DynamicEntity entity : gameSession.entities) {
+        if (entity instanceof PowerUp) {
+            arr.add((PowerUp) entity);
+        }
+    }
+    return arr;
+}
+
 
     private void loadEntities(String filename) throws IOException {
         String content = Map.readFile(filename);

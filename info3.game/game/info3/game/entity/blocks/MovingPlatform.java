@@ -2,6 +2,7 @@ package info3.game.entity.blocks;
 
 import java.io.IOException;
 
+import info3.game.GameSession;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
@@ -16,7 +17,7 @@ public class MovingPlatform extends DynamicEntity {
         super(x, y, TEAM.NONE, "resources/blocks/2.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;
-
+        solid = true;
         velX = speed;
     }
 
@@ -46,6 +47,12 @@ public class MovingPlatform extends DynamicEntity {
     public void move(Direction direction) {
         x += velX;
         power -= Math.abs(velX);
+        if (GameSession.gameSession.player1.isSittingOn(this)) {
+            GameSession.gameSession.player1.x += velX;
+        }
+        if (GameSession.gameSession.player2.isSittingOn(this)) {
+            GameSession.gameSession.player2.x += velX;
+        }
     }
 
     @Override
