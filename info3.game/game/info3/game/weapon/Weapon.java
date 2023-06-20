@@ -15,12 +15,12 @@ public class Weapon extends DynamicEntity {
 
     private final int cooldown; // in ms
     private int currentCooldown;
-    private int clips;
+    public int clips;
 
-    private int damage;
+    public int damage;
 
     private final int clipSize;
-    private int ammo;
+    public int ammo;
 
     private Bullet[] bullets;
 

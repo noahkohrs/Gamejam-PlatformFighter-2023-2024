@@ -25,6 +25,8 @@ public class Map {
     // Tab of blocks
     public Block fixedMap[][];
     public List<PowerUpBlock> powerUpBlocks = new ArrayList<PowerUpBlock>();
+    public List<MalusBlock> malusBlocks = new ArrayList<MalusBlock>();
+
     private int indexPowerUp = 0;
 
     public Map(String filename) throws IOException {
@@ -64,7 +66,9 @@ public class Map {
                 powerUpBlocks.add(powerUpBlock);
                 return powerUpBlock;
             case "MalusBlock":
-                return new MalusBlock(x, y);
+                MalusBlock malusBlock = new MalusBlock(x, y);
+                malusBlocks.add(malusBlock);
+                return malusBlock;
             default:
                 return new GrassBlock(x, y);
         }

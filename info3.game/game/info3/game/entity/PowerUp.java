@@ -18,7 +18,5 @@ public class PowerUp extends DynamicEntity{
 
     public void wizz(){}
 
-    public void pop(){
-        
-    }
+    public void pop(){}
 }
