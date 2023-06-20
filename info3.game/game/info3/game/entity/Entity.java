@@ -40,11 +40,13 @@ public abstract class Entity {
   public int jumpCooldown;
   public int jumpAmount;
   long deltatime;
+  public boolean solid ;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this(x, y, team);
     this.view = new EntityView(filename, nrows, ncols, this);
     this.hitbox = new HitBox(this);
+    solid = true;
   }
 
   public Entity(int x, int y, int team) throws IOException {
@@ -55,6 +57,7 @@ public abstract class Entity {
     if (this.automate == null)
       this.automate = GameSession.gameSession.defaultAutomate;
     state = this.automate.initalState;
+    solid = false ;
   }
   private Automate loadAutomate() {
     System.out.println("Loading automate for " + this.getClass().getSimpleName());

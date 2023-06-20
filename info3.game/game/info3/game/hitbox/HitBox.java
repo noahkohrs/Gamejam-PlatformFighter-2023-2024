@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import info3.game.GameSession;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 
 public class HitBox {
@@ -51,60 +52,74 @@ public class HitBox {
     public void showHitBox(Graphics g) {
         view.paint(g);
     }
+    public boolean checkbyHeight(int y) {
+        int mx = entity.x + offsetX;
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e != this.entity && e.solid) {
+                int entY = e.y + e.hitbox.offsetX ;
+                if (entY <= y && y <= entY + e.hitbox.height) {
+                    int entX = e.x + e.hitbox.offsetX;
+                    if ((mx < entX && entX < mx + width) || (mx < entX + e.hitbox.width && entX + e.hitbox.width < mx + width))
+                        return true;
+                }
+            }
+        }
+        for (Block b : GameSession.gameSession.map.getBlocks()) {
+            if (b.solid) {
+                int entY = b.y + b.hitbox.offsetY;
+                if (entY < y && y < entY + b.hitbox.height) {
+                    int entX = b.x + b.hitbox.offsetX;
+                    if ((mx < entX && entX < mx + width) || (mx < entX + b.hitbox.width && entX + b.hitbox.width < mx + width))
+                        return true;
+                }
+            }
+        }
+        return false ;
+    } 
+
+    public boolean checkbyWidth(int x){
+        int my = entity.y + offsetY;
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e != this.entity && e.solid) {
+                int entX = e.x + e.hitbox.offsetX;
+                if (entX < x && x < entX + e.hitbox.width) {
+                    int entY = e.y + e.hitbox.offsetY;
+                    if ((my < entY && entY < my + height) || (my < entY + e.hitbox.height && entY + e.hitbox.height < my + height))
+                        return true;
+                }
+            }
+        }
+        for (Block b : GameSession.gameSession.map.getBlocks()) {
+            if (b.solid) {
+                int entX = b.x + b.hitbox.offsetX;
+                if (entX < x && x < entX + b.hitbox.width) {
+                    int entY = b.y + b.hitbox.offsetY;
+                    if ((my < entY && entY < my + height) || (my < entY + b.hitbox.height && entY + b.hitbox.height < my + height))
+                        return true;
+                }
+            }
+        }
+        return false ;
+    }
 
     public boolean inCollision(Direction dir) {
-        int x, y;
-        if (dir.x == 1)
-            x = (entity.x + offsetX + width);
-        else
-            x = (entity.x + offsetX);
-
-        if (dir.y == 1)
-            y = (entity.y + offsetY + height);
-        else
-            y = (entity.y + offsetY);
+        int x= dir.x==1 ? (entity.x + offsetX + width) : (entity.x + offsetX);
+        int y= dir.y==1 ? (entity.y + offsetY + height) : (entity.y + offsetY);
 
         if (mapCollisionEnabled)
             if (checkMapCollision(x, y, dir))
                 return true;
- 
-        int blockX = x / Block.BLOCK_SIZE;
-        int blockY = y / Block.BLOCK_SIZE;
-        int blockHeight = (int) Math.floor(height / Block.BLOCK_SIZE) + 1;
-        int blockWidth = (int) Math.floor(width / Block.BLOCK_SIZE) + 1;
 
         switch (dir) {
             case UPPER:
-            case BOTTOM: {
-                for (int i = 0; i < blockWidth; i += 2) {
-                    Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX + i, blockY);
-                    Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + i + 1, blockY);
-                    if (b2 != null) {
-                        if (x + width > b2.x)
-                            return true;
-                    }
-                    if (b1 != null)
-                        return true;
-                }
-                break;
-            }
+            case BOTTOM: 
+                return checkbyHeight(y);
             case LEFT:
             case RIGHT:
             case LEFT_TOP:
-            case RIGHT_TOP: {
-                for (int i = 0; i < blockHeight; i += 2) {
-                    Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + i);
-                    Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + i + 1);
-                    if (b1 != null)
-                        return true;
+            case RIGHT_TOP:
+                return checkbyWidth(x);
 
-                    if (b2 != null) {
-                        if (y + height > b2.y)
-                            return true;
-                    }
-                }
-                break;
-            }
         }
         return false;
     }

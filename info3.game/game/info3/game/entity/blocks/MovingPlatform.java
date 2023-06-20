@@ -16,7 +16,7 @@ public class MovingPlatform extends DynamicEntity {
         super(x, y, TEAM.NONE, "resources/blocks/2.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;
-
+        solid = true;
         velX = speed;
     }
 
