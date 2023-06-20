@@ -25,6 +25,7 @@ public class Raptor extends DynamicEntity {
     @Override
     public void tick(long elapsed) {
     jumpCooldown -= elapsed;
+    time -= elapsed;
     view.tick(elapsed) ;
     try {
       movingDirection = Direction.IDLE ;
@@ -65,7 +66,7 @@ public class Raptor extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            if (distanceTo(ennemi)<=100)
+            if (distanceTo(ennemi)<=220)
                 ((RaptorView) this.view).attack = true;
             return distanceTo(ennemi)<=33;
         }
