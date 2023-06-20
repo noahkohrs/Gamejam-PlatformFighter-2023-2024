@@ -57,7 +57,7 @@ public class Weapon extends DynamicEntity {
         ammo = clipSize;
         clips = 3;
     }
-    private void createBullet(int startx, int starty) {
+    public void createBullet(int startx, int starty) {
         try {
             new Bullet(startx, starty, damage, player.facingDirection, player.team);
         } catch (IOException e) {

@@ -29,10 +29,11 @@ public class Mexican extends Player {
     public void wizz(String direction) {
         raptorCooldown = 1000;
         try {
-            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team,facingDirection);
-        } catch (IOException e) {
+            new Turret(this.x,this.y,this.team);
+          } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+          }
     }
 
     @Override

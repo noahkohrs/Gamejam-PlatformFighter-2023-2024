@@ -146,6 +146,5 @@ public class Player extends DynamicEntity {
 
   @Override
   public void wizz() {
-    System.out.println("wizz");
   }
 }

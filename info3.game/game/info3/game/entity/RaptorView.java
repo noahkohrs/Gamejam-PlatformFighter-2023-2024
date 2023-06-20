@@ -13,8 +13,8 @@ public class RaptorView extends EntityView{
         super(images, entity);
         //TODO Auto-generated constructor stub
     }
-    public RaptorView(String filename, int nrows, int ncols, Raptor entity) {
-        super(filename,2,8,entity);
+    public RaptorView(String filename, int nrows, int ncols, Raptor raptor) {
+        super(filename,2,8,raptor);
     }
     @Override
     public void tick(long elapsed) {
