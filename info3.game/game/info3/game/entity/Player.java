@@ -146,5 +146,7 @@ public class Player extends DynamicEntity {
 
   @Override
   public void wizz() {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
 }

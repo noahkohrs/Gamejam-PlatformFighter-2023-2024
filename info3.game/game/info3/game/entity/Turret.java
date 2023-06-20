@@ -13,25 +13,27 @@ public class Turret extends DynamicEntity {
     private int time = 3000;
     int ammo;
     Player ennemi;
-    int currentCooldown=0;
-    public Turret(int x, int y,int team) throws IOException {
-        super(x, y,team);
-        this.ammo=50;
+    int currentCooldown = 0;
+
+    public Turret(int x, int y, int team) throws IOException {
+        super(x, y, team);
+        this.ammo = 50;
         if (GameSession.gameSession.player1.team == team) {
             ennemi = GameSession.gameSession.player2;
         } else
             ennemi = GameSession.gameSession.player1;
-        hitbox = new HitBox(4, 16, 48, 16, this);
+        hitbox = new HitBox(4, 2, 24, 28, this);
         while (hitbox.inCollision(Direction.BOTTOM))
             this.y -= 1;
         this.facingDirection = Direction.RIGHT;
-        view=new EntityView("resources/raptor-2x8.png", 2, 8, this);
+        view = new TurretView("resources/turret.png", 1, 1, this);
     }
 
     @Override
     public void tick(long elapsed) {
         jumpCooldown -= elapsed;
         time -= elapsed;
+        view.tick(elapsed);
         if (currentCooldown > 0)
             currentCooldown -= elapsed;
         view.tick(elapsed);
@@ -43,35 +45,28 @@ public class Turret extends DynamicEntity {
             e.printStackTrace();
         }
     }
-
-    // @Override
-    // public void move(Direction direction) {
-    // accelerationX += 0.04;
-    // movingDirection = direction;
-    // }
-
     @Override
     public boolean gotPower() {
-        return time > 0 && ammo>0;
+        return (time > 0 && ammo > 0);
     }
 
     @Override
     public void wizz(String direction) {
-        this.facingDirection=Direction.fromString(direction);
-        System.out.println(currentCooldown);
+        this.facingDirection = Direction.fromString(direction);
         if (currentCooldown <= 0) {
-                if (ammo > 0) {
-                    try {
-                        new Bullet(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), 50, this.facingDirection, this.team);
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    ammo--;
+            if (ammo > 0) {
+                try {
+                    new Bullet(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), 50,
+                            this.facingDirection, this.team);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-                currentCooldown = 100;
+                ammo--;
             }
-        
+            currentCooldown = 100;
+        }
+
     }
 
     @Override
@@ -81,21 +76,21 @@ public class Turret extends DynamicEntity {
 
     @Override
     public boolean MyDir(String direction) {
-        double angle = -Math.atan2(ennemi.y-this.y,ennemi.x-this.x);
+        double angle = -Math.atan2(ennemi.y - this.y, ennemi.x - this.x);
         boolean res;
-        if (angle < Math.PI / 5 && angle >=0)
-            res = direction.equals("E") ;
-        else if (angle < 2 * Math.PI / 5 && angle >=0)
+        if (angle < Math.PI / 5 && angle >= 0)
+            res = direction.equals("E");
+        else if (angle < 2 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NE");
-        else if (angle < 3 * Math.PI / 5&& angle >=0)
+        else if (angle < 3 * Math.PI / 5 && angle >= 0)
             res = direction.equals("N");
-        else if (angle < 4 * Math.PI / 5 && angle >=0)
+        else if (angle < 4 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NW");
-        else if (angle < 5 * Math.PI / 5  && angle >=0 )
+        else if (angle < 5 * Math.PI / 5 && angle >= 0)
             res = direction.equals("W");
         else
             res = false;
-            
+
         return res;
     }
 }

@@ -45,7 +45,7 @@ public class ParserToAutomate implements IVisitor {
 
     @Override
     public Object visit(info3.game.automata.ast.Key key) {
-        System.out.println("3 " + key.toString());
+        //System.out.println("3 " + key.toString());
         return null;
     }
 

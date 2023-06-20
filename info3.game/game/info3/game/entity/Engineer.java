@@ -2,38 +2,35 @@ package info3.game.entity;
 
 import java.io.IOException;
 
-import info3.game.Camera;
-
-public class Mexican extends Player {
+public class Engineer extends Player{
     int raptorCooldown;
-
-    public Mexican() throws IOException {
+    public Engineer() throws IOException {
         super();
     }
 
-    public Mexican(int team) throws IOException {
+    public Engineer(int team) throws IOException {
         super(team);
     }
 
-    public Mexican(int team, String filename) throws IOException {
+    public Engineer(int team, String filename) throws IOException {
         super(team, filename);
     }
 
     @Override
     public void tick(long elapsed) {
-        raptorCooldown -= elapsed;
+        raptorCooldown-=elapsed;
         super.tick(elapsed);
     }
 
     @Override
-    public void wizz(String direction) {
-        raptorCooldown = 10000;
+    public void egg(Entity entity) {
+        raptorCooldown = 1000;
         try {
-            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team, facingDirection);
-        } catch (IOException e) {
+            new Turret(this.x,this.y,this.team);
+          } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+          }
     }
 
     @Override
@@ -42,7 +39,7 @@ public class Mexican extends Player {
     }
 
     @Override
-    public boolean MyDir(String direction) {
+    public boolean MyDir(String direction){
         return facingDirection.equals(Direction.fromString(direction));
     }
 }

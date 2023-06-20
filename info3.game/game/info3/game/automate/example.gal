@@ -1,6 +1,6 @@
 Player1(Init){
   * (Init)
-  | Key(w) ? Wizz()            :(Ra)
+  | Key(w) ?                   :(Ra)
   | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
   | Key(z) ? Move(N) :(Init)
@@ -17,6 +17,7 @@ Player1(Init){
 
 Player2(Init){
   * (Init)
+  | Key(p) ? Egg()            :(Init)
   | Key(1) & Key(3) ? Move(NW) :(Init)
   | Key(1) & Key(4) ? Move(NE) :(Init)
   | Key(1) ? Move(N)  :(Init)

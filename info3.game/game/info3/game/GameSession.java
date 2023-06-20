@@ -23,6 +23,7 @@ import info3.game.automate.condition.Key;
 import info3.game.automate.condition.Binary;
 import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
+import info3.game.entity.Engineer;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
 import info3.game.entity.Mexican;
@@ -79,7 +80,7 @@ public class GameSession {
         toRemoveEntities = new ArrayList<DynamicEntity>();
         spawnerPoints=new ArrayList<SpawnerPoint>();
         player1 = new Mexican(TEAM.BLUE);
-        player2 = new Player(TEAM.RED);
+        player2 = new Engineer(TEAM.RED);
         map = new Map(mapPath);
         loadEntities(mapPath);
         camera = new Camera();
