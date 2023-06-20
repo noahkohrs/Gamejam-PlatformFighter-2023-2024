@@ -36,7 +36,7 @@ public class Weapon extends DynamicEntity {
         currentCooldown = 0;
         this.player = player;
         this.view = new WeaponView(this);
-        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound", "resources/bullets/shot2.ogg", 0, 1.0F);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound"+player.team, "resources/bullets/shot3.ogg", 0, 0.8F);
     }
 
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
@@ -49,7 +49,7 @@ public class Weapon extends DynamicEntity {
         this.ammo = clipSize;
         this.player = player;
         this.view = new WeaponView(this);
-        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound", "resources/bullets/shot2.ogg", 0, 1.0F);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound"+player.team, "resources/bullets/shot3.ogg", 0, 0.8F);
     }
 
     public void reload() {

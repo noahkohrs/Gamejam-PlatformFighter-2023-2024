@@ -44,6 +44,7 @@ public class Sound {
   public void playSound() {
     RandomAccessFile file;
     RandomFileInputStream fis;
+    
     try {
       file = new RandomAccessFile(filename, "r");
       fis = new RandomFileInputStream(file);
