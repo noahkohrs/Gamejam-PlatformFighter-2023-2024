@@ -21,10 +21,12 @@
 package info3.game.entity;
 
 import java.io.IOException;
+import java.util.Random;
 
 import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Weapon;
@@ -86,12 +88,18 @@ public class Player extends DynamicEntity {
 
   private void respawn() {
     if (respawnTimer <= 0) {
-      this.x = 500;
-      this.y = 20;
+      Random random = new Random();
+      int size = GameSession.gameSession.spawnerPoints.size();
+      int randomIndex = random.nextInt(size);
+      SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
+      System.out.println(spawner.x+" "+spawner.y);
+      this.x = spawner.x;
+      this.y = spawner.y-50;
+      System.out.println(x+" "+y);
       this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
-      respawnTimer=3000;
-      respawned=true;
-      this.dead=false;
+      respawnTimer = 3000;
+      respawned = true;
+      this.dead = false;
     }
   }
 
@@ -100,12 +108,13 @@ public class Player extends DynamicEntity {
    */
   public void tick(long elapsed) {
     if (isDead()) {
-      this.dead=true;
+      this.dead = true;
       if (!respawned)
         respawnTimer -= elapsed;
       respawn();
     }
-    respawned=false;
+    System.out.println(x+" "+y);
+    respawned = false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
