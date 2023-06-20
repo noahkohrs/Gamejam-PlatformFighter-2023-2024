@@ -1,11 +1,17 @@
 package info3.game.weapon;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import info3.game.Camera;
+import info3.game.Game;
+import info3.game.Sound;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
+import info3.game.sound.RandomFileInputStream;
 
 public class Weapon extends DynamicEntity {
 
@@ -18,6 +24,7 @@ public class Weapon extends DynamicEntity {
     private final int clipSize;
     public int ammo;
     private int damage;
+    private Sound soundEffect;
 
     public Weapon(Player player) throws IOException {
         super(0, 0, player.team);
@@ -29,6 +36,7 @@ public class Weapon extends DynamicEntity {
         currentCooldown = 0;
         this.player = player;
         this.view = new WeaponView(this);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound"+player.team, "resources/bullets/shot3.ogg", 0, 0.8F);
     }
 
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
@@ -41,6 +49,7 @@ public class Weapon extends DynamicEntity {
         this.ammo = clipSize;
         this.player = player;
         this.view = new WeaponView(this);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound"+player.team, "resources/bullets/shot3.ogg", 0, 0.8F);
     }
 
     public void reload() {
@@ -53,7 +62,7 @@ public class Weapon extends DynamicEntity {
         }
     }
 
-    public void reset(){
+    public void reset() {
         ammo = clipSize;
         clips = 3;
     }
@@ -70,6 +79,7 @@ public class Weapon extends DynamicEntity {
         if (player.facingDirection != Direction.IDLE) {
             if (currentCooldown <= 0) {
                 if (ammo > 0) {
+                    soundEffect.playSound();
                     createBullet(Camera.centeredCoordinateX(player), Camera.centeredCoordinateY(player));
                     ammo--;
                 }
