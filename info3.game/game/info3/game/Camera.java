@@ -183,6 +183,20 @@ public class Camera {
 
     }
 
+    static public void drawText(Graphics g, int x, int y, String str)
+    {
+        if(debugMode)
+        {
+            g.drawString(str, x, y);
+        }
+        else
+        {
+            int cX = onCamViewX(x, camera.scale);
+            int cY = onCamViewY(y, camera.scale);
+            g.drawString(str, cX, cY);
+        }
+    }
+
     static public void fillRect(Graphics g, int x, int y, int width, int height) {
         if (debugMode) {
             g.drawRect(x, y, width, height);
