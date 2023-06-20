@@ -104,7 +104,7 @@ public class HitBox {
     public boolean isSittingOn(Entity e) {
         int x = entity.x + offsetX;
         int y = entity.y + offsetY + height + 1;
-        return e.hitbox.pointInHitbox(x+width/2, y);
+        return e.hitbox.pointInHitbox(x+ width/4, y) || e.hitbox.pointInHitbox(x + 3*width/4, y);
     }
 
     public int getTopLeftY() {
