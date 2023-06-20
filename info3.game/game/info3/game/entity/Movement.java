@@ -11,7 +11,7 @@ public class Movement {
             E.x += 1;
         while (E.hitbox.inCollision(Direction.RIGHT))
             E.x -= 1;
-            
+
         while(E.hitbox.DynamicEntityCollision(Direction.LEFT)){
             E.x += 1;
         }

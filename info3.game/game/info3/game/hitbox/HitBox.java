@@ -222,13 +222,22 @@ public class HitBox {
         return false;
     }
 
-    public  boolean DynamicEntityCollision(Direction dir){
+    public  boolean DynamicEntityCollision(Direction dir){//bugged what is needed here is the fact that if upper is called before bottom it should return false
                 switch(dir){
                     case UPPER:
+                            for(DynamicEntity e: GameSession.gameSession.entities){
+                            if(e instanceof MovingPlatform){
+                                if(entity.distanceTo(e) < 27){
+                                if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
+                                    return true;
+                                }
+                            }
+                        }
+                        }
                     case BOTTOM:
                         for(DynamicEntity e: GameSession.gameSession.entities){
                             if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 50){
+                                if(entity.distanceTo(e) < 27){
                                 if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
                                     return true;
                                 }
@@ -236,11 +245,20 @@ public class HitBox {
                         }
                         }
                     case LEFT:
-                    case RIGHT:
-                        for(DynamicEntity e: GameSession.gameSession.entities){
+                            for(DynamicEntity e: GameSession.gameSession.entities){
                             if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 50){
-                                if(((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
+                                if(entity.distanceTo(e) < 27){
+                                if((e.x + e.getWidth() > entity.x)){
+                                    return true;
+                                }
+                            }
+                        }
+                        }
+                    case RIGHT:
+                            for(DynamicEntity e: GameSession.gameSession.entities){
+                            if(e instanceof MovingPlatform){
+                                if(entity.distanceTo(e) < 20){
+                                if(e.x < entity.x){
                                     return true;
                                 }
                             }
