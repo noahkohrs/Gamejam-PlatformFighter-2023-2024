@@ -3,23 +3,17 @@ package info3.game.entity;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-
 import javax.imageio.ImageIO;
-
 import info3.game.GameSession;
 import info3.game.Camera;
-import info3.game.GameSession;
 import info3.game.automate.Automate;
 import info3.game.automate.State;
-import info3.game.automate.action.Move;
 import info3.game.hitbox.HitBox;
 
 public abstract class Entity {
   // here are the coords where the entity is
   public int x;
   public int y;
-
 
   // here are the velocities at which the entity is moving
   public float velX;
@@ -55,12 +49,30 @@ public abstract class Entity {
     this.y = y;
     this.view = new EntityView(filename, nrows, ncols, this);
     this.automate = loadAutomate();
-
-
     if (this.automate == null)
       this.automate = GameSession.gameSession.defaultAutomate;
-
     state = this.automate.initalState;
+  }
+
+  public Entity(int x, int y, int team) throws IOException {
+    this.team = team;
+    this.x = x;
+    this.y = y;
+    this.automate = loadAutomate();
+    if (this.automate == null)
+      this.automate = GameSession.gameSession.defaultAutomate;
+    state = this.automate.initalState;
+  }
+
+  public Entity(int x, int y, int team, EntityView view) throws IOException {
+    this.team = team;
+    this.x = x;
+    this.y = y;
+    this.automate = loadAutomate();
+    if (this.automate == null)
+      this.automate = GameSession.gameSession.defaultAutomate;
+    state = this.automate.initalState;
+    this.view=view;
   }
 
   private Automate loadAutomate() {
@@ -69,7 +81,6 @@ public abstract class Entity {
   }
 
   public abstract void tick(long elapsed);
-
 
   public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
     File imageFile = new File(filename);
@@ -144,8 +155,8 @@ public abstract class Entity {
   }
 
   public int distanceTo(Entity e) {
-    return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2) 
-    + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
+    return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2)
+        + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
   }
 
   public DynamicEntity nearestEnemyEntity() {
@@ -168,12 +179,12 @@ public abstract class Entity {
   }
 
   void updateVelocityY() {
-    this.velY = (float) (Math.max(velY+PhysicConstant.gravity, -PhysicConstant.maxVelY));
+    this.velY = (float) (Math.max(velY + PhysicConstant.gravity, -PhysicConstant.maxVelY));
   }
 
-  void updateJumpVelocity(){
-    if(jumpCooldown>0){
-      this.velY =(float) (this.velY*(1-Math.exp(-this.velY)));
+  void updateJumpVelocity() {
+    if (jumpCooldown > 0) {
+      this.velY = (float) (this.velY * (1 - Math.exp(-this.velY)));
     }
   }
 
@@ -193,13 +204,13 @@ public abstract class Entity {
 
   // Conditions
 
-    public abstract boolean gotPower();
+  public abstract boolean gotPower();
 
-    public abstract boolean cell(Direction direction,String category);
+  public abstract boolean cell(Direction direction, String category);
 
-    public abstract boolean MyDir(String direction);
+  public abstract boolean MyDir(String direction);
 
-    public void wizz(String direction) {
-    }
-    
+  public void wizz(String direction) {
+  }
+
 }

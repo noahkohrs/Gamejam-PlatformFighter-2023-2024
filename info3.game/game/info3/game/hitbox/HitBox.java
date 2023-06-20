@@ -7,8 +7,8 @@ import info3.game.entity.Direction;
 import info3.game.entity.Entity;
 
 public class HitBox {
-    private final int offsetX;
-    private final int offsetY;
+    public final int offsetX;
+    public final int offsetY;
     private Entity entity;
 
     public final int width;

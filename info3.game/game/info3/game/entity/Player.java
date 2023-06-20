@@ -61,7 +61,7 @@ public class Player extends DynamicEntity {
     super(40, 40, team, Getchar(team) + "PlayerSprite.png", 2, 2);
     view = new PlayerView(Getchar(team) + "PlayerSprite.png", 2, 2, this);
     this.lifeBar = new LifeBar(team);
-    hitbox = new HitBox(12, 8, 15, 21, this);
+    hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Weapon(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
@@ -171,6 +171,16 @@ public class Player extends DynamicEntity {
     return false;
   }
 
+  Player getEnnemi() {
+    Player ennemi;
+    if (this.equals(GameSession.gameSession.player1)) {
+      ennemi = GameSession.gameSession.player2;
+    } else {
+      ennemi = GameSession.gameSession.player1;
+    }
+    return ennemi;
+  }
+
   void pickPowerUp() {
     PowerUp powerUp = powerUpBlock.powerUp;
     if (powerUp != null) {
@@ -185,6 +195,8 @@ public class Player extends DynamicEntity {
           powerUp.timer = timer;
           break;
         case "shield":
+          Player ennemi = getEnnemi();
+          ennemi.weapon.damage /= 2;
           break;
         case "power":
           weapon.damage *= 2;
@@ -194,16 +206,6 @@ public class Player extends DynamicEntity {
 
       powerUpBlock.deletePowerUp();
     }
-  }
-
-  Player getEnnemi() {
-    Player ennemi;
-    if (this.equals(GameSession.gameSession.player1)) {
-      ennemi = GameSession.gameSession.player2;
-    } else {
-      ennemi = GameSession.gameSession.player1;
-    }
-    return ennemi;
   }
 
   void pickMalus() {
@@ -222,9 +224,10 @@ public class Player extends DynamicEntity {
           }
           break;
         case "shield":
+          ennemi.weapon.damage /= 2;
           break;
         case "power":
-          ennemi.weapon.damage *= 2;
+          ennemi.weapon.damage /= 2;
           break;
       }
       System.out.println(malus.name);
@@ -255,6 +258,8 @@ public class Player extends DynamicEntity {
             addVelX -= 6;
             break;
           case "shield":
+            Player ennemi = getEnnemi();
+            ennemi.weapon.damage *= 2;
             break;
           case "power":
             weapon.damage /= 2;
@@ -276,6 +281,7 @@ public class Player extends DynamicEntity {
             ennemi.addVelX += 6;
             break;
           case "shield":
+            ennemi.weapon.damage *= 2;
             break;
           case "power":
             ennemi.weapon.damage *= 2;

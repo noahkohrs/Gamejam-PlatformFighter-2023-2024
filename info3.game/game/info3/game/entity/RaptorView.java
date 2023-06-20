@@ -32,10 +32,7 @@ public class RaptorView extends EntityView{
     @Override
     public void paint(Graphics g){
         entity.hitbox.showHitBox(g);
-        if(entity.facingDirection==Direction.RIGHT)
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),false,false);
-        else
-            Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight(),true,false);
-        }
+        Camera.drawEntity(entity, g);
+    }
 }
 
