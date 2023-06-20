@@ -46,9 +46,10 @@ public class Weapon extends DynamicEntity {
 
     public void reload() {
         if (currentCooldown <= 0) {
-            if (clips-- > 0) {
+            if (clips> 0) {
                 ammo = clipSize;
                 currentCooldown = cooldown;
+                clips--;
             }
         }
     }
@@ -93,6 +94,7 @@ public class Weapon extends DynamicEntity {
 
     @Override
     public void wizz() {
+        System.out.println("wizz");
         reload();
     }
 
