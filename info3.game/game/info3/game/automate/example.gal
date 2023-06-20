@@ -26,7 +26,7 @@ Player2(Init){
   | True() ?          :(Init)
 }
 
-Weapon(Init){
+Weapon1(Init){
   * (Init)
   | Key(f) ? Pop()    :(Init)
   | Key(r) ? Wizz()    :(Init)
@@ -36,6 +36,13 @@ Weapon2(Init){
   * (Init)
   | Key(m) ? Pop()    :(Init)
   | Key(l) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
+
+Weapon2(Init){
+  * (Init)
+  | Key(m) ? Pop()    :(Init)
+  | Key(n) ? Wizz()    :(Init)
   | True() ?   :(Init)
 }
 
