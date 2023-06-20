@@ -31,25 +31,26 @@ public class Sound {
 
   private GameCanvas canvas;
   private String name;
-  private RandomAccessFile file;
-  private RandomFileInputStream fis;
+  private String filename;
 
   public Sound(GameCanvas canvas, String name, String filename, long duration, float volume) {
     this.canvas = canvas;
     this.name = name;
     this.duration = duration;
     this.volume = volume;
+    this.filename = filename;
+  }
 
+  public void playSound() {
+    RandomAccessFile file;
+    RandomFileInputStream fis;
     try {
-      this.file = new RandomAccessFile(filename, "r");
-      this.fis = new RandomFileInputStream(file);
+      file = new RandomAccessFile(filename, "r");
+      fis = new RandomFileInputStream(file);
+      canvas.playSound(name, fis, duration, volume);
     } catch (Exception e) {
       // TODO Auto-generated catch blockd
       e.printStackTrace();
     }
-  }
-
-  public void playSound() {
-    canvas.playSound(name, fis, duration, volume);
   }
 }

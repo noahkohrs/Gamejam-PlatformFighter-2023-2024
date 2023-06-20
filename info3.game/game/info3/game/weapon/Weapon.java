@@ -69,7 +69,6 @@ public class Weapon extends DynamicEntity {
 
     private void createBullet(int startx, int starty) {
         try {
-            soundEffect.playSound();
             new Bullet(startx, starty, damage, player.facingDirection, player.team);
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -81,15 +80,7 @@ public class Weapon extends DynamicEntity {
         if (player.facingDirection != Direction.IDLE) {
             if (currentCooldown <= 0) {
                 if (ammo > 0) {
-                    RandomAccessFile file;
-                    try {
-                        file = new RandomAccessFile("resources/bullets/shot2.ogg", "r");
-                        RandomFileInputStream fis = new RandomFileInputStream(file);
-                        Game.game.m_canvas.playSound("bullet", fis, 0, 1.0F);
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch blockd
-                        e.printStackTrace();
-                    }
+                    soundEffect.playSound();
                     createBullet(Camera.centeredCoordinateX(player), Camera.centeredCoordinateY(player));
                     ammo--;
                 }
