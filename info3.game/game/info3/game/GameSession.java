@@ -155,6 +155,8 @@ public class GameSession {
         camera.paint(g);
         map.paint(g, camera);
         for (Entity entity : entities) {
+            if(entity instanceof Player && ((Player)entity).dead)
+                continue;
             entity.view.paint(g);
         }
     }

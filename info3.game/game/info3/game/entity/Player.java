@@ -38,6 +38,9 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
+  public boolean dead = false;
+  private boolean respawned = true;
+  private int respawnTimer = 3000;
 
   public Player() throws IOException {
     this(1);
@@ -77,10 +80,32 @@ public class Player extends DynamicEntity {
     lifeBar.life.removeHealth(amount);
   }
 
+  private boolean isDead() {
+    return this.lifeBar.life.health <= 0;
+  }
+
+  private void respawn() {
+    if (respawnTimer <= 0) {
+      this.x = 500;
+      this.y = 20;
+      this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
+      respawnTimer=3000;
+      respawned=true;
+      this.dead=false;
+    }
+  }
+
   /*
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    if (isDead()) {
+      this.dead=true;
+      if (!respawned)
+        respawnTimer -= elapsed;
+      respawn();
+    }
+    respawned=false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {

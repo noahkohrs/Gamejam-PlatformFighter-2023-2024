@@ -8,6 +8,7 @@ import info3.game.automate.action.Action;
 import info3.game.automate.condition.Condition;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.weapon.Weapon;
 
 public class Automate {
     public List<Transitions> trans;
@@ -48,6 +49,8 @@ public class Automate {
                 if (action != null) {
                     // else do the action of the transition.
                     String direction = action.Direction;
+                    if(e instanceof Weapon)
+                        System.out.println(action.getClass().getName());
                     action.exec(e, direction);
                 }
                 e.state = dest;
