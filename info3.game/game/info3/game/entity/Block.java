@@ -65,4 +65,10 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
     }
+
+    @Override
+    public void wizz(String direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    }
 }
