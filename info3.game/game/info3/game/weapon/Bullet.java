@@ -1,14 +1,11 @@
 package info3.game.weapon;
 
-import java.awt.Graphics;
-import java.io.IOException;
 
+import java.io.IOException;
 import info3.game.GameSession;
-import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Player;
-import info3.game.graphics.GameCanvas;
 import info3.game.hitbox.HitBox;
 
 public class Bullet extends DynamicEntity {

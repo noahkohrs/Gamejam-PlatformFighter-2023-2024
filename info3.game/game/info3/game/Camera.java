@@ -3,9 +3,6 @@ package info3.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import com.jcraft.jogg.Buffer;
-
 import info3.game.entity.Entity;
 
 public class Camera {

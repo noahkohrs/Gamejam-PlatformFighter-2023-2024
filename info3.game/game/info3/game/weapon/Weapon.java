@@ -2,7 +2,6 @@ package info3.game.weapon;
 
 import java.io.IOException;
 import info3.game.Camera;
-import info3.game.GameSession;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
@@ -46,7 +45,7 @@ public class Weapon extends DynamicEntity {
 
     public void reload() {
         if (currentCooldown <= 0) {
-            if (clips> 0) {
+            if (clips > 0) {
                 ammo = clipSize;
                 currentCooldown = cooldown;
                 clips--;
