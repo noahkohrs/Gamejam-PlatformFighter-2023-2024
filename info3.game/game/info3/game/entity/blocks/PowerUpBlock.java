@@ -46,7 +46,7 @@ public class PowerUpBlock extends Block {
 
             String powerUpPath = "resources/powerUp/" + powerUpName + ".png";
             try {
-                this.powerUp = new PowerUp(x, y - Block.BLOCK_SIZE, powerUpPath, 1, 1, powerUpName);
+                this.powerUp = new PowerUp(x, y - Block.BLOCK_SIZE, powerUpPath, 1, 1, powerUpName, this);
             } catch (IOException c) {
                 c.printStackTrace();
             }

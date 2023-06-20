@@ -49,7 +49,7 @@ public class MalusBlock extends Block{
 
             String malusPath = "resources/powerUp/" + malusName + ".png";
             try {
-                this.malus = new Malus(x, y - Block.BLOCK_SIZE, malusPath, 1, 1, malusName);
+                this.malus = new Malus(x, y - Block.BLOCK_SIZE, malusPath, 1, 1, malusName, this);
             } catch (IOException c) {
                 c.printStackTrace();
             }

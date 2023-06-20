@@ -1,5 +1,6 @@
 Player1(Init){
   * (Init)
+  | Cell(S, P) ? Pick() :(Init)
   | Key(w) ?          :(Ra)
   | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
@@ -8,7 +9,6 @@ Player1(Init){
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
   | Key(w) ?          :(Ra)
-  | Cell(S, P) ? Pick() :(Init)
   | True() ?          :(Init)
 
   *(Ra)
@@ -19,13 +19,13 @@ Player1(Init){
 
 Player2(Init){
   * (Init)
+  | Cell(S, P) ? Pick() :(Init)
   | Key(1) & Key(3) ? Move(NW) :(Init)
   | Key(1) & Key(4) ? Move(NE) :(Init)
   | Key(1) ? Move(N)  :(Init)
   | Key(4) ? Move(E)  :(Init)
   | Key(3) ? Move(W)  :(Init)
   | Key(2) ? Move(S)  :(Init)
-  | Cell(S, P) ? Pick() :(Init)
   | True() ?          :(Init)
 }
 

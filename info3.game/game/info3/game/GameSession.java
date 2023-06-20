@@ -22,6 +22,7 @@ import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
+import info3.game.entity.Malus;
 import info3.game.entity.Mexican;
 import info3.game.entity.Player;
 import info3.game.entity.PowerUp;
@@ -73,7 +74,7 @@ public class GameSession {
         loadEntities(mapPath);
         camera = new Camera();
     }
-    }
+    
 
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
@@ -94,6 +95,16 @@ static public List<PowerUp> getPowerUps(){
     for (DynamicEntity entity : gameSession.entities) {
         if (entity instanceof PowerUp) {
             arr.add((PowerUp) entity);
+        }
+    }
+    return arr;
+}
+
+static public List<Malus> getMalus(){
+    List<Malus> arr = new ArrayList<>();
+    for (DynamicEntity entity : gameSession.entities) {
+        if (entity instanceof Malus) {
+            arr.add((Malus) entity);
         }
     }
     return arr;

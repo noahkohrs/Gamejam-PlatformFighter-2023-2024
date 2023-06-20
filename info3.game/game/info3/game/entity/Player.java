@@ -23,8 +23,13 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.Camera;
+
+import java.util.ArrayList;
+import java.util.List;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.entity.blocks.MalusBlock;
+import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Weapon;
@@ -39,8 +44,8 @@ public class Player extends DynamicEntity {
   public LifeBar lifeBar;
   public Weapon weapon;
 
-  PowerUpBlock powerUpBlock;
-  MalusBlock malusBlock;
+  PowerUp powerUp;
+  Malus malus;
   List<PowerUp> ListPowerUp = new ArrayList<PowerUp>();
   List<Malus> ListMalus = new ArrayList<Malus>();
   boolean isPowerUp = false;
@@ -132,36 +137,28 @@ public class Player extends DynamicEntity {
   public boolean cell(Direction direction, String category) {
     if (category.equals("P")) {
 
-      Block[] blocksBottom = hitbox.recupBlockMap();
+      List<PowerUp> listPowerUps = GameSession.getPowerUps();
 
-      for (int i = 0; i <= 1; i++) {
-        if (blocksBottom[i] != null) {
-          if (blocksBottom[i].getClass().getSimpleName().equals("PowerUpBlock")) {
-            List<PowerUpBlock> powerUpBlocks = GameSession.gameSession.map.powerUpBlocks;
-
-            for (PowerUpBlock p : powerUpBlocks) {
-              if (p.x == blocksBottom[i].x && p.y == blocksBottom[i].y) {
-                powerUpBlock = p;
-                isPowerUp = true;
-                return true;
-              }
-            }
-
-          }
-
-          if (blocksBottom[i].getClass().getSimpleName().equals("MalusBlock")) {
-            List<MalusBlock> malusBlocks = GameSession.gameSession.map.malusBlocks;
-
-            for (MalusBlock m : malusBlocks) {
-              if (m.x == blocksBottom[i].x && m.y == blocksBottom[i].y) {
-                malusBlock = m;
-                isMalus = true;
-                return true;
-              }
-            }
-          }
+      for (PowerUp p : listPowerUps) {
+        if (distanceTo(p) < 20) {
+          powerUp = p;
+          isPowerUp = true;
+          return true;
         }
+        System.out.println(p.name);
       }
+
+      List<Malus> listMalus = GameSession.getMalus();
+
+      for (Malus m : listMalus) {
+        if (distanceTo(m) < 20) {
+          malus = m;
+          isMalus = true;
+          return true;
+        }
+        System.out.println(m.name);
+      }
+
     }
     return false;
   }
@@ -177,7 +174,6 @@ public class Player extends DynamicEntity {
   }
 
   void pickPowerUp() {
-    PowerUp powerUp = powerUpBlock.powerUp;
     if (powerUp != null) {
       switch (powerUp.name) {
         case "ammo":
@@ -199,12 +195,11 @@ public class Player extends DynamicEntity {
       }
       System.out.println(powerUp.name);
 
-      powerUpBlock.deletePowerUp();
+      powerUp.parent.deletePowerUp();
     }
   }
 
   void pickMalus() {
-    Malus malus = malusBlock.malus;
     Player ennemi = getEnnemi();
     if (malus != null) {
       switch (malus.name) {
@@ -227,7 +222,7 @@ public class Player extends DynamicEntity {
       }
       System.out.println(malus.name);
 
-      malusBlock.deleteMalus();
+      malus.parent.deleteMalus();
     }
   }
 
