@@ -32,6 +32,12 @@ Weapon1(Init){
   | Key(r) ? Wizz()   :(Init)
   | True() ?          :(Init)
 }
+Weapon2(Init){
+  * (Init)
+  | Key(m) ? Pop()    :(Init)
+  | Key(l) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
 
 Weapon2(Init){
   * (Init)
