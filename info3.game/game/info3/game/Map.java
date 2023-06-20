@@ -57,9 +57,10 @@ public class Map {
                 SpawnerPoint res = new SpawnerPoint(x, y);
                 GameSession.gameSession.spawnerPoints.add(res);
                 return res;
-            default:
             case "GroundBlock":
                 return new GroundBlock(x, y);
+            default:
+                throw new IOException("Unknown block id: " + id);
         }
     }
 
