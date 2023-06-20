@@ -118,7 +118,7 @@ Tous : discussion avec Emmanuel DUFOUR sur le projet, discussions de l’attente
 Développeur   | Tâche
 ------------- | -------------
 Clément       | début de la gestion des powerUps. (résolution de conflit)
-Anastasios    | Amélioration du parseur, plus merge pour avoir les collisions et les balles. (résolution de conflits).
+Anastasios    | Amélioration du parseur (random state handler), + merge pour avoir les collisions et les balles. (résolution de conflits). 
 Bastien       | Refactoring pour encore mieux séparé en MVC, créer une entité est maintenant beaucoup plus simple
 Gwénolé       | continuation de rendre les mouvements identiques sur tous les pcs. Début du travail avec les collisions pour les hitboxs.
 Noah          | Prototype de Plateforme + Support pour utilisation de l’environnement. Amélioration du système de gestion des entités.
@@ -126,21 +126,22 @@ Noé           | Création sprite powerup. Début de la gestion des powerUps. (r
 
 ## 15/06
 
-Développeur   | Tâche
-------------- | -------------
-Clément       | a
-Anastasios    | b
-Bastien       | c
-Gwénolé       | d
-Noah          | e
-Noé           | f
+Développeur    | Tâche
+-------------  | -------------
+Clément        | a
+Anastasios&Noah| Amelioration du systeme d'automates. Maintenant loadAutomate est automatique chaque fois qu'on cree une nouvelle entite. De plus, deux entites peuvent avoir la même automate.
+Anastasios     |Correction d'un bug de jump. 
+Bastien        | c
+Gwénolé        | d
+Noah           | e
+Noé            | f
 
 ## 16/06
 
 Développeur   | Tâche
 ------------- | -------------
 Clément       | a
-Anastasios    | b
+Anastasios    | Correction d'un bug du parser dans lequel le initial state etait le state dest de la derniere transition. Aide les autres avec les automates.
 Bastien       | c
 Gwénolé       | d
 Noah          | e
@@ -151,7 +152,7 @@ Noé           | f
 Développeur   | Tâche
 ------------- | -------------
 Clément       | a
-Anastasios    | b
+Anastasios    | Création du raptor (pour Mexican) avec tous les collisions, et les mouvements. Ajout aussi de MyDir comme condition (et utilisation pour raptor)
 Bastien       | c
 Gwénolé       | d
 Noah          | e
