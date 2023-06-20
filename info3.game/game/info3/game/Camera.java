@@ -121,9 +121,11 @@ public class Camera {
         if ((x + Math.abs(width) < camera.camX || x > camera.camX + camera.camWidth
                 || y + Math.abs(height) < camera.camY || y > camera.camY + camera.camHeight)
                 && Opti)
-            return ;
-        x += Math.max(0, -width);
-        y += Math.max(0, -height);
+            return;
+        if (width < 0)
+            x -= width;
+        if (height < 0)
+            y -= height;
         if (debugMode) {
             g.drawImage(img, x, y, width, height, null);
         } else {
@@ -136,22 +138,23 @@ public class Camera {
 
     }
 
-    static public void drawEntity(Entity e, Graphics g, boolean invertedX, boolean invertedY) {
-        BufferedImage img = e.getImage();
-        if (invertedX && invertedY) {
-            drawImage(g, img, e.x, e.y, -img.getWidth(), -img.getHeight());
-        } else if (invertedX) {
-            drawImage(g, img, e.x, e.y, -img.getWidth(), img.getHeight());
-        } else if (invertedY) {
-            drawImage(g, img, e.x, e.y, img.getWidth(), -img.getHeight());
-        } else {
-            drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
-        }
-    }
-
     static public void drawEntity(Entity e, Graphics g) {
         BufferedImage img = e.getImage();
-        drawImage(g, img, e.x, e.y, img.getWidth(), img.getHeight());
+        int x = e.x;
+        int y = e.y;
+        int width = img.getWidth();
+        int height = img.getHeight();
+        int hitboxOffsetX = e.hitbox.offsetX;
+        int hitboxWidth = e.hitbox.width;
+
+        if (e.facingDirection.x < 0) {
+            int inverseX = x+ -width + 2*hitboxOffsetX + hitboxWidth;
+
+
+            drawImage(g, img, inverseX, y, -width, height);
+        } else {
+            drawImage(g, img, x, y, width, height);
+        }
     }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height, boolean invertedX,
@@ -178,6 +181,20 @@ public class Camera {
             g.drawRect(cX, cY, cWidth, cHeight);
         }
 
+    }
+
+    static public void drawText(Graphics g, int x, int y, String str)
+    {
+        if(debugMode)
+        {
+            g.drawString(str, x, y);
+        }
+        else
+        {
+            int cX = onCamViewX(x, camera.scale);
+            int cY = onCamViewY(y, camera.scale);
+            g.drawString(str, cX, cY);
+        }
     }
 
     static public void fillRect(Graphics g, int x, int y, int width, int height) {

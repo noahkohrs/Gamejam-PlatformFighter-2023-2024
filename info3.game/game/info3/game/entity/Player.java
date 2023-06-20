@@ -45,16 +45,16 @@ public class Player extends DynamicEntity {
 
   public Player(int team) throws IOException {
     super(40, 40, team, Getchar(team) + "PlayerSprite.png", 2, 2);
-    view = new PlayerView(Getchar(team)+ "PlayerSprite.png", 2, 2, this);
+    view = new PlayerView(Getchar(team) + "PlayerSprite.png", 2, 2, this);
     this.lifeBar = new LifeBar(team);
-    hitbox = new HitBox(12, 8, 15, 21, this);
+    hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Weapon(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
     jumpCounter = jumpAmount;
   }
 
-    public Player(int team, String filename) throws IOException {
+  public Player(int team, String filename) throws IOException {
     super(40, 40, team, filename, 4, 6);
     view = new PlayerView(filename, 4, 6, this);
     this.lifeBar = new LifeBar(team);
@@ -65,14 +65,13 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
-
- static private String Getchar(int team){
-  if(team == 1){
-    return "resources/Mexicain/";
-  } else {
-    return "resources/Ingenieur/";
+  static private String Getchar(int team) {
+    if (team == 1) {
+      return "resources/Mexicain/";
+    } else {
+      return "resources/Ingenieur/";
+    }
   }
- }
 
   public void takeDamage(int amount) {
     lifeBar.life.removeHealth(amount);
@@ -85,12 +84,12 @@ public class Player extends DynamicEntity {
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {
-      movingDirection = Direction.IDLE ;
+      movingDirection = Direction.IDLE;
       this.automate.step(this);
       if (movingDirection.x != 0)
         facingDirection = movingDirection;
-      if (facingDirection != movingDirection) 
-        accelerationX = 0.1 ;
+      if (facingDirection != movingDirection)
+        accelerationX = 0.1;
     } catch (Exception e) {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
@@ -103,10 +102,10 @@ public class Player extends DynamicEntity {
   @Override
   public void move(Direction direction) {
     accelerationX += 0.04;
-    movingDirection = direction ;
+    movingDirection = direction;
     if (direction.y == Direction.UPPER.y)
-      Movement.Jump(this) ;
-  }  
+      Movement.Jump(this);
+  }
 
   @Override
   public void wizz() {
