@@ -1,11 +1,14 @@
 package info3.game;
 
 import java.awt.Graphics;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -55,11 +58,17 @@ public class GameSession {
     public Map map;
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
+    public BufferedImage image;
 
     public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
         gameSession = this;
-
+        File imageFile=new File("resources/maps/BG2.png");
+        try {
+            image=ImageIO.read(imageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadAutomates(GalFile);
 
         keys = new ArrayList<>();

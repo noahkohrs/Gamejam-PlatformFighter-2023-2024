@@ -1,6 +1,6 @@
 Player1(Init){
   * (Init)
-  | Key(w) ?          :(Ra)
+  | Key(w) ? 80% Move / 20% Pop:(Ra)
   | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
   | Key(z) ? Move(N) :(Init)
