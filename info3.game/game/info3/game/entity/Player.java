@@ -100,6 +100,7 @@ public class Player extends DynamicEntity {
         this.y = 50;
       }
       this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
+      this.weapon.reset();
       respawnTimer = 3000;
       respawned = true;
       this.dead = false;
