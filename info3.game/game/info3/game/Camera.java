@@ -75,8 +75,8 @@ public class Camera {
         int distX = Math.abs(p1X - p2X);
         int distY = Math.abs(p1Y - p2Y);
 
-        camWidth = distX + 500;
-        camHeight = distY + 350;
+        camWidth = distX + 400;
+        camHeight = distY + 280;
 
         if (camWidth < 500)
             camWidth = 500;
@@ -101,6 +101,9 @@ public class Camera {
             camX = GameSession.gameSession.map.realWidth() - camWidth;
         if (camY + camHeight > GameSession.gameSession.map.realHeight())
             camY = GameSession.gameSession.map.realHeight() - camHeight;
+        
+        if (camWidth > GameSession.gameSession.map.realWidth())
+            camX = GameSession.gameSession.map.realWidth() / 2 - camWidth / 2;
 
         camX = precCamX + (camX - precCamX) * movingTime / 10;
         camY = precCamY + (camY - precCamY) * movingTime / 10;
@@ -148,8 +151,7 @@ public class Camera {
         int hitboxWidth = e.hitbox.width;
 
         if (e.facingDirection.x < 0) {
-            int inverseX = x+ -width + 2*hitboxOffsetX + hitboxWidth;
-
+            int inverseX = x - width + 2 * hitboxOffsetX + hitboxWidth;
 
             drawImage(g, img, inverseX, y, -width, height);
         } else {
