@@ -106,14 +106,14 @@ public class CanvasListener implements GameCanvasListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
-    System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-    System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
     int index;
-    System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
         GameSession.gameSession.camera.toggleDebugMode();
@@ -192,7 +192,7 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void keyReleased(KeyEvent e) {
     int index;
-    System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
     switch (e.getKeyCode()) {
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');

@@ -1,10 +1,15 @@
 package info3.game.hitbox;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
 import info3.game.GameSession;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.blocks.MovingPlatform;
 
 public class HitBox {
     public final int offsetX;
@@ -217,4 +222,34 @@ public class HitBox {
         return false;
     }
 
+    public  boolean DynamicEntityCollision(Direction dir){
+                switch(dir){
+                    case UPPER:
+                    case BOTTOM:
+                        for(DynamicEntity e: GameSession.gameSession.entities){
+                            if(e instanceof MovingPlatform){
+                                if(entity.distanceTo(e) < 50){
+                                if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
+                                    return true;
+                                }
+                            }
+                        }
+                        }
+                    case LEFT:
+                    case RIGHT:
+                        for(DynamicEntity e: GameSession.gameSession.entities){
+                            if(e instanceof MovingPlatform){
+                                if(entity.distanceTo(e) < 50){
+                                if(((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
+                                    return true;
+                                }
+                            }
+                        }
+                        }
+
+                    default:
+                    return false;
+                }
+
+        }
 }

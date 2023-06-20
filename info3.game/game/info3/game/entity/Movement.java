@@ -11,6 +11,13 @@ public class Movement {
             E.x += 1;
         while (E.hitbox.inCollision(Direction.RIGHT))
             E.x -= 1;
+            
+        while(E.hitbox.DynamicEntityCollision(Direction.LEFT)){
+            E.x += 1;
+        }
+        while(E.hitbox.DynamicEntityCollision(Direction.RIGHT)){
+            E.x -= 1;
+        }
         E.affectTor();
     }
 
@@ -38,6 +45,15 @@ public class Movement {
         E.updateJumpVelocity();
         E.updateVelocityY();
         E.y -= E.velY;
+        while(E.hitbox.DynamicEntityCollision(Direction.UPPER)){
+            E.y += 1;
+            E.velY = Math.min(0, E.velY);
+        }
+        while(E.hitbox.DynamicEntityCollision(Direction.BOTTOM)){
+            E.y -= 1;
+            E.velY = PhysicConstant.gravity;
+            E.jumpCounter = E.jumpAmount;
+        }
         while (E.hitbox.inCollision(Direction.UPPER)) {
             E.y += 1;
             E.velY = Math.min(0, E.velY);
