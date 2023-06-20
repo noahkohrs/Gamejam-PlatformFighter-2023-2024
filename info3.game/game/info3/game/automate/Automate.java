@@ -49,8 +49,6 @@ public class Automate {
                 if (action != null) {
                     // else do the action of the transition.
                     String direction = action.Direction;
-                    if(e instanceof Weapon)
-                        System.out.println(action.getClass().getName());
                     action.exec(e, direction);
                 }
                 e.state = dest;

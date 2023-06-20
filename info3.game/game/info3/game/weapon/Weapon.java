@@ -93,13 +93,11 @@ public class Weapon extends DynamicEntity {
 
     @Override
     public void wizz(String Direction) {
-        System.out.println("Reload");
         reload();
     }
 
     @Override
     public void pop() {
-        System.out.println("Shoot");
         shoot();
     }
 

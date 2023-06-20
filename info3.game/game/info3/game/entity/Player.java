@@ -90,12 +90,15 @@ public class Player extends DynamicEntity {
     if (respawnTimer <= 0) {
       Random random = new Random();
       int size = GameSession.gameSession.spawnerPoints.size();
-      int randomIndex = random.nextInt(size);
-      SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
-      System.out.println(spawner.x+" "+spawner.y);
-      this.x = spawner.x;
-      this.y = spawner.y-50;
-      System.out.println(x+" "+y);
+      if (size > 0) {
+        int randomIndex = random.nextInt(size);
+        SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
+        this.x = spawner.x;
+        this.y = spawner.y - 50;
+      } else {
+        this.x = 50;
+        this.y = 50;
+      }
       this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
       respawnTimer = 3000;
       respawned = true;
@@ -113,7 +116,6 @@ public class Player extends DynamicEntity {
         respawnTimer -= elapsed;
       respawn();
     }
-    System.out.println(x+" "+y);
     respawned = false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
