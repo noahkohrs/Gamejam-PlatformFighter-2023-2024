@@ -64,13 +64,13 @@ public class HitBox {
         }
         switch (dir) {
             case LEFT:
-                return pointColliding(x, y) || pointColliding(x, y + height);
+                return pointColliding(x, y) || pointColliding(x, y + height) || pointColliding(x, y + height / 2);
             case RIGHT:
-                return pointColliding(x + width, y) || pointColliding(x + width, y + height);
+                return pointColliding(x + width, y) || pointColliding(x + width, y + height) || pointColliding(x + width, y + height / 2);
             case UPPER:
-                return pointColliding(x, y) || pointColliding(x + width, y);
+                return pointColliding(x, y) || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
             case BOTTOM:
-                return pointColliding(x, y + height) || pointColliding(x + width, y + height);
+                return pointColliding(x, y + height) || pointColliding(x + width, y + height) || pointColliding(x + width / 2, y + height);
         }
 
         return false;
