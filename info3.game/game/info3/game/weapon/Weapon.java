@@ -9,14 +9,14 @@ import info3.game.entity.Player;
 
 public class Weapon extends DynamicEntity {
 
-    private Player player;
+    public Player player;
 
     private final int cooldown; // in ms
     private int currentCooldown;
     private int clips;
 
     private final int clipSize;
-    private int ammo;
+    public int ammo;
     private int damage;
 
     public Weapon(Player player) throws IOException {
@@ -39,18 +39,24 @@ public class Weapon extends DynamicEntity {
         this.clipSize = clipSize;
         this.currentCooldown = 0;
         this.ammo = clipSize;
+        this.player = player;
         this.view = new WeaponView(this);
     }
 
     public void reload() {
         if (currentCooldown <= 0) {
-            if (clips-- > 0) {
+            if (clips > 0) {
                 ammo = clipSize;
                 currentCooldown = cooldown;
+                clips--;
             }
         }
     }
 
+    public void reset(){
+        ammo = clipSize;
+        clips = 3;
+    }
     private void createBullet(int startx, int starty) {
         try {
             new Bullet(startx, starty, damage, player.facingDirection, player.team);
@@ -63,8 +69,9 @@ public class Weapon extends DynamicEntity {
     public void shoot() {
         if (player.facingDirection != Direction.IDLE) {
             if (currentCooldown <= 0) {
-                if (ammo-- > 0) {
+                if (ammo > 0) {
                     createBullet(Camera.centeredCoordinateX(player), Camera.centeredCoordinateY(player));
+                    ammo--;
                 }
                 currentCooldown = cooldown;
             }
@@ -89,7 +96,7 @@ public class Weapon extends DynamicEntity {
     }
 
     @Override
-    public void wizz() {
+    public void wizz(String Direction) {
         reload();
     }
 

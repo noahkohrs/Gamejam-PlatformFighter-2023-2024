@@ -6,33 +6,30 @@ Ce jeu consiste en une phase de jeu classique d'action se déroulant dans une gr
 
 ## 06/06:
 
-### Mise au point sur les challenges techniques
+### Répartissent des tâches pour le prototype :
 
-#### Répartissent des tâches pour le prototype :
-- Noah: Viewport/Caméra + Gestion de la map (Map Editor / Map Loader)
-- Anastasios: Automates
-- Clément: Collisions
-- Bastien: Gestion des balles, armes et essai d'une hitbox spécifiques aux balles
-- Gwénolé: Mouvement
-- Noé: Apprentissage de la programmation événementielles et GUI
-
-#### Travail sur ses tâches :
-- Anastasios: Travail sur les classes d’automates (States, Automates, Transitions, Entity, Action).
-- Noah : Création d’un Level Editor basique.
+Développeur   | Tâche
+------------- | -------------
+Clément       | Collisions
+Anastasios    | Travail sur les classes d’automates (States, Automates, Transitions, Entity, Action).
+Bastien       | Apprentissage de la programmation événementielles et armes
+Gwénolé       | Mouvement
+Noah          | Viewport/Caméra + Gestion de la map (Map Editor / Map Loader). Création d'un level editor
+Noé           | Apprentissage de la programmation événementielles et GUI
 
 #### Nouvelles idées:
 - Construction de blocs comme Fortnite. 
   
 ## 07/06:
-### Travail sur ses tâches:
 
-- Noah : Création du Level Loader et LevelSaver sous format Json.
-- Gwénolé: Travail sur l’idée de déplacement régies par un modèle physique réaliste gérée par les équations différentielles du mouvement selon le principe de Newton et résolution de ces calculs par la méthode d’euler
-- Clément : création d’un prototype de la map
-- Noé: Apprentissage de la programmation événementielles
-- Anastasios: Plusieurs tests avec des conditions/actions différentes, comme l'entité Rien et l’action Move. Pour le moment, ce sont des fonctions simples qui ne touchent pas le Canva.
-- Noah : Création du système de sauvegarde et de chargement de niveau par interférence d’un fichier json.
-
+Développeur   | Tâche
+------------- | -------------
+Clément       | création d’un prototype de la map
+Anastasios    | Plusieurs tests avec des conditions/actions différentes, comme l'entité Rien et l’action Move. Pour le moment, ce sont des fonctions simples qui ne touchent pas le Canva.
+Bastien       | Gestion des balles, armes et essai d'une hitbox spécifiques aux balles
+Gwénolé       | Travail sur l’idée de déplacement régies par un modèle physique réaliste gérée par les équations différentielles du mouvement selon le principe de Newton et résolution de ces calculs par la méthode d’euler
+Noah          | Création du Level Loader et LevelSaver sous format Json. Création du système de sauvegarde et de chargement de niveau par interférence d’un fichier json.
+Noé           | Apprentissage de la programmation événementielles
 ### TODO:
 - Penser aux problèmes techniques. 
 
@@ -41,12 +38,16 @@ Ce jeu consiste en une phase de jeu classique d'action se déroulant dans une gr
 - Construction de blocs -> non, beaucoup de problèmes techniques. 
 ## 08/06:
 
--Gwénolé : Abandon de l’idée de mouvement par équation physique car posant des problèmes sur les oscillements autour de la position d'arrivée et de la gestion de la position d’arrivée lors du passage dans le trou de ver reliant les bords.
+  
+  Développeur   | Tâche
+------------- | -------------
+Clément       | Réalisation du prototype de collision.
+Anastasios    | Travail sur le parseur d’automate. Test avec un automate simple avec 3 états avec 1 transition chacun. Que de conditions True(), et d' actions Move() qui font incrémenter juste une variable x.Toujours pas au Canvas.
+Bastien       | Prototype des armes terminé
+Gwénolé       | Abandon de l’idée de mouvement par équation physique car posant des problèmes sur les oscillements autour de la position d'arrivée et de la gestion de la position d’arrivée lors du passage dans le trou de ver reliant les bords.
 Partie sur l’idée d’avoir un système de mouvement propre au jeu vidéo, ayant pour but de simuler le mouvement réel.
-- Clément : réalisation du prototype de collision.
-- Noé: Apprentissage de la programmation événementielles en réalisant une barre de vie
-- Anastasios: Travail sur le parseur d’automate. Test avec un automate simple avec 3 états avec 1 transition chacun. Que de conditions True(), et d' actions Move() qui font incrémenter juste une variable x.Toujours pas au Canvas.
-- Noah : proto Viewport display dans un paint classique + Théorie sur l’environnement.
+Noah          | Apprentissage de la programmation événementielles en réalisant une barre de vie
+Noé           | proto Viewport display dans un paint classique + Théorie sur l’environnement.
 
 ### Nouvelles idées:
 - Avoir un système de dash.
@@ -54,11 +55,14 @@ Partie sur l’idée d’avoir un système de mouvement propre au jeu vidéo, ay
 
 ## 09/06 :
 ### Commencement du proposal. 
-- Gwénolé :  Finition des mouvements au sol, fluidification des contrôles, et des déplacements au sol. Début du travail sur la gravité. Complétion du système de mouvement, gestion de saut et gravités. Début du travail sur les dashs.
-Clément : fin de la réalisation du prototype de collision
-- Noé: Finilisation de la barre de vie
-- Anastasios: Tester avec des conditions et actions différentes, qui contient plusieurs arguments pour voir si tout marche bien. Correction d’un bug ou on ne pouvait pas avoir plusieurs transitions.
-- Noah : Camera (Viewport) fonctionnelle + définition des bases du système de coordonnées des normes. 
+Développeur   | Tâche
+------------- | -------------
+Clément       | fin de la réalisation du prototype de collision
+Anastasios    | Tester avec des conditions et actions différentes, qui contient plusieurs arguments pour voir si tout marche bien. Correction d’un bug ou on ne pouvait pas avoir plusieurs transitions.
+Bastien       | Prototype des armes tester complétement et intégré
+Gwénolé       | Finition des mouvements au sol, fluidification des contrôles, et des déplacements au sol. Début du travail sur la gravité. Complétion du système de mouvement, gestion de saut et gravités. Début du travail sur les dashs.
+Noah          | Camera (Viewport) fonctionnelle + définition des bases du système de coordonnées des normes. 
+Noé           | Finilisation de la barre de vie
 
 ### TODO:
 - Finir les prototypes pendant le week-end. 
@@ -70,11 +74,15 @@ Clément : fin de la réalisation du prototype de collision
 ## 12/06 : 
 ### Discussion avec le prof du 1er proposal. 
 Tous : Discussion et précision du gameplay pour le contrat.
-- Gwénolé et Noé : réécriture du proposal 
-- Gwénolé : Fine-tuning des mouvements
-- Anastasios et Noah : Préparation de la structure globale du code pour tout le monde.
-- Noah : Recréation propre du système de caméra.
-- Clément et Bastien : Début de l’implémentation des collisions dans la version finale du projet.
+  
+Développeur   | Tâche
+------------- | -------------
+Clément       | Début de l’implémentation des collisions dans la version finale du projet.
+Anastasios    | Préparation de la structure globale du code pour tout le monde.
+Bastien       | Début de l’implémentation des collisions dans la version finale du projet.
+Gwénolé       | Réécriture du proposal et fine-tuning des mouvements
+Noah          | Préparation de la structure globale du code pour tout le monde. Recréation propre du système de caméra.
+Noé           | Réécriture du proposal 
 
 ### TODO:
 - Combiner les prototypes.
@@ -91,24 +99,75 @@ tous : Discussions sur le proposal, précisions des classes entités et entity v
 Exemple LifeBar, LifeBarView. 
 On a commencé à git Merge certains protos.
 
-- Noé : a fini et tester le LifeBar.
-- Clément : création des sprites des deux personnages.
-- Anastasios: adaptation d'automates avec la nouvelle structure. Jeu jouable avec des mouvements gérés par les automates. 
-- Noah : Séparation de la partie View et Model + Explications à tout le monde sur l’utilisation de l’environnement et support.
-- Gwénolé: adaptation des mouvements, pour ne plus etre dépendant du tickrate. Début des merges
-- Bastien : peaufinage des hitbox
+Développeur   | Tâche
+------------- | -------------
+Clément       | création des sprites des deux personnages.
+Anastasios    | Adaptation d'automates avec la nouvelle structure. Jeu jouable avec des mouvements gérés par les automates. 
+Bastien       | Peaufinage des hitbox
+Gwénolé       | Adaptation des mouvements, pour ne plus etre dépendant du tickrate. Début des merges
+Noah          | Séparation de la partie View et Model + Explications à tout le monde sur l’utilisation de l’environnement et support.
+Noé           | Finition et test de LifeBar.
+
+
 
 ## 14/06
 
 Tous : discussion avec Emmanuel DUFOUR sur le projet, discussions de l’attente de chacun. Sur les points de doute (jeu de base), particularité du groupe.
 
-
-- Noah : Prototype de Plateforme + Support pour utilisation de l’environnement. Amélioration du système de gestion des entités.
-- Noé : création sprite powerup
-- Clément et Noé : début de la gestion des powerUps. (résolution de conflit)
-- Anastasios: Amélioration du parseur, plus merge pour avoir les collisions et les balles. (résolution de conflits).
-- Gwénolé: continuation de rendre les mouvements identiques sur tous les pcs. Début du travail avec les collisions pour les hitboxs.
-- Bastien : Refactoring pour encore mieux séparé en MVC, créer une entité est maintenant beaucoup plus simple
+  
+Développeur   | Tâche
+------------- | -------------
+Clément       | début de la gestion des powerUps. (résolution de conflit)
+Anastasios    | Amélioration du parseur (random state handler), + merge pour avoir les collisions et les balles. (résolution de conflits). 
+Bastien       | Refactoring pour encore mieux séparé en MVC, créer une entité est maintenant beaucoup plus simple
+Gwénolé       | continuation de rendre les mouvements identiques sur tous les pcs. Début du travail avec les collisions pour les hitboxs.
+Noah          | Prototype de Plateforme + Support pour utilisation de l’environnement. Amélioration du système de gestion des entités.
+Noé           | Création sprite powerup. Début de la gestion des powerUps. (résolution de conflit)
 
 ## 15/06
+
+Développeur    | Tâche
+-------------  | -------------
+Clément        | a
+Anastasios&Noah| Amelioration du systeme d'automates. Maintenant loadAutomate est automatique chaque fois qu'on cree une nouvelle entite. De plus, deux entites peuvent avoir la même automate.
+Anastasios     |Correction d'un bug de jump. 
+Bastien        | c
+Gwénolé        | d
+Noah           | e
+Noé            | f
+
+## 16/06
+
+Développeur   | Tâche
+------------- | -------------
+Clément       | a
+Anastasios    | Correction d'un bug du parser dans lequel le initial state etait le state dest de la derniere transition. Aide les autres avec les automates.
+Bastien       | c
+Gwénolé       | d
+Noah          | e
+Noé           | f
+
+## 19/06
+
+Développeur   | Tâche
+------------- | -------------
+Clément       | a
+Anastasios    | Création du raptor (pour Mexican) avec tous les collisions, et les mouvements. Ajout aussi de MyDir comme condition (et utilisation pour raptor)
+Bastien       | c
+Gwénolé       | d
+Noah          | e
+Noé           | f
+
+
+## 20/06
+
+Développeur   | Tâche
+------------- | -------------
+Clément       | a
+Anastasios    | b
+Bastien       | c
+Gwénolé       | d
+Noah          | e
+Noé           | f
+
 

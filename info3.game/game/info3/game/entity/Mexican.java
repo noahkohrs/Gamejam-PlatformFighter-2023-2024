@@ -27,7 +27,6 @@ public class Mexican extends Player {
 
     @Override
     public void wizz(String direction) {
-        System.out.println("wizz mexican avec movingDirection:"+facingDirection.toString());
         raptorCooldown = 1000;
         try {
             new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team,facingDirection);

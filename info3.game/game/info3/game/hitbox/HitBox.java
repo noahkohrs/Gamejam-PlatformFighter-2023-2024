@@ -176,6 +176,8 @@ public class HitBox {
             playerXRight = player2HitBox.getBottomRightX();
             playerYRight = player2HitBox.getBottomRightY();
         }
+        if(GameSession.gameSession.player1.dead || GameSession.gameSession.player2.dead)
+            return false;
         switch (dir) {
             case LEFT_TOP:
                 if (getTopLeftX(newX) <= playerXRight && playerXLeft <= getBottomRightX())

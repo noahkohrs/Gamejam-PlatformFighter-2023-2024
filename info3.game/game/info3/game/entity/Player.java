@@ -21,10 +21,12 @@
 package info3.game.entity;
 
 import java.io.IOException;
+import java.util.Random;
 
 import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
+import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Weapon;
@@ -38,6 +40,9 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
+  public boolean dead = false;
+  private boolean respawned = true;
+  private int respawnTimer = 3000;
 
   public Player() throws IOException {
     this(1);
@@ -77,10 +82,42 @@ public class Player extends DynamicEntity {
     lifeBar.life.removeHealth(amount);
   }
 
+  private boolean isDead() {
+    return this.lifeBar.life.health <= 0;
+  }
+
+  private void respawn() {
+    if (respawnTimer <= 0) {
+      Random random = new Random();
+      int size = GameSession.gameSession.spawnerPoints.size();
+      if (size > 0) {
+        int randomIndex = random.nextInt(size);
+        SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
+        this.x = spawner.x;
+        this.y = spawner.y - 50;
+      } else {
+        this.x = 50;
+        this.y = 50;
+      }
+      this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
+      this.weapon.reset();
+      respawnTimer = 3000;
+      respawned = true;
+      this.dead = false;
+    }
+  }
+
   /*
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    if (isDead()) {
+      this.dead = true;
+      if (!respawned)
+        respawnTimer -= elapsed;
+      respawn();
+    }
+    respawned = false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
     try {

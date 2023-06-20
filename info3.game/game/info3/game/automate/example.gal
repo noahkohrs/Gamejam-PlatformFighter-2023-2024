@@ -29,7 +29,13 @@ Player2(Init){
 Weapon1(Init){
   * (Init)
   | Key(f) ? Pop()    :(Init)
-  | Key(r) ? Wizz()    :(Init)
+  | Key(r) ? Wizz()   :(Init)
+  | True() ?          :(Init)
+}
+Weapon2(Init){
+  * (Init)
+  | Key(m) ? Pop()    :(Init)
+  | Key(l) ? Wizz()    :(Init)
   | True() ?   :(Init)
 }
 
