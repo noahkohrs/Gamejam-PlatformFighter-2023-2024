@@ -3,19 +3,19 @@ package info3.game.entity.blocks;
 import java.io.IOException;
 
 import info3.game.entity.Block;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Malus;
+import info3.game.entity.TEAM;
 
-
-public class MalusBlock extends Block{
+public class MalusBlock extends DynamicEntity {
 
     public Malus malus;
     float timer = 0;
     private static String blockTexture = "resources/blocks/malusBlock.png";
 
-
-    public MalusBlock(int x, int y) throws IOException{
-        super(x, y, blockTexture);
+    public MalusBlock(int x, int y) throws IOException {
+        super(x, y, TEAM.NONE, blockTexture, 1, 1);
     }
 
     @Override
@@ -29,7 +29,6 @@ public class MalusBlock extends Block{
         }
 
     }
-
 
     @Override
     public void egg(Entity e) {
@@ -70,5 +69,5 @@ public class MalusBlock extends Block{
         malus.kill();
         malus = null;
     }
-    
+
 }

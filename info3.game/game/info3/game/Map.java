@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
-import info3.game.entity.blocks.GroundBlock;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 
@@ -22,8 +21,6 @@ public class Map {
     private int height;
     // Tab of blocks
     public Block fixedMap[][];
-    public List<PowerUpBlock> powerUpBlocks = new ArrayList<PowerUpBlock>();
-    public List<MalusBlock> malusBlocks = new ArrayList<MalusBlock>();
 
     private int indexPowerUp = 0;
 
@@ -59,14 +56,6 @@ public class Map {
         switch (id) {
             case "GrassBlock":
                 return new GrassBlock(x, y);
-            case "PowerUpBlock":
-                PowerUpBlock powerUpBlock = new PowerUpBlock(x, y);
-                powerUpBlocks.add(powerUpBlock);
-                return powerUpBlock;
-            case "MalusBlock":
-                MalusBlock malusBlock = new MalusBlock(x, y);
-                malusBlocks.add(malusBlock);
-                return malusBlock;
             default:
                 return new GrassBlock(x, y);
         }

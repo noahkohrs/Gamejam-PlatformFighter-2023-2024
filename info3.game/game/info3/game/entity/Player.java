@@ -95,10 +95,6 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    // System.out.println(PhysicConstant.maxVelX + addVelX);
-    // System.out.println("nbr de balles "+weapon.ammo);
-    // System.out.println("nbr de chargeurs"+weapon.clips);
-
     timer += elapsed;
     TimerEffect();
 
@@ -145,7 +141,6 @@ public class Player extends DynamicEntity {
           isPowerUp = true;
           return true;
         }
-        System.out.println(p.name);
       }
 
       List<Malus> listMalus = GameSession.getMalus();
@@ -156,7 +151,6 @@ public class Player extends DynamicEntity {
           isMalus = true;
           return true;
         }
-        System.out.println(m.name);
       }
 
     }
@@ -182,8 +176,6 @@ public class Player extends DynamicEntity {
           break;
         case "speed":
           addVelX += 6;
-          ListPowerUp.add(powerUp);
-          powerUp.timer = timer;
           break;
         case "shield":
           Player ennemi = getEnnemi();
@@ -193,9 +185,9 @@ public class Player extends DynamicEntity {
           weapon.damage *= 2;
           break;
       }
-      System.out.println(powerUp.name);
-
       powerUp.parent.deletePowerUp();
+      ListPowerUp.add(powerUp);
+      powerUp.timer = timer;
     }
   }
 
@@ -209,8 +201,6 @@ public class Player extends DynamicEntity {
         case "speed":
           if (PhysicConstant.maxVelX + ennemi.addVelX >= 6) {
             ennemi.addVelX -= 6;
-            ListMalus.add(malus);
-            malus.timer = timer;
           }
           break;
         case "shield":
@@ -220,9 +210,10 @@ public class Player extends DynamicEntity {
           ennemi.weapon.damage /= 2;
           break;
       }
-      System.out.println(malus.name);
 
       malus.parent.deleteMalus();
+      ListMalus.add(malus);
+      malus.timer = timer;
     }
   }
 
@@ -238,8 +229,8 @@ public class Player extends DynamicEntity {
   }
 
   public void TimerEffect() {
+    PowerUp removePowerUp = null;
     for (PowerUp p : ListPowerUp) {
-      // System.out.println(timer - p.timer);
       if (timer - p.timer >= 5000) {
         switch (p.name) {
           case "ammo":
@@ -255,14 +246,17 @@ public class Player extends DynamicEntity {
             weapon.damage /= 2;
             break;
         }
-        ListPowerUp.remove(p);
+        removePowerUp = p;
       }
-
+    }
+    if (removePowerUp != null) {
+      ListPowerUp.remove(removePowerUp);
     }
 
     Player ennemi = getEnnemi();
+    Malus removeMalus = null;
+
     for (Malus m : ListMalus) {
-      // System.out.println(timer - p.timer);
       if (timer - m.timer >= 5000) {
         switch (m.name) {
           case "ammo":
@@ -277,9 +271,12 @@ public class Player extends DynamicEntity {
             ennemi.weapon.damage *= 2;
             break;
         }
-        ListMalus.remove(m);
+        removeMalus = m;
       }
+    }
 
+    if (removeMalus != null) {
+      ListMalus.remove(removeMalus);
     }
 
   }

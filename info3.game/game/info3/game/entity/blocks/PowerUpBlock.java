@@ -5,15 +5,16 @@ import java.io.IOException;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.PowerUp;
+import info3.game.entity.TEAM;
 import info3.game.entity.Block;
 
-public class PowerUpBlock extends Block {
+public class PowerUpBlock extends DynamicEntity {
 
     public PowerUp powerUp;
     private static String blockTexture = "resources/blocks/powerUpBlock.png";
 
     public PowerUpBlock(int x, int y) throws IOException {
-        super(x, y, blockTexture);
+        super(x, y, TEAM.NONE, blockTexture, 1, 1);
     }
 
     @Override

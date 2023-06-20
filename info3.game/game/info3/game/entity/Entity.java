@@ -36,9 +36,9 @@ public abstract class Entity {
   public HitBox hitbox;
   public EntityView view;
   public int team;
-  public int jumpCounter ;
-  public int jumpCooldown ;
-  public int jumpAmount ;
+  public int jumpCounter;
+  public int jumpCooldown;
+  public int jumpAmount;
   long deltatime;
   public float timer = 0;
   public int addVelX = 0;
@@ -158,7 +158,7 @@ public abstract class Entity {
   }
 
   void updateVelocityX() {
-    this.velX = (float) ((PhysicConstant.maxVelX + addVelX)* (1 - Math.exp(-accelerationX)));
+    this.velX = (float) ((PhysicConstant.maxVelX + addVelX) * (1 - Math.exp(-accelerationX)));
   }
 
   void updateVelocityY() {

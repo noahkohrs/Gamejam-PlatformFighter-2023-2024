@@ -1,8 +1,8 @@
 package info3.game.entity;
 
-import java.io.IOException;
+import java.io.IOException; 
 
-public class Block extends DynamicEntity {
+public class Block extends Entity {
     public static final int BLOCK_SIZE = 32;
 
     public Block(int x, int y, String blockTexture) throws IOException {

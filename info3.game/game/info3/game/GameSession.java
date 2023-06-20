@@ -51,6 +51,9 @@ public class GameSession {
     List<DynamicEntity> toAddEntities;
     List<DynamicEntity> toRemoveEntities;
 
+    public List<PowerUpBlock> powerUpBlocks = new ArrayList<PowerUpBlock>();
+    public List<MalusBlock> malusBlocks = new ArrayList<MalusBlock>();
+
     public List<Key> keys;
     public Map map;
     public List<Automate> allAutomates;
@@ -132,6 +135,14 @@ static public List<Malus> getMalus(){
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+            case "PowerUpBlock":
+                PowerUpBlock powerUpBlock = new PowerUpBlock(x, y);
+                powerUpBlocks.add(powerUpBlock);
+                return powerUpBlock;
+            case "MalusBlock":
+                MalusBlock malusBlock = new MalusBlock(x, y);
+                malusBlocks.add(malusBlock);
+                return malusBlock;
             default:
                 return null;
         }
