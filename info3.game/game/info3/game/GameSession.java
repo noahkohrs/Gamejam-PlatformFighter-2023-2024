@@ -73,7 +73,6 @@ public class GameSession {
         loadEntities(mapPath);
         camera = new Camera();
     }
-    }
 
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
