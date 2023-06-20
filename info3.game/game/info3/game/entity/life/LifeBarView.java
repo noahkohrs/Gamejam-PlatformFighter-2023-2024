@@ -18,6 +18,7 @@ public class LifeBarView {
 
 	int mul=3; //grossisement
 
+
 	LifeBarView() throws IOException{
 		m_images1 = Player.loadSprite("resources/LifeBar_l.png", 1, 1);
 		m_images2 = Player.loadSprite("resources/LifeBar_r.png", 1, 1);

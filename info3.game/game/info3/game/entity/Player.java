@@ -22,9 +22,7 @@ package info3.game.entity;
 
 import java.io.IOException;
 
-import info3.game.Camera;
-import info3.game.GameSession;
-import info3.game.automate.Automate;
+
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Weapon;

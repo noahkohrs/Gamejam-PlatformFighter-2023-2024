@@ -24,4 +24,14 @@ public class LifeBar {
 		view.paint(g, this);
 	}
 
+	public int getHeight()
+	{
+		return this.view.m_images1[0].getHeight()*view.mul;
+	}
+
+	public int getWidth()
+	{
+		return this.view.m_images1[0].getWidth()*view.mul;
+	}
+
 }

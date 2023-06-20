@@ -2,7 +2,6 @@ package info3.game.automate;
 
 import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
-import info3.game.entity.Entity;
 
 public class TestAutomate {
     public static void main(String[] args) throws Exception{
