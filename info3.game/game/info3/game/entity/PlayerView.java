@@ -46,7 +46,7 @@ public class PlayerView extends EntityView {
         if (entity.team == 1) {
             g.drawString(kills, 10, y);
         } else {
-            g.drawString(kills, windowWidth - 10, y);
+            g.drawString(kills, windowWidth - 40, y);
         }
     }
     @Override
