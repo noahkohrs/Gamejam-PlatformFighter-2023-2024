@@ -27,6 +27,9 @@ public class GameTimer {
         return (time_left % 60000) / 1000;
     }
 
+    public boolean hasEnded(){
+        return end;
+    }
     boolean isTimeOver() {
         if (time_left <= 0)
             return true;
@@ -39,8 +42,6 @@ public class GameTimer {
         if (isTimeOver()) {
             restart();
             equalTime--;
-            if (end)
-                showWinnerTime--;
         }
     }
 
@@ -57,7 +58,9 @@ public class GameTimer {
         } else if (killPlayer1 != killPlayer2) {
             notEqualKills = true;
             end = true;
-            if (showWinnerTime <= 0) {
+            GameSession.gameSession.removeEntity(GameSession.gameSession.player1);
+            GameSession.gameSession.removeEntity(GameSession.gameSession.player2);
+            if (GameSession.gameSession.restart) {
                 try {
                     Game.m_game_session = new GameSession(Game.game, "level.json", Game.gal);
                 } catch (Exception e) {

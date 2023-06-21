@@ -56,20 +56,27 @@ public class GameTimerView {
             g.setFont(new Font("Arial", Font.BOLD, 52));
             g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2-2,c.getHeight()/2-5);
         }
-        else if(gameTimer.end){
+        else if(gameTimer.hasEnded()){
             Player player1=GameSession.gameSession.player1;
             Player player2=GameSession.gameSession.player2;
             Player playerWithMostKills = player1.kills > player2.kills ? player1 : player2;
             
             String message="Player "+playerWithMostKills.team+" wins";
             fontMetrics =g.getFontMetrics();
-
+            String restartMessage="Press T to restart";
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, 52));
-            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2,c.getHeight()/2);
+            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message),c.getHeight()/2);
             g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 52));
-            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2-2,c.getHeight()/2-5);
+            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)-2,c.getHeight()/2-5);
+        
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("Arial", Font.BOLD, 52));
+            g.drawString(restartMessage, c.getWidth()/2-fontMetrics.stringWidth(restartMessage),c.getHeight()/2+52);
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 52));
+            g.drawString(restartMessage, c.getWidth()/2-fontMetrics.stringWidth(restartMessage)-2,c.getHeight()/2+47);
         
         }
         else {
