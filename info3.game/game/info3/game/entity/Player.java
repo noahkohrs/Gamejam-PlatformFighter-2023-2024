@@ -26,11 +26,6 @@ import java.util.Random;
 import info3.game.GameSession;
 import info3.game.entity.blocks.SpawnerPoint;
 import java.util.ArrayList;
-import java.util.List;
-import info3.game.GameSession;
-import info3.game.automate.Automate;
-import info3.game.entity.blocks.MalusBlock;
-import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Rifle;
@@ -209,7 +204,7 @@ public class Player extends DynamicEntity {
     if (powerUp != null) {
       switch (powerUp.name) {
         case "ammo":
-          weapon.ammo = 15;
+          weapon.ammo = weapon.clipSize;
           weapon.clips = 3;
           break;
         case "speed":

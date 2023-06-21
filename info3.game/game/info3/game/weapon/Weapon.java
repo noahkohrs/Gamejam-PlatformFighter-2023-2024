@@ -15,7 +15,7 @@ public abstract class Weapon extends DynamicEntity {
     private final int cooldown; // in ms
     private int currentCooldown;
     public int clips;
-    private final int clipSize;
+    public final int clipSize;
     public int ammo;
     private Sound soundEffect;
     public int damage;
