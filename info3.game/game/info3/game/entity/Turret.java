@@ -6,8 +6,6 @@ import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bullet;
-import info3.game.weapon.Weapon;
-import info3.game.weapon.WeaponView;
 
 public class Turret extends DynamicEntity {
     private int time = 3000;
@@ -44,7 +42,9 @@ public class Turret extends DynamicEntity {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
+        Movement.affectGravity(this);
     }
+
     @Override
     public boolean gotPower() {
         return (time > 0 && ammo > 0);

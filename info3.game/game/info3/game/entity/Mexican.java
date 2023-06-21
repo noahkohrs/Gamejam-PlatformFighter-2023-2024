@@ -20,7 +20,7 @@ public class Mexican extends Player {
 
     @Override
     public void wizz(String direction) {
-        raptorCooldown = 10000;
+        raptorCooldown = 0000;
         try {
             new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team, facingDirection);
         } catch (IOException e) {
