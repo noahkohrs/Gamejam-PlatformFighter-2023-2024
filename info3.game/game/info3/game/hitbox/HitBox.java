@@ -79,7 +79,7 @@ public class HitBox {
             case RIGHT_TOP:
                 return pointColliding(x + width, y) || pointColliding(x + width, y + height)
                         || pointColliding(x + width, y + height / 2) || pointColliding(x, y)
-                        || pointColliding(x + width, y) || pointColliding(x + width / 2, y)
+                        || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
 
         }
 

@@ -1,13 +1,15 @@
 package info3.game.entity;
 
 public enum Direction {
-    LEFT(-1,0),
-    RIGHT(1,0),
-    UPPER(0,-1),
-    BOTTOM(0,1),
+    LEFT(-1, 0),
+    RIGHT(1, 0),
+    UPPER(0, -1),
+    BOTTOM(0, 1),
 
     LEFT_TOP(-1, -1),
     RIGHT_TOP(1, -1),
+    LEFT_BOTTOM(-1, +1),
+    RIGHT_BOTTOM(1, +1),
     IDLE(0, 0),
 
     EMPTY(0, 0);
@@ -26,6 +28,10 @@ public enum Direction {
                 return LEFT_TOP;
             case "NE":
                 return RIGHT_TOP;
+            case "SW":
+                return LEFT_BOTTOM;
+            case "SE":
+                return RIGHT_BOTTOM;
             case "N":
                 return UPPER;
             case "S":
