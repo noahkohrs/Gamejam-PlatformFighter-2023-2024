@@ -59,6 +59,11 @@ Weapon2(Init){
   | True() ?   :(Init)
 }
 
+Bazooka(Init){
+  * (Init)
+  | True() ? Move() :(Init)
+}
+
 Bullet(Init){
     * (Init)
   | True() ? Move()  :(Init)
