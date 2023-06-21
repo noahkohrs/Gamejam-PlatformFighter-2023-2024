@@ -121,6 +121,12 @@ public class CanvasListener implements GameCanvasListener {
       case KeyEvent.VK_SPACE:
         GameSession.gameSession.camera.toggleDebugMode();
         break;
+       case KeyEvent.VK_A:
+        index = GameSession.gameSession.findKEy('a');
+        GameSession.gameSession.keys.get(index).pressed = true;
+
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = true;
@@ -212,6 +218,10 @@ public class CanvasListener implements GameCanvasListener {
     // System.out.println("Key released: " + e.getKeyChar() + " code=" +
     // e.getKeyCode());
     switch (e.getKeyCode()) {
+      case KeyEvent.VK_A:
+        index = GameSession.gameSession.findKEy('a');
+        GameSession.gameSession.keys.get(index).pressed = false;
+
       case KeyEvent.VK_D:
         index = GameSession.gameSession.findKEy('d');
         GameSession.gameSession.keys.get(index).pressed = false;
