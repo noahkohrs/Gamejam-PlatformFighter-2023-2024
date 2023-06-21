@@ -10,14 +10,14 @@ Player1(Init){
   | True() ?          :(Init)
 
   *(Ra)
-  |GotPower() & MyDir(E) ? Wizz(E):(Init)
-  |GotPower() & MyDir(W) ? Wizz(W):(Init)
+  |GotPower() & MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Wizz(E):(Init)
+  |GotPower() & MyDir(W) / MyDir(SW) / MyDir(NW) ? Wizz(W):(Init)
   |!GotPower()?       :(Init)
 }
 
 Player2(Init){
   * (Init)
-  | Key(p) ? Egg()            :(Init)
+  | Key(p) & GotPower() ? Egg()            :(Init)
   | Key(1) & Key(3) ? Move(NW) :(Init)
   | Key(1) & Key(4) ? Move(NE) :(Init)
   | Key(1) ? Move(N)  :(Init)
@@ -39,6 +39,7 @@ Turret(Init){
   |MyDir(E)? Wizz(E):(Init)
   |MyDir(NE)? Wizz(NE):(Init)
   |MyDir(NW)? Wizz(NW):(Init)
+  |True() ? :(Init)
 }
 
 Weapon1(Init){

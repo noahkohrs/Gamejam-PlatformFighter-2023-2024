@@ -44,6 +44,7 @@ public class Turret extends DynamicEntity {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
+        Movement.affectGravity(this);
     }
     @Override
     public boolean gotPower() {
