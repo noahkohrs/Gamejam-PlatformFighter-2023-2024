@@ -70,11 +70,21 @@ public class HitBox {
             case LEFT:
                 return pointColliding(x, y) || pointColliding(x, y + height) || pointColliding(x, y + height / 2);
             case RIGHT:
-                return pointColliding(x + width, y) || pointColliding(x + width, y + height) || pointColliding(x + width, y + height / 2);
+                return pointColliding(x + width, y) || pointColliding(x + width, y + height)
+                        || pointColliding(x + width, y + height / 2);
             case UPPER:
                 return pointColliding(x, y) || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
             case BOTTOM:
-                return pointColliding(x, y + height) || pointColliding(x + width, y + height) || pointColliding(x + width / 2, y + height);
+                return pointColliding(x, y + height) || pointColliding(x + width, y + height)
+                        || pointColliding(x + width / 2, y + height);
+            case LEFT_TOP:
+                return pointColliding(x, y) || pointColliding(x, y + height) || pointColliding(x, y + height / 2)
+                        || pointColliding(x, y) || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
+            case RIGHT_TOP:
+                return pointColliding(x + width, y) || pointColliding(x + width, y + height)
+                        || pointColliding(x + width, y + height / 2) || pointColliding(x, y)
+                        || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
+
         }
 
         return false;
@@ -108,7 +118,7 @@ public class HitBox {
     public boolean isSittingOn(Entity e) {
         int x = entity.x + offsetX;
         int y = entity.y + offsetY + height + 1;
-        return e.hitbox.pointInHitbox(x+ width/4, y) || e.hitbox.pointInHitbox(x + 3*width/4, y);
+        return e.hitbox.pointInHitbox(x + width / 4, y) || e.hitbox.pointInHitbox(x + 3 * width / 4, y);
     }
 
     public int getTopLeftY() {
@@ -188,7 +198,7 @@ public class HitBox {
             playerXRight = player2HitBox.getBottomRightX();
             playerYRight = player2HitBox.getBottomRightY();
         }
-        if(GameSession.gameSession.player1.dead || GameSession.gameSession.player2.dead)
+        if (GameSession.gameSession.player1.dead || GameSession.gameSession.player2.dead)
             return false;
         switch (dir) {
             case LEFT_TOP:
