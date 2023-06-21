@@ -34,6 +34,7 @@ import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.blocks.SpawnerPoint;
+import info3.game.gametimer.GameTimer;
 import info3.game.weapon.Weapon;
 
 
@@ -43,6 +44,8 @@ public class GameSession {
     public static GameSession gameSession;
 
     private long updateTime;
+
+    GameTimer gametime;
 
     public Player player1;
     public Player player2;
@@ -83,8 +86,9 @@ public class GameSession {
         player1 = new Mexican(TEAM.BLUE);
         player2 = new Engineer(TEAM.RED);
         map = new Map(mapPath);
-        loadEntities(mapPath);
         camera = new Camera();
+        loadEntities(mapPath);
+        gametime=new GameTimer();
     }
 
     private void loadKeys() {
@@ -165,6 +169,7 @@ static public List<PowerUp> getPowerUps(){
             camera.tick(testelapsed);
             testelapsed = 0;
         }
+        gametime.tick(elapsed);;
         Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
         while (addIterator.hasNext()) {
             DynamicEntity entity = addIterator.next();
@@ -182,6 +187,7 @@ static public List<PowerUp> getPowerUps(){
                 continue;
             entity.view.paint(g);
         }
+        gametime.showGameTimer(g);;
     }
 
     int getLevelWidth() {
