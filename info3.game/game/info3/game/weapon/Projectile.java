@@ -15,6 +15,7 @@ public abstract class Projectile extends DynamicEntity {
     public Projectile(int x, int y, Direction direction, int team, int damage, int speed, String filename, int nrows,
             int ncols) throws IOException {
         super(x, y, team, filename, nrows, ncols);
+        System.out.println("damage  " + damage);
         this.movingDirection = direction;
         this.damage = damage;
         if (team == GameSession.gameSession.player1.team)
