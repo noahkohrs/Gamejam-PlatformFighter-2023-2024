@@ -229,23 +229,25 @@ public class HitBox {
                     case UPPER:
                             for(DynamicEntity e: GameSession.gameSession.entities){
                             if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 27){
+                                if(entity.distanceTo(e) < 27 && e.y < entity.y){
                                 if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
                                     return true;
                                 }
                             }
                         }
-                        }
+                        } 
+                        return false;
                     case BOTTOM:
                         for(DynamicEntity e: GameSession.gameSession.entities){
                             if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 27){
+                                if(entity.distanceTo(e) < 27 && e.y > entity.y){
                                 if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
                                     return true;
                                 }
                             }
                         }
                         }
+                        return false;
                     case LEFT:
                             for(DynamicEntity e: GameSession.gameSession.entities){
                             if(e instanceof MovingPlatform){
@@ -256,6 +258,7 @@ public class HitBox {
                             }
                         }
                         }
+                        return false;
                     case RIGHT:
                             for(DynamicEntity e: GameSession.gameSession.entities){
                             if(e instanceof MovingPlatform){
@@ -266,6 +269,7 @@ public class HitBox {
                             }
                         }
                         }
+                        return false;
 
                     default:
                     return false;
