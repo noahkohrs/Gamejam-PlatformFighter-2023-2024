@@ -79,7 +79,8 @@ public class Turret extends DynamicEntity {
     public boolean MyDir(String direction) {
         double angle = -Math.atan2(ennemi.y - this.y, ennemi.x - this.x);
         boolean res;
-        if (angle < Math.PI / 5 && angle >= 0)
+        System.out.println(angle);
+        if ((angle < Math.PI / 5 && angle >= 0)||(angle<=0 && ennemi.x>this.x))
             res = direction.equals("E");
         else if (angle < 2 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NE");
@@ -87,7 +88,7 @@ public class Turret extends DynamicEntity {
             res = direction.equals("N");
         else if (angle < 4 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NW");
-        else if (angle < 5 * Math.PI / 5 && angle >= 0)
+        else if ((angle < 5 * Math.PI / 5 && angle >= 0) ||(angle<=0 && ennemi.x<this.x))
             res = direction.equals("W");
         else
             res = false;
