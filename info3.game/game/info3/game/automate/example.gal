@@ -19,7 +19,9 @@ Player1(Init){
 
 Player2(Init){
   * (Init)
-  | Key(p) & GotPower() ? Egg()            :(Init)
+  | Cell(S, P) ? Pick() :(Init)
+  | Key(p) & GotPower() ? Egg() :(Turret)
+  | Key(b) & GotStuff() ? Pop() :(Init)
   | Key(1) & Key(3) ? Move(NW) :(Init)
   | Key(1) & Key(4) ? Move(NE) :(Init)
   | Key(1) ? Move(N)  :(Init)
@@ -27,6 +29,8 @@ Player2(Init){
   | Key(3) ? Move(W)  :(Init)
   | Key(2) ? Move(S)  :(Init)
   | True() ?          :(Init)
+
+  *(Dead)
 }
 
 Turret(Init){
@@ -60,8 +64,11 @@ Weapon2(Init){
 
 Bazooka(Init){
   * (Init)
-  | Key(b) ? Pop() :(Init)
+  | Key(b) ? Pop() :(Dead)
   | True() ?   :(Init)
+
+  * (Dead)
+  | True() ? :()
 }
 
 Bullet(Init){

@@ -18,6 +18,7 @@ public class Bazooka extends Weapon {
   @Override
   public void createBullet(int startx, int starty) {
     try {
+      System.out.println(damage);
       new Bullet(startx, starty, damage, player.facingDirection, player.team);
     } catch (IOException e) {
       // TODO Auto-generated catch block
