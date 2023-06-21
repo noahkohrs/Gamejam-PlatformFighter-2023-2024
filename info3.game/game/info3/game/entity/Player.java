@@ -22,13 +22,11 @@ package info3.game.entity;
 
 import java.io.IOException;
 import java.util.Random;
-
-import info3.game.Camera;
 import info3.game.GameSession;
-import info3.game.automate.Automate;
 import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
+import info3.game.weapon.Rifle;
 import info3.game.weapon.Weapon;
 
 /**
@@ -53,7 +51,7 @@ public class Player extends DynamicEntity {
     view = new PlayerView(Getchar(team) + "PlayerSprite.png", 2, 2, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
-    weapon = new Weapon(this);
+    weapon = new Rifle(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
     jumpCounter = jumpAmount;
@@ -64,7 +62,7 @@ public class Player extends DynamicEntity {
     view = new PlayerView(filename, 4, 6, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 20, 35, this);
-    weapon = new Weapon(this);
+    weapon = new Rifle(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
     jumpCounter = jumpAmount;
@@ -146,7 +144,7 @@ public class Player extends DynamicEntity {
 
   @Override
   public void wizz() {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
 }

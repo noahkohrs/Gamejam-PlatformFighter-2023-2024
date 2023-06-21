@@ -165,7 +165,7 @@ public class HitBox {
             return true;
 
         switch (dir) {
-            case LEFT:
+            case LEFT:  
             case UPPER:
                 if (x + width >= maxBoundX)
                     return true;
