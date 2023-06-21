@@ -49,6 +49,38 @@ public class HitBox {
         this.mapCollisionEnabled = mapCollisionEnabled;
     }
 
+    public int getTopLeftY() {
+        return entity.y + offsetY;
+    }
+
+    public int getTopLeftX() {
+        return entity.x + offsetX;
+    }
+
+    public int getBottomRightX() {
+        return entity.x + offsetX + width;
+    }
+
+    public int getBottomRightY() {
+        return entity.y + offsetY + height;
+    }
+
+    public int getTopLeftX(int x) {
+        return x + offsetX;
+    }
+
+    public int getTopLeftY(int y) {
+        return y + offsetY;
+    }
+
+    public int getBottomRightX(int x) {
+        return x + offsetX + width;
+    }
+
+    public int getBottomRightY(int y) {
+        return y + offsetY + height;
+    }
+
     public void showHitBox(Graphics g) {
         view.paint(g);
     }
@@ -117,38 +149,6 @@ public class HitBox {
         return e.hitbox.pointInHitbox(x + width / 4, y) || e.hitbox.pointInHitbox(x + 3 * width / 4, y);
     }
 
-    public int getTopLeftY() {
-        return entity.y + offsetY;
-    }
-
-    public int getTopLeftX() {
-        return entity.x + offsetX;
-    }
-
-    public int getBottomRightX() {
-        return entity.x + offsetX + width;
-    }
-
-    public int getBottomRightY() {
-        return entity.y + offsetY + height;
-    }
-
-    public int getTopLeftX(int x) {
-        return x + offsetX;
-    }
-
-    public int getTopLeftY(int y) {
-        return y + offsetY;
-    }
-
-    public int getBottomRightX(int x) {
-        return x + offsetX + width;
-    }
-
-    public int getBottomRightY(int y) {
-        return y + offsetY + height;
-    }
-
     // Need to check in function of Direction after proto
     private boolean checkMapCollision(int x, int y, Direction dir) {
         if (x < 0)
@@ -165,7 +165,7 @@ public class HitBox {
             return true;
 
         switch (dir) {
-            case LEFT:  
+            case LEFT:
             case UPPER:
                 if (x + width >= maxBoundX)
                     return true;
