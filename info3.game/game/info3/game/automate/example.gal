@@ -19,6 +19,7 @@ Player1(Init){
 
 Player2(Init){
   * (Init)
+  | Cell(S, P) ? Pick() :(Init)
   | Key(p) & GotPower() ? Egg()            :(Init)
   | Key(1) & Key(3) ? Move(NW) :(Init)
   | Key(1) & Key(4) ? Move(NE) :(Init)
