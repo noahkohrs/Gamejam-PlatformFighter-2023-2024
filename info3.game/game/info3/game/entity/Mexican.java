@@ -7,30 +7,24 @@ import info3.game.Camera;
 public class Mexican extends Player {
     int raptorCooldown;
 
-    public Mexican() throws IOException {
-        super();
-    }
-
     public Mexican(int team) throws IOException {
         super(team);
     }
 
-    public Mexican(int team, String filename) throws IOException {
-        super(team, filename);
-    }
 
     @Override
     public void tick(long elapsed) {
-        raptorCooldown-=elapsed;
+        raptorCooldown -= elapsed;
         super.tick(elapsed);
     }
 
     @Override
     public void wizz(String direction) {
-        raptorCooldown = 1000;
+        raptorCooldown = 10000;
         try {
-            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team,facingDirection);
+            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team, facingDirection);
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -41,7 +35,7 @@ public class Mexican extends Player {
     }
 
     @Override
-    public boolean MyDir(String direction){
+    public boolean MyDir(String direction) {
         return facingDirection.equals(Direction.fromString(direction));
     }
 }

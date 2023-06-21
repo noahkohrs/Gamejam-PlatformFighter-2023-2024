@@ -115,6 +115,8 @@ public class Camera {
             g.setColor(Color.white);
             g.fillRect(camX, camY, camWidth, camHeight);
         }
+        int add=500;
+        Camera.drawImage(g,GameSession.gameSession.image,-add,-add,GameSession.gameSession.map.realWidth()+add*2,GameSession.gameSession.map.realHeight()+add*2);
     }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {
