@@ -3,10 +3,14 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.weapon.Bazooka;
+import info3.game.weapon.Rifle;
 
 public class Engineer extends Player {
     int turretCooldown;
     int bazookaCooldown;
+
+    public int oldClips;
+    public int oldAmmo;
 
     public Engineer() throws IOException {
         super();
@@ -19,6 +23,7 @@ public class Engineer extends Player {
     public Engineer(int team, String filename) throws IOException {
         super(team, filename);
     }
+
 
     @Override
     public void tick(long elapsed) {
@@ -33,7 +38,6 @@ public class Engineer extends Player {
         try {
             new Turret(this.x, this.y, this.team);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -42,9 +46,11 @@ public class Engineer extends Player {
     public void pop() {
         bazookaCooldown = 1000;
         try {
-            weapon = new Bazooka();
+            oldClips = weapon.clips;
+            oldAmmo = weapon.ammo;
+            weapon.kill();
+            weapon = new Bazooka(this);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

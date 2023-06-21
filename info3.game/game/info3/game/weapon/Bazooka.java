@@ -3,12 +3,14 @@ package info3.game.weapon;
 import java.io.IOException;
 
 import info3.game.GameSession;
+import info3.game.entity.Engineer;
+import info3.game.entity.Player;
 
 public class Bazooka extends Weapon {
 
 
-  public Bazooka() throws IOException {
-    super(GameSession.gameSession.player2);
+  public Bazooka(Player player) throws IOException {
+    super(player);
     System.out.println("Bazooka called");
     damage = 100;
     ammo = 1;
@@ -18,10 +20,10 @@ public class Bazooka extends Weapon {
   @Override
   public void createBullet(int startx, int starty) {
     try {
-      System.out.println(damage);
       new Bullet(startx, starty, damage, player.facingDirection, player.team);
+      player.weapon = new Rifle(player, ((Engineer) player).oldClips, ((Engineer) player).oldAmmo);
+      this.kill();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }

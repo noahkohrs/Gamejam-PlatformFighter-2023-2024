@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import info3.game.Camera;
 import info3.game.Game;
+import info3.game.GameSession;
+import info3.game.weapon.Weapon;
 
 public class PlayerView extends EntityView {
 
@@ -45,6 +47,10 @@ public class PlayerView extends EntityView {
             } else {
                 imageIndex = (imageIndex + 1) % 4;
             }
+            if(GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")){
+                GameSession.gameSession.player2.view.imageIndex = 5;
+            }
+            
         }
     }
 

@@ -34,6 +34,20 @@ public abstract class Weapon extends DynamicEntity {
                 0.8F);
     }
 
+    public Weapon(Player player, int clips, int ammo) throws IOException {
+        super(0, 0, player.team);
+        cooldown = 500;
+        clipSize = 15;
+        this.ammo = ammo;
+        this.clips = clips;
+        damage = 25;
+        currentCooldown = 0;
+        this.player = player;
+        this.view = new WeaponView(this);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound" + player.team, "resources/bullets/shot.ogg", 0,
+                0.8F);
+    }
+
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
         super(0, 0, player.team);
         this.cooldown = cooldown;
