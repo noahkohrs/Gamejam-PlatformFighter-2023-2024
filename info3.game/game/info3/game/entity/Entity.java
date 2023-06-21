@@ -41,7 +41,6 @@ public abstract class Entity {
   public int jumpAmount;
   long deltatime;
   public boolean solid;
-  public boolean solid ;
   public float timer = 0;
   public int addVelX = 0;
 

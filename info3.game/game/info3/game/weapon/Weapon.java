@@ -16,10 +16,10 @@ public abstract class Weapon extends DynamicEntity {
     private final int cooldown; // in ms
     private int currentCooldown;
 
-    private int clips;
+    public int clips;
     private final int clipSize;
     public int ammo;
-    protected int damage;
+    public int damage;
 
     public Weapon(Player player) throws IOException {
         super(0, 0, player.team);
