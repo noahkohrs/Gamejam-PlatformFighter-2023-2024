@@ -2,8 +2,10 @@ package info3.game.entity;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import info3.game.Camera;
 import info3.game.Game;
@@ -12,13 +14,26 @@ public class PlayerView extends EntityView {
 
     int deltatime = 0;
     long m_imageElapsed = 0;
-
+    BufferedImage[] killImage;
+        
     PlayerView(BufferedImage[] images, Player player) {
         super(images, player);
+        try {
+            killImage = Player.loadSprite("resources/Kill.png", 1, 1);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public PlayerView(String string, int nrows, int ncols, Player player) {
         super(string, nrows, ncols, player);
+        try {
+            killImage = Player.loadSprite("resources/Kill.png", 1, 1);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void tick(long elapsed) {
@@ -41,12 +56,16 @@ public class PlayerView extends EntityView {
         int y = windowHeight - height;
 
         String kills = Integer.toString(((Player) entity).kills);
+        
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.setColor(Color.BLACK);
+        FontMetrics fontMetrics =g.getFontMetrics();
         if (entity.team == 1) {
-            g.drawString(kills, 10, y);
+            g.drawString(kills, 37, y);
+            g.drawImage(killImage[0],0,y-32,32,32,null);
         } else {
-            g.drawString(kills, windowWidth - 40, y);
+            g.drawString(kills, windowWidth - 37 -fontMetrics.stringWidth(kills), y);
+            g.drawImage(killImage[0],windowWidth-32,y-32,32,32,null);
         }
     }
     @Override

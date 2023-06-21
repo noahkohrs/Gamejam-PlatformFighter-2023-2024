@@ -66,7 +66,7 @@ public abstract class Weapon extends DynamicEntity {
     public abstract void createBullet(int startx, int starty);
 
     public void shoot() {
-        if (player.facingDirection != Direction.IDLE) {
+        if (player.facingDirection != Direction.IDLE && !player.isDead()) {
             if (currentCooldown <= 0) {
                 if (ammo > 0) {
                     soundEffect.playSound();

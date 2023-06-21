@@ -93,7 +93,7 @@ public class Player extends DynamicEntity {
     lifeBar.life.removeHealth(amount);
   }
 
-  private boolean isDead() {
+  public boolean isDead() {
     return this.lifeBar.life.health <= 0;
   }
 
@@ -138,6 +138,7 @@ public class Player extends DynamicEntity {
       if (!respawned)
         respawnTimer -= elapsed;
       respawn();
+      return;
     }
     respawned = false;
     jumpCooldown -= elapsed;

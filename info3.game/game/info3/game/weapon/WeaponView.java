@@ -22,6 +22,8 @@ public class WeaponView extends EntityView {
 
     @Override
     public void paint(Graphics g) {
+        if(((Weapon) entity).player.isDead())
+            return;
         int width = ((Weapon) entity).player.lifeBar.getWidth();
         int windowHeight = Game.game.m_canvas.getHeight();
         int windowWidth = Game.game.m_canvas.getWidth();
