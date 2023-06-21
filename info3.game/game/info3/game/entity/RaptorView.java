@@ -24,7 +24,7 @@ public class RaptorView extends EntityView{
             runningCount=0;
         }
         if(attack){
-            imageIndex=(7+imageIndex+1)%10;
+            imageIndex=(7+imageIndex+1)%16;
             runningCount=0;
         }            
     }

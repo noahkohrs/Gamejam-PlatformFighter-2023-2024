@@ -10,6 +10,10 @@ public class Rifle extends Weapon {
         super(player);
     }
 
+    public Rifle(Player player, int clips, int ammo) throws IOException {
+        super(player, clips, ammo);
+    }
+
     @Override
     public void createBullet(int startx, int starty) {
         try {
