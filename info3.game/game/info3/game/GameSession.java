@@ -26,6 +26,7 @@ import info3.game.entity.DynamicEntity;
 import info3.game.entity.Engineer;
 import info3.game.automate.condition.True;
 import info3.game.entity.Entity;
+import info3.game.entity.Malus;
 import info3.game.entity.Mexican;
 import info3.game.entity.Player;
 import info3.game.entity.PowerUp;
@@ -57,6 +58,9 @@ public class GameSession {
     public List<DynamicEntity> entities;
     List<DynamicEntity> toAddEntities;
     List<DynamicEntity> toRemoveEntities;
+
+    public List<PowerUpBlock> powerUpBlocks = new ArrayList<PowerUpBlock>();
+    public List<MalusBlock> malusBlocks = new ArrayList<MalusBlock>();
 
     public List<Key> keys;
     public Map map;
@@ -115,6 +119,16 @@ static public List<PowerUp> getPowerUps(){
     return arr;
 }
 
+static public List<Malus> getMalus(){
+    List<Malus> arr = new ArrayList<>();
+    for (DynamicEntity entity : gameSession.entities) {
+        if (entity instanceof Malus) {
+            arr.add((Malus) entity);
+        }
+    }
+    return arr;
+}
+
 
     private void loadEntities(String filename) throws IOException {
         String content = Map.readFile(filename);
@@ -137,10 +151,14 @@ static public List<PowerUp> getPowerUps(){
                 int moveX = tags.getInt("blockMove");
                 int speed = tags.getInt("speed");
                 return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
-            case "PowerUpBlock" :
-                return new PowerUpBlock(x, y, 1, 1);
-            case "MalusBlock" :
-                return new MalusBlock(x, y, 1, 1);
+            case "PowerUpBlock":
+                PowerUpBlock powerUpBlock = new PowerUpBlock(x, y);
+                powerUpBlocks.add(powerUpBlock);
+                return powerUpBlock;
+            case "MalusBlock":
+                MalusBlock malusBlock = new MalusBlock(x, y);
+                malusBlocks.add(malusBlock);
+                return malusBlock;
             default:
                 return null;
         }

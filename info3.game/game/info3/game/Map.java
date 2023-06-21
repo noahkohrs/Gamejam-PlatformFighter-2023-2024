@@ -2,6 +2,7 @@ package info3.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,12 +16,16 @@ import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
 import info3.game.entity.blocks.GroundBlock;
 import info3.game.entity.blocks.SpawnerPoint;
+import info3.game.entity.blocks.MalusBlock;
+import info3.game.entity.blocks.PowerUpBlock;
 
 public class Map {
     private int width;
     private int height;
     // Tab of blocks
     public Block fixedMap[][];
+
+    private int indexPowerUp = 0;
 
     public Map(String filename) throws IOException {
         loadTiles(filename);
@@ -48,6 +53,7 @@ public class Map {
             fixedMap[x][y] = IdToBlock(id, x, y, tags);
         }
     }
+
 
     Block IdToBlock(String id, int x, int y, Set<String> tags) throws IOException {
         switch (id) {

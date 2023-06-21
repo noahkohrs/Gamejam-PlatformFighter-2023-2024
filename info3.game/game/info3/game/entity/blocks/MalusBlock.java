@@ -6,18 +6,18 @@ import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Malus;
-
 import info3.game.entity.TEAM;
 
-
-
-public class MalusBlock extends DynamicEntity{
+public class MalusBlock extends DynamicEntity {
 
     public Malus malus;
     float timer = 0;
+    private static String blockTexture = "resources/blocks/malusBlock.png";
 
-    public MalusBlock(int x, int y, int nrows, int ncols) throws IOException{
-        super(x, y, TEAM.NONE, "resources/blocks/malusBlock.png", 1, 1);
+    public MalusBlock(int x, int y) throws IOException {
+        super(x, y, TEAM.NONE, blockTexture, 1, 1);
+        solid = true;
+
     }
 
     @Override
@@ -32,26 +32,25 @@ public class MalusBlock extends DynamicEntity{
 
     }
 
-
     @Override
     public void egg(Entity e) {
 
         if (malus == null) {
-            String malusUpName = e.state.name;
+            String malusName = e.state.name;
 
-            if (malusUpName.equals("Speed")) {
-                malusUpName = "speed";
-            } else if (malusUpName.equals("Ammo")) {
-                malusUpName = "ammo";
-            } else if (malusUpName.equals("Shield")) {
-                malusUpName = "shield";
-            } else if (malusUpName.equals("Pow")) {
-                malusUpName = "power";
+            if (malusName.equals("Speed")) {
+                malusName = "speed";
+            } else if (malusName.equals("Ammo")) {
+                malusName = "ammo";
+            } else if (malusName.equals("Shield")) {
+                malusName = "shield";
+            } else if (malusName.equals("Pow")) {
+                malusName = "power";
             }
 
-            String malusUpPath = "resources/powerUp/" + malusUpName + ".png";
+            String malusPath = "resources/powerUp/" + malusName + ".png";
             try {
-                this.malus = new Malus(x, y - Block.BLOCK_SIZE, malusUpPath, 1, 1);
+                this.malus = new Malus(x, y - Block.BLOCK_SIZE, malusPath, 1, 1, malusName, this);
             } catch (IOException c) {
                 c.printStackTrace();
             }
@@ -67,5 +66,10 @@ public class MalusBlock extends DynamicEntity{
         }
         return false;
     }
-    
+
+    public void deleteMalus() {
+        malus.kill();
+        malus = null;
+    }
+
 }
