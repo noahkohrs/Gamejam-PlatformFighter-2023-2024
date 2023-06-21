@@ -84,4 +84,10 @@ public class DynamicEntity extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pick'");
     }
+
+    @Override
+    public void jump(Direction direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'jump'");
+    }
 }
