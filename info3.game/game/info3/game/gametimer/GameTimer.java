@@ -7,10 +7,12 @@ import info3.game.GameSession;
 
 public class GameTimer {
     private GameTimerView view;
-    public static final int FINAL_TIMER = 4000;// ms == 3 min30
+    public static final int FINAL_TIMER = 8000;// ms == 3 min30
     private int time_left;
     public boolean notEqualKills;
     public int equalTime = 5000;
+    public int showWinnerTime = 10000;
+    public boolean end;
 
     public GameTimer() throws IOException {
         view = new GameTimerView(this);
@@ -37,6 +39,8 @@ public class GameTimer {
         if (isTimeOver()) {
             restart();
             equalTime--;
+            if (end)
+                showWinnerTime--;
         }
     }
 
@@ -47,15 +51,18 @@ public class GameTimer {
     private void restart() {
         int killPlayer1 = GameSession.gameSession.player1.kills;
         int killPlayer2 = GameSession.gameSession.player2.kills;
-        if (killPlayer1 == killPlayer2)
+        if (killPlayer1 == killPlayer2) {
             notEqualKills = false;
-        else if (killPlayer1 != killPlayer2) {
+
+        } else if (killPlayer1 != killPlayer2) {
             notEqualKills = true;
-            System.out.println("notEqualKills is true");
-            try {
-                Game.m_game_session = new GameSession(Game.game, "level.json", Game.gal);
-            } catch (Exception e) {
-                e.printStackTrace();
+            end = true;
+            if (showWinnerTime <= 0) {
+                try {
+                    Game.m_game_session = new GameSession(Game.game, "level.json", Game.gal);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
