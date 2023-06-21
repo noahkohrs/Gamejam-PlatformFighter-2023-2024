@@ -1,11 +1,15 @@
 package info3.game.hitbox;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
 import info3.game.GameSession;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.blocks.MovingPlatform;
 
 public class HitBox {
     public final int offsetX;

@@ -199,6 +199,8 @@ public abstract class Entity {
 
   public abstract boolean gotPower();
 
+    public abstract boolean gotStuff();
+
   public abstract boolean cell(Direction direction, String category);
 
   public abstract boolean MyDir(String direction);
