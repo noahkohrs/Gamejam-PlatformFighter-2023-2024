@@ -36,10 +36,12 @@ public class Game {
 
 
 	public static Game game;
+	public static String gal;
 
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
+			gal = args[0];
 			new Game(args[0]);
 			System.out.println("Game started.");
 		} catch (Throwable th) {
