@@ -23,14 +23,12 @@ package info3.game.entity;
 import java.util.List;
 import java.io.IOException;
 import java.util.Random;
+
+import info3.game.Camera;
+import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.entity.blocks.SpawnerPoint;
 import java.util.ArrayList;
-import java.util.List;
-import info3.game.GameSession;
-import info3.game.automate.Automate;
-import info3.game.entity.blocks.MalusBlock;
-import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Rifle;
@@ -56,7 +54,7 @@ public class Player extends DynamicEntity {
   public boolean dead = false;
   private boolean respawned = true;
   private int respawnTimer = 3000;
-
+  public int kills;
   public Player() throws IOException {
     this(1);
   }
@@ -95,7 +93,7 @@ public class Player extends DynamicEntity {
     lifeBar.life.removeHealth(amount);
   }
 
-  private boolean isDead() {
+  public boolean isDead() {
     return this.lifeBar.life.health <= 0;
   }
 
@@ -117,6 +115,14 @@ public class Player extends DynamicEntity {
       respawnTimer = 3000;
       respawned = true;
       this.dead = false;
+
+      //Find ennemy and add him a kill
+      Player enemy;
+      if(this.team==TEAM.TEAM_1)
+        enemy=GameSession.gameSession.player2;
+      else
+        enemy=GameSession.gameSession.player1;
+      enemy.kills++;
     }
   }
 
@@ -132,6 +138,7 @@ public class Player extends DynamicEntity {
       if (!respawned)
         respawnTimer -= elapsed;
       respawn();
+      return;
     }
     respawned = false;
     jumpCooldown -= elapsed;
@@ -209,7 +216,7 @@ public class Player extends DynamicEntity {
     if (powerUp != null) {
       switch (powerUp.name) {
         case "ammo":
-          weapon.ammo = 15;
+          weapon.ammo = weapon.clipSize;
           weapon.clips = 3;
           break;
         case "speed":

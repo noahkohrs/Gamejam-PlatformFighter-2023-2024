@@ -10,15 +10,14 @@ import info3.game.entity.Player;
 
 public abstract class Weapon extends DynamicEntity {
 
-    private Sound soundEffect;
     public Player player;
 
     private final int cooldown; // in ms
     private int currentCooldown;
-
     public int clips;
-    private final int clipSize;
+    public final int clipSize;
     public int ammo;
+    private Sound soundEffect;
     public int damage;
 
     public Weapon(Player player) throws IOException {
@@ -67,7 +66,7 @@ public abstract class Weapon extends DynamicEntity {
     public abstract void createBullet(int startx, int starty);
 
     public void shoot() {
-        if (player.facingDirection != Direction.IDLE) {
+        if (player.facingDirection != Direction.IDLE && !player.isDead()) {
             if (currentCooldown <= 0) {
                 if (ammo > 0) {
                     soundEffect.playSound();
