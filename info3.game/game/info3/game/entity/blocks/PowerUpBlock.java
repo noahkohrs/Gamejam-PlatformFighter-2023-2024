@@ -15,6 +15,8 @@ public class PowerUpBlock extends DynamicEntity {
 
     public PowerUpBlock(int x, int y) throws IOException {
         super(x, y, TEAM.NONE, blockTexture, 1, 1);
+        solid = true;
+
     }
 
     @Override

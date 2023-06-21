@@ -16,6 +16,8 @@ public class MalusBlock extends DynamicEntity {
 
     public MalusBlock(int x, int y) throws IOException {
         super(x, y, TEAM.NONE, blockTexture, 1, 1);
+        solid = true;
+
     }
 
     @Override

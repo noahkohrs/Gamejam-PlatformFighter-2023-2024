@@ -126,7 +126,6 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
-    System.out.println(PhysicConstant.maxVelX + addVelX);
     timer += elapsed;
     TimerEffect();
 
@@ -237,7 +236,7 @@ public class Player extends DynamicEntity {
     if (malus != null) {
       switch (malus.name) {
         case "ammo":
-          weapon.ammo /= 2;
+          ennemi.weapon.ammo /= 2;
           break;
         case "speed":
           if (PhysicConstant.maxVelX + ennemi.addVelX >= 6) {
@@ -272,7 +271,6 @@ public class Player extends DynamicEntity {
   public void TimerEffect() {
     PowerUp removePowerUp = null;
     for (PowerUp p : ListPowerUp) {
-      // System.out.println(timer - p.timer);
       if (timer - p.timer >= 5000) {
         switch (p.name) {
           case "ammo":
