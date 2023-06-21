@@ -1,30 +1,25 @@
 package info3.game.weapon;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-
 import info3.game.Camera;
 import info3.game.Game;
 import info3.game.Sound;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
-import info3.game.entity.Entity;
 import info3.game.entity.Player;
-import info3.game.sound.RandomFileInputStream;
 
-public class Weapon extends DynamicEntity {
+public abstract class Weapon extends DynamicEntity {
 
+    private Sound soundEffect;
     public Player player;
 
     private final int cooldown; // in ms
     private int currentCooldown;
-    public int clips;
 
+    private int clips;
     private final int clipSize;
     public int ammo;
-    public int damage;
-    private Sound soundEffect;
+    protected int damage;
 
     public Weapon(Player player) throws IOException {
         super(0, 0, player.team);
@@ -36,7 +31,8 @@ public class Weapon extends DynamicEntity {
         currentCooldown = 0;
         this.player = player;
         this.view = new WeaponView(this);
-        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound"+player.team, "resources/bullets/shot.ogg", 0, 0.8F);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound" + player.team, "resources/bullets/shot.ogg", 0,
+                0.8F);
     }
 
     public Weapon(int cooldown, int clips, int damage, int clipSize, Player player) throws IOException {
@@ -49,7 +45,8 @@ public class Weapon extends DynamicEntity {
         this.ammo = clipSize;
         this.player = player;
         this.view = new WeaponView(this);
-        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound"+player.team, "resources/bullets/shot.ogg", 0, 0.8F);
+        this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound" + player.team, "resources/bullets/shot.ogg", 0,
+                0.8F);
     }
 
     public void reload() {
@@ -66,14 +63,8 @@ public class Weapon extends DynamicEntity {
         ammo = clipSize;
         clips = 3;
     }
-    public void createBullet(int startx, int starty) {
-        try {
-            new Bullet(startx, starty, damage, player.facingDirection, player.team);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+
+    public abstract void createBullet(int startx, int starty);
 
     public void shoot() {
         if (player.facingDirection != Direction.IDLE) {
@@ -101,11 +92,6 @@ public class Weapon extends DynamicEntity {
     }
 
     @Override
-    public void move(Direction direction) {
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
-
-    @Override
     public void wizz(String Direction) {
         reload();
     }
@@ -113,24 +99,6 @@ public class Weapon extends DynamicEntity {
     @Override
     public void pop() {
         shoot();
-    }
-
-    @Override
-    public boolean gotPower() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
-    }
-
-    @Override
-    public void turn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turn'");
-    }
-
-    @Override
-    public void egg(Entity e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'egg'");
     }
 
 }
