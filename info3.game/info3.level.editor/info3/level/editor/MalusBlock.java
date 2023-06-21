@@ -8,6 +8,7 @@ public class MalusBlock extends AnimatedEntity {
         super("resources/blocks/malusBlock.png");
     }
 
+
     public String toString() {
         return "MalusBlock";
     }
