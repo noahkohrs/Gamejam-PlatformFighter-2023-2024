@@ -23,6 +23,9 @@ package info3.game.entity;
 import java.util.List;
 import java.io.IOException;
 import java.util.Random;
+
+import info3.game.Camera;
+import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.entity.blocks.SpawnerPoint;
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class Player extends DynamicEntity {
   public boolean dead = false;
   private boolean respawned = true;
   private int respawnTimer = 3000;
-
+  public int kills;
   public Player() throws IOException {
     this(1);
   }
@@ -112,6 +115,14 @@ public class Player extends DynamicEntity {
       respawnTimer = 3000;
       respawned = true;
       this.dead = false;
+
+      //Find ennemy and add him a kill
+      Player enemy;
+      if(this.team==TEAM.TEAM_1)
+        enemy=GameSession.gameSession.player2;
+      else
+        enemy=GameSession.gameSession.player1;
+      enemy.kills++;
     }
   }
 
