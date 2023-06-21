@@ -9,12 +9,18 @@ Player1(Init){
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
   | Key(w) ?          :(Ra)
+  | Key(x) ?          :(Dash)
   | True() ?          :(Init)
 
   *(Ra)
   |GotPower() & MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Wizz(E):(Init)
   |GotPower() & MyDir(W) / MyDir(SW) / MyDir(NW) ? Wizz(W):(Init)
   |!GotPower()?       :(Init)
+
+  *(Dash)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Jump():(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump():(Init)
+  |True() ? (Init)
 }
 
 Player2(Init){
