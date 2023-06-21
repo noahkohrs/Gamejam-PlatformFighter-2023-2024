@@ -1,6 +1,6 @@
 package info3.game.entity;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 public class Block extends Entity {
     public static final int BLOCK_SIZE = 32;
@@ -13,7 +13,7 @@ public class Block extends Entity {
     @Override
     public void tick(long elapsed) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
+        // throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
 
 
@@ -55,7 +55,7 @@ public class Block extends Entity {
     }
     
 
-     @Override
+    @Override
     public void egg(Entity type) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'egg'");
@@ -65,6 +65,12 @@ public class Block extends Entity {
     public boolean MyDir(String direction) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
+    }
+
+    @Override
+    public void pick() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'egg'");
     }
 
     @Override

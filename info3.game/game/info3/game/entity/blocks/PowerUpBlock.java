@@ -11,10 +11,12 @@ import info3.game.entity.Block;
 public class PowerUpBlock extends DynamicEntity {
 
     public PowerUp powerUp;
-    float timer = 0;
+    private static String blockTexture = "resources/blocks/powerUpBlock.png";
 
-    public PowerUpBlock(int x, int y, int nrows, int ncols) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/powerUpBlock.png", 1, 1);
+    public PowerUpBlock(int x, int y) throws IOException {
+        super(x, y, TEAM.NONE, blockTexture, 1, 1);
+        solid = true;
+
     }
 
     @Override
@@ -47,7 +49,7 @@ public class PowerUpBlock extends DynamicEntity {
 
             String powerUpPath = "resources/powerUp/" + powerUpName + ".png";
             try {
-                this.powerUp = new PowerUp(x, y - Block.BLOCK_SIZE, powerUpPath, 1, 1);
+                this.powerUp = new PowerUp(x, y - Block.BLOCK_SIZE, powerUpPath, 1, 1, powerUpName, this);
             } catch (IOException c) {
                 c.printStackTrace();
             }
@@ -62,6 +64,11 @@ public class PowerUpBlock extends DynamicEntity {
             return true;
         }
         return false;
+    }
+
+    public void deletePowerUp() {
+        powerUp.kill();
+        powerUp = null;
     }
 
 }

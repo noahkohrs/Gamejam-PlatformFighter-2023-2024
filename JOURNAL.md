@@ -134,7 +134,7 @@ Anastasios     |Correction d'un bug de jump.
 Bastien        | c
 Gwénolé        | d
 Noah           | e
-Noé            | f
+Noé            | power up
 
 ## 16/06
 
@@ -145,7 +145,7 @@ Anastasios    | Correction d'un bug du parser dans lequel le initial state etait
 Bastien       | c
 Gwénolé       | d
 Noah          | e
-Noé           | f
+Noé           | power up
 
 ## 19/06
 
@@ -156,7 +156,7 @@ Anastasios    | Création du raptor (pour Mexican) avec tous les collisions, et 
 Bastien       | c
 Gwénolé       | d
 Noah          | e
-Noé           | f
+Noé           | Malade, je n'ai pas peux avancer
 
 
 ## 20/06
@@ -168,6 +168,18 @@ Anastasios    | b
 Bastien       | c
 Gwénolé       | d
 Noah          | e
-Noé           | f
+Noé           | malade, travaille sur le timer.
+
+
+## 21/06
+
+Développeur   | Tâche
+------------- | -------------
+Clément       | a
+Anastasios    | b
+Bastien       | c
+Gwénolé       | d
+Noah          | e
+Noé           | finition timer, création sprite flasque revigorante 
 
 
