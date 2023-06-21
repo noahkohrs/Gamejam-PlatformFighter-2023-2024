@@ -62,8 +62,8 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team) throws IOException {
-    super(40, 40, team, Getchar(team) + "PlayerSprite.png", 2, 2);
-    view = new PlayerView(Getchar(team) + "PlayerSprite.png", 2, 2, this);
+    super(40, 40, team, Getchar(team) + "PlayerSprite.png", 3, 2);
+    view = new PlayerView(Getchar(team) + "PlayerSprite.png", 3, 2, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Rifle(this);
@@ -73,8 +73,8 @@ public class Player extends DynamicEntity {
   }
 
   public Player(int team, String filename) throws IOException {
-    super(40, 40, team, filename, 4, 6);
-    view = new PlayerView(filename, 4, 6, this);
+    super(40, 40, team, filename, 3, 2);
+    view = new PlayerView(filename, 3, 2, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 20, 35, this);
     weapon = new Rifle(this);

@@ -60,7 +60,8 @@ Weapon2(Init){
 
 Bazooka(Init){
   * (Init)
-  | True() ? Move() :(Init)
+  | Key(b) ? Pop() :(Init)
+  | True() ?   :(Init)
 }
 
 Bullet(Init){
