@@ -5,24 +5,22 @@ import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
 import info3.game.entity.blocks.GroundBlock;
+import info3.game.entity.blocks.SpawnerPoint;
 
 public class Map {
     private int width;
     private int height;
     // Tab of blocks
-    Block fixedMap[][];
+    public Block fixedMap[][];
 
     public Map(String filename) throws IOException {
         loadTiles(filename);
@@ -53,11 +51,16 @@ public class Map {
 
     Block IdToBlock(String id, int x, int y, Set<String> tags) throws IOException {
         switch (id) {
-            case "GrassBlock" :
+            case "GrassBlock":
                 return new GrassBlock(x, y);
-            default :
-            case "GroundBlock" :
+            case "SpawnerPoint":
+                SpawnerPoint res = new SpawnerPoint(x, y);
+                GameSession.gameSession.spawnerPoints.add(res);
+                return res;
+            case "GroundBlock":
                 return new GroundBlock(x, y);
+            default:
+                throw new IOException("Unknown block id: " + id);
         }
     }
 
@@ -76,7 +79,7 @@ public class Map {
             return null;
         if (x >= width)
             return null;
-        if (y >= height )
+        if (y >= height)
             return null;
         return this.fixedMap[x][y];
     }
@@ -84,10 +87,10 @@ public class Map {
     void paint(Graphics g, Camera camera) {
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
-            if (fixedMap[i][j] != null) {
+                if (fixedMap[i][j] != null) {
                     Entity entity = fixedMap[i][j];
                     entity.view.paint(g);
-            }
+                }
         g.setColor(Color.yellow);
         Camera.drawRect(g, 0, 0, realWidth(), realHeight());
     }
@@ -108,5 +111,15 @@ public class Map {
         } finally {
             reader.close();
         }
+    }
+
+    public List<Block> getBlocks() {
+        List<Block> blocks = new ArrayList<Block>();
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                if (fixedMap[i][j] != null) {
+                    blocks.add(fixedMap[i][j]);
+                }
+        return blocks;
     }
 }

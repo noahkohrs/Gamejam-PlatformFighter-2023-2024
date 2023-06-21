@@ -3,9 +3,6 @@ package info3.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import com.jcraft.jogg.Buffer;
-
 import info3.game.entity.Entity;
 
 public class Camera {
@@ -75,8 +72,8 @@ public class Camera {
         int distX = Math.abs(p1X - p2X);
         int distY = Math.abs(p1Y - p2Y);
 
-        camWidth = distX + 500;
-        camHeight = distY + 350;
+        camWidth = distX + 400;
+        camHeight = distY + 280;
 
         if (camWidth < 500)
             camWidth = 500;
@@ -101,6 +98,9 @@ public class Camera {
             camX = GameSession.gameSession.map.realWidth() - camWidth;
         if (camY + camHeight > GameSession.gameSession.map.realHeight())
             camY = GameSession.gameSession.map.realHeight() - camHeight;
+        
+        if (camWidth > GameSession.gameSession.map.realWidth())
+            camX = GameSession.gameSession.map.realWidth() / 2 - camWidth / 2;
 
         camX = precCamX + (camX - precCamX) * movingTime / 10;
         camY = precCamY + (camY - precCamY) * movingTime / 10;
@@ -115,6 +115,8 @@ public class Camera {
             g.setColor(Color.white);
             g.fillRect(camX, camY, camWidth, camHeight);
         }
+        int add=500;
+        Camera.drawImage(g,GameSession.gameSession.image,-add,-add,GameSession.gameSession.map.realWidth()+add*2,GameSession.gameSession.map.realHeight()+add*2);
     }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {
@@ -148,8 +150,7 @@ public class Camera {
         int hitboxWidth = e.hitbox.width;
 
         if (e.facingDirection.x < 0) {
-            int inverseX = x+ -width + 2*hitboxOffsetX + hitboxWidth;
-
+            int inverseX = x - width + 2 * hitboxOffsetX + hitboxWidth;
 
             drawImage(g, img, inverseX, y, -width, height);
         } else {
@@ -181,6 +182,20 @@ public class Camera {
             g.drawRect(cX, cY, cWidth, cHeight);
         }
 
+    }
+
+    static public void drawText(Graphics g, int x, int y, String str)
+    {
+        if(debugMode)
+        {
+            g.drawString(str, x, y);
+        }
+        else
+        {
+            int cX = onCamViewX(x, camera.scale);
+            int cY = onCamViewY(y, camera.scale);
+            g.drawString(str, cX, cY);
+        }
     }
 
     static public void fillRect(Graphics g, int x, int y, int width, int height) {

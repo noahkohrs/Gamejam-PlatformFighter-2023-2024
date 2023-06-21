@@ -8,6 +8,7 @@ import info3.game.automate.action.Action;
 import info3.game.automate.condition.Condition;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.weapon.Weapon;
 
 public class Automate {
     public List<Transitions> trans;
@@ -39,7 +40,7 @@ public class Automate {
             State source = transition.src;
             State dest = transition.dest;
             if (source == null || dest == null) {
-                System.out.println("Etat without transition");
+                System.out.println("State without transition");
                 return;
             }
             Condition cond = transition.cond;
@@ -99,7 +100,7 @@ public class Automate {
         // System.out.println("Automate for "+this.e.getClass().getName().toString());
         for (int i = 0; i < trans.size(); i++) {
             if (trans.get(i).dest == null) {
-                System.out.println("Etat finale sans transition");
+                System.out.println("Final state with transition");
                 return;
             }
             System.out.println(trans.get(i).src.name + "->" + trans.get(i).dest.name + " |if "

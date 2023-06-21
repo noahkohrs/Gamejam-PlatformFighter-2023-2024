@@ -7,7 +7,7 @@ import org.json.JSONObject;
 public class MovingPlatform extends AnimatedEntity {
 
     public MovingPlatform() throws IOException {
-        super("resources/blocks/3.png");
+        super("resources/blocks/obsidian.png");
         //TODO Auto-generated constructor stub
     }
 

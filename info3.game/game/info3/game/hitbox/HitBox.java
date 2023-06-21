@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import info3.game.GameSession;
 import info3.game.entity.Block;
 import info3.game.entity.Direction;
+import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 
 public class HitBox {
@@ -28,6 +29,16 @@ public class HitBox {
         mapCollisionEnabled = false;
     }
 
+    public HitBox(Entity e) {
+        this.height = e.getHeight();
+        this.width = e.getWidth();
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.entity = e;
+        view = new HitBoxView(this);
+        mapCollisionEnabled = false;
+    }
+
     public HitBox(int offsetX, int offsetY, int width, int height, boolean mapCollisionEnabled, Entity entity) {
         this.height = height;
         this.width = width;
@@ -43,60 +54,67 @@ public class HitBox {
     }
 
     public boolean inCollision(Direction dir) {
-        int x, y;
-        if (dir.x == 1)
-            x = (entity.x + offsetX + width);
-        else
-            x = (entity.x + offsetX);
+        int newX = dir.x == 1 ? (entity.x + offsetX + width) : (entity.x + offsetX);
+        int newY = dir.y == 1 ? (entity.y + offsetY + height) : (entity.y + offsetY);
+        int x = entity.x + offsetX;
+        int y = entity.y + offsetY;
 
-        if (dir.y == 1)
-            y = (entity.y + offsetY + height);
-        else
-            y = (entity.y + offsetY);
-
-        if (mapCollisionEnabled)
-            if (checkMapCollision(x, y, dir))
-                return true;
-
-        int blockX = x / Block.BLOCK_SIZE;
-        int blockY = y / Block.BLOCK_SIZE;
-        int blockHeight = (int) Math.floor(height / Block.BLOCK_SIZE) + 1;
-        int blockWidth = (int) Math.floor(width / Block.BLOCK_SIZE) + 1;
-
+        if (mapCollisionEnabled && checkMapCollision(newX, newY, dir)) {
+            return true;
+        }
         switch (dir) {
-            case UPPER:
-            case BOTTOM: {
-                for (int i = 0; i < blockWidth; i += 2) {
-                    Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX + i, blockY);
-                    Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + i + 1, blockY);
-                    if (b2 != null) {
-                        if (x + width > b2.x)
-                            return true;
-                    }
-                    if (b1 != null)
-                        return true;
-                }
-                break;
-            }
             case LEFT:
+                return pointColliding(x, y) || pointColliding(x, y + height) || pointColliding(x, y + height / 2);
             case RIGHT:
+                return pointColliding(x + width, y) || pointColliding(x + width, y + height)
+                        || pointColliding(x + width, y + height / 2);
+            case UPPER:
+                return pointColliding(x, y) || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
+            case BOTTOM:
+                return pointColliding(x, y + height) || pointColliding(x + width, y + height)
+                        || pointColliding(x + width / 2, y + height);
             case LEFT_TOP:
-            case RIGHT_TOP: {
-                for (int i = 0; i < blockHeight; i += 2) {
-                    Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + i);
-                    Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + i + 1);
-                    if (b1 != null)
-                        return true;
+                return pointColliding(x, y) || pointColliding(x, y + height) || pointColliding(x, y + height / 2)
+                        || pointColliding(x, y) || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
+            case RIGHT_TOP:
+                return pointColliding(x + width, y) || pointColliding(x + width, y + height)
+                        || pointColliding(x + width, y + height / 2) || pointColliding(x, y)
+                        || pointColliding(x + width, y) || pointColliding(x + width / 2, y);
 
-                    if (b2 != null) {
-                        if (y + height > b2.y)
-                            return true;
-                    }
-                }
-                break;
+        }
+
+        return false;
+    }
+
+    private boolean pointInHitbox(int x, int y) {
+        int topLeftX = entity.x + offsetX;
+        int topLeftY = entity.y + offsetY;
+        int bottomRightX = topLeftX + width;
+        int bottomRightY = topLeftY + height;
+
+        return x >= topLeftX && x <= bottomRightX && y >= topLeftY && y <= bottomRightY;
+    }
+
+    private boolean pointColliding(int x, int y) {
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e != entity && e.solid && e.hitbox.pointInHitbox(x, y)) {
+                return true; // Collision detected with entity
             }
         }
-        return false;
+
+        for (Block b : GameSession.gameSession.map.getBlocks()) {
+            if (b.solid && b.hitbox.pointInHitbox(x, y)) {
+                return true; // Collision detected with block
+            }
+        }
+
+        return false; // No collision
+    }
+
+    public boolean isSittingOn(Entity e) {
+        int x = entity.x + offsetX;
+        int y = entity.y + offsetY + height + 1;
+        return e.hitbox.pointInHitbox(x + width / 4, y) || e.hitbox.pointInHitbox(x + 3 * width / 4, y);
     }
 
     public int getTopLeftY() {
@@ -176,6 +194,8 @@ public class HitBox {
             playerXRight = player2HitBox.getBottomRightX();
             playerYRight = player2HitBox.getBottomRightY();
         }
+        if (GameSession.gameSession.player1.dead || GameSession.gameSession.player2.dead)
+            return false;
         switch (dir) {
             case LEFT_TOP:
                 if (getTopLeftX(newX) <= playerXRight && playerXLeft <= getBottomRightX())

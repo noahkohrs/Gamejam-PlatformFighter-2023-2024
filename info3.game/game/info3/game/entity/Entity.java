@@ -40,16 +40,13 @@ public abstract class Entity {
   public int jumpCooldown;
   public int jumpAmount;
   long deltatime;
+  public boolean solid ;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
-    this.team = team;
-    this.x = x;
-    this.y = y;
+    this(x, y, team);
     this.view = new EntityView(filename, nrows, ncols, this);
-    this.automate = loadAutomate();
-    if (this.automate == null)
-      this.automate = GameSession.gameSession.defaultAutomate;
-    state = this.automate.initalState;
+    this.hitbox = new HitBox(this);
+    solid = false;
   }
 
   public Entity(int x, int y, int team) throws IOException {
@@ -60,19 +57,8 @@ public abstract class Entity {
     if (this.automate == null)
       this.automate = GameSession.gameSession.defaultAutomate;
     state = this.automate.initalState;
+    solid = false ;
   }
-
-  public Entity(int x, int y, int team, EntityView view) throws IOException {
-    this.team = team;
-    this.x = x;
-    this.y = y;
-    this.automate = loadAutomate();
-    if (this.automate == null)
-      this.automate = GameSession.gameSession.defaultAutomate;
-    state = this.automate.initalState;
-    this.view=view;
-  }
-
   private Automate loadAutomate() {
     System.out.println("Loading automate for " + this.getClass().getSimpleName());
     return GameSession.gameSession.findAutomate(this);
@@ -153,6 +139,8 @@ public abstract class Entity {
   }
 
   public int distanceTo(Entity e) {
+    if(e instanceof Player && ((Player)e).dead)
+      return 101;
     return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2)
         + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
   }
@@ -186,6 +174,10 @@ public abstract class Entity {
     }
   }
 
+  public boolean isSittingOn(Entity e) {
+    return hitbox.isSittingOn(e);
+  }
+
   // Actions
 
   public abstract void move(Direction direction);
@@ -206,7 +198,6 @@ public abstract class Entity {
 
   public abstract boolean MyDir(String direction);
 
-  public void wizz(String direction) {
-  }
+  public abstract void wizz(String direction);
 
 }
