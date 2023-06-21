@@ -46,7 +46,7 @@ public class GameSession {
 
     private long updateTime;
 
-    GameTimer gametime;
+    public GameTimer gametime;
 
     public Player player1;
     public Player player2;
@@ -68,6 +68,7 @@ public class GameSession {
     public Automate defaultAutomate;
     public List<SpawnerPoint> spawnerPoints;
     public BufferedImage image;
+    public boolean restart=false;
 
     public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
