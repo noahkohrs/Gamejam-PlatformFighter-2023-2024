@@ -2,8 +2,16 @@ package info3.game.entity;
 
 import java.io.IOException;
 
-public class Engineer extends Player{
-    int raptorCooldown;
+import info3.game.weapon.Bazooka;
+import info3.game.weapon.Rifle;
+
+public class Engineer extends Player {
+    int turretCooldown;
+    int bazookaCooldown;
+
+    public int oldClips;
+    public int oldAmmo;
+
     public Engineer() throws IOException {
         super();
     }
@@ -16,30 +24,49 @@ public class Engineer extends Player{
         super(team, filename);
     }
 
+
     @Override
     public void tick(long elapsed) {
-        raptorCooldown-=elapsed;
+        turretCooldown -= elapsed;
+        bazookaCooldown -= elapsed;
         super.tick(elapsed);
     }
 
     @Override
     public void egg(Entity entity) {
-        raptorCooldown = 1000;
+        turretCooldown = 1000;
         try {
-            new Turret(this.x,this.y,this.team);
-          } catch (IOException e) {
-            // TODO Auto-generated catch block
+            new Turret(this.x, this.y, this.team);
+        } catch (IOException e) {
             e.printStackTrace();
-          }
+        }
+    }
+
+    @Override
+    public void pop() {
+        bazookaCooldown = 1000;
+        try {
+            oldClips = weapon.clips;
+            oldAmmo = weapon.ammo;
+            weapon.kill();
+            weapon = new Bazooka(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public boolean gotPower() {
-        return raptorCooldown <= 0;
+        return turretCooldown <= 0;
     }
 
     @Override
-    public boolean MyDir(String direction){
+    public boolean gotStuff() {
+        return bazookaCooldown <= 0;
+    }
+
+    @Override
+    public boolean MyDir(String direction) {
         return facingDirection.equals(Direction.fromString(direction));
     }
 }
