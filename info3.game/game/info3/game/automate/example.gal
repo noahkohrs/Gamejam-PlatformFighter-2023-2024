@@ -39,6 +39,7 @@ Turret(Init){
   |MyDir(E)? Wizz(E):(Init)
   |MyDir(NE)? Wizz(NE):(Init)
   |MyDir(NW)? Wizz(NW):(Init)
+  |True() ? :(Init)
 }
 
 Weapon1(Init){
