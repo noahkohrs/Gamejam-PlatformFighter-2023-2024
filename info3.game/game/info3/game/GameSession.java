@@ -181,13 +181,13 @@ static public List<PowerUp> getPowerUps(){
 
     public void paint(Graphics g) {
         camera.paint(g);
-        gametime.showGameTimer(g);;
         map.paint(g, camera);
         for (Entity entity : entities) {
             if(entity instanceof Player && ((Player)entity).dead)
                 continue;
             entity.view.paint(g);
         }
+        gametime.showGameTimer(g);;
     }
 
     int getLevelWidth() {

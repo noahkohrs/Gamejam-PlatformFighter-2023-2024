@@ -13,17 +13,24 @@ public class GameTimer {
         this.time_left=FINAL_TIMER;
     }
 
-    static int getMinute(int time){
-        return time/60000; 
+    int getMinute(){
+        return time_left/60000; 
     }
-    static int GetSeconde(int time){
-        return (time%60000)/1000;
+    int GetSeconde(){
+        return (time_left%60000)/1000;
+    }
+
+    boolean isTimeOver(){
+        if(time_left<0) return true;
+        else{
+            return false;
+        }
     }
 
     public void tick(long elapsed) {
         time_left-=elapsed;
     }
     public void showGameTimer(Graphics g){
-        view.paint(g, time_left);
+        view.paint(g,this);
     }
 }

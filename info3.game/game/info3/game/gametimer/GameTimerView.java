@@ -17,19 +17,19 @@ public class GameTimerView {
     int y;
 
     GameTimerView() throws IOException {
-        m_images = Player.loadSprite("resources/time3.png", 1, 1);
+        m_images = Player.loadSprite("resources/time.png", 1, 1);
     }
 
     /**
      * @param g
-     * @param Gametime
+     * @param gameTimer
      */
-    public void paint(Graphics g, int time_left) {
+    public void paint(Graphics g, GameTimer gameTimer) {
             x = (Game.game.m_canvas.getWidth() - m_images[0].getWidth() * mul) / 2;
             g.drawImage(m_images[0], x, y, m_images[0].getWidth() * mul, m_images[0].getHeight() * mul, null);
-            if (time_left > 0) {
-                int min = GameTimer.getMinute(time_left);
-                int sec = GameTimer.GetSeconde(time_left);
+            if (!gameTimer.isTimeOver()) {
+                int min = gameTimer.getMinute();
+                int sec = gameTimer.GetSeconde();
 
                 g.setColor(Color.BLACK);
                 int size = 14;
@@ -40,7 +40,7 @@ public class GameTimerView {
                 g.setColor(Color.BLACK);
                 int size = 14;
                 g.setFont(new Font("Arial", Font.BOLD, size)); // Définir la police de dessin
-                g.drawString("0", x + 8, y * mul + size + 8);
+                g.drawString("0", x + 14, y * mul + size + 8);
                 g.drawString("0", x + 32 + 4, y * mul + size + 8);
         }
 
