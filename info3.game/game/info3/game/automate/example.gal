@@ -9,12 +9,14 @@ Player1(Init){
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
   | Key(w) ?          :(Ra)
+  | Key(a) & GotStuff() ? Pop() :(Init)
   | True() ?          :(Init)
 
   *(Ra)
   |GotPower() & MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Wizz(E):(Init)
   |GotPower() & MyDir(W) / MyDir(SW) / MyDir(NW) ? Wizz(W):(Init)
   |!GotPower()?       :(Init)
+
 }
 
 Player2(Init){
