@@ -41,6 +41,8 @@ public abstract class Entity {
   public int jumpAmount;
   long deltatime;
   public boolean solid ;
+  public float timer = 0;
+  public int addVelX = 0;
 
   public Entity(int x, int y, int team, String filename, int nrows, int ncols) throws IOException {
     this(x, y, team);
@@ -161,7 +163,7 @@ public abstract class Entity {
   }
 
   void updateVelocityX() {
-    this.velX = (float) (PhysicConstant.maxVelX * (1 - Math.exp(-accelerationX)));
+    this.velX = (float) ((PhysicConstant.maxVelX + addVelX) * (1 - Math.exp(-accelerationX)));
   }
 
   void updateVelocityY() {
@@ -189,6 +191,8 @@ public abstract class Entity {
   public abstract void pop();
 
   public abstract void egg(Entity type);
+
+  public abstract void pick();
 
   // Conditions
 

@@ -20,6 +20,7 @@
  */
 package info3.game.entity;
 
+import java.util.List;
 import java.io.IOException;
 import java.util.Random;
 
@@ -27,6 +28,12 @@ import info3.game.Camera;
 import info3.game.GameSession;
 import info3.game.automate.Automate;
 import info3.game.entity.blocks.SpawnerPoint;
+import java.util.ArrayList;
+import java.util.List;
+import info3.game.GameSession;
+import info3.game.automate.Automate;
+import info3.game.entity.blocks.MalusBlock;
+import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.life.LifeBar;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Weapon;
@@ -40,6 +47,14 @@ public class Player extends DynamicEntity {
 
   public LifeBar lifeBar;
   public Weapon weapon;
+
+  PowerUp powerUp;
+  Malus malus;
+  List<PowerUp> ListPowerUp = new ArrayList<PowerUp>();
+  List<Malus> ListMalus = new ArrayList<Malus>();
+  boolean isPowerUp = false;
+  boolean isMalus = false;
+
   public boolean dead = false;
   private boolean respawned = true;
   private int respawnTimer = 3000;
@@ -111,6 +126,9 @@ public class Player extends DynamicEntity {
    * Simple animation here, the cowbow
    */
   public void tick(long elapsed) {
+    timer += elapsed;
+    TimerEffect();
+
     if (isDead()) {
       this.dead = true;
       if (!respawned)
@@ -134,6 +152,7 @@ public class Player extends DynamicEntity {
     view.tick(deltatime);
     Movement.Walk(this);
     Movement.affectGravity(this);
+
   }
 
   @Override
@@ -146,7 +165,160 @@ public class Player extends DynamicEntity {
 
   @Override
   public void wizz() {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
+
+  @Override
+  public boolean cell(Direction direction, String category) {
+    if (category.equals("P")) {
+
+      List<PowerUp> listPowerUps = GameSession.getPowerUps();
+
+      for (PowerUp p : listPowerUps) {
+        if (distanceTo(p) < 20) {
+          powerUp = p;
+          isPowerUp = true;
+          return true;
+        }
+      }
+
+      List<Malus> listMalus = GameSession.getMalus();
+
+      for (Malus m : listMalus) {
+        if (distanceTo(m) < 20) {
+          malus = m;
+          isMalus = true;
+          return true;
+        }
+      }
+
+    }
+    return false;
+  }
+
+  Player getEnnemi() {
+    Player ennemi;
+    if (this.equals(GameSession.gameSession.player1)) {
+      ennemi = GameSession.gameSession.player2;
+    } else {
+      ennemi = GameSession.gameSession.player1;
+    }
+    return ennemi;
+  }
+
+  void pickPowerUp() {
+    if (powerUp != null) {
+      switch (powerUp.name) {
+        case "ammo":
+          weapon.ammo = 15;
+          weapon.clips = 3;
+          break;
+        case "speed":
+          addVelX += 6;
+          break;
+        case "shield":
+          Player ennemi = getEnnemi();
+          ennemi.weapon.damage /= 2;
+          break;
+        case "power":
+          weapon.damage *= 2;
+          break;
+      }
+      powerUp.parent.deletePowerUp();
+      powerUp.timer = timer;
+      ListPowerUp.add(powerUp);
+    }
+  }
+
+  void pickMalus() {
+    Player ennemi = getEnnemi();
+    if (malus != null) {
+      switch (malus.name) {
+        case "ammo":
+          ennemi.weapon.ammo /= 2;
+          break;
+        case "speed":
+          if (PhysicConstant.maxVelX + ennemi.addVelX >= 6) {
+            ennemi.addVelX -= 6;
+          }
+          break;
+        case "shield":
+          ennemi.weapon.damage /= 2;
+          break;
+        case "power":
+          ennemi.weapon.damage /= 2;
+          break;
+      }
+
+      malus.parent.deleteMalus();
+      malus.timer = timer;
+      ListMalus.add(malus);
+    }
+  }
+
+  @Override
+  public void pick() {
+    if (isPowerUp) {
+      pickPowerUp();
+      isPowerUp = false;
+    } else if (isMalus) {
+      pickMalus();
+      isMalus = false;
+    }
+  }
+
+  public void TimerEffect() {
+    PowerUp removePowerUp = null;
+    for (PowerUp p : ListPowerUp) {
+      if (timer - p.timer >= 5000) {
+        switch (p.name) {
+          case "ammo":
+            break;
+          case "speed":
+            addVelX -= 6;
+            break;
+          case "shield":
+            Player ennemi = getEnnemi();
+            ennemi.weapon.damage *= 2;
+            break;
+          case "power":
+            weapon.damage /= 2;
+            break;
+        }
+        removePowerUp = p;
+      }
+    }
+    if (removePowerUp != null) {
+      ListPowerUp.remove(removePowerUp);
+    }
+
+    Player ennemi = getEnnemi();
+    Malus removeMalus = null;
+
+    for (Malus m : ListMalus) {
+      if (timer - m.timer >= 5000) {
+        switch (m.name) {
+          case "ammo":
+            break;
+          case "speed":
+            ennemi.addVelX += 6;
+            break;
+          case "shield":
+            ennemi.weapon.damage *= 2;
+            break;
+          case "power":
+            ennemi.weapon.damage *= 2;
+            break;
+        }
+        removeMalus = m;
+      }
+    }
+
+    if (removeMalus != null) {
+      ListMalus.remove(removeMalus);
+    }
+
+  }
+
 }

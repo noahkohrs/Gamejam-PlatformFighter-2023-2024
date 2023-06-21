@@ -19,11 +19,11 @@ public class Weapon extends DynamicEntity {
 
     private final int cooldown; // in ms
     private int currentCooldown;
-    private int clips;
+    public int clips;
 
     private final int clipSize;
     public int ammo;
-    private int damage;
+    public int damage;
     private Sound soundEffect;
 
     public Weapon(Player player) throws IOException {

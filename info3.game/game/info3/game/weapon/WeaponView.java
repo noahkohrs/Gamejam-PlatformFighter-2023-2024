@@ -3,14 +3,18 @@ package info3.game.weapon;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import info3.game.Game;
 import info3.game.entity.EntityView;
+import info3.game.entity.Player;
 
 public class WeaponView extends EntityView {
+    BufferedImage[] images;
 
-    public WeaponView(Weapon weapon) {
+    public WeaponView(Weapon weapon) throws IOException {
         super(weapon);
+        images = Player.loadSprite("resources/ammo2.png", 1, 1);
     }
 
     @Override
@@ -24,9 +28,11 @@ public class WeaponView extends EntityView {
         String ammo = Integer.toString(((Weapon) entity).ammo);
         g.setColor(Color.BLACK);
         if (entity.team == 1) {
-            g.drawString(ammo, width + 20, y);
+            g.drawString(ammo, width + 30, y);
+            g.drawImage(images[0], width, y-20, images[0].getWidth(), images[0].getHeight(), null);
         } else {
-            g.drawString(ammo, windowWidth - width - 20, y);
+            g.drawString(ammo, windowWidth - width - 50, y);
+            g.drawImage(images[0], windowWidth - width - 35, y-20, images[0].getWidth(), images[0].getHeight(), null);
         }
     }
 

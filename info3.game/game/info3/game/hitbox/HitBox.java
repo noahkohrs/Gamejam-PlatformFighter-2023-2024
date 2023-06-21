@@ -241,56 +241,20 @@ public class HitBox {
         return false;
     }
 
-    public  boolean DynamicEntityCollision(Direction dir){//bugged what is needed here is the fact that if upper is called before bottom it should return false
-                switch(dir){
-                    case UPPER:
-                            for(DynamicEntity e: GameSession.gameSession.entities){
-                            if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 27 && e.y < entity.y){
-                                if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
-                                    return true;
-                                }
-                            }
-                        }
-                        } 
-                        return false;
-                    case BOTTOM:
-                        for(DynamicEntity e: GameSession.gameSession.entities){
-                            if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 27 && e.y > entity.y){
-                                if((e.y < entity.y + entity.getHeight()) && ((e.x < entity.x && e.x+e.getWidth() > entity.x) || ( e.x + e.getWidth() > entity.x && e.x + e.getWidth() >  entity.x + entity.getWidth()))){
-                                    return true;
-                                }
-                            }
-                        }
-                        }
-                        return false;
-                    case LEFT:
-                            for(DynamicEntity e: GameSession.gameSession.entities){
-                            if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 27){
-                                if((e.x + e.getWidth() > entity.x)){
-                                    return true;
-                                }
-                            }
-                        }
-                        }
-                        return false;
-                    case RIGHT:
-                            for(DynamicEntity e: GameSession.gameSession.entities){
-                            if(e instanceof MovingPlatform){
-                                if(entity.distanceTo(e) < 20){
-                                if(e.x < entity.x){
-                                    return true;
-                                }
-                            }
-                        }
-                        }
-                        return false;
+    public Block[] recupBlockMap() {
 
-                    default:
-                    return false;
-                }
+        int x = (entity.x);
+        int y = (entity.y + offsetY + height);
 
-        }
+        int blockX = x / Block.BLOCK_SIZE;
+        int blockY = y / Block.BLOCK_SIZE;
+
+        Block b1 = GameSession.gameSession.map.getBlockWithIndex(blockX, blockY + 1);
+        Block b2 = GameSession.gameSession.map.getBlockWithIndex(blockX + 1, blockY + 1);
+
+        Block[] blocks = { b1, b2 };
+        return blocks;
+    }
+
+
 }

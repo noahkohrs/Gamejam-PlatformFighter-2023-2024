@@ -8,6 +8,7 @@ public class PowerUpBlock extends AnimatedEntity {
         super("resources/blocks/powerUpBlock.png");
     }
 
+
     public String toString() {
         return "PowerUpBlock";
     }

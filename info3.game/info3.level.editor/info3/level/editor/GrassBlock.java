@@ -2,8 +2,6 @@ package info3.level.editor;
 
 import java.io.IOException;
 
-import org.json.JSONObject;
-
 public class GrassBlock extends Block {
 
 
