@@ -21,7 +21,7 @@ public class GameTimer {
     }
 
     public void tick(long elapsed) {
-        time_left--;
+        time_left-=elapsed;
     }
     public void showGameTimer(Graphics g){
         view.paint(g, time_left);
