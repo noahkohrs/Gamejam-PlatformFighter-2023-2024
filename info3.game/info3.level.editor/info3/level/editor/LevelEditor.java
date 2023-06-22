@@ -48,9 +48,9 @@ public class LevelEditor {
 	LevelEditor() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		level = new Level(40,24);
-		//get Real Canvas Size 
-		brushSelector = new ElementList((int)(1024*0.85), 40);
+		level = new Level("level.json");
+		// get Real Canvas Size
+		brushSelector = new ElementList((int) (1024 * 0.85), 40);
 		selected = brushSelector.elems.get(0);
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -172,25 +172,6 @@ public class LevelEditor {
 	 * ==============================================================
 	 */
 
-	/*
-	 * Called from the GameCanvas listener when the frame
-	 */
-	String m_musicName;
-
 	void loadMusic() {
-		m_musicName = m_musicNames[m_musicIndex];
-		String filename = "resources/" + m_musicName + ".ogg";
-		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
-		try { 
-			RandomAccessFile file = new RandomAccessFile(filename,"r");
-			RandomFileInputStream fis = new RandomFileInputStream(file);
-			m_canvas.playMusic(fis, 0, 1.0F);
-		} catch (Throwable th) {
-			th.printStackTrace(System.err);
-			System.exit(-1);
-		}
 	}
-
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
 }
