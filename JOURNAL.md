@@ -180,6 +180,16 @@ Anastasios    | b
 Bastien       | c
 Gwénolé       | d
 Noah          | e
-Noé           | finition timer, création sprite flasque revigorante 
+Noé           | finition timer,début flasque revigorante 
 
+## 22/06
+
+Développeur   | Tâche
+------------- | -------------
+Clément       | a
+Anastasios    | b
+Bastien       | c
+Gwénolé       | d
+Noah          | e
+Noé           | finition flasque revigorante 
 
