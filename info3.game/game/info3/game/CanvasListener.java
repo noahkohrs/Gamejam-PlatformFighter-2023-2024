@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import info3.game.gametimer.GameTimer;
 import info3.game.graphics.GameCanvasListener;
 
 public class CanvasListener implements GameCanvasListener {
@@ -218,6 +219,9 @@ public class CanvasListener implements GameCanvasListener {
     // System.out.println("Key released: " + e.getKeyChar() + " code=" +
     // e.getKeyCode());
     switch (e.getKeyCode()) {
+      case KeyEvent.VK_T:
+        if(GameSession.gameSession.gametime.hasEnded())
+          GameSession.gameSession.restart=true;
       case KeyEvent.VK_A:
         index = GameSession.gameSession.findKEy('a');
         GameSession.gameSession.keys.get(index).pressed = false;

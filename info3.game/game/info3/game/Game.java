@@ -34,7 +34,6 @@ import info3.game.sound.RandomFileInputStream;
 
 public class Game {
 
-
 	public static Game game;
 	public static String gal;
 
@@ -67,11 +66,8 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
-		
-		m_game_session = new GameSession(this, "level.json",GalFile);
-		
 
-
+		m_game_session = new GameSession(this, "level.json", GalFile);
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -122,8 +118,8 @@ public class Game {
 		m_musicName = m_musicNames[m_musicIndex];
 		String filename = "resources/" + m_musicName + ".ogg";
 		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
-		try { 
-			RandomAccessFile file = new RandomAccessFile(filename,"r");
+		try {
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
 			m_canvas.playMusic(fis, 0, 1.0F);
 		} catch (Throwable th) {
@@ -131,6 +127,7 @@ public class Game {
 			System.exit(-1);
 		}
 	}
+
 	private long m_textElapsed;
 
 	/*

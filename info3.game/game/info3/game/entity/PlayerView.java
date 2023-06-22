@@ -10,6 +10,7 @@ import java.io.IOException;
 import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
+import info3.game.weapon.Weapon;
 
 public class PlayerView extends EntityView {
 
@@ -47,8 +48,10 @@ public class PlayerView extends EntityView {
             } else {
                 imageIndex = (imageIndex + 1) % 4;
             }
-        }
-        if (mex.tequillatequen) {
+            if(GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")){
+                GameSession.gameSession.player2.view.imageIndex = 5;
+            }
+            if (mex.tequillatequen) {
                 if (mex.timeDrink < 1000) {
                     mex.view.imageIndex = 4;
                     mex.timeDrink += elapsed;
@@ -62,9 +65,9 @@ public class PlayerView extends EntityView {
                 }
             }
         }
-    
+    }
 
-    public void paintKills(Graphics g) {
+    public void paintKills(Graphics g){
         int height = ((Player) this.entity).lifeBar.getHeight();
         int windowHeight = Game.game.m_canvas.getHeight();
         int windowWidth = Game.game.m_canvas.getWidth();
