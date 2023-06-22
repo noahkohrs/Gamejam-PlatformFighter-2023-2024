@@ -10,8 +10,6 @@ import java.io.IOException;
 import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
-import info3.game.weapon.Weapon;
-import info3.game.GameSession;
 
 public class PlayerView extends EntityView {
 
