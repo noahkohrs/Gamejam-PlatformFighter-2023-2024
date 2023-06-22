@@ -10,14 +10,14 @@ import java.io.IOException;
 import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
-import info3.game.weapon.Weapon;
+import info3.game.weapon.Bazooka;
 
 public class PlayerView extends EntityView {
 
     int deltatime = 0;
     long m_imageElapsed = 0;
     BufferedImage[] killImage;
-        
+
     PlayerView(BufferedImage[] images, Player player) {
         super(images, player);
         try {
@@ -39,6 +39,8 @@ public class PlayerView extends EntityView {
     }
 
     public void tick(long elapsed) {
+        Mexican mex = (Mexican) (GameSession.gameSession.player1);
+        Engineer Eng = (Engineer) (GameSession.gameSession.player2);
         m_imageElapsed += elapsed;
         if (m_imageElapsed > 200) {
             m_imageElapsed = 0;
@@ -50,11 +52,36 @@ public class PlayerView extends EntityView {
             if(GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")){
                 GameSession.gameSession.player2.view.imageIndex = 5;
             }
-            
         }
-    }
+        if (mex.tequillatequen) {
+                if (mex.timeDrink < 1000) {
+                    mex.view.imageIndex = 4;
+                    mex.timeDrink += elapsed;
+                } else if(mex.timeDrink<2000) {
+                    mex.view.imageIndex = 5;
+                    mex.timeDrink += elapsed;
+                }
+                else {
+                    mex.tequillatequen = false;
+                    mex.timeDrink = 0;
+                }
+            }
+            if(Eng.BazookaUsing){
+                if(Eng.bazookaCooldown>900){
+                    Eng.view.imageIndex = 4;
+                }else 
+                    if(Eng.bazookaCooldown>720){
+                        Eng.view.imageIndex = 5;
+                    } else if(Eng.bazookaCooldown>500) {
+                        Eng.view.imageIndex =4;
+                        Eng.BazookaUsing = false;
+                        Eng.bazookaCooldown = 1000;
+                    }
+            }
+        }
+    
 
-    public void paintKills(Graphics g){
+    public void paintKills(Graphics g) {
         int height = ((Player) this.entity).lifeBar.getHeight();
         int windowHeight = Game.game.m_canvas.getHeight();
         int windowWidth = Game.game.m_canvas.getWidth();
@@ -62,18 +89,19 @@ public class PlayerView extends EntityView {
         int y = windowHeight - height;
 
         String kills = Integer.toString(((Player) entity).kills);
-        
+
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.setColor(Color.BLACK);
-        FontMetrics fontMetrics =g.getFontMetrics();
+        FontMetrics fontMetrics = g.getFontMetrics();
         if (entity.team == 1) {
             g.drawString(kills, 37, y);
-            g.drawImage(killImage[0],0,y-32,32,32,null);
+            g.drawImage(killImage[0], 0, y - 32, 32, 32, null);
         } else {
-            g.drawString(kills, windowWidth - 37 -fontMetrics.stringWidth(kills), y);
-            g.drawImage(killImage[0],windowWidth-32,y-32,32,32,null);
+            g.drawString(kills, windowWidth - 37 - fontMetrics.stringWidth(kills), y);
+            g.drawImage(killImage[0], windowWidth - 32, y - 32, 32, 32, null);
         }
     }
+
     @Override
     public void paint(Graphics g) {
         // Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(),

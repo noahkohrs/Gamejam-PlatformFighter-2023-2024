@@ -8,7 +8,15 @@ Player1(Init){
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
+  | Key(a) & GotStuff() ? Pop() :(Init)
+  | Key(x) ?          :(Dash)
   | True() ?          :(Init)
+
+  *(Dash)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S)? Jump(E):(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
+  |MyDir(N)? Jump(N):(Init)
+  |True() ? :(Init)
 }
 
 Player2(Init){
@@ -22,7 +30,15 @@ Player2(Init){
   | Key(FR) ? Move(E)  :(Init)
   | Key(FL) ? Move(W)  :(Init)
   | Key(FD) ? Move(S)  :(Init)
+  | Key(o) ?          :(Dash)
+  | Key(o) ?          :(Dash)
   | True() ?          :(Init)
+
+    *(Dash)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S)? Jump(E):(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
+  |MyDir(N)? Jump(N):(Init)
+  |True() ? :(Init)
 }
 
 Turret(Init){
@@ -68,7 +84,13 @@ Bullet(Init){
   | True() ? Move()  :(Init)
 }
 
-MovingPlatform(Init){
+MovingHorizontalPlatform(Init){
+  * (Init)
+  | GotPower() ? Move() :(Init)
+  | !GotPower() ? Turn() :(Init)
+}
+
+MovingVerticalPlatform(Init){
   * (Init)
   | GotPower() ? Move() :(Init)
   | !GotPower() ? Turn() :(Init)

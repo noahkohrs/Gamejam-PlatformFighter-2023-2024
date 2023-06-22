@@ -51,9 +51,11 @@ public class Player extends DynamicEntity {
   boolean isPowerUp = false;
   boolean isMalus = false;
 
+  public int DashTime = 0;
+  protected int DashCD;
   public boolean dead = false;
-  private boolean respawned = true;
-  private int respawnTimer = 3000;
+  protected boolean respawned = true;
+  protected int respawnTimer = 3000;
   public int kills;
   public Player() throws IOException {
     this(1);
@@ -97,7 +99,7 @@ public class Player extends DynamicEntity {
     return this.lifeBar.life.health <= 0;
   }
 
-  private void respawn() {
+  protected void respawn() {
     if (respawnTimer <= 0) {
 
       //Choose spawner point
@@ -149,7 +151,9 @@ public class Player extends DynamicEntity {
     respawned = false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
-    try {
+
+    //Dash handler
+ try {
       movingDirection = Direction.IDLE;
       this.automate.step(this);
       if (movingDirection.x != 0)
@@ -161,8 +165,13 @@ public class Player extends DynamicEntity {
       e.printStackTrace();
     }
     view.tick(deltatime);
+    if(DashTime>0){
+    Movement.Dash(this);
+    } else {
     Movement.Walk(this);
     Movement.affectGravity(this);
+  }
+    DashCD-= elapsed;
 
   }
 
@@ -179,6 +188,7 @@ public class Player extends DynamicEntity {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
+  
 
   @Override
   public boolean cell(Direction direction, String category) {
@@ -331,5 +341,20 @@ public class Player extends DynamicEntity {
     }
 
   }
+      @Override
+    public boolean MyDir(String direction) {
+            System.out.println("called MyDir");
+        return facingDirection.equals(Direction.fromString(direction));
+    }
+
+      @Override
+    public void jump(String direction) {
+      facingDirection = Direction.fromString(direction);
+      System.out.println(this.facingDirection);
+      if(DashCD <=0){    
+        DashTime = 2;
+        DashCD = 1000;
+    }
+    }
 
 }

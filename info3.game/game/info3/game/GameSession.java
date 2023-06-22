@@ -32,7 +32,8 @@ import info3.game.entity.Player;
 import info3.game.entity.PowerUp;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
-import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.MovingHorizontalPlatform;
+import info3.game.entity.blocks.MovingVerticalPlatform;
 import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.gametimer.GameTimer;
@@ -152,11 +153,16 @@ public class GameSession {
     }
 
     private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+        int speed;
         switch (id) {
-            case "MovingPlatform":
+            case "MovingHorizontalPlatform":
                 int moveX = tags.getInt("blockMove");
-                int speed = tags.getInt("speed");
-                return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+                speed = tags.getInt("speed");
+                return new MovingHorizontalPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+            case "MovingVerticalPlatform":
+                int moveY = tags.getInt("blockMove");
+                speed = tags.getInt("speed");
+                return new MovingVerticalPlatform(x, y, moveY * Block.BLOCK_SIZE, speed);
             case "PowerUpBlock":
                 PowerUpBlock powerUpBlock = new PowerUpBlock(x, y);
                 powerUpBlocks.add(powerUpBlock);

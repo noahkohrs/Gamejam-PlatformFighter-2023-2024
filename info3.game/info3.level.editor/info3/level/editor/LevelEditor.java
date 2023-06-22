@@ -33,7 +33,7 @@ public class LevelEditor {
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			levelEditor = new LevelEditor();
+			new LevelEditor();
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -41,9 +41,10 @@ public class LevelEditor {
 	}
 
 	public LevelEditor() throws Exception {
+		this.levelEditor = this;
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		level = new Level(40, 24);
+		level = new Level("level.json");
 		// get Real Canvas Size
 		brushSelector = new ElementList((int) (1024 * 0.85), 40);
 		selected = brushSelector.elems.get(0);
@@ -159,10 +160,11 @@ public class LevelEditor {
 	 * visible on the screen.
 	 * ==============================================================
 	 */
+	
 
-	/*
-	 * Called from the GameCanvas listener when the frame
-	 */
+	private int m_musicIndex = 0;
+	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+
 	String m_musicName;
 
 	void loadMusic() {
@@ -176,9 +178,7 @@ public class LevelEditor {
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
+
 		}
 	}
-
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
 }
