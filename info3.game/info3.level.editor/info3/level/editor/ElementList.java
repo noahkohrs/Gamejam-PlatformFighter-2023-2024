@@ -28,6 +28,7 @@ public class ElementList {
         elems.add(new ElementContainer(new PowerUpBlock(), 0, 4));
         elems.add(new ElementContainer(new MalusBlock(), 0, 5));
         elems.add(new ElementContainer(new SpawnerPoint(), 0, 6));
+        elems.add(new ElementContainer(new PortalBlock(), 0, 7));
     }
     public ElementContainer select(int x, int y) {
         int i = 0 ;

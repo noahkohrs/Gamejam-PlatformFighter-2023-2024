@@ -22,6 +22,7 @@ import info3.game.entity.blocks.GrassBlock;
 import info3.game.entity.blocks.GroundBlock;
 import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.entity.blocks.MalusBlock;
+import info3.game.entity.blocks.PortalBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 
 public class Map {

@@ -33,6 +33,7 @@ import info3.game.entity.PowerUp;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.PortalBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.gametimer.GameTimer;
@@ -156,6 +157,8 @@ static public List<Malus> getMalus(){
                 MalusBlock malusBlock = new MalusBlock(x, y);
                 malusBlocks.add(malusBlock);
                 return malusBlock;
+            case "PortalBlock" :
+                return new PortalBlock(x, y);
             default:
                 return null;
         }
