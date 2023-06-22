@@ -86,7 +86,7 @@ public class Block extends Entity {
     }
 
     @Override
-    public void jump(Direction direction) {
+    public void jump(String direction) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'jump'");
     }

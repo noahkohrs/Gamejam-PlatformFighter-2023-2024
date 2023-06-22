@@ -15,18 +15,27 @@ public class Movement {
     }
 
     public static void Dash(Entity E){
+        if(((Player)E).DashTime > 0){
+        System.out.println(((Player)E).DashTime);
         switch(E.facingDirection){
             case LEFT:
+                E.x -= (PhysicConstant.maxVelX+5);
+                while (E.hitbox.inCollision(Direction.LEFT))
+                     E.x += 1;
+                E.affectTor();
+                break;
             case RIGHT:
-                E.x += E.movingDirection.x*(PhysicConstant.maxVelX+5);
+                E.x += (PhysicConstant.maxVelX+5);
                 while (E.hitbox.inCollision(Direction.RIGHT))
                      E.x -= 1;
-                while (E.hitbox.inCollision(Direction.LEFT))
-                    E.x += 1;
                 E.affectTor();
+                break;
 
-
+            
         }
+        ((Player)E).DashTime--;
+        System.out.println(((Player)E).DashTime);
+    }
     }
 
     public static void manageAirJump(Entity E) {

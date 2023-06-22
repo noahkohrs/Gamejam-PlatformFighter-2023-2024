@@ -207,6 +207,6 @@ public abstract class Entity {
 
   public abstract void wizz(String direction);
 
-  public abstract void jump(Direction direction);
+  public abstract void jump(String direction);
 
 }
