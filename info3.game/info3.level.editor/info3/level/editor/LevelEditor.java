@@ -33,14 +33,15 @@ public class LevelEditor {
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			levelEditor = new LevelEditor();
+			new LevelEditor();
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
 	}
 
-	LevelEditor() throws Exception {
+	public LevelEditor() throws Exception {
+		this.levelEditor = this;
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		level = new Level("level.json");
@@ -181,4 +182,6 @@ public class LevelEditor {
 		}
 	}
 
+	private int m_musicIndex = 0;
+	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
 }
