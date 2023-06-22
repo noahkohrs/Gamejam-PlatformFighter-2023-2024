@@ -14,26 +14,23 @@ import javax.swing.JLabel;
 import info3.game.sound.RandomFileInputStream;
 
 public class LevelEditor {
-	
-    static LevelEditor levelEditor;
-    
-    Level level ;
-	ElementList brushSelector ;
 
-    GameCanvas m_canvas;
-    CanvasListener m_listener;
-    JFrame m_frame;
-    JLabel m_text;
-    JLabel selectedName;
-    private long m_textElapsed;
+	static LevelEditor levelEditor;
 
-    Graphics levelGraph ;
-    ElementContainer selected ;
+	Level level;
+	ElementList brushSelector;
 
+	GameCanvas m_canvas;
+	CanvasListener m_listener;
+	JFrame m_frame;
+	JLabel m_text;
+	JLabel selectedName;
+	private long m_textElapsed;
 
+	Graphics levelGraph;
+	ElementContainer selected;
 
-
-    public static void main(String args[]) throws Exception {
+	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
 			levelEditor = new LevelEditor();
@@ -43,14 +40,12 @@ public class LevelEditor {
 		}
 	}
 
-
-
 	LevelEditor() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		level = new Level(40,24);
-		//get Real Canvas Size 
-		brushSelector = new ElementList((int)(1024*0.85), 40);
+		level = new Level("level.json");
+		// get Real Canvas Size
+		brushSelector = new ElementList((int) (1024 * 0.85), 40);
 		selected = brushSelector.elems.get(0);
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -68,8 +63,6 @@ public class LevelEditor {
 		setupFrame();
 	}
 
-
-
 	private void setupFrame() {
 		m_frame.setTitle("LevelEditor");
 		m_frame.setLayout(new BorderLayout());
@@ -80,21 +73,19 @@ public class LevelEditor {
 		m_text.setText("Tick: 0ms FPS=0");
 		m_frame.add(m_text, BorderLayout.NORTH);
 
-        selectedName = new JLabel();
+		selectedName = new JLabel();
 		selectedName.setText("No element selected");
-        m_frame.add(selectedName, BorderLayout.NORTH);
+		m_frame.add(selectedName, BorderLayout.NORTH);
 
 		// center the window on the screen
 		m_frame.setLocationRelativeTo(null);
 
 		// make the vindow visible
 		m_frame.setVisible(true);
-    }
+	}
 
+	public void paint(Graphics g) {
 
-
-    public void paint(Graphics g) {
-        
 		// get the size of the canvas
 		int width = m_canvas.getWidth();
 		int height = m_canvas.getHeight();
@@ -107,7 +98,6 @@ public class LevelEditor {
 
 		brushSelector.paint(g);
 	}
-
 
 	public void tick(long elapsed) {
 		level.tick(elapsed);
@@ -127,70 +117,68 @@ public class LevelEditor {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 
-
-            // Update the selected element
-            if (selected != null) {
-                selectedName.setText(selected.toString());
-            } else {
-                selectedName.setText("No element selected");
-            }
+			// Update the selected element
+			if (selected != null) {
+				selectedName.setText(selected.toString());
+			} else {
+				selectedName.setText("No element selected");
+			}
 		}
 	}
 
-    public ElementContainer select(int x, int y) {
-        System.out.println("Selecting element at " + x + ", " + y);
-        // if (level.x <= x && x <= level.x + level.getRealWidth() && level.y <= y && y <= level.y + level.getRealHeight()) {
-        //     System.out.println("Selecting element in level");
-        //     return level.select(x - level.x, y - level.y);
-        // }
+	public ElementContainer select(int x, int y) {
+		System.out.println("Selecting element at " + x + ", " + y);
+		// if (level.x <= x && x <= level.x + level.getRealWidth() && level.y <= y && y
+		// <= level.y + level.getRealHeight()) {
+		// System.out.println("Selecting element in level");
+		// return level.select(x - level.x, y - level.y);
+		// }
 
-		if (brushSelector.x <= x && x <= brushSelector.x + brushSelector.getRealWidth() && brushSelector.y <= y && y <= brushSelector.y + brushSelector.getRealHeight()) {
+		if (brushSelector.x <= x && x <= brushSelector.x + brushSelector.getRealWidth() && brushSelector.y <= y
+				&& y <= brushSelector.y + brushSelector.getRealHeight()) {
 			System.out.println("Selecting element in brush selector");
 			return brushSelector.select(x - brushSelector.x, y - brushSelector.y);
 		}
 		return null;
-    }
-
-    public void updateSelected(int x, int y) {
-		ElementContainer select = select(x, y);
-		if (select != null)
-        	this.selected = select(x, y) ;
-    }
-	
-	public void paintingManager(int x, int y) {
-        if (level.x <= x && x <= level.x + level.getRealWidth() && level.y <= y && y <= level.y + level.getRealHeight())
-			level.changeElement(x-level.x, y-level.y);
 	}
 
+	public void updateSelected(int x, int y) {
+		ElementContainer select = select(x, y);
+		if (select != null)
+			this.selected = select(x, y);
+	}
 
+	public void paintingManager(int x, int y) {
+		if (level.x <= x && x <= level.x + level.getRealWidth() && level.y <= y && y <= level.y + level.getRealHeight())
+			level.changeElement(x - level.x, y - level.y);
+	}
 
-
-    	/*
+	/*
 	 * ================================================================ All the
 	 * methods below are invoked from the GameCanvas listener, once the window is
 	 * visible on the screen.
 	 * ==============================================================
 	 */
+	
 
-	/*
-	 * Called from the GameCanvas listener when the frame
-	 */
+	private int m_musicIndex = 0;
+	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+
 	String m_musicName;
 
 	void loadMusic() {
 		m_musicName = m_musicNames[m_musicIndex];
 		String filename = "resources/" + m_musicName + ".ogg";
 		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
-		try { 
-			RandomAccessFile file = new RandomAccessFile(filename,"r");
+		try {
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
 			m_canvas.playMusic(fis, 0, 1.0F);
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 			System.exit(-1);
+
 		}
 	}
 
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
 }
