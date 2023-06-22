@@ -21,7 +21,7 @@ public class Movement {
             case LEFT:
                 E.x -= (PhysicConstant.maxVelX+5);
                 while (E.hitbox.inCollision(Direction.LEFT))
-                     E.x -= 1;
+                     E.x += 1;
                 E.affectTor();
             case RIGHT:
                 E.x += (PhysicConstant.maxVelX+5);

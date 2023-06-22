@@ -339,9 +339,9 @@ public class Player extends DynamicEntity {
     }
 
       @Override
-    public void jump(Direction direction) {
-      System.out.println("called Jump");
-      facingDirection = direction;
+    public void jump(String direction) {
+      facingDirection = Direction.fromString(direction);
+      System.out.println(this.facingDirection);
       if(DashCD <= 0){    
         DashTime = 2;
         DashCD = 5;

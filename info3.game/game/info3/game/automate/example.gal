@@ -20,7 +20,7 @@ Player1(Init){
   *(Dash)
   |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Jump(E):(Init)
   |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
-  |True() ? :(Init)
+  |True()?            :(Init)
 }
 
 Player2(Init){
