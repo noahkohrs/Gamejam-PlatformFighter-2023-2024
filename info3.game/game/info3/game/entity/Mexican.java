@@ -41,13 +41,6 @@ public class Mexican extends Player {
         return raptorCooldown <= 0;
     }
 
-
-
-    @Override
-    public boolean gotStuff() {
-        return raptorCooldown <= 0;
-    }
-
     @Override
     public boolean MyDir(String direction) {
         return facingDirection.equals(Direction.fromString(direction));
