@@ -3,9 +3,13 @@ package info3.game.entity;
 import java.io.IOException;
 
 import info3.game.Camera;
+import info3.game.entity.life.Life;
 
 public class Mexican extends Player {
     int raptorCooldown;
+    private int timeTequilla;
+    public boolean tequillatequen=false;
+    int timeDrink;
 
     public Mexican(int team) throws IOException {
         super(team);
@@ -16,6 +20,7 @@ public class Mexican extends Player {
     @Override
     public void tick(long elapsed) {
         raptorCooldown -= elapsed;
+        timeTequilla-=elapsed;
         super.tick(elapsed);
     }
 
@@ -36,6 +41,8 @@ public class Mexican extends Player {
         return raptorCooldown <= 0;
     }
 
+
+
     @Override
     public boolean gotStuff() {
         return raptorCooldown <= 0;
@@ -44,5 +51,21 @@ public class Mexican extends Player {
     @Override
     public boolean MyDir(String direction) {
         return facingDirection.equals(Direction.fromString(direction));
+    }
+
+    @Override
+    public boolean gotStuff() {
+        return timeTequilla <= 0;
+    }
+
+    @Override
+    public void pop(){
+        tequillatequen=true;
+        timeTequilla= 1000;
+        timeDrink=0;
+        Life life=this.lifeBar.life;
+        life.addHealth(life.maxHealth);
+        //mettre annimation
+        //    public EntityView(String filename, int nrows, int ncols, Entity entity) {
     }
 }

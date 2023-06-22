@@ -51,6 +51,8 @@ public class Player extends DynamicEntity {
   boolean isPowerUp = false;
   boolean isMalus = false;
 
+  public int DashTime = 0;
+  private int DashCD;
   public boolean dead = false;
   private boolean respawned = true;
   private int respawnTimer = 3000;
@@ -149,9 +151,16 @@ public class Player extends DynamicEntity {
     respawned = false;
     jumpCooldown -= elapsed;
     deltatime = elapsed;
-    try {
+
+    //Dash handler
+ try {
       movingDirection = Direction.IDLE;
       this.automate.step(this);
+          //Dash handler
+      if(DashTime>0){
+        Movement.Dash(this);
+        DashTime--;
+      } 
       if (movingDirection.x != 0)
         facingDirection = movingDirection;
       if (facingDirection != movingDirection)
@@ -160,6 +169,7 @@ public class Player extends DynamicEntity {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
     }
+    DashCD--;
     view.tick(deltatime);
     Movement.Walk(this);
     Movement.affectGravity(this);
@@ -179,6 +189,7 @@ public class Player extends DynamicEntity {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
+  
 
   @Override
   public boolean cell(Direction direction, String category) {
@@ -265,6 +276,13 @@ public class Player extends DynamicEntity {
       malus.parent.deleteMalus();
       malus.timer = timer;
       ListMalus.add(malus);
+    }
+  }
+
+  public void DashInit(){
+    if(DashCD <= 0){    
+      DashTime = 2;
+      DashCD = 5;
     }
   }
 

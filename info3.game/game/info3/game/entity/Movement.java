@@ -14,6 +14,21 @@ public class Movement {
         E.affectTor();
     }
 
+    public static void Dash(Entity E){
+        switch(E.facingDirection){
+            case LEFT:
+            case RIGHT:
+                E.x += E.movingDirection.x*(PhysicConstant.maxVelX+5);
+                while (E.hitbox.inCollision(Direction.RIGHT))
+                     E.x -= 1;
+                while (E.hitbox.inCollision(Direction.LEFT))
+                    E.x += 1;
+                E.affectTor();
+
+
+        }
+    }
+
     public static void manageAirJump(Entity E) {
             E.y += 1;
             if (!E.hitbox.inCollision(Direction.BOTTOM) && E.jumpCounter == E.jumpAmount) {
