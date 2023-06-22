@@ -70,6 +70,8 @@ public class GameSession {
     public BufferedImage image;
     public boolean restart=false;
 
+    public List<Integer> keysName = new ArrayList<Integer>();
+
     public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
         gameSession = this;
@@ -100,7 +102,7 @@ public class GameSession {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
                 if (transition.cond instanceof Key){
-                    if(findKEy(((Key)transition.cond).letter)==-1)
+                    if(findKEy(((Key)transition.cond).name)==-1)
                         keys.add((Key) transition.cond);
                 }
                 else if(transition.cond instanceof Binary){
@@ -129,6 +131,7 @@ static public List<Malus> getMalus(){
     }
     return arr;
 }
+
 
 
     private void loadEntities(String filename) throws IOException {
@@ -217,9 +220,9 @@ static public List<Malus> getMalus(){
         return map.realHeight();
     }
 
-    public int findKEy(char letter) {
+    public int findKEy(String letter) {
         for (int i = 0; i < this.keys.size(); i++) {
-            if (this.keys.get(i).letter == letter) {
+            if (this.keys.get(i).name.equals(letter)) {
                 // System.out.println("Found");
                 return i;
             }

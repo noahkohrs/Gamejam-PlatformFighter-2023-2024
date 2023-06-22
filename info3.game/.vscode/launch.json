@@ -9,6 +9,13 @@
             "name": "Menu",
             "request": "launch",
             "mainClass": "info3.game.Menu",
+            "projectName": "info3.game.given.2021"
+        },
+        {
+            "type": "java",
+            "name": "Menu",
+            "request": "launch",
+            "mainClass": "info3.game.Menu",
             "projectName": "info3.game.projetB"
         },
         {
