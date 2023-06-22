@@ -10,12 +10,11 @@ import info3.game.entity.TEAM;
 import info3.game.weapon.Bullet;
 import info3.game.weapon.Weapon;
 
-public class MovingPlatform extends DynamicEntity {
-    int velX;
+public class MovingHorizontalPlatform extends DynamicEntity {
     int minX, maxX;
     int power, maxPower;
 
-    public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
+    public MovingHorizontalPlatform(int x, int y, int blockMove, int speed) throws IOException {
         super(x, y, TEAM.NONE, "resources/blocks/obsidian.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;

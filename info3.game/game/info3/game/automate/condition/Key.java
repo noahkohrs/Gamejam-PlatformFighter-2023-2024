@@ -4,11 +4,11 @@ import info3.game.GameSession;
 import info3.game.entity.Entity;
 
 public class Key extends Condition{
-    public char letter;
+    public String name;
     public boolean pressed;
     public Key(String letter, boolean notOp){
         super(notOp);
-        this.letter=letter.charAt(0);
+        this.name=letter;
         this.pressed=false;
     }
     public Key(String letter){
@@ -16,7 +16,7 @@ public class Key extends Condition{
     }
     @Override
     public boolean eval(Entity e) {
-        int index = GameSession.gameSession.findKEy(letter);
+        int index = GameSession.gameSession.findKEy(name);
         Key key = GameSession.gameSession.keys.get(index);
         if (key == this) {
             return affectNotOp(pressed);
