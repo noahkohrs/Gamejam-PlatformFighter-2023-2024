@@ -128,11 +128,11 @@ Noé           | Création sprite powerup. Début de la gestion des powerUps. (r
 
 Développeur    | Tâche
 -------------  | -------------
-Clément        | a
+Clément        | Réalisation des powerUps
 Anastasios&Noah| Amelioration du systeme d'automates. Maintenant loadAutomate est automatique chaque fois qu'on cree une nouvelle entite. De plus, deux entites peuvent avoir la même automate.
 Anastasios     |Correction d'un bug de jump. 
 Bastien        | c
-Gwénolé        | d
+Gwénolé        | Travail sur les mouvements, Ajout de courbe de déceleration/accéleration pour les sauts et déplacements,
 Noah           | e
 Noé            | power up
 
@@ -140,10 +140,10 @@ Noé            | power up
 
 Développeur   | Tâche
 ------------- | -------------
-Clément       | a
+Clément       | Réalisation des powerUps et ajout de sprite de texture.
 Anastasios    | Correction d'un bug du parser dans lequel le initial state etait le state dest de la derniere transition. Aide les autres avec les automates.
 Bastien       | c
-Gwénolé       | d
+Gwénolé       | Travail sur l'animation des playerSprites.
 Noah          | e
 Noé           | power up
 
@@ -151,10 +151,10 @@ Noé           | power up
 
 Développeur   | Tâche
 ------------- | -------------
-Clément       | a
+Clément       | Fix de 2 bugs sur les automates liées aux transitions et aux changements d'états avec Anastasios(lié au développement des powerUps).
 Anastasios    | Création du raptor (pour Mexican) avec tous les collisions, et les mouvements. Ajout aussi de MyDir comme condition (et utilisation pour raptor)
 Bastien       | c
-Gwénolé       | d
+Gwénolé       | Création de sprites pour les attaques des persos, Travail sur les hitboxs
 Noah          | e
 Noé           | Malade, je n'ai pas peux avancer
 
@@ -163,23 +163,40 @@ Noé           | Malade, je n'ai pas peux avancer
 
 Développeur   | Tâche
 ------------- | -------------
-Clément       | a
+Clément       | Optimisation du code des powerUps
 Anastasios    | b
 Bastien       | c
-Gwénolé       | d
+Gwénolé       | Travail sur les hitboxs et les dashs
 Noah          | e
 Noé           | malade, travaille sur le timer.
 
 
 ## 21/06
 
+### Nouvelles idées:
+- Ajout d'un menu pour intégrer l'éditeur de map, le lancement d'une partie et le choix des personnages.
+
 Développeur   | Tâche
 ------------- | -------------
-Clément       | a
+Clément       | Implémentation de l'attaque bazooka de l'ingenieur
 Anastasios    | b
 Bastien       | c
-Gwénolé       | d
+Gwénolé       | Travail sur les dashs, et animation.
 Noah          | e
 Noé           | finition timer, création sprite flasque revigorante 
 
 
+
+## 22/06
+
+### Nouvelles idées:
+- Ajout d'un bloc pouvant aller de haut en bas
+
+Développeur   | Tâche
+------------- | -------------
+Clément       | Implémentation du bloc pouvant bouger de haut en bas.
+Anastasios    | b
+Bastien       | c
+Gwénolé       | Implémentation des dashs, Modification du fonctionnement du bazooka, animation de celui-ci et level design
+Noah          | e
+Noé           | f

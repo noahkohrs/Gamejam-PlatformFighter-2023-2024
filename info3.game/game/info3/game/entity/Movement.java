@@ -8,25 +8,45 @@ public class Movement {
         E.updateVelocityX();
         E.x += E.velX * E.movingDirection.x;
         while (E.hitbox.inCollision(Direction.LEFT))
-            E.x += 1;
+            E.x += 5;
         while (E.hitbox.inCollision(Direction.RIGHT))
-            E.x -= 1;
+            E.x -= 5;
         E.affectTor();
     }
 
     public static void Dash(Entity E){
+        if(((Player)E).DashTime > 0){
         switch(E.facingDirection){
             case LEFT:
+                E.x -= (PhysicConstant.maxVelX+5);
+                while (E.hitbox.inCollision(Direction.LEFT))
+                     E.x += 1;
+                E.affectTor();
+                break;
             case RIGHT:
-                E.x += E.movingDirection.x*(PhysicConstant.maxVelX+5);
+                E.x += (PhysicConstant.maxVelX+5);
                 while (E.hitbox.inCollision(Direction.RIGHT))
                      E.x -= 1;
-                while (E.hitbox.inCollision(Direction.LEFT))
-                    E.x += 1;
                 E.affectTor();
+                break;
+            case UPPER:
+                E.y -= (PhysicConstant.maxVelY+5);
+                while (E.hitbox.inCollision(Direction.RIGHT))
+                     E.y += 1;
+                E.affectTor();
+                break;
+            case BOTTOM:
+                E.y += (PhysicConstant.maxVelY+5);
+                while (E.hitbox.inCollision(Direction.RIGHT))
+                     E.y -= 1;
+                E.affectTor();
+                break;
 
 
+            
         }
+        ((Player)E).DashTime--;
+    }
     }
 
     public static void manageAirJump(Entity E) {

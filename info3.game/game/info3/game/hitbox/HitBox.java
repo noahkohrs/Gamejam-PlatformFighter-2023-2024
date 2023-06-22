@@ -10,7 +10,7 @@ import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.Player;
-import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.MovingHorizontalPlatform;
 
 public class HitBox {
     public final int offsetX;

@@ -32,14 +32,13 @@ import info3.game.entity.Player;
 import info3.game.entity.PowerUp;
 import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
-import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.MovingHorizontalPlatform;
+import info3.game.entity.blocks.MovingVerticalPlatform;
 import info3.game.entity.blocks.PortalBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.gametimer.GameTimer;
 import info3.game.weapon.Weapon;
-
-
 
 public class GameSession {
     public Game game;
@@ -68,11 +67,12 @@ public class GameSession {
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
     public List<SpawnerPoint> spawnerPoints;
-    public boolean restart=false;
+    public BufferedImage image;
+    public boolean restart = false;
 
     public List<Integer> keysName = new ArrayList<Integer>();
 
-    public GameSession(Game game, String mapPath, String GalFile) throws Exception {
+    public GameSession(Game game, String mapPath, String GalFile, String p1, String p2) throws Exception {
         this.game = game;
         gameSession = this;
         loadAutomates(GalFile);
@@ -83,50 +83,54 @@ public class GameSession {
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
-        spawnerPoints=new ArrayList<SpawnerPoint>();
-        player1 = new Mexican(TEAM.BLUE);
-        player2 = new Engineer(TEAM.RED);
+        spawnerPoints = new ArrayList<SpawnerPoint>();
+        if (p1.equals("Mexican"))
+            player1 = new Mexican(TEAM.BLUE);
+        else
+            player1 = new Engineer(TEAM.BLUE);
+        if (p2.equals("Mexican"))
+            player2 = new Mexican(TEAM.RED);
+        else
+            player2 = new Engineer(TEAM.RED);
+
         map = new Map(mapPath);
         camera = new Camera();
         loadEntities(mapPath);
-        gametime=new GameTimer();
+        gametime = new GameTimer();
     }
 
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key){
-                    if(findKEy(((Key)transition.cond).name)==-1)
+                if (transition.cond instanceof Key) {
+                    if (findKEy(((Key) transition.cond).name) == -1)
                         keys.add((Key) transition.cond);
-                }
-                else if(transition.cond instanceof Binary){
-                    keys.addAll(((Binary)transition.cond).loadKeys());
+                } else if (transition.cond instanceof Binary) {
+                    keys.addAll(((Binary) transition.cond).loadKeys());
                 }
             }
         }
     }
 
-static public List<PowerUp> getPowerUps(){
-    List<PowerUp> arr = new ArrayList<>();
-    for (DynamicEntity entity : gameSession.entities) {
-        if (entity instanceof PowerUp) {
-            arr.add((PowerUp) entity);
+    static public List<PowerUp> getPowerUps() {
+        List<PowerUp> arr = new ArrayList<>();
+        for (DynamicEntity entity : gameSession.entities) {
+            if (entity instanceof PowerUp) {
+                arr.add((PowerUp) entity);
+            }
         }
+        return arr;
     }
-    return arr;
-}
 
-static public List<Malus> getMalus(){
-    List<Malus> arr = new ArrayList<>();
-    for (DynamicEntity entity : gameSession.entities) {
-        if (entity instanceof Malus) {
-            arr.add((Malus) entity);
+    static public List<Malus> getMalus() {
+        List<Malus> arr = new ArrayList<>();
+        for (DynamicEntity entity : gameSession.entities) {
+            if (entity instanceof Malus) {
+                arr.add((Malus) entity);
+            }
         }
+        return arr;
     }
-    return arr;
-}
-
-
 
     private void loadEntities(String filename) throws IOException {
         String content = Map.readFile(filename);
@@ -139,16 +143,21 @@ static public List<Malus> getMalus(){
             int y = jsonEntity.getInt("y");
             JSONObject tags = jsonEntity.getJSONObject("tags");
             // If it need somes tags...
-            IdToEntity(id, x*Block.BLOCK_SIZE, y*Block.BLOCK_SIZE, tags);
+            IdToEntity(id, x * Block.BLOCK_SIZE, y * Block.BLOCK_SIZE, tags);
         }
     }
 
     private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+        int speed;
         switch (id) {
-            case "MovingPlatform":
+            case "MovingHorizontalPlatform":
                 int moveX = tags.getInt("blockMove");
-                int speed = tags.getInt("speed");
-                return new MovingPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+                speed = tags.getInt("speed");
+                return new MovingHorizontalPlatform(x, y, moveX * Block.BLOCK_SIZE, speed);
+            case "MovingVerticalPlatform":
+                int moveY = tags.getInt("blockMove");
+                speed = tags.getInt("speed");
+                return new MovingVerticalPlatform(x, y, moveY * Block.BLOCK_SIZE, speed);
             case "PowerUpBlock":
                 PowerUpBlock powerUpBlock = new PowerUpBlock(x, y);
                 powerUpBlocks.add(powerUpBlock);
@@ -187,7 +196,8 @@ static public List<Malus> getMalus(){
             camera.tick(testelapsed);
             testelapsed = 0;
         }
-        gametime.tick(elapsed);;
+        gametime.tick(elapsed);
+        ;
         Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
         while (addIterator.hasNext()) {
             DynamicEntity entity = addIterator.next();
@@ -201,11 +211,12 @@ static public List<Malus> getMalus(){
         camera.paint(g);
         map.paint(g, camera);
         for (Entity entity : entities) {
-            if(entity instanceof Player && ((Player)entity).dead)
+            if (entity instanceof Player && ((Player) entity).dead)
                 continue;
             entity.view.paint(g);
         }
-        gametime.showGameTimer(g);;
+        gametime.showGameTimer(g);
+        ;
     }
 
     int getLevelWidth() {
@@ -231,7 +242,8 @@ static public List<Malus> getMalus(){
         for (Automate automate : this.allAutomates) {
             if (automate.className.equals(className)) {
                 return automate;
-            } else if ((entity instanceof Player && automate.className.startsWith("Player")) || (entity instanceof Weapon && automate.className.startsWith("Weapon"))) {
+            } else if ((entity instanceof Player && automate.className.startsWith("Player"))
+                    || (entity instanceof Weapon && automate.className.startsWith("Weapon"))) {
                 if (automate.className.endsWith("1") && entity.team == TEAM.BLUE) {
                     return automate;
                 } else if (automate.className.endsWith("2") && entity.team == TEAM.RED) {
@@ -242,7 +254,6 @@ static public List<Malus> getMalus(){
         }
         return defaultAutomate;
     }
-
 
     public void loadAutomates(String GalFile) throws Exception {
         List<Transitions> trans = new ArrayList<Transitions>();

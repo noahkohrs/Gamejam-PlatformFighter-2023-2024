@@ -98,7 +98,7 @@ public class GameCanvas extends Canvas {
     addMouseMotionListener(l);
     setFocusable(true);
     requestFocusInWindow();
-
+  
   }
 
   /**
@@ -415,7 +415,6 @@ public class GameCanvas extends Canvas {
 
     @Override
     public void windowClosed(WindowEvent e) {
-      System.exit(0);
     }
 
     @Override
@@ -503,7 +502,7 @@ public class GameCanvas extends Canvas {
   }
 
   private void _stopPlayers() {
-    if (m_musicPlayer == null) {
+    if (m_musicPlayer != null) {
       m_musicPlayer.stop();
       m_musicPlayer = null;
     }
