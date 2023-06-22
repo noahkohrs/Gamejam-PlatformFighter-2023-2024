@@ -73,7 +73,7 @@ public class Level {
             }
 
         } else {
-            throw new IOException("File doesn't exist");
+            throw new IOException("File not found");
         }
     }
 
@@ -86,8 +86,10 @@ public class Level {
                 return res;
             case "GroundBlock":
                 return new GroundBlock();
-            case "MovingPlatform":
-                return new MovingPlatform();
+            case "MovingHorizontalPlatform":
+                return new MovingHorizontalPlatform();
+            case "MovingVerticalPlatform":
+                return new MovingVerticalPlatform();
             case "MalusBlock":
                 return new MalusBlock();
             case "PowerUpBlock":
