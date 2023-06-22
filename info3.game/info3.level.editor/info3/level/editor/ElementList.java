@@ -24,7 +24,7 @@ public class ElementList {
         elems.add(new ElementContainer(new VoidBlock(), 0, 0, true));
         elems.add(new ElementContainer(new GrassBlock(), 0, 1));
         elems.add(new ElementContainer(new GroundBlock(), 0, 2));
-        elems.add(new ElementContainer(new MovingPlatform(), 0, 3));
+        elems.add(new ElementContainer(new MovingHorizontalPlatform(), 0, 3));
         elems.add(new ElementContainer(new MovingVerticalPlatform(), 0, 4));
         elems.add(new ElementContainer(new PowerUpBlock(), 0, 5));
         elems.add(new ElementContainer(new MalusBlock(), 0, 6));

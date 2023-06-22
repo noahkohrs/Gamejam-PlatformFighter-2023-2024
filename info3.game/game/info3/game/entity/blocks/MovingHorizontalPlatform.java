@@ -8,11 +8,11 @@ import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.TEAM;
 
-public class MovingPlatform extends DynamicEntity {
+public class MovingHorizontalPlatform extends DynamicEntity {
     int minX, maxX;
     int power, maxPower;
 
-    public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
+    public MovingHorizontalPlatform(int x, int y, int blockMove, int speed) throws IOException {
         super(x, y, TEAM.NONE, "resources/blocks/obsidian.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;
