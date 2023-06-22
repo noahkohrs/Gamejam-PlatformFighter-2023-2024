@@ -21,6 +21,7 @@ public class Engineer extends Player {
 
     public Engineer(int team) throws IOException {
         super(team);
+        this.view=new PlayerView("resources/Ingenieur/PlayerSprite.png", 3, 2, this);
     }
 
     public Engineer(int team, String filename) throws IOException {

@@ -101,6 +101,8 @@ public class Player extends DynamicEntity {
 
   private void respawn() {
     if (respawnTimer <= 0) {
+
+      //Choose spawner point
       Random random = new Random();
       int size = GameSession.gameSession.spawnerPoints.size();
       if (size > 0) {
@@ -112,8 +114,12 @@ public class Player extends DynamicEntity {
         this.x = 50;
         this.y = 50;
       }
+
+      //add back his health and reset his weapon so he has 15 ammo again. 
       this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
       this.weapon.reset();
+
+      //Reinitiallise the variables
       respawnTimer = 3000;
       respawned = true;
       this.dead = false;
@@ -212,14 +218,14 @@ public class Player extends DynamicEntity {
     return false;
   }
 
-  Player getEnnemi() {
-    Player ennemi;
+  Player getennemy() {
+    Player ennemy;
     if (this.equals(GameSession.gameSession.player1)) {
-      ennemi = GameSession.gameSession.player2;
+      ennemy = GameSession.gameSession.player2;
     } else {
-      ennemi = GameSession.gameSession.player1;
+      ennemy = GameSession.gameSession.player1;
     }
-    return ennemi;
+    return ennemy;
   }
 
   void pickPowerUp() {
@@ -233,8 +239,8 @@ public class Player extends DynamicEntity {
           addVelX += 6;
           break;
         case "shield":
-          Player ennemi = getEnnemi();
-          ennemi.weapon.damage /= 2;
+          Player ennemy = getennemy();
+          ennemy.weapon.damage /= 2;
           break;
         case "power":
           weapon.damage *= 2;
@@ -247,22 +253,22 @@ public class Player extends DynamicEntity {
   }
 
   void pickMalus() {
-    Player ennemi = getEnnemi();
+    Player ennemy = getennemy();
     if (malus != null) {
       switch (malus.name) {
         case "ammo":
-          ennemi.weapon.ammo /= 2;
+          ennemy.weapon.ammo /= 2;
           break;
         case "speed":
-          if (PhysicConstant.maxVelX + ennemi.addVelX >= 6) {
-            ennemi.addVelX -= 6;
+          if (PhysicConstant.maxVelX + ennemy.addVelX >= 6) {
+            ennemy.addVelX -= 6;
           }
           break;
         case "shield":
-          ennemi.weapon.damage /= 2;
+          ennemy.weapon.damage /= 2;
           break;
         case "power":
-          ennemi.weapon.damage /= 2;
+          ennemy.weapon.damage /= 2;
           break;
       }
 
@@ -294,8 +300,8 @@ public class Player extends DynamicEntity {
             addVelX -= 6;
             break;
           case "shield":
-            Player ennemi = getEnnemi();
-            ennemi.weapon.damage *= 2;
+            Player ennemy = getennemy();
+            ennemy.weapon.damage *= 2;
             break;
           case "power":
             weapon.damage /= 2;
@@ -308,7 +314,7 @@ public class Player extends DynamicEntity {
       ListPowerUp.remove(removePowerUp);
     }
 
-    Player ennemi = getEnnemi();
+    Player ennemy = getennemy();
     Malus removeMalus = null;
 
     for (Malus m : ListMalus) {
@@ -317,13 +323,13 @@ public class Player extends DynamicEntity {
           case "ammo":
             break;
           case "speed":
-            ennemi.addVelX += 6;
+            ennemy.addVelX += 6;
             break;
           case "shield":
-            ennemi.weapon.damage *= 2;
+            ennemy.weapon.damage *= 2;
             break;
           case "power":
-            ennemi.weapon.damage *= 2;
+            ennemy.weapon.damage *= 2;
             break;
         }
         removeMalus = m;

@@ -8,14 +8,14 @@ import info3.game.hitbox.HitBox;
 public class Raptor extends DynamicEntity {
 
     private int time = 20000;
-    Player ennemi;
+    Player ennemy;
 
     public Raptor(int x, int y, int team, Direction direction) throws IOException {
         super(x, y, team);
         if (GameSession.gameSession.player1.team == team) {
-            ennemi = GameSession.gameSession.player2;
+            ennemy = GameSession.gameSession.player2;
         } else
-            ennemi = GameSession.gameSession.player1;
+            ennemy = GameSession.gameSession.player1;
         hitbox = new HitBox(4, 16, 48, 16, this); //64-48-4=12
         view = new RaptorView("resources/raptor-2x8.png", 2, 8, this);
         while (hitbox.inCollision(Direction.BOTTOM))
@@ -56,7 +56,7 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void pop() {
-        ennemi.takeDamage(25);
+        ennemy.takeDamage(25);
     }
 
     @Override
@@ -67,9 +67,9 @@ public class Raptor extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            if (distanceTo(ennemi) <= 100)
+            if (distanceTo(ennemy) <= 100)
                 ((RaptorView) this.view).attack = true;
-            return distanceTo(ennemi) <= 33;
+            return distanceTo(ennemy) <= 33;
         }
     }
 
