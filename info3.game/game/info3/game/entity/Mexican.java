@@ -21,7 +21,45 @@ public class Mexican extends Player {
     public void tick(long elapsed) {
         raptorCooldown -= elapsed;
         timeTequilla-=elapsed;
-        super.tick(elapsed);
+        timeTequilla -= elapsed;
+        view.tick(elapsed);
+        timer += elapsed;
+        TimerEffect();
+
+        if (isDead()) {
+            this.dead = true;
+            if (!respawned)
+                respawnTimer -= elapsed;
+            respawn();
+            return;
+        }
+        respawned = false;
+        jumpCooldown -= elapsed;
+        deltatime = elapsed;
+
+        // Dash handler
+        try {
+            movingDirection = Direction.IDLE;
+            if (timeDrink <= 0)
+            this.automate.step(this);
+            // Dash handler
+            if (DashTime > 0) {
+                Movement.Dash(this);
+                DashTime--;
+            }
+            if (movingDirection.x != 0)
+                facingDirection = movingDirection;
+            if (facingDirection != movingDirection)
+                accelerationX = 0.1;
+        } catch (Exception e) {
+            System.out.println("Normally we should not reach here");
+            e.printStackTrace();
+        }
+        DashCD--;
+        view.tick(deltatime);
+        Movement.Walk(this);
+        Movement.affectGravity(this);
+
     }
 
     @Override
@@ -41,12 +79,6 @@ public class Mexican extends Player {
         return raptorCooldown <= 0;
     }
 
-
-
-    @Override
-    public boolean gotStuff() {
-        return raptorCooldown <= 0;
-    }
 
     @Override
     public boolean MyDir(String direction) {
