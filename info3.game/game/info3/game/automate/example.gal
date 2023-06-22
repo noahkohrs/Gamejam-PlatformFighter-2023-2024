@@ -1,26 +1,20 @@
 Player1(Init){
   * (Init)
   | Cell(S, P) ? Pick() :(Init)
-  | Key(w) ?          :(Ra)
+  | Key(w) & GotPower() ? Wizz():(Init)
   | Key(q) & Key(z) ? Move(NW) :(Init)
   | Key(z) & Key(d) ? Move(NE) :(Init)
   | Key(z) ? Move(N) :(Init)
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
-  | Key(w) ?          :(Ra)
   | True() ?          :(Init)
-
-  *(Ra)
-  |GotPower() & MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Wizz(E):(Init)
-  |GotPower() & MyDir(W) / MyDir(SW) / MyDir(NW) ? Wizz(W):(Init)
-  |!GotPower()?       :(Init)
 }
 
 Player2(Init){
   * (Init)
   | Cell(S, P) ? Pick() :(Init)
-  | Key(p) & GotPower() ? Egg() :(Init)
+  | Key(p) & GotPower() ? Wizz():(Init)
   | Key(b) & GotStuff() ? Pop() :(Init)
   | Key(1) & Key(3) ? Move(NW) :(Init)
   | Key(1) & Key(4) ? Move(NE) :(Init)
@@ -127,8 +121,8 @@ MalusBlock(Init){
 Raptor(Init){
   *(Init)
   |!GotPower ?  :()
-  |MyDir(E)?  :(Right)
-  |MyDir(W) ?  :(Left)
+  |MyDir(E) / MyDir(NE) / MyDir(SE) / MyDir(S) /MyDir(N)?  :(Right)
+  |MyDir(W) / MyDir(NW) / MyDir(SW)?  :(Left)
 
   *(Right)
   |Cell(E,A) ? Pop()    :()
