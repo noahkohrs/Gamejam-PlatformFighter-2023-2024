@@ -11,6 +11,7 @@ import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.weapon.Bazooka;
+import info3.game.weapon.Weapon;
 
 public class PlayerView extends EntityView {
 
@@ -39,8 +40,6 @@ public class PlayerView extends EntityView {
     }
 
     public void tick(long elapsed) {
-        Mexican mex = (Mexican) (GameSession.gameSession.player1);
-        Engineer Eng = (Engineer) (GameSession.gameSession.player2);
         m_imageElapsed += elapsed;
         if (m_imageElapsed > 200) {
             m_imageElapsed = 0;
@@ -49,37 +48,11 @@ public class PlayerView extends EntityView {
             } else {
                 imageIndex = (imageIndex + 1) % 4;
             }
-            if(GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")){
-                GameSession.gameSession.player2.view.imageIndex = 5;
-            }
         }
-        if (mex.tequillatequen) {
-                if (mex.timeDrink < 1000) {
-                    mex.view.imageIndex = 4;
-                    mex.timeDrink += elapsed;
-                } else if(mex.timeDrink<2000) {
-                    mex.view.imageIndex = 5;
-                    mex.timeDrink += elapsed;
-                }
-                else {
-                    mex.tequillatequen = false;
-                    mex.timeDrink = 0;
-                }
-            }
-            if(Eng.BazookaUsing){
-                if(Eng.bazookaCooldown>900){
-                    Eng.view.imageIndex = 4;
-                }else 
-                    if(Eng.bazookaCooldown>720){
-                        Eng.view.imageIndex = 5;
-                    } else if(Eng.bazookaCooldown>500) {
-                        Eng.view.imageIndex =4;
-                        Eng.BazookaUsing = false;
-                        Eng.bazookaCooldown = 1000;
-                    }
-            }
+        if (GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")) {
+            GameSession.gameSession.player2.view.imageIndex = 5;
         }
-    
+    }
 
     public void paintKills(Graphics g) {
         int height = ((Player) this.entity).lifeBar.getHeight();
