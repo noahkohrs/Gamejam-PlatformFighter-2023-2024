@@ -94,6 +94,8 @@ public class Level {
                 return new MalusBlock();
             case "PowerUpBlock":
                 return new PowerUpBlock();
+            case "PortalBlock" :
+                return new PortalBlock(); 
             default:
                 throw new IOException("Unknown block id: " + id);
         }
