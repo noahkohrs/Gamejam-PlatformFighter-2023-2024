@@ -101,6 +101,11 @@ public class Camera {
         
         if (camWidth > GameSession.gameSession.map.realWidth())
             camX = GameSession.gameSession.map.realWidth() / 2 - camWidth / 2;
+        if (camHeight + camY > GameSession.gameSession.map.realHeight()) {
+            camY = GameSession.gameSession.map.realHeight() - camHeight - 30;
+            camHeight -= 400;
+        }
+            
 
         camX = precCamX + (camX - precCamX) * movingTime / 10;
         camY = precCamY + (camY - precCamY) * movingTime / 10;
@@ -116,8 +121,7 @@ public class Camera {
             g.fillRect(camX, camY, camWidth, camHeight);
         }
         int add=500;
-        Camera.drawImage(g,GameSession.gameSession.image,-add,-add,GameSession.gameSession.map.realWidth()+add*2,GameSession.gameSession.map.realHeight()+add*2);
-    }
+        }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {
         if ((x + Math.abs(width) < camera.camX || x > camera.camX + camera.camWidth

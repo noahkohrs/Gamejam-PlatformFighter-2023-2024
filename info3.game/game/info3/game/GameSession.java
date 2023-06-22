@@ -67,7 +67,6 @@ public class GameSession {
     public List<Automate> allAutomates;
     public Automate defaultAutomate;
     public List<SpawnerPoint> spawnerPoints;
-    public BufferedImage image;
     public boolean restart=false;
 
     public List<Integer> keysName = new ArrayList<Integer>();
@@ -75,12 +74,6 @@ public class GameSession {
     public GameSession(Game game, String mapPath, String GalFile) throws Exception {
         this.game = game;
         gameSession = this;
-        File imageFile=new File("resources/maps/BG2.png");
-        try {
-            image=ImageIO.read(imageFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         loadAutomates(GalFile);
 
         keys = new ArrayList<>();

@@ -139,10 +139,6 @@ public class LevelEditor {
 
     public ElementContainer select(int x, int y) {
         System.out.println("Selecting element at " + x + ", " + y);
-        // if (level.x <= x && x <= level.x + level.getRealWidth() && level.y <= y && y <= level.y + level.getRealHeight()) {
-        //     System.out.println("Selecting element in level");
-        //     return level.select(x - level.x, y - level.y);
-        // }
 
 		if (brushSelector.x <= x && x <= brushSelector.x + brushSelector.getRealWidth() && brushSelector.y <= y && y <= brushSelector.y + brushSelector.getRealHeight()) {
 			System.out.println("Selecting element in brush selector");

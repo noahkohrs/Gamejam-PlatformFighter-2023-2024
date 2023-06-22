@@ -2,13 +2,18 @@ package info3.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import info3.game.entity.Block;
@@ -24,6 +29,7 @@ public class Map {
     private int height;
     // Tab of blocks
     public Block fixedMap[][];
+    public BufferedImage background;
 
     private int indexPowerUp = 0;
 
@@ -40,6 +46,17 @@ public class Map {
         this.width = json.getInt("width");
         this.height = json.getInt("height");
         fixedMap = new Block[width][height];
+        File imageFile;
+        try {
+            imageFile=new File(json.getString("background"));
+        } catch (Exception e) {
+            imageFile=new File("resources/backgrounds/BG.png");
+        }
+
+        if (!imageFile.exists()) { background=ImageIO.read(new File("resources/backgrounds/BG.png")); } 
+        else { background=ImageIO.read(imageFile); }
+        
+
 
         JSONArray jsonBlocks = json.getJSONArray("blocks");
         for (int i = 0; i < jsonBlocks.length(); i++) {
@@ -91,6 +108,7 @@ public class Map {
     }
 
     void paint(Graphics g, Camera camera) {
+        Camera.drawImage(g,background,-200,-140,realWidth()+200*2,realHeight()+140*2);
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
                 if (fixedMap[i][j] != null) {
@@ -99,6 +117,7 @@ public class Map {
                 }
         g.setColor(Color.yellow);
         Camera.drawRect(g, 0, 0, realWidth(), realHeight());
+
     }
 
     static String readFile(String file) throws IOException {

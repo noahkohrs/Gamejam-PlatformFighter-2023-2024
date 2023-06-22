@@ -76,9 +76,6 @@ public class Level {
 
     public void exportJson(String filenameDest) {
         JSONObject levelJson = new JSONObject();
-        levelJson.put("width", width);
-        levelJson.put("height", height);
-
         JSONArray blocks = new JSONArray() ;
         JSONArray animatedEntities = new JSONArray() ;
         for (int i = 0 ; i < m_elements.length ; i++) {
@@ -103,6 +100,9 @@ public class Level {
         }
         levelJson.put("blocks", blocks);
         levelJson.put("entities", animatedEntities);
+        levelJson.put("width", width);
+        levelJson.put("height", height);
+        levelJson.put("background", "<DEFAULT>");
         try {
             java.io.FileWriter fw = new java.io.FileWriter(filenameDest);
             fw.write(levelJson.toString());
