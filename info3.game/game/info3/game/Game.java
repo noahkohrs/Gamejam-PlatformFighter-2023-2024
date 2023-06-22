@@ -35,7 +35,23 @@ import info3.game.sound.RandomFileInputStream;
 public class Game {
 
 	public static Game game;
+	public static GameSession m_game_session;
 	public static String gal;
+	private Sound m_music;
+
+	// Canvas & window
+	public JFrame m_frame;
+	private JLabel m_text;
+	public GameCanvas m_canvas;
+	private CanvasListener m_listener;
+
+	// Called from the GameCanvas listener when the frame
+	private int m_musicIndex = 0;
+	private String[] m_musicNames = new String[] { "gameMusic" };
+	String m_musicName;
+
+	// Used to print tick on the window
+	private long m_textElapsed;
 
 	public static void main(String args[]) throws Exception {
 		try {
@@ -47,13 +63,6 @@ public class Game {
 			th.printStackTrace(System.err);
 		}
 	}
-
-	JFrame m_frame;
-	JLabel m_text;
-	public GameCanvas m_canvas;
-	CanvasListener m_listener;
-	Sound m_music;
-	public static GameSession m_game_session;
 
 	public Game(String GalFile) throws Exception {
 		// creating a cowboy, that would be a model
@@ -85,7 +94,6 @@ public class Game {
 
 		m_frame.setTitle("Game");
 		m_frame.setLayout(new BorderLayout());
-
 		m_frame.add(m_canvas, BorderLayout.CENTER);
 
 		m_text = new JLabel();
@@ -106,14 +114,6 @@ public class Game {
 	 * ==============================================================
 	 */
 
-	/*
-	 * Called from the GameCanvas listener when the frame
-	 */
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "gameMusic" };
-
-	String m_musicName;
-
 	void loadMusic() {
 		m_musicName = m_musicNames[m_musicIndex];
 		String filename = "resources/" + m_musicName + ".ogg";
@@ -128,8 +128,6 @@ public class Game {
 		}
 	}
 
-	private long m_textElapsed;
-
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
@@ -137,7 +135,6 @@ public class Game {
 	void tick(long elapsed) {
 
 		m_game_session.tick(elapsed);
-
 		// Update every second
 		// the text on top of the frame: tick and fps
 		m_textElapsed += elapsed;

@@ -98,7 +98,7 @@ public class GameCanvas extends Canvas {
     addMouseMotionListener(l);
     setFocusable(true);
     requestFocusInWindow();
-
+  
   }
 
   /**
@@ -415,7 +415,6 @@ public class GameCanvas extends Canvas {
 
     @Override
     public void windowClosed(WindowEvent e) {
-      System.exit(0);
     }
 
     @Override

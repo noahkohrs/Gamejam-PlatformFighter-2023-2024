@@ -2,6 +2,7 @@ package info3.game.menu;
 
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import info3.game.Game;
+import info3.level.editor.LevelEditor;
 
 public class Menu {
 
@@ -27,8 +29,7 @@ public class Menu {
     public static void main(String args[]) throws Exception {
         try {
             System.out.println("Menu starting...");
-            if(args.length==0)
-            {
+            if (args.length == 0) {
                 System.out.println("Il faut fournir en argument le fichier gal");
                 return;
             }
@@ -92,14 +93,60 @@ public class Menu {
         panel.add(jrPlayer1Engineer);
         panel.add(jrPlayer2Engineer);
         m_frame.add(panel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
         JButton playButton = new JButton("Play game !");
-        m_frame.add(playButton, BorderLayout.SOUTH);
+        playButton.setLayout(new FlowLayout(FlowLayout.LEFT));
         playButton.addMouseListener(new playButtonListener());
+
+        JButton levelEditorButton = new JButton("Level Editor");
+        levelEditorButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        levelEditorButton.addMouseListener(new levelEditorButtonListener());
+
+        buttonPanel.add(playButton);
+        buttonPanel.add(levelEditorButton);
+
+        m_frame.add(buttonPanel, BorderLayout.SOUTH);
 
         m_frame.pack();
         // center the window on the screen
         m_frame.setLocationRelativeTo(null);
         m_frame.setVisible(true);
+    }
+
+    private class levelEditorButtonListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            try {
+                new LevelEditor();
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            // do nothing
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            // do nothing
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            // do nothing
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            // do nothing
+        }
+
     }
 
     private class playButtonListener implements MouseListener {
@@ -108,8 +155,6 @@ public class Menu {
         public void mouseClicked(MouseEvent e) {
             System.out.println("Player 1 : " + bg1.getSelection().getActionCommand());
             System.out.println("Player 2 : " + bg2.getSelection().getActionCommand());
-            m_frame.setVisible(false);
-            m_frame.setFocusable(true);
             try {
                 new Game(arg);
             } catch (Exception e1) {
@@ -151,12 +196,11 @@ public class Menu {
 
         @Override
         public void windowClosing(WindowEvent e) {
-            System.exit(0);
         }
 
         @Override
         public void windowClosed(WindowEvent e) {
-            System.exit(0);
+
         }
 
         @Override
