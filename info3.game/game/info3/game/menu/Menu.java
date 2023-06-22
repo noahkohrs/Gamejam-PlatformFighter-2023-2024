@@ -1,14 +1,22 @@
 package info3.game.menu;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Panel;
 
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import info3.game.graphics.GameCanvas;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class Menu {
 
@@ -41,44 +49,40 @@ public class Menu {
     }
 
     private void setupFrame() {
-
-        m_frame.setTitle("Game");
+        m_frame.setTitle("Menu");
         m_frame.setLayout(new BorderLayout());
-        m_frame.add(m_canvas, BorderLayout.CENTER);
-        m_text = new JLabel();
-        m_text.setText("Tick: 0ms FPS=0");
-        m_frame.add(m_text, BorderLayout.NORTH);
+        m_frame.add(new JLabel("Player selection"), BorderLayout.NORTH);
+
+        JPanel panel = new JPanel(new GridLayout(2, 2));
+        ButtonGroup bg1 = new ButtonGroup();
+        ButtonGroup bg2 = new ButtonGroup();
+        JRadioButton jr1 = new JRadioButton("Mexican", true);
+        JRadioButton jr2 = new JRadioButton("Mexican", false);
+        JRadioButton jr3 = new JRadioButton("Engineer", false);
+        JRadioButton jr4 = new JRadioButton("Engineer", true);
+
+        bg1.add(jr1);
+        bg1.add(jr3);
+        bg2.add(jr2);
+        bg2.add(jr4);
+
+        panel.add(jr1);
+        panel.add(jr2);
+        panel.add(jr3);
+        panel.add(jr4);
+
+        m_frame.add(panel, BorderLayout.CENTER);
+        m_frame.add(new JButton("Play game !"), BorderLayout.SOUTH);
+
+        m_frame.pack();
         // center the window on the screen
         m_frame.setLocationRelativeTo(null);
-
-        // make the vindow visible
         m_frame.setVisible(true);
     }
 
     public void paint(Graphics g) {
-        // get the size of the canvas
-        int width = m_canvas.getWidth();
-        int height = m_canvas.getHeight();
-
-        // erase background
-        g.setColor(Color.gray);
-        g.fillRect(0, 0, width, height);
     }
 
     public void tick(long elapsed) {
-        // Update every second
-        // the text on top of the frame: tick and fps
-        m_textElapsed += elapsed;
-        if (m_textElapsed > 1000) {
-            m_textElapsed = 0;
-            float period = m_canvas.getTickPeriod();
-            int fps = m_canvas.getFPS();
-
-            String txt = "Tick=" + period + "ms";
-            while (txt.length() < 15)
-                txt += " ";
-            txt = txt + fps + " fps   ";
-            m_text.setText(txt);
-        }
     }
 }

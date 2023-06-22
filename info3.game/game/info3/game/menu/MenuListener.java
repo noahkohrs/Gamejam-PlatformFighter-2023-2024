@@ -16,17 +16,21 @@ public class MenuListener implements GameCanvasListener {
 
     @Override
     public void tick(long elapsed) {
-        m_menu.tick(elapsed);
     }
 
     @Override
     public void paint(Graphics g) {
-        m_menu.paint(g);
+    
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // do nothing
+        System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
+        System.out.println("   modifiers=" + e.getModifiersEx());
+        System.out.println("   buttons=" + e.getButton());
+        System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
+        System.out.println("   modifiers=" + e.getModifiersEx());
+        System.out.println("   buttons=" + e.getButton());
     }
 
     @Override
