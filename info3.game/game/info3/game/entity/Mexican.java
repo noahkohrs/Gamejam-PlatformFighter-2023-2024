@@ -9,6 +9,7 @@ public class Mexican extends Player {
 
     public Mexican(int team) throws IOException {
         super(team);
+        this.view=new PlayerView("resources/Mexicain/PlayerSprite.png", 3, 2, this);
     }
 
 
@@ -32,6 +33,11 @@ public class Mexican extends Player {
 
     @Override
     public boolean gotPower() {
+        return raptorCooldown <= 0;
+    }
+
+    @Override
+    public boolean gotStuff() {
         return raptorCooldown <= 0;
     }
 

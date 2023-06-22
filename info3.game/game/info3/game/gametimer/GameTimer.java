@@ -7,7 +7,7 @@ import info3.game.GameSession;
 
 public class GameTimer {
     private GameTimerView view;
-    public static final int FINAL_TIMER = 8000;// ms == 3 min30
+    public static final int FINAL_TIMER = 15000;// ms == 3 min30
     private int time_left;
     public boolean notEqualKills;
     public int equalTime = 5000;
@@ -60,6 +60,8 @@ public class GameTimer {
             end = true;
             GameSession.gameSession.removeEntity(GameSession.gameSession.player1);
             GameSession.gameSession.removeEntity(GameSession.gameSession.player2);
+            GameSession.gameSession.removeEntity(GameSession.gameSession.player1.weapon);
+            GameSession.gameSession.removeEntity(GameSession.gameSession.player2.weapon);
             if (GameSession.gameSession.restart) {
                 try {
                     Game.m_game_session = new GameSession(Game.game, "level.json", Game.gal);

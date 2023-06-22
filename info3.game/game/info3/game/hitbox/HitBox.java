@@ -9,6 +9,7 @@ import info3.game.entity.Block;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
+import info3.game.entity.Player;
 import info3.game.entity.blocks.MovingPlatform;
 
 public class HitBox {
@@ -187,18 +188,21 @@ public class HitBox {
         int playerXLeft, playerYLeft, playerXRight, playerYRight;
         HitBox player1HitBox = GameSession.gameSession.player1.hitbox;
         HitBox player2HitBox = GameSession.gameSession.player2.hitbox;
+        Player ennemy;
         if (entity.team == GameSession.gameSession.player2.team) {
+            ennemy=GameSession.gameSession.player1;
             playerXLeft = player1HitBox.getTopLeftX();
             playerYLeft = player1HitBox.getTopLeftY();
             playerXRight = player1HitBox.getBottomRightX();
             playerYRight = player1HitBox.getBottomRightY();
         } else {
+            ennemy=GameSession.gameSession.player2;
             playerXLeft = player2HitBox.getTopLeftX();
             playerYLeft = player2HitBox.getTopLeftY();
             playerXRight = player2HitBox.getBottomRightX();
             playerYRight = player2HitBox.getBottomRightY();
         }
-        if (GameSession.gameSession.player1.dead || GameSession.gameSession.player2.dead)
+        if(ennemy.dead)
             return false;
         switch (dir) {
             case LEFT_TOP:
