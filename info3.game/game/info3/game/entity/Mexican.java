@@ -54,7 +54,6 @@ public class Mexican extends Player {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
-        System.out.println(DashCD);
         DashCD-=elapsed;
         view.tick(deltatime);
         Movement.Walk(this);

@@ -79,6 +79,9 @@ public class Turret extends DynamicEntity {
     public boolean MyDir(String direction) {
         double angle = -Math.atan2(ennemy.y - this.y, ennemy.x - this.x);
         boolean res;
+        if(ennemy.y>this.y)
+            return false;
+            
         if ((angle < Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemy.x > this.x))
             res = direction.equals("E");
         else if (angle < 2 * Math.PI / 5 && angle >= 0)

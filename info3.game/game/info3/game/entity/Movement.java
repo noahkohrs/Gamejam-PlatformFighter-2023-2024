@@ -16,7 +16,6 @@ public class Movement {
 
     public static void Dash(Entity E){
         if(((Player)E).DashTime > 0){
-        System.out.println(((Player)E).DashTime);
         switch(E.facingDirection){
             case LEFT:
                 E.x -= (PhysicConstant.maxVelX+5);
@@ -47,7 +46,6 @@ public class Movement {
             
         }
         ((Player)E).DashTime--;
-        System.out.println(((Player)E).DashTime);
     }
     }
 
