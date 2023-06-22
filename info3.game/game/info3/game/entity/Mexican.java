@@ -45,7 +45,6 @@ public class Mexican extends Player {
             // Dash handler
             if (DashTime > 0) {
                 Movement.Dash(this);
-                DashTime--;
             }
             if (movingDirection.x != 0)
                 facingDirection = movingDirection;
@@ -55,7 +54,8 @@ public class Mexican extends Player {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
-        DashCD--;
+        System.out.println(DashCD);
+        DashCD-=elapsed;
         view.tick(deltatime);
         Movement.Walk(this);
         Movement.affectGravity(this);

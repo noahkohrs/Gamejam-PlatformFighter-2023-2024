@@ -8,9 +8,9 @@ public class Movement {
         E.updateVelocityX();
         E.x += E.velX * E.movingDirection.x;
         while (E.hitbox.inCollision(Direction.LEFT))
-            E.x += 1;
+            E.x += 5;
         while (E.hitbox.inCollision(Direction.RIGHT))
-            E.x -= 1;
+            E.x -= 5;
         E.affectTor();
     }
 

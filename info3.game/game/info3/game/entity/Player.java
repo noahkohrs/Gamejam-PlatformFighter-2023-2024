@@ -353,7 +353,7 @@ public class Player extends DynamicEntity {
       System.out.println(this.facingDirection);
       if(DashCD <=0){    
         DashTime = 2;
-        DashCD = 5;
+        DashCD = 1000;
     }
     }
 

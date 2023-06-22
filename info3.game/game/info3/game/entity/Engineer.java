@@ -43,6 +43,7 @@ public class Engineer extends Player {
                 e.printStackTrace();
             }
             };
+        System.out.println(DashCD);
         super.tick(elapsed);
     }
 
