@@ -8,14 +8,14 @@ import info3.game.entity.life.Life;
 public class Mexican extends Player {
     int raptorCooldown;
     private int timeTequilla;
-    public boolean tequillatequen=false;
+    public int timeDrinkfinal = 2000000;
+    public boolean tequillatequen = false;
     int timeDrink;
 
     public Mexican(int team) throws IOException {
         super(team);
-        this.view=new PlayerView("resources/Mexicain/PlayerSprite.png", 3, 2, this);
+        this.view = new MexicanView(this);
     }
-
 
     @Override
     public void tick(long elapsed) {
@@ -90,13 +90,10 @@ public class Mexican extends Player {
     }
 
     @Override
-    public void pop(){
-        tequillatequen=true;
-        timeTequilla= 1000;
-        timeDrink=0;
-        Life life=this.lifeBar.life;
+    public void pop() {
+        tequillatequen = true;
+        timeTequilla = 1000;
+        Life life = this.lifeBar.life;
         life.addHealth(life.maxHealth);
-        //mettre annimation
-        //    public EntityView(String filename, int nrows, int ncols, Entity entity) {
     }
 }
