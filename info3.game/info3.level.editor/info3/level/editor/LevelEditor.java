@@ -181,7 +181,4 @@ public class LevelEditor {
 
 		}
 	}
-
-	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
 }

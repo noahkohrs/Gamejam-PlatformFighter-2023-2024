@@ -71,7 +71,7 @@ public class GameSession {
 
     public List<Integer> keysName = new ArrayList<Integer>();
 
-    public GameSession(Game game, String mapPath, String GalFile) throws Exception {
+    public GameSession(Game game, String mapPath, String GalFile, String p1, String p2) throws Exception {
         this.game = game;
         gameSession = this;
         File imageFile = new File("resources/maps/BG2.png");
@@ -89,8 +89,15 @@ public class GameSession {
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
         spawnerPoints = new ArrayList<SpawnerPoint>();
-        player1 = new Mexican(TEAM.BLUE);
-        player2 = new Engineer(TEAM.RED);
+        if (p1.equals("Mexican"))
+            player1 = new Mexican(TEAM.BLUE);
+        else
+            player1 = new Engineer(TEAM.BLUE);
+        if (p2.equals("Mexican"))
+            player2 = new Mexican(TEAM.RED);
+        else
+            player2 = new Engineer(TEAM.RED);
+
         map = new Map(mapPath);
         camera = new Camera();
         loadEntities(mapPath);
@@ -100,8 +107,8 @@ public class GameSession {
     private void loadKeys() {
         for (Automate current : this.allAutomates) {
             for (Transitions transition : current.trans) {
-                if (transition.cond instanceof Key){
-                    if(findKEy(((Key)transition.cond).name)==-1)
+                if (transition.cond instanceof Key) {
+                    if (findKEy(((Key) transition.cond).name) == -1)
                         keys.add((Key) transition.cond);
                 } else if (transition.cond instanceof Binary) {
                     keys.addAll(((Binary) transition.cond).loadKeys());
@@ -129,8 +136,6 @@ public class GameSession {
         }
         return arr;
     }
-
-
 
     private void loadEntities(String filename) throws IOException {
         String content = Map.readFile(filename);
