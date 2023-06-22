@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import info3.game.Camera;
 import info3.game.GameSession;
-import info3.game.entity.blocks.MovingPlatform;
+import info3.game.entity.blocks.MovingHorizontalPlatform;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bullet;
 
@@ -79,6 +79,9 @@ public class Turret extends DynamicEntity {
     public boolean MyDir(String direction) {
         double angle = -Math.atan2(ennemy.y - this.y, ennemy.x - this.x);
         boolean res;
+        if(ennemy.y>this.y+10)
+            return false;
+
         if ((angle < Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemy.x > this.x))
             res = direction.equals("E");
         else if (angle < 2 * Math.PI / 5 && angle >= 0)

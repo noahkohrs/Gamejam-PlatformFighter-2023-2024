@@ -8,14 +8,14 @@ import info3.game.entity.life.Life;
 public class Mexican extends Player {
     int raptorCooldown;
     private int timeTequilla;
-    public boolean tequillatequen=false;
+    public int timeDrinkfinal = 2000;
+    public boolean tequillatequen = false;
     int timeDrink;
 
     public Mexican(int team) throws IOException {
         super(team);
-        this.view=new PlayerView("resources/Mexicain/PlayerSprite.png", 3, 2, this);
+        this.view = new MexicanView(this);
     }
-
 
     @Override
     public void tick(long elapsed) {
@@ -41,11 +41,10 @@ public class Mexican extends Player {
         try {
             movingDirection = Direction.IDLE;
             if (timeDrink <= 0)
-            this.automate.step(this);
+                this.automate.step(this);
             // Dash handler
             if (DashTime > 0) {
                 Movement.Dash(this);
-                DashTime--;
             }
             if (movingDirection.x != 0)
                 facingDirection = movingDirection;
@@ -55,7 +54,7 @@ public class Mexican extends Player {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
-        DashCD--;
+        DashCD-=elapsed;
         view.tick(deltatime);
         Movement.Walk(this);
         Movement.affectGravity(this);
@@ -91,13 +90,10 @@ public class Mexican extends Player {
     }
 
     @Override
-    public void pop(){
-        tequillatequen=true;
-        timeTequilla= 1000;
-        timeDrink=0;
-        Life life=this.lifeBar.life;
+    public void pop() {
+        tequillatequen = true;
+        timeTequilla = 1000;
+        Life life = this.lifeBar.life;
         life.addHealth(life.maxHealth);
-        //mettre annimation
-        //    public EntityView(String filename, int nrows, int ncols, Entity entity) {
     }
 }

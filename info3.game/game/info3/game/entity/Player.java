@@ -156,11 +156,6 @@ public class Player extends DynamicEntity {
  try {
       movingDirection = Direction.IDLE;
       this.automate.step(this);
-          //Dash handler
-      if(DashTime>0){
-        Movement.Dash(this);
-        DashTime--;
-      } 
       if (movingDirection.x != 0)
         facingDirection = movingDirection;
       if (facingDirection != movingDirection)
@@ -169,10 +164,14 @@ public class Player extends DynamicEntity {
       System.out.println("Normally we should not reach here");
       e.printStackTrace();
     }
-    DashCD--;
     view.tick(deltatime);
+    if(DashTime>0){
+    Movement.Dash(this);
+    } else {
     Movement.Walk(this);
     Movement.affectGravity(this);
+  }
+    DashCD-= elapsed;
 
   }
 
@@ -279,13 +278,6 @@ public class Player extends DynamicEntity {
     }
   }
 
-  public void DashInit(){
-    if(DashCD <= 0){    
-      DashTime = 2;
-      DashCD = 5;
-    }
-  }
-
   @Override
   public void pick() {
     if (isPowerUp) {
@@ -349,5 +341,20 @@ public class Player extends DynamicEntity {
     }
 
   }
+      @Override
+    public boolean MyDir(String direction) {
+            System.out.println("called MyDir");
+        return facingDirection.equals(Direction.fromString(direction));
+    }
+
+      @Override
+    public void jump(String direction) {
+      facingDirection = Direction.fromString(direction);
+      System.out.println(this.facingDirection);
+      if(DashCD <=0){    
+        DashTime = 2;
+        DashCD = 1000;
+    }
+    }
 
 }

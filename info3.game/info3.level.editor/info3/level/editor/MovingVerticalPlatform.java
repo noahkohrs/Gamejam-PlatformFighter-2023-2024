@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
-public class MovingPlatform extends AnimatedEntity {
+public class MovingVerticalPlatform extends AnimatedEntity {
 
-    public MovingPlatform() throws IOException {
-        super("resources/blocks/obsidian.png");
+    public MovingVerticalPlatform() throws IOException {
+        super("resources/blocks/movingVerticalPlatform.png");
         //TODO Auto-generated constructor stub
     }
 
     @Override
     public String toString() {
-        return "MovingPlatform";
+        return "MovingVerticalPlatform";
     }
 
     @Override
