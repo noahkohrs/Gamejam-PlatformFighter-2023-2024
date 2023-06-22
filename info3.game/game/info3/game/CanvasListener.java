@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import info3.game.automate.condition.Key;
 import info3.game.gametimer.GameTimer;
 import info3.game.graphics.GameCanvasListener;
 
@@ -115,178 +116,78 @@ public class CanvasListener implements GameCanvasListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    int index;
-    // System.out.println("Key pressed: " + e.getKeyChar() + " code=" +
-    // e.getKeyCode());
-    switch (e.getKeyCode()) {
-      case KeyEvent.VK_SPACE:
-        GameSession.gameSession.camera.toggleDebugMode();
-        break;
-      case KeyEvent.VK_D:
-        index = GameSession.gameSession.findKEy('d');
-        GameSession.gameSession.keys.get(index).pressed = true;
 
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_Q:
-        // System.out.println("Qq");
-        index = GameSession.gameSession.findKEy('q');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_S:
-        index = GameSession.gameSession.findKEy('s');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_W:
-        index = GameSession.gameSession.findKEy('w');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_Z:
-        // System.out.println("Qq");
-        // GameSession.gameSession.player1.IsJumping = true;
-        // GameSession.gameSession.player1.StartJump();
-        index = GameSession.gameSession.findKEy('z');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_F:
-        index = GameSession.gameSession.findKEy('f');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        break;
-      case KeyEvent.VK_R:
-        index = GameSession.gameSession.findKEy('r');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        break;
-      case KeyEvent.VK_UP:
-        index = GameSession.gameSession.findKEy('1');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_DOWN:
-        index = GameSession.gameSession.findKEy('2');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_LEFT:
-        index = GameSession.gameSession.findKEy('3');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_RIGHT:
-        index = GameSession.gameSession.findKEy('4');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_M:
-        index = GameSession.gameSession.findKEy('m');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_N:
-        index = GameSession.gameSession.findKEy('n');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_P:
-        index = GameSession.gameSession.findKEy('p');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_B:
-        index = GameSession.gameSession.findKEy('b');
-        GameSession.gameSession.keys.get(index).pressed = true;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
+    for (Key key : GameSession.gameSession.keys) {
+      // a - z
+      if (key.name.startsWith(new String(e.getKeyChar() + "").toLowerCase())) {
+        key.pressed = true;
+      }
+      // 0 - 9
+      if (e.getKeyCode() >= 48 && e.getKeyCode() <= 57)
+          if (key.name.equals("" + (e.getKeyCode() - 48)))
+            key.pressed = true;
+
+      // Touches directionnelles
+      if ((e.getKeyCode() == KeyEvent.VK_UP) && key.name.equals("FU"))
+        key.pressed = true;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_DOWN) && key.name.equals("FD"))
+        key.pressed = true;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_LEFT) && key.name.equals("FL"))
+        key.pressed = true;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_RIGHT) && key.name.equals("FR"))
+        key.pressed = true;
+      
+      // Autres touches
+      
+      if ((e.getKeyCode() == KeyEvent.VK_SPACE) && key.name.equals("SPACE"))
+        key.pressed = true;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_ENTER) && key.name.equals("ENTER"))
+        key.pressed = true;
     }
-  }
+    if (e.getKeyCode() == KeyEvent.VK_SPACE)
+      GameSession.gameSession.camera.toggleDebugMode();
+}
 
   @Override
   public void keyReleased(KeyEvent e) {
-    int index;
-    // System.out.println("Key released: " + e.getKeyChar() + " code=" +
-    // e.getKeyCode());
-    switch (e.getKeyCode()) {
-      case KeyEvent.VK_T:
-        if(GameSession.gameSession.gametime.hasEnded())
-          GameSession.gameSession.restart=true;
-      case KeyEvent.VK_D:
-        index = GameSession.gameSession.findKEy('d');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // GameSession.gameSession.player1.SetVelX(5);
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_Q:
-        index = GameSession.gameSession.findKEy('q');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // GameSession.gameSession.player1.SetVelX(5);
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_S:
-        index = GameSession.gameSession.findKEy('s');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_W:
-        index = GameSession.gameSession.findKEy('w');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_Z:
-        index = GameSession.gameSession.findKEy('z');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_F:
-        index = GameSession.gameSession.findKEy('f');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        break;
-      case KeyEvent.VK_R:
-        index = GameSession.gameSession.findKEy('r');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        break;
-      case KeyEvent.VK_UP:
-        index = GameSession.gameSession.findKEy('1');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_DOWN:
-        index = GameSession.gameSession.findKEy('2');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_LEFT:
-        index = GameSession.gameSession.findKEy('3');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_RIGHT:
-        index = GameSession.gameSession.findKEy('4');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_M:
-        index = GameSession.gameSession.findKEy('m');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_N:
-        index = GameSession.gameSession.findKEy('n');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_P:
-        index = GameSession.gameSession.findKEy('p');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
-      case KeyEvent.VK_B:
-        index = GameSession.gameSession.findKEy('b');
-        GameSession.gameSession.keys.get(index).pressed = false;
-        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
-        break;
+
+    for (Key key : GameSession.gameSession.keys) {
+      // a - z
+      if (key.name.startsWith(new String(e.getKeyChar() + "").toLowerCase())) {
+        key.pressed = false;
+      }
+      // 0 - 9
+      if (e.getKeyCode() >= 48 && e.getKeyCode() <= 57)
+          if (key.name.equals("" + (e.getKeyCode() - 48)))
+            key.pressed = false;
+
+      // Touches directionnelles
+      if ((e.getKeyCode() == KeyEvent.VK_UP) && key.name.equals("FU"))
+        key.pressed = false;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_DOWN) && key.name.equals("FD"))
+        key.pressed = false;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_LEFT) && key.name.equals("FL"))
+        key.pressed = false;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_RIGHT) && key.name.equals("FR"))
+        key.pressed = false;
+      
+      // Autres touches
+      
+      if ((e.getKeyCode() == KeyEvent.VK_SPACE) && key.name.equals("SPACE"))
+        key.pressed = false;
+      
+      if ((e.getKeyCode() == KeyEvent.VK_ENTER) && key.name.equals("ENTER"))
+        key.pressed = false;
+
+      if(e.getKeyCode()== KeyEvent.VK_T && GameSession.gameSession.gametime.hasEnded())
+        GameSession.gameSession.restart=true;
     }
   }
 

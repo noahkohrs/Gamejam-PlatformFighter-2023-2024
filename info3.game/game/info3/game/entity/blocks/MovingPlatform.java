@@ -7,6 +7,8 @@ import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.TEAM;
+import info3.game.weapon.Bullet;
+import info3.game.weapon.Weapon;
 
 public class MovingPlatform extends DynamicEntity {
     int velX;
@@ -47,11 +49,10 @@ public class MovingPlatform extends DynamicEntity {
     public void move(Direction direction) {
         x += velX;
         power -= Math.abs(velX);
-        if (GameSession.gameSession.player1.isSittingOn(this)) {
-            GameSession.gameSession.player1.x += velX;
-        }
-        if (GameSession.gameSession.player2.isSittingOn(this)) {
-            GameSession.gameSession.player2.x += velX;
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e.team != TEAM.NONE && !(e instanceof Weapon) && e.isSittingOn(this) && !(e instanceof Bullet)) {
+                e.x += velX;
+            }
         }
     }
 

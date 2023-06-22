@@ -4,22 +4,23 @@ import java.io.IOException;
 
 import info3.game.Camera;
 import info3.game.GameSession;
+import info3.game.entity.blocks.MovingPlatform;
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bullet;
 
 public class Turret extends DynamicEntity {
     private int time = 3000;
     int ammo;
-    Player ennemi;
+    Player ennemy;
     int currentCooldown = 0;
 
     public Turret(int x, int y, int team) throws IOException {
         super(x, y, team);
         this.ammo = 50;
         if (GameSession.gameSession.player1.team == team) {
-            ennemi = GameSession.gameSession.player2;
+            ennemy = GameSession.gameSession.player2;
         } else
-            ennemi = GameSession.gameSession.player1;
+            ennemy = GameSession.gameSession.player1;
         hitbox = new HitBox(4, 2, 24, 28, this);
         while (hitbox.inCollision(Direction.BOTTOM))
             this.y -= 1;
@@ -71,14 +72,14 @@ public class Turret extends DynamicEntity {
 
     @Override
     public boolean cell(Direction direction, String category) {
-        return distanceTo(ennemi) <= 500;
+        return distanceTo(ennemy) <= 500;
     }
 
     @Override
     public boolean MyDir(String direction) {
-        double angle = -Math.atan2(ennemi.y - this.y, ennemi.x - this.x);
+        double angle = -Math.atan2(ennemy.y - this.y, ennemy.x - this.x);
         boolean res;
-        if ((angle < Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemi.x > this.x))
+        if ((angle < Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemy.x > this.x))
             res = direction.equals("E");
         else if (angle < 2 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NE");
@@ -86,7 +87,7 @@ public class Turret extends DynamicEntity {
             res = direction.equals("N");
         else if (angle < 4 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NW");
-        else if ((angle < 5 * Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemi.x < this.x))
+        else if ((angle < 5 * Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemy.x < this.x))
             res = direction.equals("W");
         else
             res = false;

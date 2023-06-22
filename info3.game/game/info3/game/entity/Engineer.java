@@ -18,6 +18,7 @@ public class Engineer extends Player {
 
     public Engineer(int team) throws IOException {
         super(team);
+        this.view=new PlayerView("resources/Ingenieur/PlayerSprite.png", 3, 2, this);
     }
 
     public Engineer(int team, String filename) throws IOException {
@@ -33,7 +34,7 @@ public class Engineer extends Player {
     }
 
     @Override
-    public void egg(Entity entity) {
+    public void wizz(String Direction) {
         turretCooldown = 1000;
         try {
             new Turret(this.x, this.y, this.team);

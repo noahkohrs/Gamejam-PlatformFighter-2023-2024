@@ -156,7 +156,7 @@ public class Menu {
             System.out.println("Player 1 : " + bg1.getSelection().getActionCommand());
             System.out.println("Player 2 : " + bg2.getSelection().getActionCommand());
             try {
-                new Game(arg);
+                new Game(arg,bg1.getSelection().getActionCommand(),bg2.getSelection().getActionCommand());
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

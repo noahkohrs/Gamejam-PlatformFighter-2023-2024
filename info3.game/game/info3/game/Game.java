@@ -36,7 +36,7 @@ public class Game {
 
 	public static Game game;
 	public static GameSession m_game_session;
-	public static String gal;
+	public static String galFile;
 	private Sound m_music;
 
 	// Canvas & window
@@ -53,21 +53,26 @@ public class Game {
 	// Used to print tick on the window
 	private long m_textElapsed;
 
+	// Used to construct gameSession with player
+	private String player1, player2;
+
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			gal = args[0];
-			new Game(args[0]);
+			new Game(args[0],"Mexican","Engineer");
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
 	}
 
-	public Game(String GalFile) throws Exception {
+	public Game(String galFile, String player1, String player2) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		this.game = this;
+		this.galFile = galFile;
+		this.player1 = player1;
+		this.player2 = player2;
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -75,8 +80,7 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
-
-		m_game_session = new GameSession(this, "level.json", GalFile);
+		newGameSession();
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -84,6 +88,10 @@ public class Game {
 
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+	}
+
+	public void newGameSession() throws Exception {
+		m_game_session = new GameSession(this, "level.json", galFile, player1, player2);
 	}
 
 	/*
