@@ -8,6 +8,9 @@ Player1(Init){
   | Key(d) ? Move(E)  :(Init)
   | Key(q) ? Move(W)  :(Init)
   | Key(s) ? Move(S)  :(Init)
+  | Key(w) ?          :(Ra)
+  | Key(a) & GotStuff() ? Pop() :(Init)
+  | Key(x) ?          :(Dash)
   | True() ?          :(Init)
 }
 

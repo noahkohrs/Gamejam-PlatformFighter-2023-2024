@@ -185,6 +185,9 @@ public class CanvasListener implements GameCanvasListener {
       
       if ((e.getKeyCode() == KeyEvent.VK_ENTER) && key.name.equals("ENTER"))
         key.pressed = false;
+
+      if(e.getKeyCode()== KeyEvent.VK_T && GameSession.gameSession.gametime.hasEnded())
+        GameSession.gameSession.restart=true;
     }
   }
 

@@ -37,7 +37,9 @@ public abstract class Projectile extends DynamicEntity {
         if (!hitbox.inCollision(movingDirection)) {
             int nextX = x + (int) (movingDirection.x * velX);
             int nextY = y + (int) (movingDirection.y * velY);
+            System.out.println("Ennemys team="+ennemy.team);
             if (hitbox.inPlayerVectorCollision(nextX, nextY, movingDirection)) {
+                System.out.print("Ouch");
                 ennemy.takeDamage(damage);
                 kill();
             }
