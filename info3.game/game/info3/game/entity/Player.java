@@ -182,6 +182,7 @@ public class Player extends DynamicEntity {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'wizz'");
   }
+  
 
   @Override
   public boolean cell(Direction direction, String category) {
