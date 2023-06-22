@@ -30,6 +30,19 @@ public class Movement {
                      E.x -= 1;
                 E.affectTor();
                 break;
+            case UPPER:
+                E.y -= (PhysicConstant.maxVelY+5);
+                while (E.hitbox.inCollision(Direction.RIGHT))
+                     E.y += 1;
+                E.affectTor();
+                break;
+            case BOTTOM:
+                E.y += (PhysicConstant.maxVelY+5);
+                while (E.hitbox.inCollision(Direction.RIGHT))
+                     E.y -= 1;
+                E.affectTor();
+                break;
+
 
             
         }

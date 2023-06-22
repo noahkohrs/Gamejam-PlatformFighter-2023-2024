@@ -10,7 +10,7 @@ import java.io.IOException;
 import info3.game.Camera;
 import info3.game.Game;
 import info3.game.GameSession;
-import info3.game.weapon.Weapon;
+import info3.game.weapon.Bazooka;
 
 public class PlayerView extends EntityView {
 
@@ -40,6 +40,7 @@ public class PlayerView extends EntityView {
 
     public void tick(long elapsed) {
         Mexican mex = (Mexican) (GameSession.gameSession.player1);
+        Engineer Eng = (Engineer) (GameSession.gameSession.player2);
         m_imageElapsed += elapsed;
         if (m_imageElapsed > 200) {
             m_imageElapsed = 0;
@@ -64,6 +65,18 @@ public class PlayerView extends EntityView {
                     mex.tequillatequen = false;
                     mex.timeDrink = 0;
                 }
+            }
+            if(Eng.BazookaUsing){
+                if(Eng.bazookaCooldown>900){
+                    Eng.view.imageIndex = 4;
+                }else 
+                    if(Eng.bazookaCooldown>720){
+                        Eng.view.imageIndex = 5;
+                    } else if(Eng.bazookaCooldown>500) {
+                        Eng.view.imageIndex =4;
+                        Eng.BazookaUsing = false;
+                        Eng.bazookaCooldown = 1000;
+                    }
             }
         }
     
