@@ -1,4 +1,4 @@
-package info3.game;
+package info3.game.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,7 +13,7 @@ import info3.game.graphics.GameCanvas;
 public class Menu {
 
     public static Menu menu;
-    private GameCanvas m_canvas;
+    private MenuCanvas m_canvas;
     private MenuListener m_listener;
     private JFrame m_frame;
     private JLabel m_text;
@@ -32,7 +32,7 @@ public class Menu {
     public Menu() {
         Menu.menu = this;
         this.m_listener = new MenuListener(this);
-        this.m_canvas = new GameCanvas(m_listener);
+        this.m_canvas = new MenuCanvas(m_listener);
         System.out.println("  - creating frame...");
         Dimension d = new Dimension(1024, 768);
         m_frame = m_canvas.createFrame(d);
@@ -63,7 +63,6 @@ public class Menu {
         // erase background
         g.setColor(Color.gray);
         g.fillRect(0, 0, width, height);
-        g.fillRect(0, 0, 100, 100);
     }
 
     public void tick(long elapsed) {
