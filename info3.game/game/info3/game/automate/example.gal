@@ -80,6 +80,12 @@ MovingPlatform(Init){
   | !GotPower() ? Turn() :(Init)
 }
 
+MovingVerticalPlatform(Init){
+  * (Init)
+  | GotPower() ? Move() :(Init)
+  | !GotPower() ? Turn() :(Init)
+}
+
 PowerUpBlock(Init){
   * (Init)
   | True() ? :(_)

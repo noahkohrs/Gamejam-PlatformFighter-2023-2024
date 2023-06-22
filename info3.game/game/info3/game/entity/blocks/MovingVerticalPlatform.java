@@ -8,16 +8,16 @@ import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.TEAM;
 
-public class MovingPlatform extends DynamicEntity {
-    int minX, maxX;
+public class MovingVerticalPlatform extends DynamicEntity {
+    int minY, maxY;
     int power, maxPower;
 
-    public MovingPlatform(int x, int y, int blockMove, int speed) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/obsidian.png", 1, 1);
+    public MovingVerticalPlatform(int x, int y, int blockMove, int speed) throws IOException {
+        super(x, y, TEAM.NONE, "resources/blocks/movingVerticalPlatform.png", 1, 1);
         maxPower = blockMove;
         power = maxPower;
         solid = true;
-        velX = speed;
+        velY = speed;
     }
 
     @Override
@@ -44,13 +44,13 @@ public class MovingPlatform extends DynamicEntity {
 
     @Override
     public void move(Direction direction) {
-        x += velX;
-        power -= Math.abs(velX);
+        y += velY;
+        power -= Math.abs(velY);
         if (GameSession.gameSession.player1.isSittingOn(this)) {
-            GameSession.gameSession.player1.x += velX;
+            GameSession.gameSession.player1.y += velY;
         }
         if (GameSession.gameSession.player2.isSittingOn(this)) {
-            GameSession.gameSession.player2.x += velX;
+            GameSession.gameSession.player2.y += velY;
         }
     }
 
@@ -61,7 +61,7 @@ public class MovingPlatform extends DynamicEntity {
 
     @Override
     public void turn() {
-        velX = -velX;
+        velY = -velY;
         power = maxPower;
     }
 
