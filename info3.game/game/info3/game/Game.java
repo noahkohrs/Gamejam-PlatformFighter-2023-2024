@@ -129,14 +129,14 @@ public class Game {
 	}
 
 	private long m_textElapsed;
-
+	
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
 	 */
 	void tick(long elapsed) {
 
-		m_game_session.tick(elapsed);
+		m_game_session.tick(elapsed);w
 
 		// Update every second
 		// the text on top of the frame: tick and fps

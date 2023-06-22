@@ -52,10 +52,10 @@ public class Player extends DynamicEntity {
   boolean isMalus = false;
 
   public int DashTime = 0;
-  private int DashCD;
+  protected int DashCD;
   public boolean dead = false;
-  private boolean respawned = true;
-  private int respawnTimer = 3000;
+  protected boolean respawned = true;
+  protected int respawnTimer = 3000;
   public int kills;
   public Player() throws IOException {
     this(1);
@@ -99,7 +99,7 @@ public class Player extends DynamicEntity {
     return this.lifeBar.life.health <= 0;
   }
 
-  private void respawn() {
+  protected void respawn() {
     if (respawnTimer <= 0) {
       Random random = new Random();
       int size = GameSession.gameSession.spawnerPoints.size();

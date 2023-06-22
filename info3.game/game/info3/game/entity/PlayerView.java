@@ -39,7 +39,6 @@ public class PlayerView extends EntityView {
     }
 
     public void tick(long elapsed) {
-        Mexican mex = (Mexican) (GameSession.gameSession.player1);
         m_imageElapsed += elapsed;
         if (m_imageElapsed > 200) {
             m_imageElapsed = 0;
@@ -48,26 +47,13 @@ public class PlayerView extends EntityView {
             } else {
                 imageIndex = (imageIndex + 1) % 4;
             }
-            if(GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")){
-                GameSession.gameSession.player2.view.imageIndex = 5;
-            }
-            if (mex.tequillatequen) {
-                if (mex.timeDrink < 1000) {
-                    mex.view.imageIndex = 4;
-                    mex.timeDrink += elapsed;
-                } else if(mex.timeDrink<2000) {
-                    mex.view.imageIndex = 5;
-                    mex.timeDrink += elapsed;
-                }
-                else {
-                    mex.tequillatequen = false;
-                    mex.timeDrink = 0;
-                }
-            }
+        }
+        if (GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")) {
+            GameSession.gameSession.player2.view.imageIndex = 5;
         }
     }
 
-    public void paintKills(Graphics g){
+    public void paintKills(Graphics g) {
         int height = ((Player) this.entity).lifeBar.getHeight();
         int windowHeight = Game.game.m_canvas.getHeight();
         int windowWidth = Game.game.m_canvas.getWidth();
