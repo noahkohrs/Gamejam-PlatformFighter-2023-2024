@@ -107,14 +107,17 @@ public class CanvasListener implements GameCanvasListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
-    System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-    System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key typed: " + e.getKeyChar() + " code=" +
+    // e.getKeyCode());
+    // System.out.println("Key typed: " + e.getKeyChar() + " code=" +
+    // e.getKeyCode());
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
     int index;
-    System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key pressed: " + e.getKeyChar() + " code=" +
+    // e.getKeyCode());
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
         GameSession.gameSession.camera.toggleDebugMode();
@@ -192,13 +195,19 @@ public class CanvasListener implements GameCanvasListener {
         GameSession.gameSession.keys.get(index).pressed = true;
         // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;
+      case KeyEvent.VK_B:
+        index = GameSession.gameSession.findKEy('b');
+        GameSession.gameSession.keys.get(index).pressed = true;
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
     }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
     int index;
-    System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    // System.out.println("Key released: " + e.getKeyChar() + " code=" +
+    // e.getKeyCode());
     switch (e.getKeyCode()) {
       case KeyEvent.VK_T:
         if(GameSession.gameSession.gametime.hasEnded())
@@ -270,6 +279,11 @@ public class CanvasListener implements GameCanvasListener {
         break;
       case KeyEvent.VK_P:
         index = GameSession.gameSession.findKEy('p');
+        GameSession.gameSession.keys.get(index).pressed = false;
+        // System.out.println(GameSession.gameSession.keys.get(index).pressed);
+        break;
+      case KeyEvent.VK_B:
+        index = GameSession.gameSession.findKEy('b');
         GameSession.gameSession.keys.get(index).pressed = false;
         // System.out.println(GameSession.gameSession.keys.get(index).pressed);
         break;

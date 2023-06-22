@@ -78,4 +78,10 @@ public class Block extends Entity {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'wizz'");
     }
+
+    @Override
+    public boolean gotStuff() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gotStuff'");
+    }
 }
