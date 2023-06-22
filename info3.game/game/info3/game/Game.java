@@ -55,7 +55,7 @@ public class Game {
 	Sound m_music;
 	public static GameSession m_game_session;
 
-	Game(String GalFile) throws Exception {
+	public Game(String GalFile) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		this.game = this;

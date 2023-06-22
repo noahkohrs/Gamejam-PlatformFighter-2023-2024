@@ -1,51 +1,65 @@
 package info3.game.menu;
 
+import java.awt.AWTEvent;
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Panel;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+
+import info3.game.Game;
 
 public class Menu {
 
     public static Menu menu;
-    private MenuCanvas m_canvas;
-    private MenuListener m_listener;
     private JFrame m_frame;
-    private JLabel m_text;
-    private long m_textElapsed;
+    private ButtonGroup bg1, bg2;
+    private String arg;
 
     public static void main(String args[]) throws Exception {
         try {
             System.out.println("Menu starting...");
-            new Menu();
+            if(args.length==0)
+            {
+                System.out.println("Il faut fournir en argument le fichier gal");
+                return;
+            }
+            new Menu(args[0]);
             System.out.println("Menu started.");
         } catch (Throwable th) {
             th.printStackTrace(System.err);
         }
     }
 
-    public Menu() {
+    public Menu(String arg) {
+        this.arg = arg;
         Menu.menu = this;
-        this.m_listener = new MenuListener(this);
-        this.m_canvas = new MenuCanvas(m_listener);
         System.out.println("  - creating frame...");
-        Dimension d = new Dimension(1024, 768);
-        m_frame = m_canvas.createFrame(d);
+        m_frame = createFrame();
         System.out.println("  - setting up the frame...");
         setupFrame();
+    }
+
+    java.awt.EventQueue eventQueue;
+
+    private JFrame createFrame() {
+        java.awt.Toolkit tk = Toolkit.getDefaultToolkit();
+        eventQueue = tk.getSystemEventQueue();
+
+        m_frame = new WindowFrame();
+        m_frame.addWindowListener(new WindowListener());
+        m_frame.setFocusable(true);
+        m_frame.requestFocusInWindow();
+
+        return m_frame;
     }
 
     private void setupFrame() {
@@ -53,26 +67,34 @@ public class Menu {
         m_frame.setLayout(new BorderLayout());
         m_frame.add(new JLabel("Player selection"), BorderLayout.NORTH);
 
-        JPanel panel = new JPanel(new GridLayout(2, 2));
-        ButtonGroup bg1 = new ButtonGroup();
-        ButtonGroup bg2 = new ButtonGroup();
-        JRadioButton jr1 = new JRadioButton("Mexican", true);
-        JRadioButton jr2 = new JRadioButton("Mexican", false);
-        JRadioButton jr3 = new JRadioButton("Engineer", false);
-        JRadioButton jr4 = new JRadioButton("Engineer", true);
+        JPanel panel = new JPanel(new GridLayout(3, 2));
+        bg1 = new ButtonGroup();
+        bg2 = new ButtonGroup();
+        panel.add(new JLabel("Player1"), BorderLayout.CENTER);
+        panel.add(new JLabel("Player2"), BorderLayout.CENTER);
+        JRadioButton jrPlayer1Mexican, jrPlayer1Engineer, jrPlayer2Mexican, jrPlayer2Engineer;
+        jrPlayer1Mexican = new JRadioButton("Mexican", true);
+        jrPlayer2Mexican = new JRadioButton("Mexican", false);
+        jrPlayer1Engineer = new JRadioButton("Engineer", false);
+        jrPlayer2Engineer = new JRadioButton("Engineer", true);
+        jrPlayer1Mexican.setActionCommand("Mexican");
+        jrPlayer2Mexican.setActionCommand("Mexican");
+        jrPlayer1Engineer.setActionCommand("Engineer");
+        jrPlayer2Engineer.setActionCommand("Engineer");
 
-        bg1.add(jr1);
-        bg1.add(jr3);
-        bg2.add(jr2);
-        bg2.add(jr4);
+        bg1.add(jrPlayer1Mexican);
+        bg1.add(jrPlayer1Engineer);
+        bg2.add(jrPlayer2Mexican);
+        bg2.add(jrPlayer2Engineer);
 
-        panel.add(jr1);
-        panel.add(jr2);
-        panel.add(jr3);
-        panel.add(jr4);
-
+        panel.add(jrPlayer1Mexican);
+        panel.add(jrPlayer2Mexican);
+        panel.add(jrPlayer1Engineer);
+        panel.add(jrPlayer2Engineer);
         m_frame.add(panel, BorderLayout.CENTER);
-        m_frame.add(new JButton("Play game !"), BorderLayout.SOUTH);
+        JButton playButton = new JButton("Play game !");
+        m_frame.add(playButton, BorderLayout.SOUTH);
+        playButton.addMouseListener(new playButtonListener());
 
         m_frame.pack();
         // center the window on the screen
@@ -80,9 +102,101 @@ public class Menu {
         m_frame.setVisible(true);
     }
 
-    public void paint(Graphics g) {
+    private class playButtonListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("Player 1 : " + bg1.getSelection().getActionCommand());
+            System.out.println("Player 2 : " + bg2.getSelection().getActionCommand());
+            m_frame.setVisible(false);
+            m_frame.setFocusable(true);
+            try {
+                new Game(arg);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            // do nothing
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            // do nothing
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            // do nothing
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            // do nothing
+        }
+
     }
 
-    public void tick(long elapsed) {
+    private class WindowListener implements java.awt.event.WindowListener {
+
+        WindowListener() {
+        }
+
+        @Override
+        public void windowOpened(WindowEvent e) {
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            System.exit(0);
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            System.exit(0);
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+        }
     }
+
+    private class RunnableEvent extends AWTEvent implements Runnable {
+        private static final long serialVersionUID = 1L;
+        public static final int EVENT_ID = AWTEvent.RESERVED_ID_MAX + 1;
+        Runnable runnable;
+
+        RunnableEvent(Object target, Runnable runnable) {
+            super(target, EVENT_ID);
+            this.runnable = runnable;
+        }
+
+        public void run() {
+            runnable.run();
+        }
+    }
+
+    private class WindowFrame extends JFrame {
+        private static final long serialVersionUID = 1L;
+
+        WindowFrame() {
+            enableEvents(RunnableEvent.EVENT_ID);
+        }
+    }
+
 }
