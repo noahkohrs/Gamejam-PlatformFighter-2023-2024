@@ -80,6 +80,12 @@ public class Block extends Entity {
     }
 
     @Override
+    public boolean gotStuff() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gotStuff'");
+    }
+
+    @Override
     public void jump(Direction direction) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'jump'");
