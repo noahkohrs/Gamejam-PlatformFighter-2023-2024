@@ -159,11 +159,13 @@ public class Player extends DynamicEntity {
       e.printStackTrace();
     }
     view.tick(deltatime);
+    if(DashTime>0){
     Movement.Dash(this);
-    DashCD--;
+    } else {
     Movement.Walk(this);
     Movement.affectGravity(this);
-    Movement.Dash(this);
+  }
+    DashCD-= elapsed;
 
   }
 
@@ -342,7 +344,7 @@ public class Player extends DynamicEntity {
     public void jump(String direction) {
       facingDirection = Direction.fromString(direction);
       System.out.println(this.facingDirection);
-      if(DashCD <= 0){    
+      if(DashCD <=0){    
         DashTime = 2;
         DashCD = 5;
     }
