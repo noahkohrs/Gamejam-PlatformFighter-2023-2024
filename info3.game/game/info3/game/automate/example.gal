@@ -18,8 +18,8 @@ Player1(Init){
   |!GotPower()?       :(Init)
 
   *(Dash)
-  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Jump():(Init)
-  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump():(Init)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Jump(E):(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
   |True() ? :(Init)
 }
 
@@ -37,8 +37,8 @@ Player2(Init){
   | True() ?          :(Init)
 
     *(Dash)
-  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Jump():(Init)
-  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump():(Init)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S) /MyDir(N)? Jump(E):(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
   |True() ? :(Init)
 }
 

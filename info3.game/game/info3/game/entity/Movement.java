@@ -32,6 +32,7 @@ public class Movement {
             
         }
         ((Player)E).DashTime--;
+        System.out.println(((Player)E).DashTime);
     }
     }
 
