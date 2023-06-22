@@ -31,7 +31,7 @@ public class DynamicEntity extends Entity {
     @Override
     public void wizz() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+        throw new UnsupportedOperationException("Unimplemented method 'wizz' without argument");
     }
     @Override
     public void wizz(String direction) {

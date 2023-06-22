@@ -23,7 +23,7 @@ public class Engineer extends Player{
     }
 
     @Override
-    public void egg(Entity entity) {
+    public void wizz(String Direction) {
         raptorCooldown = 1000;
         try {
             new Turret(this.x,this.y,this.team);
