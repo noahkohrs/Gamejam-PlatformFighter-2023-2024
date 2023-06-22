@@ -45,15 +45,15 @@ public class GameTimerView {
             g.drawString("" + sec, x + 32 + 4, y * mul + size + 8);
         } 
         else if(!gameTimer.notEqualKills && gameTimer.equalTime>=0){
-            fontMetrics =g.getFontMetrics();
+            
             String message="Last kill wins";
         
 
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, 52));
+            fontMetrics =g.getFontMetrics();
             g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2,c.getHeight()/2);
             g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 52));
             g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2-2,c.getHeight()/2-5);
         }
         else if(gameTimer.hasEnded()){
@@ -62,21 +62,19 @@ public class GameTimerView {
             Player playerWithMostKills = player1.kills > player2.kills ? player1 : player2;
             
             String message="Player "+playerWithMostKills.team+" wins";
-            fontMetrics =g.getFontMetrics();
             String restartMessage="Press T to restart";
+
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, 52));
-            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message),c.getHeight()/2);
+            fontMetrics =g.getFontMetrics();
+            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2,c.getHeight()/2);
             g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 52));
-            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)-2,c.getHeight()/2-5);
+            g.drawString(message, c.getWidth()/2-fontMetrics.stringWidth(message)/2-2,c.getHeight()/2-5);
         
             g.setColor(Color.BLACK);
-            g.setFont(new Font("Arial", Font.BOLD, 52));
-            g.drawString(restartMessage, c.getWidth()/2-fontMetrics.stringWidth(restartMessage),c.getHeight()/2+52);
+            g.drawString(restartMessage, c.getWidth()/2-fontMetrics.stringWidth(restartMessage)/2,c.getHeight()/2+52);
             g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 52));
-            g.drawString(restartMessage, c.getWidth()/2-fontMetrics.stringWidth(restartMessage)-2,c.getHeight()/2+47);
+            g.drawString(restartMessage, c.getWidth()/2-fontMetrics.stringWidth(restartMessage)/2-2,c.getHeight()/2+47);
         
         }
         else {
