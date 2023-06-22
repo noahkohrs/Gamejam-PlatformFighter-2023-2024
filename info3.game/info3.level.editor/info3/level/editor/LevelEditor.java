@@ -44,7 +44,11 @@ public class LevelEditor {
 		this.levelEditor = this;
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		level = new Level("level.json");
+		try {
+			level = new Level("level.json");
+		} catch (Exception e) {
+			level = new Level(60, 30);
+		}
 		// get Real Canvas Size
 		brushSelector = new ElementList((int) (1024 * 0.85), 40);
 		selected = brushSelector.elems.get(0);

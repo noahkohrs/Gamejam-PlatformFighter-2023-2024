@@ -34,6 +34,7 @@ import info3.game.entity.TEAM;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.MovingHorizontalPlatform;
 import info3.game.entity.blocks.MovingVerticalPlatform;
+import info3.game.entity.blocks.PortalBlock;
 import info3.game.entity.blocks.PowerUpBlock;
 import info3.game.entity.blocks.SpawnerPoint;
 import info3.game.gametimer.GameTimer;
@@ -165,6 +166,8 @@ public class GameSession {
                 MalusBlock malusBlock = new MalusBlock(x, y);
                 malusBlocks.add(malusBlock);
                 return malusBlock;
+            case "PortalBlock" :
+                return new PortalBlock(x, y);
             default:
                 return null;
         }
