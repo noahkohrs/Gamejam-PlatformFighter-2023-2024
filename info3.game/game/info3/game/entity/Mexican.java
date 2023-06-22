@@ -8,7 +8,7 @@ import info3.game.entity.life.Life;
 public class Mexican extends Player {
     int raptorCooldown;
     private int timeTequilla;
-    public int timeDrinkfinal = 2000000;
+    public int timeDrinkfinal = 2000;
     public boolean tequillatequen = false;
     int timeDrink;
 
@@ -41,7 +41,7 @@ public class Mexican extends Player {
         try {
             movingDirection = Direction.IDLE;
             if (timeDrink <= 0)
-            this.automate.step(this);
+                this.automate.step(this);
             // Dash handler
             if (DashTime > 0) {
                 Movement.Dash(this);

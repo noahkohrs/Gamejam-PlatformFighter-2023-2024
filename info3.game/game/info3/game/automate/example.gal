@@ -31,7 +31,6 @@ Player2(Init){
   | Key(FL) ? Move(W)  :(Init)
   | Key(FD) ? Move(S)  :(Init)
   | Key(o) ?          :(Dash)
-  | Key(o) ?          :(Dash)
   | True() ?          :(Init)
 
     *(Dash)
