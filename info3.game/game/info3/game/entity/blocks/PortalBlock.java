@@ -57,18 +57,18 @@ public class PortalBlock extends DynamicEntity {
     public
     void tick(long elapsed) {
         deltatime += elapsed;
-        if(deltatime>70){
+        if(deltatime>150){
             deltatime=0;
             view.imageIndex = (view.imageIndex+1)%4;
         }
-        if (teleporterCooldown > 0) {
+        if (teleporterCooldown>0){
             teleporterCooldown -= elapsed ;
-            return;
+            return ;
         }
         
         
         for (DynamicEntity e : GameSession.gameSession.entities) {
-            if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<25) {
+            if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<40) {
                 e.x = Camera.centeredCoordinateX(linkedPortal) - e.getWidth()/2; 
                 e.y = Camera.centeredCoordinateY(linkedPortal)- e.getHeight()/2 ;
                 teleporterCooldown = 1000 ;
