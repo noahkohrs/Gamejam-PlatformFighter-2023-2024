@@ -55,7 +55,7 @@ public class Raptor extends DynamicEntity {
     }
 
     @Override
-    public void pop() {
+    public void wizz(String direction) {
         ennemy.takeDamage(25);
     }
 
@@ -69,6 +69,8 @@ public class Raptor extends DynamicEntity {
         } else {
             if (distanceTo(ennemy) <= 100)
                 ((RaptorView) this.view).attack = true;
+            else
+                ((RaptorView) this.view).attack = false;
             return distanceTo(ennemy) <= 33;
         }
     }

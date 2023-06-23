@@ -67,7 +67,13 @@ public abstract class Entity {
     return GameSession.gameSession.findAutomate(this);
   }
 
-  public abstract void tick(long elapsed);
+  public void tick(long elapsed){
+    try {
+      this.automate.step(this);
+    } catch (Exception e) {
+      e.printStackTrace();
+    };
+  }
 
   public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
     File imageFile = new File(filename);
@@ -183,7 +189,24 @@ public abstract class Entity {
 
   // Actions
 
-  public abstract void move(Direction direction);
+  public  void move(Direction direction){
+    switch(direction){
+      case UPPER:
+        this.y-=10;
+        break;
+      case BOTTOM:
+        this.y+=10;
+        break;
+      case RIGHT:
+        this.x+=10;
+        break;
+      case LEFT:
+        this.x-=10;
+        break;
+      default:
+        break;
+    }
+  }
 
   public abstract void turn();
 
