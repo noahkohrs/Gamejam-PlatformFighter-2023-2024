@@ -20,7 +20,10 @@ import info3.game.entity.Block;
 import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
 import info3.game.entity.blocks.GroundBlock;
+import info3.game.entity.blocks.LeaveBlock;
 import info3.game.entity.blocks.SpawnerPoint;
+import info3.game.entity.blocks.StoneBlock;
+import info3.game.entity.blocks.WoodBlock;
 import info3.game.entity.blocks.MalusBlock;
 import info3.game.entity.blocks.PortalBlock;
 import info3.game.entity.blocks.PowerUpBlock;
@@ -83,6 +86,12 @@ public class Map {
                 return res;
             case "GroundBlock":
                 return new GroundBlock(x, y);
+            case "WoodBlock" :
+                return new WoodBlock(x, y);
+            case "StoneBlock":
+                return new StoneBlock(x, y);
+            case "LeaveBlock":
+                return new LeaveBlock(x, y);
             default:
                 throw new IOException("Unknown block id: " + id);
         }

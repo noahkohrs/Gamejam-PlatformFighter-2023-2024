@@ -13,6 +13,8 @@ import javax.sound.sampled.Port;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import info3.game.entity.blocks.WoodBlock;
+
 public class Level {
 
     int x = 20;
@@ -113,6 +115,12 @@ public class Level {
             case "PortalBlock":
                 int portal_id = tags.getInt("id");
                 return new PortalBlock(portal_id);
+            case "WoodBlock" :
+                return new woodBlock();
+            case "StoneBlock":
+                return new StoneBlock();
+            case "leaveBlock":
+                return new LeaveBlock();
             default:
                 throw new IOException("Unknown block id: " + id);
         }

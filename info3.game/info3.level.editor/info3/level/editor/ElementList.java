@@ -29,7 +29,10 @@ public class ElementList {
         elems.add(new ElementContainer(new PowerUpBlock(), 0, 5));
         elems.add(new ElementContainer(new MalusBlock(), 0, 6));
         elems.add(new ElementContainer(new SpawnerPoint(), 0, 7));
-        elems.add(new ElementContainer(new PortalBlock(-1), 0, 7));
+        elems.add(new ElementContainer(new PortalBlock(-1), 0, 8));
+        elems.add(new ElementContainer(new StoneBlock(), 0, 9));
+        elems.add(new ElementContainer(new woodBlock(), 0, 10));
+        elems.add(new ElementContainer(new LeaveBlock(), 0, 11));
     }
 
     public ElementContainer select(int x, int y) {
