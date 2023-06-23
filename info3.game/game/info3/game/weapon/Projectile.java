@@ -16,6 +16,7 @@ public abstract class Projectile extends DynamicEntity {
             int ncols) throws IOException {
         super(x, y, team, filename, nrows, ncols);
         this.movingDirection = direction;
+        this.facingDirection = direction;
         this.damage = damage;
         if (team == GameSession.gameSession.player1.team)
             ennemy = GameSession.gameSession.player2;
@@ -34,17 +35,25 @@ public abstract class Projectile extends DynamicEntity {
     }
 
     public void move(Direction direction) {
-        if (!hitbox.inCollision(movingDirection)) {
             int nextX = x + (int) (movingDirection.x * velX);
             int nextY = y + (int) (movingDirection.y * velY);
-            if (hitbox.inPlayerVectorCollision(nextX, nextY, movingDirection)) {
-                ennemy.takeDamage(damage);
-                kill();
-            }
             x = nextX;
             y = nextY;
+    }
+    
+    @Override
+    public boolean cell(Direction direction, String category) {
+        if (category.equals("O")) {
+            this.x += direction.x;
+            boolean res = hitbox.inCollision(movingDirection);
+            this.x -= direction.x;
+            return res;
         } else {
-            kill();
+            return distanceTo(ennemy) <= 25d;
         }
+    }
+    @Override
+    public void hit(String direction){
+        ennemy.takeDamage(damage);
     }
 }

@@ -62,11 +62,11 @@ public class ElementList {
     }
 
     public void tick(long elapsed) {
-        int winWidth = Window.getWindows()[0].getWidth();
+        int winWidth = LevelEditor.levelEditor.m_canvas.getWidth();
         x = winWidth - getRealWidth() - 40;
 
-        int winHeight = Window.getWindows()[0].getHeight();
-        y = winHeight - getRealHeight() - 100;
+        int winHeight = LevelEditor.levelEditor.m_canvas.getHeight();
+        y = winHeight - getRealHeight() - 40;
     }
 
 }

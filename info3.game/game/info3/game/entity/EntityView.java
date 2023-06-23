@@ -44,7 +44,7 @@ public class EntityView {
     }
 
     public void paint(Graphics g) {
-        Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(), entity.getHeight());
+        Camera.drawEntity(entity, g);
     }
 
 }

@@ -22,15 +22,15 @@ Player1(Init){
 Player2(Init){
   * (Init)
   | Cell(S, P) ? Pick() :(Init)
-  | Key(p) & GotPower() ? Wizz():(Init)
-  | Key(b) & GotStuff() ? Pop() :(Init)
-  | Key(FU) & Key(FL) ? Move(NW) :(Init)
-  | Key(FU) & Key(FR) ? Move(NE) :(Init)
-  | Key(FU) ? Move(N)  :(Init)
-  | Key(FR) ? Move(E)  :(Init)
-  | Key(FL) ? Move(W)  :(Init)
-  | Key(FD) ? Move(S)  :(Init)
-  | Key(o) ?          :(Dash)
+  | Key(i) & GotPower() ? Wizz():(Init)
+  | Key(p) & GotStuff() ? Pop() :(Init)
+  | Key(o) & Key(k) ? Move(NW) :(Init)
+  | Key(o) & Key(m) ? Move(NE) :(Init)
+  | Key(o) ? Move(N)  :(Init)
+  | Key(m) ? Move(E)  :(Init)
+  | Key(k) ? Move(W)  :(Init)
+  | Key(l) ? Move(S)  :(Init)
+  | Key(n) ?          :(Dash)
   | True() ?          :(Init)
 
     *(Dash)
@@ -64,8 +64,8 @@ Weapon1(Init){
 
 Weapon2(Init){
   * (Init)
-  | Key(m) ? Pop()    :(Init)
-  | Key(n) ? Wizz()    :(Init)
+  | Key(u) ? Pop()    :(Init)
+  | Key(j) ? Wizz()    :(Init)
   | True() ?   :(Init)
 }
 
@@ -80,7 +80,16 @@ Bazooka(Init){
 
 Bullet(Init){
     * (Init)
-  | True() ? Move()  :(Init)
+  | Cell(H,A)? Hit() :()
+  | Cell(H,O)? :()
+  |True()? Move():(Init)
+}
+
+Rocket(Init){
+      * (Init)
+  | Cell(H,A)? Hit() :()
+  | Cell(H,O)? :()
+  |True()? Move():(Init)
 }
 
 MovingHorizontalPlatform(Init){

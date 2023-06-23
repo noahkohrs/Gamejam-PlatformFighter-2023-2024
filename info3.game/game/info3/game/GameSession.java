@@ -83,6 +83,11 @@ public class GameSession {
         spawnerPoints = new ArrayList<SpawnerPoint>();
 
         map = new Map(mapPath);
+
+        
+        camera = new Camera();
+        loadEntities(mapPath);
+        gametime = new GameTimer();
         if (p1.equals("Mexican"))
             player1 = new Mexican(TEAM.BLUE);
         else
@@ -91,11 +96,6 @@ public class GameSession {
             player2 = new Mexican(TEAM.RED);
         else
             player2 = new Engineer(TEAM.RED);
-
-        
-        camera = new Camera();
-        loadEntities(mapPath);
-        gametime = new GameTimer();
     }
 
     private void loadKeys() {

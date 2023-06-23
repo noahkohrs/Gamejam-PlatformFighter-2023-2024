@@ -62,8 +62,8 @@ public class Player extends DynamicEntity {
 
   public Player(int team) throws IOException {
     
-    super(spawningX(team), 40, team, Getchar(team) + "PlayerSprite.png", 3, 2);
-    view = new PlayerView(Getchar(team) + "PlayerSprite.png", 3, 2, this);
+  super(spawningX(team), 40, team);
+    respawn();
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Rifle(this);
@@ -84,13 +84,6 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
-  static private String Getchar(int team) {
-    if (team == 1) {
-      return "resources/Mexicain/";
-    } else {
-      return "resources/Ingenieur/";
-    }
-  }
 
   private static int spawningX(int team){
     if(team==2){
@@ -118,7 +111,7 @@ public class Player extends DynamicEntity {
         int randomIndex = random.nextInt(size);
         SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
         this.x = spawner.x;
-        this.y = spawner.y - 50;
+        this.y = spawner.y - 64;
       } else {
         this.x = 50;
         this.y = 50;
@@ -246,11 +239,11 @@ public class Player extends DynamicEntity {
           weapon.clips = 3;
           break;
         case "speed":
-          addVelX += 6;
+          addVelX += 2;
           break;
         case "shield":
           Player ennemy = getennemy();
-          ennemy.weapon.damage /= 2;
+          ennemy.weapon.damage = 0;
           break;
         case "power":
           weapon.damage *= 2;
@@ -270,12 +263,12 @@ public class Player extends DynamicEntity {
           ennemy.weapon.ammo /= 2;
           break;
         case "speed":
-          if (PhysicConstant.maxVelX + ennemy.addVelX >= 6) {
-            ennemy.addVelX -= 6;
+          if (PhysicConstant.maxVelX + ennemy.addVelX >= 2) {
+            ennemy.addVelX -= 2;
           }
           break;
         case "shield":
-          ennemy.weapon.damage /= 2;
+          ennemy.weapon.damage = 0;
           break;
         case "power":
           ennemy.weapon.damage /= 2;
@@ -307,11 +300,11 @@ public class Player extends DynamicEntity {
           case "ammo":
             break;
           case "speed":
-            addVelX -= 6;
+            addVelX -= 2;
             break;
           case "shield":
             Player ennemy = getennemy();
-            ennemy.weapon.damage *= 2;
+            ennemy.weapon.damage = 25;
             break;
           case "power":
             weapon.damage /= 2;
@@ -333,10 +326,10 @@ public class Player extends DynamicEntity {
           case "ammo":
             break;
           case "speed":
-            ennemy.addVelX += 6;
+            ennemy.addVelX += 2;
             break;
           case "shield":
-            ennemy.weapon.damage *= 2;
+            ennemy.weapon.damage = 25;
             break;
           case "power":
             ennemy.weapon.damage *= 2;

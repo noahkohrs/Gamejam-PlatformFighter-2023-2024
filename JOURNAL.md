@@ -46,8 +46,8 @@ Anastasios    | Travail sur le parseur d’automate. Test avec un automate simpl
 Bastien       | Prototype des armes terminé
 Gwénolé       | Abandon de l’idée de mouvement par équation physique car posant des problèmes sur les oscillements autour de la position d'arrivée et de la gestion de la position d’arrivée lors du passage dans le trou de ver reliant les bords.
 Partie sur l’idée d’avoir un système de mouvement propre au jeu vidéo, ayant pour but de simuler le mouvement réel.
-Noah          | Apprentissage de la programmation événementielles en réalisant une barre de vie
-Noé           | proto Viewport display dans un paint classique + Théorie sur l’environnement.
+Noah          | proto Viewport display dans un paint classique + Théorie sur l’environnement.
+Noé           | Apprentissage de la programmation événementielles en réalisant une barre de vie
 
 ### Nouvelles idées:
 - Avoir un système de dash.
@@ -129,11 +129,11 @@ Noé           | Création sprite powerup. Début de la gestion des powerUps. (r
 Développeur    | Tâche
 -------------  | -------------
 Clément        | Réalisation des powerUps
-Anastasios&Noah| Amelioration du systeme d'automates. Maintenant loadAutomate est automatique chaque fois qu'on cree une nouvelle entite. De plus, deux entites peuvent avoir la même automate.
+Anastasios&Noah| Amelioration du systeme d'automates. Maintenant loadAutomate est automatique chaque fois qu'on cree une nouvelle entite. De plus, deux entites peuvent avoir la même automate. + not operator.
 Anastasios     |Correction d'un bug de jump. 
-Bastien        | c
+Bastien        | Modification des armes pour utiliser un automate
 Gwénolé        | Travail sur les mouvements, Ajout de courbe de déceleration/accéleration pour les sauts et déplacements,
-Noah           | e
+Noah           | Système de team + séparation des players dans la récupartion des automates.
 Noé            | power up
 
 ## 16/06
@@ -142,10 +142,11 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Réalisation des powerUps et ajout de sprite de texture.
 Anastasios    | Correction d'un bug du parser dans lequel le initial state etait le state dest de la derniere transition. Aide les autres avec les automates.
-Bastien       | c
+Bastien       | Création d'une détection de collision pour les balles en traçant une ligne entre l'ancienne position et la nouvelle position de la balle
 Gwénolé       | Travail sur l'animation des playerSprites.
-Noah          | e
+Noah          | Optimisation du système de paint, rework du système de jump, ajout de fonctions de drawing plusu flexibles.
 Noé           | power up
+
 
 ## 19/06
 
@@ -153,9 +154,9 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Fix de 2 bugs sur les automates liées aux transitions et aux changements d'états avec Anastasios(lié au développement des powerUps).
 Anastasios    | Création du raptor (pour Mexican) avec tous les collisions, et les mouvements. Ajout aussi de MyDir comme condition (et utilisation pour raptor)
-Bastien       | c
+Bastien       | Modification au niveau des armes et des hitbox
 Gwénolé       | Création de sprites pour les attaques des persos, Travail sur les hitboxs
-Noah          | e
+Noah          | Drawing des entités relative à la hitbox. Ajout de fonction de drawing d'entité autonome. Ajout de fonctions de gestion des distances & bugFixes sur les keys, step des automates, camera et raptor. 
 Noé           | Malade, je n'ai pas peux avancer
 
 
@@ -164,10 +165,10 @@ Noé           | Malade, je n'ai pas peux avancer
 Développeur   | Tâche
 ------------- | -------------
 Clément       | Optimisation du code des powerUps
-Anastasios    | b
-Bastien       | c
+Anastasios    | Creation d'automate de Weapon1 et Weapon2 pour avoir les mêmes touches pour tirer. Creation Spawner Points et Turret pour le Engineer (creation de class Engineer)
+Bastien       | Ajout d'effet sonore pour les balles. 
 Gwénolé       | Travail sur les hitboxs et les dashs
-Noah          | e
+Noah          | Rework du système de collision pour le rendre plus fiable et plus flexible. Amélioration de la Caméra.
 Noé           | malade, travaille sur le timer.
 
 
@@ -179,11 +180,11 @@ Noé           | malade, travaille sur le timer.
 Développeur   | Tâche
 ------------- | -------------
 Clément       | Implémentation de l'attaque bazooka de l'ingenieur
-Anastasios    | b
-Bastien       | c
+Anastasios    | Addition de  killCounter + restart si les kills sont egaux + affichage de winner à la fin.
+Bastien       | Refactor de weapon pour pouvoir ajouter des armes plus simplement et début de menu
 Gwénolé       | Travail sur les dashs, et animation.
-Noah          | e
-Noé           | finition timer, création sprite flasque revigorante 
+Noah          | Jour de pause pour réviser son ratrappage de SPC.
+Noé           | finition timer, capacité flasque revigorante 
 
 
 
@@ -191,12 +192,24 @@ Noé           | finition timer, création sprite flasque revigorante
 
 ### Nouvelles idées:
 - Ajout d'un bloc pouvant aller de haut en bas
+- Ajout de portails billatéraux (inspiration de Portal)
 
 Développeur   | Tâche
 ------------- | -------------
 Clément       | Implémentation du bloc pouvant bouger de haut en bas.
-Anastasios    | b
-Bastien       | c
+Anastasios    | Change automates de players pour qu'ils soient les mêmes pour chauqe player.Turret marche avec de movingPlatform. Correction de petits bugs pour mexican, turret, winning message.
+Bastien       | Ajout d'un chargement de level au LevelEditor. Ajout du menu fini
 Gwénolé       | Implémentation des dashs, Modification du fonctionnement du bazooka, animation de celui-ci et level design
-Noah          | e
-Noé           | f
+Noah          | Récuperation autonome des keys pressés dans le contexte des automates. Ajout d'un système de portails avec Link autogéré.
+Noé           | finition capacité flasque revigorante
+
+## 23/06
+Développeur   | Tâche
+------------- | -------------
+Clément       | 
+Anastasios    | 
+Bastien       | 
+Gwénolé       | Animation des portails, travail sur la vidéo
+Noah          | Gestion des liens entre portail fonctionnelle + amélioration de l'édition de map pour cette fonctionnalité. petits bugFixes.
+Noé           | résolution de quelque bug, préparation vidéo
+

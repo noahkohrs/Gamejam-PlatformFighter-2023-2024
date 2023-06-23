@@ -47,9 +47,6 @@ public class PlayerView extends EntityView {
                 imageIndex = (imageIndex + 1) % 4;
             }
         }
-        if (GameSession.gameSession.player2.weapon.getClass().getSimpleName().equals("Bazooka")) {
-            GameSession.gameSession.player2.view.imageIndex = 5;
-        }
     }
 
     public void paintKills(Graphics g) {

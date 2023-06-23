@@ -37,6 +37,7 @@ public class Game {
 	public static Game game;
 	public static GameSession m_game_session;
 	public static String galFile;
+	public static String levelJSonFilename;
 
 	// Canvas & window
 	public JFrame m_frame;
@@ -58,14 +59,14 @@ public class Game {
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			new Game(args[0],"Mexican","Engineer");
+			new Game(args[0], "level.json", "Mexican", "Engineer");
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
 	}
 
-	public Game(String galFile, String player1, String player2) throws Exception {
+	public Game(String galFile, String levelJSonFilename, String player1, String player2) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		this.game = this;
@@ -79,7 +80,8 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
-		newGameSession();
+		this.levelJSonFilename=levelJSonFilename;
+		newGameSession(levelJSonFilename);
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -89,8 +91,8 @@ public class Game {
 		setupFrame();
 	}
 
-	public void newGameSession() throws Exception {
-		m_game_session = new GameSession(this, "level.json", galFile, player1, player2);
+	public void newGameSession(String levelJSonFilename) throws Exception {
+		m_game_session = new GameSession(this, levelJSonFilename, galFile, player1, player2);
 	}
 
 	/*

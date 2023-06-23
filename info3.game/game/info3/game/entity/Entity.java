@@ -49,6 +49,7 @@ public abstract class Entity {
     this.view = new EntityView(filename, nrows, ncols, this);
     this.hitbox = new HitBox(this);
     solid = false;
+    facingDirection = Direction.IDLE;
   }
 
   public Entity(int x, int y, int team) throws IOException {
@@ -56,6 +57,7 @@ public abstract class Entity {
     this.x = x;
     this.y = y;
     this.automate = loadAutomate();
+    facingDirection = Direction.IDLE;
     if (this.automate == null)
       this.automate = GameSession.gameSession.defaultAutomate;
     state = this.automate.initalState;
@@ -231,5 +233,7 @@ public abstract class Entity {
   public abstract void wizz(String direction);
 
   public abstract void jump(String direction);
+
+  public abstract void hit(String direction);
 
 }
