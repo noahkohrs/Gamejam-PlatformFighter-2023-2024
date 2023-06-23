@@ -101,10 +101,6 @@ public class Camera {
         
         if (camWidth > GameSession.gameSession.map.realWidth())
             camX = GameSession.gameSession.map.realWidth() / 2 - camWidth / 2;
-        if (camHeight + camY > GameSession.gameSession.map.realHeight()) {
-            camY = GameSession.gameSession.map.realHeight() - camHeight - 30;
-            camHeight -= 400;
-        }
             
 
         camX = precCamX + (camX - precCamX) * movingTime / 10;

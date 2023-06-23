@@ -67,10 +67,13 @@ public class Movement {
         E.y -= 5;
     }
 
-    public static void Jump(Player E) {
+    public static void Jump(Entity E) {
+        Jump(E,PhysicConstant.jumpForce);
+    }
+    public static void Jump(Entity E, float force) {
         if (E.jumpCounter > 0 && E.jumpCooldown < 0) {
             manageAirJump(E);
-            E.velY = PhysicConstant.jumpForce;
+            E.velY = force;
             E.jumpCounter--;
             E.jumpCooldown = 250;
         }

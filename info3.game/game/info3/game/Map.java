@@ -116,8 +116,11 @@ public class Map {
                     Entity entity = fixedMap[i][j];
                     entity.view.paint(g);
                 }
-        g.setColor(Color.yellow);
-        Camera.drawRect(g, 0, 0, realWidth(), realHeight());
+        g.setColor(Color.blue);
+        Camera.fillRect(g, 0, 0, realWidth(), 5);
+        Camera.fillRect(g, 0, 0, 5, realHeight());
+        Camera.fillRect(g, 0, realHeight() - 5, realWidth(), 5);
+        Camera.fillRect(g, realWidth() - 5, 0, 5, realHeight());
 
     }
 
