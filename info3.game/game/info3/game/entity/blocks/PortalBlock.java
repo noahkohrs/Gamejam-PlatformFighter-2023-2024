@@ -9,14 +9,16 @@ import info3.game.entity.DynamicEntity;
 import info3.game.entity.TEAM;
 import info3.game.weapon.Bullet;
 import info3.game.weapon.Weapon;
+import java.awt.Graphics;
 
 
 public class PortalBlock extends DynamicEntity {
     private long teleporterCooldown = 0 ;
     private static PortalBlock prev ;
     PortalBlock linkedPortal ;
+    private int deltatime;
     public PortalBlock(int x, int y) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 1, 1);
+        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 2, 2);
         solid = false ;
         if (prev == null) {
             prev = this ;
@@ -35,10 +37,17 @@ public class PortalBlock extends DynamicEntity {
     @Override
     public
     void tick(long elapsed) {
+        deltatime += elapsed;
+        if(deltatime>70){
+            deltatime=0;
+            view.imageIndex = (view.imageIndex+1)%4;
+        }
         if (teleporterCooldown > 0) {
             teleporterCooldown -= elapsed ;
-            return ;
+            return;
         }
+        
+        
         for (DynamicEntity e : GameSession.gameSession.entities) {
             if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<25) {
                 e.x = Camera.centeredCoordinateX(linkedPortal) - e.getWidth()/2; 
