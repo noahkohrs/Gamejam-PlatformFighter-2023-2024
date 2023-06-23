@@ -20,7 +20,7 @@ public class Bazooka extends Weapon {
   @Override
   public void createBullet(int startx, int starty) {
     try {
-      new Rocket(startx, starty, damage, player.facingDirection, player.team);
+      new Rocket(startx, starty+10, damage, player.facingDirection, player.team);
       player.weapon = new Rifle(player, ((Engineer) player).oldClips, ((Engineer) player).oldAmmo);
       this.kill();
     } catch (IOException e) {
