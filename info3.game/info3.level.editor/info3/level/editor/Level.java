@@ -119,7 +119,7 @@ public class Level {
                 return new woodBlock();
             case "StoneBlock":
                 return new StoneBlock();
-            case "leaveBlock":
+            case "LeaveBlock":
                 return new LeaveBlock();
             default:
                 throw new IOException("Unknown block id: " + id);
