@@ -61,7 +61,9 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void wizz(String direction) {
-            nearestEnemyEntity().takeDamage(100);
+        if(nearestEnemyEntity()==null)
+            return;
+        nearestEnemyEntity().takeDamage(100);
     }
 
     @Override
@@ -72,7 +74,9 @@ public class Raptor extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            if (distanceTo(nearestEnemyEntity()) <= 150) {
+            if(nearestEnemyEntity()==null)
+                return false;
+            else if (distanceTo(nearestEnemyEntity()) <= 150) {
                 ((RaptorView) this.view).attack = true;
                 Movement.Jump(this, 6);
 
