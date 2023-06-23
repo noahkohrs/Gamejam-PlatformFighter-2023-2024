@@ -15,7 +15,7 @@ public class Turret extends DynamicEntity {
 
     public Turret(int x, int y, int team) throws IOException {
         super(x, y, team);
-        this.ammo = 50;
+        this.ammo = 30;
         if (GameSession.gameSession.player1.team == team) {
             ennemy = GameSession.gameSession.player2;
         } else
@@ -56,7 +56,7 @@ public class Turret extends DynamicEntity {
         if (currentCooldown <= 0) {
             if (ammo > 0) {
                 try {
-                    new Bullet(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), 50,
+                    new Bullet(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), 5,
                             this.facingDirection, this.team);
                 } catch (IOException e) {
                     // TODO Auto-generated catch block

@@ -7,7 +7,7 @@ import info3.game.GameSession;
 
 public class GameTimer {
     private GameTimerView view;
-    public static final int FINAL_TIMER = 15000;// ms == 3 min30
+    public static final int FINAL_TIMER = 150000;// ms == 3 min30
     private int time_left;
     public boolean notEqualKills;
     public int equalTime = 5000;
