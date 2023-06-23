@@ -22,15 +22,15 @@ Player1(Init){
 Player2(Init){
   * (Init)
   | Cell(S, P) ? Pick() :(Init)
-  | Key(7) & GotPower() ? Wizz():(Init)
-  | Key(9) & GotStuff() ? Pop() :(Init)
-  | Key(8) & Key(4) ? Move(NW) :(Init)
-  | Key(8) & Key(6) ? Move(NE) :(Init)
-  | Key(8) ? Move(N)  :(Init)
-  | Key(6) ? Move(E)  :(Init)
-  | Key(4) ? Move(W)  :(Init)
-  | Key(5) ? Move(S)  :(Init)
-  | Key(1) ?          :(Dash)
+  | Key(i) & GotPower() ? Wizz():(Init)
+  | Key(p) & GotStuff() ? Pop() :(Init)
+  | Key(o) & Key(k) ? Move(NW) :(Init)
+  | Key(o) & Key(m) ? Move(NE) :(Init)
+  | Key(o) ? Move(N)  :(Init)
+  | Key(m) ? Move(E)  :(Init)
+  | Key(k) ? Move(W)  :(Init)
+  | Key(l) ? Move(S)  :(Init)
+  | Key(n) ?          :(Dash)
   | True() ?          :(Init)
 
     *(Dash)
@@ -64,8 +64,8 @@ Weapon1(Init){
 
 Weapon2(Init){
   * (Init)
-  | Key(2) ? Pop()    :(Init)
-  | Key(3) ? Wizz()    :(Init)
+  | Key(u) ? Pop()    :(Init)
+  | Key(j) ? Wizz()    :(Init)
   | True() ?   :(Init)
 }
 
