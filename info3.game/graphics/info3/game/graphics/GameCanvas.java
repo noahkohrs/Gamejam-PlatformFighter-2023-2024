@@ -98,7 +98,7 @@ public class GameCanvas extends Canvas {
     addMouseMotionListener(l);
     setFocusable(true);
     requestFocusInWindow();
-  
+
   }
 
   /**
@@ -159,6 +159,7 @@ public class GameCanvas extends Canvas {
    * This method sets the unique timer to the given delay.
    * Until the timer expires, you may not set another timer,
    * but you may cancel the current one and set a new one.
+   * 
    * @param delay
    * @param listener
    * @throws IllegalStateException if you try to set a second timer.
@@ -168,7 +169,7 @@ public class GameCanvas extends Canvas {
   }
 
   /**
-   * Cancel the previously-set timer, calling its cancelled 
+   * Cancel the previously-set timer, calling its cancelled
    * You may set a new timer after calling this method.
    * It is safe to call this method even if there is no timer
    * currently set.
@@ -299,12 +300,13 @@ public class GameCanvas extends Canvas {
       m_npaints = 0;
     }
 
-    if (m_listener != null)
+    if (m_listener != null) {
       try {
         m_listener.tick(elapsed);
       } catch (Throwable th) {
         th.printStackTrace(System.err);
       }
+    }
     elapsed = now - m_lastRepaint;
     if (elapsed > REPAINT_DELAY) {
       m_tickPeriod = (float) m_elapsed / (float) m_nTicks;
@@ -316,7 +318,8 @@ public class GameCanvas extends Canvas {
       // repainting off-screen and asking for a swap
       if (m_drawBuffer != null) {
         Graphics g = m_drawBuffer.getGraphics();
-        m_listener.paint(g);
+        if (m_listener != null)
+          m_listener.paint(g);
         m_swap = true;
         m_npaints++;
         repaint();
@@ -360,19 +363,20 @@ public class GameCanvas extends Canvas {
 
   class WindowFrame extends JFrame {
     private static final long serialVersionUID = 1L;
+
     WindowFrame() {
       enableEvents(RunnableEvent.EVENT_ID);
     }
 
     // DO NOT OVERRIDE THOSE, IT CUTS THE REPAINT
     // OF THE SWING/AWT COMPONENTS AND CONTAINERS AROUND THE CANVAS
-//    @Override
-//    public final void update(Graphics g) {
-//    }
+    // @Override
+    // public final void update(Graphics g) {
+    // }
 
-//    @Override
-//    public final void paint(Graphics g) {
-//    }
+    // @Override
+    // public final void paint(Graphics g) {
+    // }
   }
 
   public JFrame createFrame(Dimension d) {
@@ -399,6 +403,7 @@ public class GameCanvas extends Canvas {
 
     @Override
     public void windowClosing(WindowEvent e) {
+      m_frame.dispose();
       GameCanvasListener l = m_listener;
       // cut any further invocation of the listener
       // (in particular, cut any further ticks),
@@ -410,7 +415,6 @@ public class GameCanvas extends Canvas {
           l.exit();
       } catch (Throwable th) {
       }
-      System.exit(0);
     }
 
     @Override
@@ -454,7 +458,7 @@ public class GameCanvas extends Canvas {
 
   private void _playMusic(final InputStream is, long duration, float vol) {
     if (m_musicPlayer != null)
-      m_musicPlayer.stop();    
+      m_musicPlayer.stop();
     m_musicPlayer = new OggPlayer(this);
     m_musicVol = vol;
     m_musicInputStream = is;
@@ -474,26 +478,26 @@ public class GameCanvas extends Canvas {
   int m_nplayers;
 
   public void stopped(AudioPlayer player) {
-    for (int i=0;i<m_nplayers;i++) {
+    for (int i = 0; i < m_nplayers; i++) {
       if (player == m_players[i]) {
         m_players[i].stop();
-        for (i++;i<m_nplayers;i++) 
-          m_players[i-1] = m_players[i];
-        m_players[i-1] = null;
+        for (i++; i < m_nplayers; i++)
+          m_players[i - 1] = m_players[i];
+        m_players[i - 1] = null;
         m_nplayers--;
       }
     }
   }
-    
+
   private void _playSound(String name, final InputStream is, long duration, float vol) {
     AudioPlayer player;
     if (m_nplayers >= m_players.length) {
       player = m_players[0];
       player.stop();
-      for (int i=1;i<m_nplayers;i++) 
-        m_players[i-1] = m_players[i];
-      m_players[m_nplayers-1] = null;
-      m_nplayers--;      
+      for (int i = 1; i < m_nplayers; i++)
+        m_players[i - 1] = m_players[i];
+      m_players[m_nplayers - 1] = null;
+      m_nplayers--;
     }
     player = new OggPlayer(this);
     m_players[m_nplayers++] = player;
@@ -506,11 +510,11 @@ public class GameCanvas extends Canvas {
       m_musicPlayer.stop();
       m_musicPlayer = null;
     }
-    for (int i=0;i<m_nplayers;i++) {
+    for (int i = 0; i < m_nplayers; i++) {
       m_players[i].stop();
       m_players[i] = null;
     }
-    m_nplayers=0;
+    m_nplayers = 0;
   }
 
   Timer m_delayTimer;

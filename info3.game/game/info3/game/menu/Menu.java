@@ -4,17 +4,23 @@ import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 
 import info3.game.Game;
 import info3.level.editor.LevelEditor;
@@ -24,6 +30,7 @@ public class Menu {
     public static Menu menu;
     private JFrame m_frame;
     private ButtonGroup bg1, bg2;
+    private List mapList;
     private String arg;
 
     public static void main(String args[]) throws Exception {
@@ -40,7 +47,7 @@ public class Menu {
         }
     }
 
-    public Menu(String arg) {
+    public Menu(String arg) throws IOException {
         this.arg = arg;
         Menu.menu = this;
         System.out.println("  - creating frame...");
@@ -63,7 +70,7 @@ public class Menu {
         return m_frame;
     }
 
-    private void setupFrame() {
+    private void setupFrame() throws IOException {
         m_frame.setTitle("Menu");
         m_frame.setLayout(new BorderLayout());
         m_frame.add(new JLabel("Player selection"), BorderLayout.NORTH);
@@ -106,8 +113,21 @@ public class Menu {
 
         buttonPanel.add(playButton);
         buttonPanel.add(levelEditorButton);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
+        bottomPanel.add(new JLabel("Map selection"), BorderLayout.NORTH);
+        mapList = new List();
+        File mapDirectory = new File("resources/maps");
+        if (!mapDirectory.exists()) {
+            throw new IOException("Could not found maps folder in resources");
+        }
+        File[] mapFiles = mapDirectory.listFiles();
+        for (File f : mapFiles) {
+            mapList.add(f.getName());
+        }
 
-        m_frame.add(buttonPanel, BorderLayout.SOUTH);
+        bottomPanel.add(mapList, BorderLayout.CENTER);
+        m_frame.add(bottomPanel, BorderLayout.SOUTH);
 
         m_frame.pack();
         // center the window on the screen
@@ -119,8 +139,13 @@ public class Menu {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (mapList.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a map before loading", "Map Selection Error",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             try {
-                new LevelEditor();
+                new LevelEditor("resources/maps/" + mapList.getSelectedItem());
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -153,10 +178,14 @@ public class Menu {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("Player 1 : " + bg1.getSelection().getActionCommand());
-            System.out.println("Player 2 : " + bg2.getSelection().getActionCommand());
+            if (mapList.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a map before loading", "Map Selection Error",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             try {
-                new Game(arg,bg1.getSelection().getActionCommand(),bg2.getSelection().getActionCommand());
+                new Game(arg,"resources/maps/" + mapList.getSelectedItem(), bg1.getSelection().getActionCommand(),
+                        bg2.getSelection().getActionCommand());
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -196,6 +225,7 @@ public class Menu {
 
         @Override
         public void windowClosing(WindowEvent e) {
+            System.exit(0);
         }
 
         @Override

@@ -64,7 +64,7 @@ public class GameTimer {
             GameSession.gameSession.removeEntity(GameSession.gameSession.player2.weapon);
             if (GameSession.gameSession.restart) {
                 try {
-                    Game.game.newGameSession();
+                    Game.game.newGameSession(Game.levelJSonFilename);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

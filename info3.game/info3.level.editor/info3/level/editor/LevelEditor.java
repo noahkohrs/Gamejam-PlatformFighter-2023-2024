@@ -6,6 +6,7 @@ import info3.game.graphics.GameCanvas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import javax.swing.JFrame;
@@ -17,7 +18,7 @@ public class LevelEditor {
 
 	static LevelEditor levelEditor;
 
-	Level level;
+	public Level level;
 	ElementList brushSelector;
 
 	GameCanvas m_canvas;
@@ -33,24 +34,21 @@ public class LevelEditor {
 	public static void main(String args[]) throws Exception {
 		try {
 			System.out.println("Game starting...");
-			new LevelEditor();
+			new LevelEditor("resources/maps/level.json");
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
 		}
 	}
 
-	public LevelEditor() throws Exception {
-		new LevelEditor(60, 30);
-	}
-	public LevelEditor(int x, int y) throws Exception {
-		this.levelEditor = this;
+	public LevelEditor(String levelJsonFilename) throws Exception {
+		LevelEditor.levelEditor = this;
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		try {
-			level = new Level("level.json");
-		} catch (Exception e) {
-			level = new Level(x, y);
+			level = new Level(levelJsonFilename);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		// get Real Canvas Size
 		brushSelector = new ElementList((int) (1024 * 0.85), 40);
@@ -134,8 +132,8 @@ public class LevelEditor {
 		}
 	}
 
-    public ElementContainer select(int x, int y) {
-        System.out.println("Selecting element at " + x + ", " + y);
+	public ElementContainer select(int x, int y) {
+		System.out.println("Selecting element at " + x + ", " + y);
 
 		if (brushSelector.x <= x && x <= brushSelector.x + brushSelector.getRealWidth() && brushSelector.y <= y
 				&& y <= brushSelector.y + brushSelector.getRealHeight()) {
@@ -162,7 +160,6 @@ public class LevelEditor {
 	 * visible on the screen.
 	 * ==============================================================
 	 */
-	
 
 	private int m_musicIndex = 0;
 	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };

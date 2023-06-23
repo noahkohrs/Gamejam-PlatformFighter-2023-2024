@@ -23,6 +23,8 @@ public class Level {
     private float scale = 1.5f;
     float scaleChange = 0; // 0 = no change, 1 = increase, -1 = decrease
 
+    private String levelFilename;
+
     public Level() throws IOException {
         this(10, 10);
     }
@@ -39,6 +41,7 @@ public class Level {
     }
 
     public Level(String levelFilename) throws IOException {
+        this.levelFilename = levelFilename;
         File f = new File(levelFilename);
         if (f.exists()) {
             InputStream is = new FileInputStream(f);
@@ -70,12 +73,19 @@ public class Level {
                 String id = jsonBlock.getString("id");
                 int x = jsonBlock.getInt("x");
                 int y = jsonBlock.getInt("y");
-                JSONObject tags = jsonBlock.getJSONObject("tags") ;
+                JSONObject tags = jsonBlock.getJSONObject("tags");
                 m_elements[x][y] = new ElementContainer(idToElement(id, x, y, tags), x, y);
             }
 
         } else {
-            throw new IOException("File not found");
+            this.width = 60;
+            this.height = 30;
+            m_elements = new ElementContainer[width][height];
+            for (int i = 0; i < m_elements.length; i++) {
+                for (int j = 0; j < m_elements[i].length; j++) {
+                    m_elements[i][j] = new ElementContainer(new VoidBlock(), i, j);
+                }
+            }
         }
     }
 
@@ -96,9 +106,9 @@ public class Level {
                 return new MalusBlock();
             case "PowerUpBlock":
                 return new PowerUpBlock();
-            case "PortalBlock" :
-                int portal_id = tags.getInt("id") ;
-                return new PortalBlock(portal_id); 
+            case "PortalBlock":
+                int portal_id = tags.getInt("id");
+                return new PortalBlock(portal_id);
             default:
                 throw new IOException("Unknown block id: " + id);
         }
@@ -144,18 +154,18 @@ public class Level {
     public void changeElement(int x, int y) throws InstantiationException, IllegalAccessException {
         ElementContainer elem = m_elements[x / Element.tileRealSize(scale)][y / Element.tileRealSize(scale)];
         Element currentSelection = LevelEditor.levelEditor.selected.m_element;
-            if (!(elem.m_element.getClass().equals(currentSelection.getClass()))) {
-                elem.m_element = LevelEditor.levelEditor.selected.m_element.copy();
-                
-            }
+        if (!(elem.m_element.getClass().equals(currentSelection.getClass()))) {
+            elem.m_element = LevelEditor.levelEditor.selected.m_element.copy();
+
+        }
     }
 
-    public void exportJson(String filenameDest) {
+    public void exportJson() {
         JSONObject levelJson = new JSONObject();
-        JSONArray blocks = new JSONArray() ;
-        JSONArray animatedEntities = new JSONArray() ;
-        for (int i = 0 ; i < m_elements.length ; i++) {
-            for (int j = 0 ; j < m_elements[i].length ; j++) {
+        JSONArray blocks = new JSONArray();
+        JSONArray animatedEntities = new JSONArray();
+        for (int i = 0; i < m_elements.length; i++) {
+            for (int j = 0; j < m_elements[i].length; j++) {
                 Element elem = m_elements[i][j].m_element;
                 JSONObject json = new JSONObject();
                 json.put("x", i);
@@ -180,7 +190,8 @@ public class Level {
         levelJson.put("height", height);
         levelJson.put("background", "<DEFAULT>");
         try {
-            java.io.FileWriter fw = new java.io.FileWriter(filenameDest);
+            System.out.println(levelFilename);
+            java.io.FileWriter fw = new java.io.FileWriter(this.levelFilename);
             fw.write(levelJson.toString());
             fw.close();
         } catch (IOException e) {
