@@ -57,12 +57,14 @@ public class Player extends DynamicEntity {
   protected boolean respawned = true;
   protected int respawnTimer = 3000;
   public int kills;
+
   public Player() throws IOException {
     this(1);
   }
 
   public Player(int team) throws IOException {
-    super(40, 40, team, Getchar(team) + "PlayerSprite.png", 3, 2);
+    
+    super(spawningX(team), 40, team, Getchar(team) + "PlayerSprite.png", 3, 2);
     view = new PlayerView(Getchar(team) + "PlayerSprite.png", 3, 2, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
@@ -70,6 +72,7 @@ public class Player extends DynamicEntity {
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
     jumpCounter = jumpAmount;
+    System.out.println("this x: "+spawningX(team));
   }
 
   public Player(int team, String filename) throws IOException {
@@ -91,6 +94,14 @@ public class Player extends DynamicEntity {
     }
   }
 
+  private static int spawningX(int team){
+    if(team==2){
+      return 40;
+    }
+    else{
+      return GameSession.gameSession.map.realWidth()-40;
+    }
+  }
   public void takeDamage(int amount) {
     lifeBar.life.removeHealth(amount);
   }
@@ -102,7 +113,7 @@ public class Player extends DynamicEntity {
   protected void respawn() {
     if (respawnTimer <= 0) {
 
-      //Choose spawner point
+      // Choose spawner point
       Random random = new Random();
       int size = GameSession.gameSession.spawnerPoints.size();
       if (size > 0) {
@@ -115,21 +126,21 @@ public class Player extends DynamicEntity {
         this.y = 50;
       }
 
-      //add back his health and reset his weapon so he has 15 ammo again. 
+      // add back his health and reset his weapon so he has 15 ammo again.
       this.lifeBar.life.addHealth(this.lifeBar.life.maxHealth);
       this.weapon.reset();
 
-      //Reinitiallise the variables
+      // Reinitiallise the variables
       respawnTimer = 3000;
       respawned = true;
       this.dead = false;
 
-      //Find ennemy and add him a kill
+      // Find ennemy and add him a kill
       Player enemy;
-      if(this.team==TEAM.TEAM_1)
-        enemy=GameSession.gameSession.player2;
+      if (this.team == TEAM.TEAM_1)
+        enemy = GameSession.gameSession.player2;
       else
-        enemy=GameSession.gameSession.player1;
+        enemy = GameSession.gameSession.player1;
       enemy.kills++;
     }
   }
@@ -152,8 +163,8 @@ public class Player extends DynamicEntity {
     jumpCooldown -= elapsed;
     deltatime = elapsed;
 
-    //Dash handler
- try {
+    // Dash handler
+    try {
       movingDirection = Direction.IDLE;
       this.automate.step(this);
       if (movingDirection.x != 0)
@@ -165,13 +176,13 @@ public class Player extends DynamicEntity {
       e.printStackTrace();
     }
     view.tick(deltatime);
-    if(DashTime>0){
-    Movement.Dash(this);
+    if (DashTime > 0) {
+      Movement.Dash(this);
     } else {
-    Movement.Walk(this);
-    Movement.affectGravity(this);
-  }
-    DashCD-= elapsed;
+      Movement.Walk(this);
+      Movement.affectGravity(this);
+    }
+    DashCD -= elapsed;
 
   }
 
@@ -182,13 +193,6 @@ public class Player extends DynamicEntity {
     if (direction.y == Direction.UPPER.y)
       Movement.Jump(this);
   }
-
-  @Override
-  public void wizz() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'wizz'");
-  }
-  
 
   @Override
   public boolean cell(Direction direction, String category) {
@@ -214,6 +218,14 @@ public class Player extends DynamicEntity {
         }
       }
 
+    }
+    else if (category.equals("O")) {
+      this.x += direction.x;
+      boolean res = hitbox.inCollision(direction);
+      this.x -= direction.x;
+      return res;
+    } else if(category.equals("A")){
+      return distanceTo(getennemy()) <= 33;
     }
     return false;
   }
@@ -341,20 +353,21 @@ public class Player extends DynamicEntity {
     }
 
   }
-      @Override
-    public boolean MyDir(String direction) {
-            System.out.println("called MyDir");
-        return facingDirection.equals(Direction.fromString(direction));
-    }
 
-      @Override
-    public void jump(String direction) {
-      facingDirection = Direction.fromString(direction);
-      System.out.println(this.facingDirection);
-      if(DashCD <=0){    
-        DashTime = 2;
-        DashCD = 1000;
+  @Override
+  public boolean MyDir(String direction) {
+    System.out.println("called MyDir");
+    return facingDirection.equals(Direction.fromString(direction));
+  }
+
+  @Override
+  public void jump(String direction) {
+    facingDirection = Direction.fromString(direction);
+    System.out.println(this.facingDirection);
+    if (DashCD <= 0) {
+      DashTime = 2;
+      DashCD = 1000;
     }
-    }
+  }
 
 }

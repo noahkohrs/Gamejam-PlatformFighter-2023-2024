@@ -12,82 +12,79 @@ public class Block extends Entity {
 
     @Override
     public void tick(long elapsed) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'tick'");
-    }
+        try {
+            automate.step(this);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
-    @Override
-    public void move(Direction direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
 
     @Override
     public void wizz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+        System.out.println("We do not use wizz with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public void pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+        System.out.println("We do not use pop with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public boolean gotPower() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+        System.out.println("We do not use gotpower with block, so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public void turn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+        System.out.println("We do not use turn with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public boolean cell(Direction direction, String category) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cell'");
+        System.out.println("We do not use cell with block, so in order to not have a problem with the parser, it always return false");
+        return false;
     }
     
 
     @Override
     public void egg(Entity type) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+        System.out.println("We do not use egg with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public boolean MyDir(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
+        System.out.println("We do not use MyDir with block, so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public void pick() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+        System.out.println("We do not use pick with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public void wizz(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+        System.out.println("We do not use wizz with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public boolean gotStuff() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gotStuff'");
+        System.out.println("We do not use gotStuff with block, so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public void jump(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'jump'");
+        System.out.println("We do not use jump with block, so in order to not have a problem with the parser, it always return void");
+        return;
     }
 }

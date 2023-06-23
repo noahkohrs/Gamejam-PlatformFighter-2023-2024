@@ -84,6 +84,8 @@ public class GameSession {
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
         spawnerPoints = new ArrayList<SpawnerPoint>();
+
+        map = new Map(mapPath);
         if (p1.equals("Mexican"))
             player1 = new Mexican(TEAM.BLUE);
         else
@@ -93,7 +95,7 @@ public class GameSession {
         else
             player2 = new Engineer(TEAM.RED);
 
-        map = new Map(mapPath);
+        
         camera = new Camera();
         loadEntities(mapPath);
         gametime = new GameTimer();
@@ -147,9 +149,9 @@ public class GameSession {
         }
     }
 
-    private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+    private DynamicEntity IdToEntity(String name, int x, int y, JSONObject tags) throws IOException {
         int speed;
-        switch (id) {
+        switch (name) {
             case "MovingHorizontalPlatform":
                 int moveX = tags.getInt("blockMove");
                 speed = tags.getInt("speed");
@@ -167,7 +169,8 @@ public class GameSession {
                 malusBlocks.add(malusBlock);
                 return malusBlock;
             case "PortalBlock" :
-                return new PortalBlock(x, y);
+                int id = tags.getInt("id");
+                return new PortalBlock(x, y, id);
             default:
                 return null;
         }
@@ -192,6 +195,14 @@ public class GameSession {
         if (testelapsed >= 24) {
             for (DynamicEntity entity : entities) {
                 entity.tick(testelapsed);
+            }
+            
+            for (int i = 0; i < GameSession.gameSession.map.fixedMap.length; i++) {
+                for (int j = 0; j < GameSession.gameSession.map.fixedMap[i].length; j++) {
+                    if (GameSession.gameSession.map.fixedMap[i][j] != null) {
+                        GameSession.gameSession.map.fixedMap[i][j].tick(testelapsed);
+                    }
+                }
             }
             camera.tick(testelapsed);
             testelapsed = 0;
@@ -240,6 +251,8 @@ public class GameSession {
     public Automate findAutomate(Entity entity) {
         String className = entity.getClass().getSimpleName();
         for (Automate automate : this.allAutomates) {
+            if(automate.className.equals("Default"))
+                defaultAutomate=automate;
             if (automate.className.equals(className)) {
                 return automate;
             } else if ((entity instanceof Player && automate.className.startsWith("Player"))

@@ -1,6 +1,10 @@
 package info3.game.entity.blocks;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sound.sampled.Port;
 
 import info3.game.Camera;
 import info3.game.GameSession;
@@ -14,19 +18,33 @@ import java.awt.Graphics;
 
 public class PortalBlock extends DynamicEntity {
     private long teleporterCooldown = 0 ;
-    private static PortalBlock prev ;
+    private static List<PortalBlock> unlinkedPortals ;
+    private int id ;
     PortalBlock linkedPortal ;
-    private int deltatime;
-    public PortalBlock(int x, int y) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 2, 2);
-        solid = false ;
-        if (prev == null) {
-            prev = this ;
-        } else {
-            linkedPortal = prev ;
-            prev.linkedPortal = this ;
-            prev = null ;
+    public PortalBlock(int x, int y, int id) throws IOException {
+        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 1, 1);
+        if (unlinkedPortals == null) {
+            unlinkedPortals = new ArrayList<PortalBlock>(); ;
         }
+        this.id = id ;
+        PortalBlock p = linkablePortal() ;
+        if (p == null) {
+            unlinkedPortals.add(this) ;
+        } else {
+            linkedPortal = p ;
+            p.linkedPortal = this ;
+            unlinkedPortals.remove(p) ;
+        }
+        solid = false ;
+    }
+
+    private PortalBlock linkablePortal() {
+        for (PortalBlock p : unlinkedPortals) {
+            if (p.id == id) {
+                return p ;
+            }
+        }
+        return null ;
     }
 
     @Override

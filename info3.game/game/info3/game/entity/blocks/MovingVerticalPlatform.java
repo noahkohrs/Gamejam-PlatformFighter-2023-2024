@@ -7,6 +7,8 @@ import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Entity;
 import info3.game.entity.TEAM;
+import info3.game.weapon.Bullet;
+import info3.game.weapon.Weapon;
 
 public class MovingVerticalPlatform extends DynamicEntity {
     int minY, maxY;
@@ -31,26 +33,29 @@ public class MovingVerticalPlatform extends DynamicEntity {
     }
 
     @Override
-    public void wizz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
-    }
-
-    @Override
-    public void pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
-    }
-
-    @Override
     public void move(Direction direction) {
-        y += velY;
+        switch(direction){
+            case UPPER:
+              this.y-=10;
+              break;
+            case BOTTOM:
+              this.y+=10;
+              break;
+            case RIGHT:
+              this.x+=10;
+              break;
+            case LEFT:
+              this.x-=10;
+              break;
+            default:
+            y += velY;
+                break;
+          }
         power -= Math.abs(velY);
-        if (GameSession.gameSession.player1.isSittingOn(this)) {
-            GameSession.gameSession.player1.y += velY;
-        }
-        if (GameSession.gameSession.player2.isSittingOn(this)) {
-            GameSession.gameSession.player2.y += velY;
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e.team != TEAM.NONE && !(e instanceof Weapon) && e.isSittingOn(this) && !(e instanceof Bullet)) {
+                e.y += velY;
+            }
         }
     }
 

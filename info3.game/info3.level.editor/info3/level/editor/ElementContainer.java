@@ -30,6 +30,13 @@ public class ElementContainer {
     public void paint(Graphics g, int i, int j, float scale) {
         if (!(m_element instanceof VoidBlock && !displayVoid))
             m_element.paint(g, i, j, scale);
+            g.setColor(java.awt.Color.black);
+        int imgSize = Element.tileRealSize(scale);
+        g.drawRect(imgSize*i, imgSize*j, imgSize-1, imgSize-1);
+    }
+    public void paintSelector(Graphics g, int i, int j, float scale) {
+        if (!(m_element instanceof VoidBlock && !displayVoid))
+            m_element.paintSelector(g, i, j, scale);
         if (LevelEditor.levelEditor.selected == this)
             g.setColor(java.awt.Color.blue);
         else 

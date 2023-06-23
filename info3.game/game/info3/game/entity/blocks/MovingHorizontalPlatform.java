@@ -33,20 +33,24 @@ public class MovingHorizontalPlatform extends DynamicEntity {
     }
 
     @Override
-    public void wizz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
-    }
-
-    @Override
-    public void pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
-    }
-
-    @Override
     public void move(Direction direction) {
-        x += velX;
+        switch(direction){
+            case UPPER:
+              this.y-=10;
+              break;
+            case BOTTOM:
+              this.y+=10;
+              break;
+            case RIGHT:
+              this.x+=10;
+              break;
+            case LEFT:
+              this.x-=10;
+              break;
+            default:
+                x += velX;
+                break;
+          }
         power -= Math.abs(velX);
         for (DynamicEntity e : GameSession.gameSession.entities) {
             if (e.team != TEAM.NONE && !(e instanceof Weapon) && e.isSittingOn(this) && !(e instanceof Bullet)) {

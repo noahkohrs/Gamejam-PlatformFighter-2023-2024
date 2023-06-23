@@ -17,39 +17,47 @@ public class DynamicEntity extends Entity {
     }
 
     @Override
-    public void tick(long elapsed) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
-    }
-
-    @Override
     public void move(Direction direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        switch(direction){
+            case UPPER:
+              this.y-=10;
+              break;
+            case BOTTOM:
+              this.y+=10;
+              break;
+            case RIGHT:
+              this.x+=10;
+              break;
+            case LEFT:
+              this.x-=10;
+              break;
+            default:
+                break;
+          }
     }
 
     @Override
     public void wizz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz' without argument");
+        System.out.println("We do not use wizz with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public void wizz(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'wizz'");
+        System.out.println("We do not use wizz with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public void pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+        System.out.println("We do not use pop with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public void egg(Entity type) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'egg'");
+        System.out.println("We do not use egg with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     public void kill() {
@@ -58,43 +66,43 @@ public class DynamicEntity extends Entity {
 
     @Override
     public boolean gotPower() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+        System.out.println("We do not use gotPower with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public boolean gotStuff() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gotPower'");
+        System.out.println("We do not use gotStuff with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public void turn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Turn'");
+        System.out.println("We do not use turn with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public boolean cell(Direction direction, String category) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cell'");
+        System.out.println("We do not use cell with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public boolean MyDir(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'MyDir'");
+        System.out.println("We do not use MyDir with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return false");
+        return false;
     }
 
     @Override
     public void pick() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pick'");
+        System.out.println("We do not use pick with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 
     @Override
     public void jump(String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'jump'");
+        System.out.println("We do not use jump with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
     }
 }
