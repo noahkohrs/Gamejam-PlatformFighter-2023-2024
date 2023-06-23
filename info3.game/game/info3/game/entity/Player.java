@@ -63,6 +63,7 @@ public class Player extends DynamicEntity {
   public Player(int team) throws IOException {
     
   super(spawningX(team), 40, team);
+    respawn();
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Rifle(this);
@@ -110,7 +111,7 @@ public class Player extends DynamicEntity {
         int randomIndex = random.nextInt(size);
         SpawnerPoint spawner = GameSession.gameSession.spawnerPoints.get(randomIndex);
         this.x = spawner.x;
-        this.y = spawner.y - 50;
+        this.y = spawner.y - 64;
       } else {
         this.x = 50;
         this.y = 50;
