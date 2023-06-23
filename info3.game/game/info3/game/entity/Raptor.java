@@ -8,6 +8,7 @@ import info3.game.hitbox.HitBox;
 public class Raptor extends DynamicEntity {
 
     private int time = 20000;
+    private static final int maxTime = 20000;
     Player ennemy;
 
     public Raptor(int x, int y, int team, Direction direction) throws IOException {
@@ -73,6 +74,10 @@ public class Raptor extends DynamicEntity {
                 ((RaptorView) this.view).attack = false;
             return distanceTo(ennemy) <= 33;
         }
+    }
+
+    double getLifePercentage() {
+        return (double) time / (double) maxTime;
     }
 
     @Override
