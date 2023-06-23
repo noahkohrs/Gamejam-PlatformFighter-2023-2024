@@ -56,14 +56,15 @@ public class Movement {
     }
 
     public static void manageAirJump(Entity E) {
-        E.y += 1;
+        E.y += 5;
         if (!E.hitbox.inCollision(Direction.BOTTOM) && E.jumpCounter == E.jumpAmount) {
             E.jumpCounter -= 1;
             if (E.jumpCounter == 0) {
+                E.y -= 5;
                 return;
             }
         }
-        E.y -= 1;
+        E.y -= 5;
     }
 
     public static void Jump(Player E) {
