@@ -164,7 +164,7 @@ Noé           | Malade, je n'ai pas peux avancer
 Développeur   | Tâche
 ------------- | -------------
 Clément       | Optimisation du code des powerUps
-Anastasios    | b
+Anastasios    | Creation d'automate de Weapon1 et Weapon2 pour avoir les mêmes touches pour tirer. Creation Spawner Points et Turret pour le Engineer (creation de class Engineer)
 Bastien       | Ajout d'effet sonore pour les balles. 
 Gwénolé       | Travail sur les hitboxs et les dashs
 Noah          | e
@@ -179,7 +179,7 @@ Noé           | malade, travaille sur le timer.
 Développeur   | Tâche
 ------------- | -------------
 Clément       | Implémentation de l'attaque bazooka de l'ingenieur
-Anastasios    | b
+Anastasios    | Addition de  killCounter + restart si les kills sont egaux + affichage de winner à la fin.
 Bastien       | Refactor de weapon pour pouvoir ajouter des armes plus simplement et début de menu
 Gwénolé       | Travail sur les dashs, et animation.
 Noah          | e
@@ -195,7 +195,7 @@ Noé           | finition timer, création sprite flasque revigorante
 Développeur   | Tâche
 ------------- | -------------
 Clément       | Implémentation du bloc pouvant bouger de haut en bas.
-Anastasios    | b
+Anastasios    | Change automates de players pour qu'ils soient les mêmes pour chauqe player.Turret marche avec de movingPlatform. Correction de petits bugs pour mexican, turret, winning message.
 Bastien       | Ajout d'un chargement de level au LevelEditor. Ajout du menu fini
 Gwénolé       | Implémentation des dashs, Modification du fonctionnement du bazooka, animation de celui-ci et level design
 Noah          | e
