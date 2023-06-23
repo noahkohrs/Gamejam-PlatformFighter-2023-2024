@@ -10,7 +10,7 @@ public class LeaveBlock extends Block {
     
     public LeaveBlock(int x, int y) throws IOException {
         super(x, y, blockTexture);
-        solid = false ;
+        solid = true ;
     }    
     
 }
