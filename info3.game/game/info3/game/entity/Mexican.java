@@ -20,7 +20,7 @@ public class Mexican extends Player {
     @Override
     public void tick(long elapsed) {
         raptorCooldown -= elapsed;
-        timeTequilla-=elapsed;
+        timeTequilla -= elapsed;
         timeTequilla -= elapsed;
         view.tick(elapsed);
         timer += elapsed;
@@ -28,6 +28,11 @@ public class Mexican extends Player {
 
         if (isDead()) {
             this.dead = true;
+            if (!addedDeath) {
+                System.out.print("KIll to add for" + getennemy().getClass().getSimpleName());
+                getennemy().kills++;
+            }
+            addedDeath = true;
             if (!respawned)
                 respawnTimer -= elapsed;
             respawn();
@@ -54,7 +59,7 @@ public class Mexican extends Player {
             System.out.println("Normally we should not reach here");
             e.printStackTrace();
         }
-        DashCD-=elapsed;
+        DashCD -= elapsed;
         view.tick(deltatime);
         Movement.Walk(this);
         Movement.affectGravity(this);
@@ -66,7 +71,8 @@ public class Mexican extends Player {
         raptorCooldown = 3000;
 
         try {
-            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team, this.facingDirection);
+            new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team,
+                    this.facingDirection);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -77,7 +83,6 @@ public class Mexican extends Player {
     public boolean gotPower() {
         return raptorCooldown <= 0;
     }
-
 
     @Override
     public boolean MyDir(String direction) {

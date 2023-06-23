@@ -226,9 +226,9 @@ public class GameSession {
                 continue;
             entity.view.paint(g);
         }
-        if (!player1.dead)
+        if (!player1.dead && !this.gametime.end)
             player1.view.paint(g);
-        if (!player2.dead)
+        if (!player2.dead && !this.gametime.end)
             player2.view.paint(g);
         gametime.showGameTimer(g);
         ;

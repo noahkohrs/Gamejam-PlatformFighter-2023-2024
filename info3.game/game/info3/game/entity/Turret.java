@@ -73,6 +73,8 @@ public class Turret extends DynamicEntity {
 
     @Override
     public boolean cell(Direction direction, String category) {
+        if(nearestEnemyEntity()==null)
+            return false;
         return distanceTo(nearestEnemyEntity()) <= 500;
     }
 
@@ -82,6 +84,8 @@ public class Turret extends DynamicEntity {
 
     @Override
     public boolean MyDir(String direction) {
+        if(nearestEnemyEntity()==null)
+            return false;
         double angle = -Math.atan2(nearestEnemyEntity().y - this.y, nearestEnemyEntity().x - this.x);
         boolean res;
         if(nearestEnemyEntity().y>this.y+10)

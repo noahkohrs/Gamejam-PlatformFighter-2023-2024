@@ -53,8 +53,9 @@ public class Player extends DynamicEntity {
   protected int DashCD;
   public boolean dead = false;
   protected boolean respawned = true;
-  protected int respawnTimer = 3000;
+  protected int respawnTimer = 2000;
   public int kills;
+  public boolean addedDeath=false;
 
   public Player() throws IOException {
     this(1);
@@ -69,7 +70,6 @@ public class Player extends DynamicEntity {
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
     jumpCounter = jumpAmount;
-    System.out.println("this x: " + spawningX(team));
   }
 
   public Player(int team, String filename) throws IOException {
@@ -151,17 +151,10 @@ public class Player extends DynamicEntity {
       this.weapon.reset();
 
       // Reinitiallise the variables
-      respawnTimer = 3000;
+      respawnTimer = 2000;
       respawned = true;
-      this.dead = false;
-
-      // Find ennemy and add him a kill
-      Player enemy;
-      if (this.team == TEAM.TEAM_1)
-        enemy = GameSession.gameSession.player2;
-      else
-        enemy = GameSession.gameSession.player1;
-      enemy.kills++;
+      addedDeath=false;
+      dead=false;
     }
   }
 
@@ -174,6 +167,11 @@ public class Player extends DynamicEntity {
 
     if (isDead()) {
       this.dead = true;
+      if(!addedDeath){
+        System.out.print("KIll to add for"+getennemy().getClass().getSimpleName());
+        getennemy().kills++;
+      }
+      addedDeath=true;
       if (!respawned)
         respawnTimer -= elapsed;
       respawn();
