@@ -6,16 +6,16 @@
             "id": "MovingHorizontalPlatform",
             "tags": {
                 "blockMove": 6,
-                "speed": 3
+                "speed": 1
             }
         },
         {
             "x": 8,
-            "y": 17,
+            "y": 14,
             "id": "MovingVerticalPlatform",
             "tags": {
                 "blockMove": 6,
-                "speed": 3
+                "speed": 1
             }
         },
         {
@@ -29,11 +29,11 @@
         },
         {
             "x": 9,
-            "y": 17,
+            "y": 14,
             "id": "MovingVerticalPlatform",
             "tags": {
                 "blockMove": 6,
-                "speed": 3
+                "speed": 1
             }
         },
         {
@@ -47,11 +47,11 @@
         },
         {
             "x": 10,
-            "y": 17,
+            "y": 14,
             "id": "MovingVerticalPlatform",
             "tags": {
                 "blockMove": 6,
-                "speed": 3
+                "speed": 1
             }
         },
         {
@@ -65,11 +65,11 @@
         },
         {
             "x": 11,
-            "y": 17,
+            "y": 14,
             "id": "MovingVerticalPlatform",
             "tags": {
                 "blockMove": 6,
-                "speed": 3
+                "speed": 1
             }
         },
         {
