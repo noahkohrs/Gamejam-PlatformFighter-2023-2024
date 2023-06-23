@@ -146,13 +146,13 @@ Raptor(Init){
   |MyDir(W) / MyDir(NW) / MyDir(SW)?  :(Left)
 
   *(Right)
-  |Cell(E,A) ? Pop()    :()
+  |Cell(E,A) ? Wizz()    :()
   |!Cell(E,O)?         :(Left)
   |!GotPower ?  :()
   |True()    ? Move(E) :(Right)
 
   *(Left)
-  |Cell(W,A) ? Pop()    :()
+  |Cell(W,A) ? Wizz()    :()
   |!Cell(W,O)?          :(Right)
   |!GotPower ?          :()
   |True()    ? Move(W)  :(Left)
