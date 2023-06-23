@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -21,9 +20,6 @@ import info3.game.entity.Entity;
 import info3.game.entity.blocks.GrassBlock;
 import info3.game.entity.blocks.GroundBlock;
 import info3.game.entity.blocks.SpawnerPoint;
-import info3.game.entity.blocks.MalusBlock;
-import info3.game.entity.blocks.PortalBlock;
-import info3.game.entity.blocks.PowerUpBlock;
 
 public class Map {
     private int width;

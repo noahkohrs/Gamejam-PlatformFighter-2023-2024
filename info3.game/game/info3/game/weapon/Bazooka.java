@@ -2,7 +2,6 @@ package info3.game.weapon;
 
 import java.io.IOException;
 
-import info3.game.GameSession;
 import info3.game.entity.Engineer;
 import info3.game.entity.Player;
 

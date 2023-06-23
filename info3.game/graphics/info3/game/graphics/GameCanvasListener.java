@@ -25,7 +25,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import info3.game.sound.AudioPlayer;
 
 /*
  * A single listener grouping all the callbacks from the GameCanvas.

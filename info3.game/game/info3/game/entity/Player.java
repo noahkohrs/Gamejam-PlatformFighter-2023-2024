@@ -24,8 +24,6 @@ import java.util.List;
 import java.io.IOException;
 import java.util.Random;
 
-import info3.game.Camera;
-import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.entity.blocks.SpawnerPoint;
 import java.util.ArrayList;

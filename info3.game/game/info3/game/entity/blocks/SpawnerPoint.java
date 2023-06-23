@@ -3,8 +3,6 @@ package info3.game.entity.blocks;
 import java.io.IOException;
 
 import info3.game.entity.Block;
-import info3.game.entity.DynamicEntity;
-import info3.game.entity.TEAM;
 
 public class SpawnerPoint extends Block{
 

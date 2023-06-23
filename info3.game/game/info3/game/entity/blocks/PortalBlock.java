@@ -4,16 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.Port;
-
 import info3.game.Camera;
 import info3.game.GameSession;
-import info3.game.entity.Block;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.TEAM;
-import info3.game.weapon.Bullet;
 import info3.game.weapon.Weapon;
-import java.awt.Graphics;
 
 
 public class PortalBlock extends DynamicEntity {

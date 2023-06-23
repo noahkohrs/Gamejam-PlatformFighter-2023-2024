@@ -5,7 +5,6 @@ import java.io.IOException;
 import info3.game.GameSession;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
-import info3.game.entity.Entity;
 import info3.game.entity.TEAM;
 import info3.game.weapon.Bullet;
 import info3.game.weapon.Weapon;

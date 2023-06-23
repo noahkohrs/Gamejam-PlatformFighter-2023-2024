@@ -120,7 +120,7 @@ public class Camera {
             g.setColor(Color.white);
             g.fillRect(camX, camY, camWidth, camHeight);
         }
-        int add=500;
+        // int add=500;
         }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {

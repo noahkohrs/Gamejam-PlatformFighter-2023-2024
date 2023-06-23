@@ -1,6 +1,5 @@
 package info3.game.entity;
 
-import info3.game.GameSession;
 
 public class MexicanView extends PlayerView {
     static String filename = "resources/Mexicain/PlayerSprite.png";

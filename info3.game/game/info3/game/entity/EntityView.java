@@ -1,11 +1,9 @@
 package info3.game.entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import info3.game.Camera;
-import info3.game.Game;
 
 public class EntityView {
 

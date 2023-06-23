@@ -37,7 +37,6 @@ public class Game {
 	public static Game game;
 	public static GameSession m_game_session;
 	public static String galFile;
-	private Sound m_music;
 
 	// Canvas & window
 	public JFrame m_frame;
