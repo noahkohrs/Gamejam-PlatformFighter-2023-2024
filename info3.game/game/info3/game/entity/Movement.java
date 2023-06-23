@@ -7,8 +7,8 @@ public class Movement {
     static public void Walk(Entity E) {
         E.updateVelocityX();
         E.x += E.velX * E.movingDirection.x;
-        Direction first;
-        Direction second;
+        Direction first ;
+        Direction second ;
         if (E.facingDirection.x > 1) {
             first = Direction.RIGHT;
             second = Direction.LEFT;
@@ -17,9 +17,9 @@ public class Movement {
             second = Direction.RIGHT;
         }
         while (E.hitbox.inCollision(first))
-            E.x -= first.x;
+            E.x -= first.x ;
         while (E.hitbox.inCollision(second))
-            E.x -= second.x;
+            E.x -= second.x ;
         E.affectTor();
     }
 
