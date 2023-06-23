@@ -9,6 +9,8 @@ import info3.game.Camera;
 import info3.game.automate.Automate;
 import info3.game.automate.State;
 import info3.game.hitbox.HitBox;
+import info3.game.weapon.Bullet;
+import info3.game.weapon.Weapon;
 
 public abstract class Entity {
   // here are the coords where the entity is
@@ -150,7 +152,7 @@ public abstract class Entity {
   }
 
   public int distanceTo(Entity e) {
-    if (e instanceof Player && ((Player) e).dead)
+    if ((e instanceof Player && ((Player) e).dead))
       return 101;
     return (int) Math.sqrt(Math.pow(Camera.centeredCoordinateX(this) - Camera.centeredCoordinateX(e), 2)
         + Math.pow(Camera.centeredCoordinateY(this) - Camera.centeredCoordinateY(e), 2));
@@ -160,7 +162,7 @@ public abstract class Entity {
     DynamicEntity nearest = null;
     int minDist = Integer.MAX_VALUE;
     for (DynamicEntity e : GameSession.gameSession.entities) {
-      if (e.team != this.team) {
+      if (e.team != this.team && !(e instanceof Weapon) &&!(e instanceof Bullet) && e.team!=TEAM.NONE) {
         int dist = distanceTo(e);
         if (dist < minDist) {
           minDist = dist;

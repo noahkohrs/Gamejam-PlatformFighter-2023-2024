@@ -7,7 +7,7 @@ import info3.game.hitbox.HitBox;
 
 public class Raptor extends DynamicEntity {
 
-    private int time = 20000;
+    private int time = 5000;
     Player ennemy;
 
     public Raptor(int x, int y, int team, Direction direction) throws IOException {
@@ -56,7 +56,7 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void wizz(String direction) {
-        ennemy.takeDamage(25);
+        nearestEnemyEntity().takeDamage(100);
     }
 
     @Override
@@ -67,11 +67,11 @@ public class Raptor extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            if (distanceTo(ennemy) <= 100)
+            if (distanceTo(nearestEnemyEntity()) <= 100)
                 ((RaptorView) this.view).attack = true;
             else
                 ((RaptorView) this.view).attack = false;
-            return distanceTo(ennemy) <= 33;
+            return distanceTo(nearestEnemyEntity()) <= 33;
         }
     }
 
@@ -79,5 +79,10 @@ public class Raptor extends DynamicEntity {
     public boolean MyDir(String direction) {
         boolean res = this.facingDirection.equals(Direction.fromString(direction));
         return res;
+    }
+
+    @Override
+    public void takeDamage(int damage){
+        time-=5000;
     }
 }

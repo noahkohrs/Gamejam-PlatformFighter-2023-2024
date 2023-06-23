@@ -111,4 +111,6 @@ public class DynamicEntity extends Entity {
         System.out.println("We do not use hit with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
         return;
     }
+
+    public void takeDamage(int damage){}
 }

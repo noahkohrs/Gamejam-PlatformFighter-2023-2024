@@ -6,6 +6,7 @@ import info3.game.GameSession;
 import info3.game.entity.Direction;
 import info3.game.entity.DynamicEntity;
 import info3.game.entity.Player;
+import info3.game.entity.Raptor;
 
 public abstract class Projectile extends DynamicEntity {
 
@@ -49,11 +50,14 @@ public abstract class Projectile extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            return distanceTo(ennemy) <= 25d;
+            System.out.println(nearestEnemyEntity().getClass().getSimpleName());
+            if(nearestEnemyEntity() instanceof Raptor)
+                return distanceTo(nearestEnemyEntity()) <= 50;
+            return distanceTo(nearestEnemyEntity()) <= 25;
         }
     }
     @Override
     public void hit(String direction){
-        ennemy.takeDamage(damage);
+        nearestEnemyEntity().takeDamage(damage);
     }
 }
