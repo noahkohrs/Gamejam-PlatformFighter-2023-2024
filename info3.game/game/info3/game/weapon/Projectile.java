@@ -50,7 +50,8 @@ public abstract class Projectile extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            System.out.println(nearestEnemyEntity().getClass().getSimpleName());
+            if(nearestEnemyEntity()==null)
+                return false; //If there are no enemies you can still shoot
             if(nearestEnemyEntity() instanceof Raptor)
                 return distanceTo(nearestEnemyEntity()) <= 50;
             return distanceTo(nearestEnemyEntity()) <= 25;
