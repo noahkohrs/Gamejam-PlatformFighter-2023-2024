@@ -99,9 +99,13 @@ public class Level {
             case "GroundBlock":
                 return new GroundBlock();
             case "MovingHorizontalPlatform":
-                return new MovingHorizontalPlatform();
+                int speed = tags.getInt("speed");
+                int blockMove = tags.getInt("blockMove");
+                return new MovingHorizontalPlatform(speed, blockMove);
             case "MovingVerticalPlatform":
-                return new MovingVerticalPlatform();
+                speed = tags.getInt("speed");
+                blockMove = tags.getInt("blockMove");
+                return new MovingVerticalPlatform(speed, blockMove);
             case "MalusBlock":
                 return new MalusBlock();
             case "PowerUpBlock":
