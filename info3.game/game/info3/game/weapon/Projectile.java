@@ -49,7 +49,7 @@ public abstract class Projectile extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            return distanceTo(ennemy) <= 33;
+            return distanceTo(ennemy) <= 25d;
         }
     }
     @Override
