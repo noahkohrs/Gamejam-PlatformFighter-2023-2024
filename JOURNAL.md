@@ -183,7 +183,7 @@ Anastasios    | Addition de  killCounter + restart si les kills sont egaux + aff
 Bastien       | Refactor de weapon pour pouvoir ajouter des armes plus simplement et début de menu
 Gwénolé       | Travail sur les dashs, et animation.
 Noah          | e
-Noé           | finition timer, création sprite flasque revigorante 
+Noé           | finition timer, capacité flasque revigorante 
 
 
 
@@ -199,4 +199,15 @@ Anastasios    | Change automates de players pour qu'ils soient les mêmes pour c
 Bastien       | Ajout d'un chargement de level au LevelEditor. Ajout du menu fini
 Gwénolé       | Implémentation des dashs, Modification du fonctionnement du bazooka, animation de celui-ci et level design
 Noah          | e
-Noé           | f
+Noé           | finition capacité flasque revigorante
+
+## 23/06
+Développeur   | Tâche
+------------- | -------------
+Clément       | 
+Anastasios    | 
+Bastien       | 
+Gwénolé       | 
+Noah          | e
+Noé           | résolution de quelque bug, préparation vidéo
+
