@@ -222,10 +222,14 @@ public class GameSession {
         camera.paint(g);
         map.paint(g, camera);
         for (Entity entity : entities) {
-            if (entity instanceof Player && ((Player) entity).dead)
+            if (entity instanceof Player)
                 continue;
             entity.view.paint(g);
         }
+        if (!player1.dead)
+            player1.view.paint(g);
+        if (!player2.dead)
+            player2.view.paint(g);
         gametime.showGameTimer(g);
         ;
     }
