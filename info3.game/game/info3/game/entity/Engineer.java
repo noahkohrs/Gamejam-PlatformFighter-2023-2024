@@ -21,7 +21,7 @@ public class Engineer extends Player {
 
     public Engineer(int team) throws IOException {
         super(team);
-        this.view=new PlayerView("resources/Ingenieur/PlayerSprite.png", 3, 2, this);
+        this.view=new EngineerView(this);
     }
 
     public Engineer(int team, String filename) throws IOException {
@@ -33,7 +33,6 @@ public class Engineer extends Player {
     public void tick(long elapsed) {
         turretCooldown -= elapsed;
         bazookaCooldown -= elapsed;
-
         if(weapon instanceof Bazooka && bazookaCooldown<900 && bazookaCooldown>800){
             weapon.createBullet(x, y);
             weapon.kill();
@@ -43,6 +42,7 @@ public class Engineer extends Player {
                 e.printStackTrace();
             }
             };
+        view.tick(elapsed);
         super.tick(elapsed);
     }
 
