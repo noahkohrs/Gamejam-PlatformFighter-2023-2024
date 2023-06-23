@@ -46,8 +46,8 @@ Anastasios    | Travail sur le parseur d’automate. Test avec un automate simpl
 Bastien       | Prototype des armes terminé
 Gwénolé       | Abandon de l’idée de mouvement par équation physique car posant des problèmes sur les oscillements autour de la position d'arrivée et de la gestion de la position d’arrivée lors du passage dans le trou de ver reliant les bords.
 Partie sur l’idée d’avoir un système de mouvement propre au jeu vidéo, ayant pour but de simuler le mouvement réel.
-Noah          | Apprentissage de la programmation événementielles en réalisant une barre de vie
-Noé           | proto Viewport display dans un paint classique + Théorie sur l’environnement.
+Noah          | proto Viewport display dans un paint classique + Théorie sur l’environnement.
+Noé           | Apprentissage de la programmation événementielles en réalisant une barre de vie
 
 ### Nouvelles idées:
 - Avoir un système de dash.
