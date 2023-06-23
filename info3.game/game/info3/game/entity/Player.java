@@ -24,8 +24,6 @@ import java.util.List;
 import java.io.IOException;
 import java.util.Random;
 
-import info3.game.Camera;
-import info3.game.Game;
 import info3.game.GameSession;
 import info3.game.entity.blocks.SpawnerPoint;
 import java.util.ArrayList;
@@ -64,8 +62,7 @@ public class Player extends DynamicEntity {
 
   public Player(int team) throws IOException {
     
-    super(spawningX(team), 40, team, Getchar(team) + "PlayerSprite.png", 3, 2);
-    view = new PlayerView(Getchar(team) + "PlayerSprite.png", 3, 2, this);
+  super(spawningX(team), 40, team);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Rifle(this);
@@ -86,13 +83,6 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
-  static private String Getchar(int team) {
-    if (team == 1) {
-      return "resources/Mexicain/";
-    } else {
-      return "resources/Ingenieur/";
-    }
-  }
 
   private static int spawningX(int team){
     if(team==2){
