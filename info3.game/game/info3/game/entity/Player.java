@@ -248,11 +248,11 @@ public class Player extends DynamicEntity {
           weapon.clips = 3;
           break;
         case "speed":
-          addVelX += 6;
+          addVelX += 2;
           break;
         case "shield":
           Player ennemy = getennemy();
-          ennemy.weapon.damage /= 2;
+          ennemy.weapon.damage = 0;
           break;
         case "power":
           weapon.damage *= 2;
@@ -272,12 +272,12 @@ public class Player extends DynamicEntity {
           ennemy.weapon.ammo /= 2;
           break;
         case "speed":
-          if (PhysicConstant.maxVelX + ennemy.addVelX >= 6) {
-            ennemy.addVelX -= 6;
+          if (PhysicConstant.maxVelX + ennemy.addVelX >= 2) {
+            ennemy.addVelX -= 2;
           }
           break;
         case "shield":
-          ennemy.weapon.damage /= 2;
+          ennemy.weapon.damage = 0;
           break;
         case "power":
           ennemy.weapon.damage /= 2;
@@ -309,11 +309,11 @@ public class Player extends DynamicEntity {
           case "ammo":
             break;
           case "speed":
-            addVelX -= 6;
+            addVelX -= 2;
             break;
           case "shield":
             Player ennemy = getennemy();
-            ennemy.weapon.damage *= 2;
+            ennemy.weapon.damage = 25;
             break;
           case "power":
             weapon.damage /= 2;
@@ -335,10 +335,10 @@ public class Player extends DynamicEntity {
           case "ammo":
             break;
           case "speed":
-            ennemy.addVelX += 6;
+            ennemy.addVelX += 2;
             break;
           case "shield":
-            ennemy.weapon.damage *= 2;
+            ennemy.weapon.damage = 25;
             break;
           case "power":
             ennemy.weapon.damage *= 2;
