@@ -209,7 +209,7 @@ Développeur   | Tâche
 Clément       | 
 Anastasios    | 
 Bastien       | 
-Gwénolé       | 
+Gwénolé       | Animation des portails, travail sur la vidéo
 Noah          | Gestion des liens entre portail fonctionnelle + amélioration de l'édition de map pour cette fonctionnalité. petits bugFixes.
 Noé           | résolution de quelque bug, préparation vidéo
 
