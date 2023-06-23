@@ -73,13 +73,13 @@ public class Menu {
     private void setupFrame() throws IOException {
         m_frame.setTitle("Menu");
         m_frame.setLayout(new BorderLayout());
-        m_frame.add(new JLabel("Player selection"), BorderLayout.NORTH);
+        m_frame.add(new JLabel("Player selection",JLabel.CENTER), BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridLayout(3, 2));
         bg1 = new ButtonGroup();
         bg2 = new ButtonGroup();
-        panel.add(new JLabel("Player1"), BorderLayout.CENTER);
-        panel.add(new JLabel("Player2"), BorderLayout.CENTER);
+        panel.add(new JLabel("Player1",JLabel.CENTER));
+        panel.add(new JLabel("Player2",JLabel.CENTER));
         JRadioButton jrPlayer1Mexican, jrPlayer1Engineer, jrPlayer2Mexican, jrPlayer2Engineer;
         jrPlayer1Mexican = new JRadioButton("Mexican", true);
         jrPlayer2Mexican = new JRadioButton("Mexican", false);
@@ -99,7 +99,7 @@ public class Menu {
         panel.add(jrPlayer2Mexican);
         panel.add(jrPlayer1Engineer);
         panel.add(jrPlayer2Engineer);
-        m_frame.add(panel, BorderLayout.CENTER);
+        m_frame.add(panel,BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 

@@ -36,9 +36,8 @@ public class PortalBlock extends AnimatedEntity {
         super("resources/blocks/levelPortal.png");
         if (id > maxId) {
             maxId = id;
-        } else {
-            this.id = id;
         }
+        this.id = id;
     }
 
     public void setTags(JSONObject tags) {
@@ -54,7 +53,7 @@ public class PortalBlock extends AnimatedEntity {
     public void paint(Graphics g, int x, int y, float scale) {
         super.paint(g, x, y, scale);
         // Set the color by id to make it easier to see which portal is linked to which
-        g.setColor(new Color((id * 40)%255, Math.abs((255-id*27)%255), (id*63)%255));
+        g.setColor(new Color((id * 40) % 255, Math.abs((255 - id * 27) % 255), (id * 63) % 255));
         g.fillRect(tileRealSize(scale) * x, tileRealSize(scale) * y, tileRealSize(scale), tileRealSize(scale));
     }
 
