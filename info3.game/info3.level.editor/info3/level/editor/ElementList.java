@@ -29,7 +29,7 @@ public class ElementList {
         elems.add(new ElementContainer(new PowerUpBlock(), 0, 5));
         elems.add(new ElementContainer(new MalusBlock(), 0, 6));
         elems.add(new ElementContainer(new SpawnerPoint(), 0, 7));
-        elems.add(new ElementContainer(new PortalBlock(), 0, 7));
+        elems.add(new ElementContainer(new PortalBlock(-1), 0, 7));
     }
 
     public ElementContainer select(int x, int y) {
@@ -48,7 +48,7 @@ public class ElementList {
         Graphics g2 = g.create(x, y, getRealWidth(), getRealHeight());
         int i = 0;
         for (ElementContainer elem : elems) {
-            elem.paint(g2, i, 0, SCALE);
+            elem.paintSelector(g2, i, 0, SCALE);
             i++;
         }
     }

@@ -37,8 +37,12 @@ public enum Direction {
             case "S":
                 return BOTTOM;
             case "W":
+            case "B":
+            case "L":
                 return LEFT;
             case "E":
+            case "F":
+            case "R":
                 return RIGHT;
             case "NONE":
             case "H":

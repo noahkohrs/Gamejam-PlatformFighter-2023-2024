@@ -131,7 +131,7 @@ Développeur    | Tâche
 Clément        | Réalisation des powerUps
 Anastasios&Noah| Amelioration du systeme d'automates. Maintenant loadAutomate est automatique chaque fois qu'on cree une nouvelle entite. De plus, deux entites peuvent avoir la même automate.
 Anastasios     |Correction d'un bug de jump. 
-Bastien        | c
+Bastien        | Modification des armes pour utiliser un automate
 Gwénolé        | Travail sur les mouvements, Ajout de courbe de déceleration/accéleration pour les sauts et déplacements,
 Noah           | e
 Noé            | power up
@@ -142,7 +142,7 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Réalisation des powerUps et ajout de sprite de texture.
 Anastasios    | Correction d'un bug du parser dans lequel le initial state etait le state dest de la derniere transition. Aide les autres avec les automates.
-Bastien       | c
+Bastien       | Création d'une détection de collision pour les balles en traçant une ligne entre l'ancienne position et la nouvelle position de la balle
 Gwénolé       | Travail sur l'animation des playerSprites.
 Noah          | e
 Noé           | power up
@@ -153,7 +153,7 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Fix de 2 bugs sur les automates liées aux transitions et aux changements d'états avec Anastasios(lié au développement des powerUps).
 Anastasios    | Création du raptor (pour Mexican) avec tous les collisions, et les mouvements. Ajout aussi de MyDir comme condition (et utilisation pour raptor)
-Bastien       | c
+Bastien       | Modification au niveau des armes et des hitbox
 Gwénolé       | Création de sprites pour les attaques des persos, Travail sur les hitboxs
 Noah          | e
 Noé           | Malade, je n'ai pas peux avancer
@@ -165,7 +165,7 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Optimisation du code des powerUps
 Anastasios    | b
-Bastien       | c
+Bastien       | Ajout d'effet sonore pour les balles. 
 Gwénolé       | Travail sur les hitboxs et les dashs
 Noah          | e
 Noé           | malade, travaille sur le timer.
@@ -180,7 +180,7 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Implémentation de l'attaque bazooka de l'ingenieur
 Anastasios    | b
-Bastien       | c
+Bastien       | Refactor de weapon pour pouvoir ajouter des armes plus simplement et début de menu
 Gwénolé       | Travail sur les dashs, et animation.
 Noah          | e
 Noé           | finition timer, création sprite flasque revigorante 
@@ -196,7 +196,7 @@ Développeur   | Tâche
 ------------- | -------------
 Clément       | Implémentation du bloc pouvant bouger de haut en bas.
 Anastasios    | b
-Bastien       | c
+Bastien       | Ajout d'un chargement de level au LevelEditor. Ajout du menu fini
 Gwénolé       | Implémentation des dashs, Modification du fonctionnement du bazooka, animation de celui-ci et level design
 Noah          | e
 Noé           | f

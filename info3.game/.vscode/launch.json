@@ -6,10 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Menu",
+            "name": "Game",
             "request": "launch",
-            "mainClass": "info3.game.menu.Menu",
-            "projectName": "info3.game.given.2021",
+            "mainClass": "info3.game.Game",
+            "projectName": "info3.game.projetB",
             "args": "game/info3/game/automate/example.gal"
         },
         {
@@ -55,14 +55,6 @@
             "request": "launch",
             "mainClass": "com.jcraft.jorbis.DecodeExample",
             "projectName": "info3.game.projetB"
-        },
-        {
-            "type": "java",
-            "name": "Game",
-            "request": "launch",
-            "mainClass": "info3.game.Game",
-            "projectName": "info3.game.projetB",
-            "args": "game/info3/game/automate/example.gal"
         },
         {
             "type": "java",

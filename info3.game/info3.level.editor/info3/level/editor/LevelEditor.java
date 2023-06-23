@@ -148,7 +148,7 @@ public class LevelEditor {
 			this.selected = select(x, y);
 	}
 
-	public void paintingManager(int x, int y) {
+	public void paintingManager(int x, int y) throws InstantiationException, IllegalAccessException {
 		if (level.x <= x && x <= level.x + level.getRealWidth() && level.y <= y && y <= level.y + level.getRealHeight())
 			level.changeElement(x - level.x, y - level.y);
 	}

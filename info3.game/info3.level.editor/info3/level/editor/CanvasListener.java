@@ -74,7 +74,15 @@ public class CanvasListener implements GameCanvasListener {
     System.out.println("Mouse dragged: ("+e.getX()+","+e.getY()+")");
     System.out.println("   modifiers="+e.getModifiersEx());
     System.out.println("   buttons="+e.getButton());
-    LevelEditor.levelEditor.paintingManager(e.getX(), e.getY());
+    try {
+      LevelEditor.levelEditor.paintingManager(e.getX(), e.getY());
+    } catch (InstantiationException e1) {
+      // TODO Auto-generated catch block
+      System.out.println("AAAAAAA");
+    } catch (IllegalAccessException e1) {
+      // TODO Auto-generated catch block
+      System.out.println("AAAAAAA");
+    }
   }
 
   @Override
