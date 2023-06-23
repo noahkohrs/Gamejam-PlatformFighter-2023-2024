@@ -21,8 +21,9 @@ public class PortalBlock extends DynamicEntity {
     private static List<PortalBlock> unlinkedPortals ;
     private int id ;
     PortalBlock linkedPortal ;
+    private int deltatime;
     public PortalBlock(int x, int y, int id) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 1, 1);
+        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 2, 2);
         if (unlinkedPortals == null) {
             unlinkedPortals = new ArrayList<PortalBlock>(); ;
         }
