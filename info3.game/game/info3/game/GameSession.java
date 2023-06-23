@@ -76,7 +76,7 @@ public class GameSession {
 
         keys = new ArrayList<>();
         loadKeys();
-
+        
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();

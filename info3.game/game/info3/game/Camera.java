@@ -204,7 +204,7 @@ public class Camera {
 
     static public void fillRect(Graphics g, int x, int y, int width, int height) {
         if (debugMode) {
-            g.drawRect(x, y, width, height);
+            g.fillRect(x, y, width, height);
         } else {
             int cX = onCamViewX(x, camera.scale);
             int cY = onCamViewY(y, camera.scale);

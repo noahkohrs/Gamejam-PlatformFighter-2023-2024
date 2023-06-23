@@ -6,57 +6,64 @@ public class Movement {
     static public void Walk(Entity E) {
         E.updateVelocityX();
         E.x += E.velX * E.movingDirection.x;
-        while (E.hitbox.inCollision(Direction.LEFT))
-            E.x += 1;
-        while (E.hitbox.inCollision(Direction.RIGHT))
-            E.x -= 1;
+        Direction first ;
+        Direction second ;
+        if (E.facingDirection.x > 1) {
+            first = Direction.RIGHT;
+            second = Direction.LEFT;
+        } else {
+            first = Direction.LEFT;
+            second = Direction.RIGHT;
+        }
+        while (E.hitbox.inCollision(first))
+            E.x -= first.x ;
+        while (E.hitbox.inCollision(second))
+            E.x -= second.x ;
         E.affectTor();
     }
 
-    public static void Dash(Entity E){
-        if(((Player)E).DashTime > 0){
-        switch(E.facingDirection){
-            case LEFT:
-                E.x -= (PhysicConstant.maxVelX+5);
-                while (E.hitbox.inCollision(Direction.LEFT))
-                     E.x += 1;
-                E.affectTor();
-                break;
-            case RIGHT:
-                E.x += (PhysicConstant.maxVelX+5);
-                while (E.hitbox.inCollision(Direction.RIGHT))
-                     E.x -= 1;
-                E.affectTor();
-                break;
-            case UPPER:
-                E.y -= (PhysicConstant.maxVelY+5);
-                while (E.hitbox.inCollision(Direction.RIGHT))
-                     E.y += 1;
-                E.affectTor();
-                break;
-            case BOTTOM:
-                E.y += (PhysicConstant.maxVelY+5);
-                while (E.hitbox.inCollision(Direction.RIGHT))
-                     E.y -= 1;
-                E.affectTor();
-                break;
-
-
-            
+    public static void Dash(Entity E) {
+        if (((Player) E).DashTime > 0) {
+            switch (E.facingDirection) {
+                case LEFT:
+                    E.x -= (PhysicConstant.maxVelX + 5);
+                    while (E.hitbox.inCollision(Direction.LEFT))
+                        E.x += 1;
+                    E.affectTor();
+                    break;
+                case RIGHT:
+                    E.x += (PhysicConstant.maxVelX + 5);
+                    while (E.hitbox.inCollision(Direction.RIGHT))
+                        E.x -= 1;
+                    E.affectTor();
+                    break;
+                case UPPER:
+                    E.y -= (PhysicConstant.maxVelY + 5);
+                    while (E.hitbox.inCollision(Direction.RIGHT))
+                        E.y += 1;
+                    E.affectTor();
+                    break;
+                case BOTTOM:
+                    E.y += (PhysicConstant.maxVelY + 5);
+                    while (E.hitbox.inCollision(Direction.RIGHT))
+                        E.y -= 1;
+                    E.affectTor();
+                    break;
+            }
+            ((Player) E).DashTime--;
         }
-        ((Player)E).DashTime--;
-    }
     }
 
     public static void manageAirJump(Entity E) {
-            E.y += 1;
-            if (!E.hitbox.inCollision(Direction.BOTTOM) && E.jumpCounter == E.jumpAmount) {
-                E.jumpCounter-=1;
-                if (E.jumpCounter == 0) {
-                    return;
-                }
+        E.y += 5;
+        if (!E.hitbox.inCollision(Direction.BOTTOM) && E.jumpCounter == E.jumpAmount) {
+            E.jumpCounter -= 1;
+            if (E.jumpCounter == 0) {
+                E.y -= 5;
+                return;
             }
-            E.y -= 1;
+        }
+        E.y -= 5;
     }
 
     public static void Jump(Player E) {
@@ -82,6 +89,5 @@ public class Movement {
             E.velY = Math.min(0, E.velY);
         }
     }
-
 
 }
