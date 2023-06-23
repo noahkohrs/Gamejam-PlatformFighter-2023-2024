@@ -17,12 +17,12 @@ public class WeaponView extends EntityView {
     public WeaponView(Weapon weapon) throws IOException {
         super(weapon);
         this.font = new Font("Arial", Font.BOLD, 20);
-        images = Player.loadSprite("resources/ammo2.png", 1, 1);
+        images = Player.loadSprite("resources/weaponView.png", 2, 1);
     }
 
     @Override
     public void paint(Graphics g) {
-        if(((Weapon) entity).player.isDead())
+        if (((Weapon) entity).player.isDead())
             return;
         int width = ((Weapon) entity).player.lifeBar.getWidth();
         int windowHeight = Game.game.m_canvas.getHeight();
@@ -31,14 +31,23 @@ public class WeaponView extends EntityView {
         int y = windowHeight - 15;
 
         String ammo = Integer.toString(((Weapon) entity).ammo);
+        String clips = Integer.toString(((Weapon) entity).clips);
         g.setColor(Color.BLACK);
         g.setFont(font);
         if (entity.team == 1) {
             g.drawString(ammo, width + 30, y);
-            g.drawImage(images[0], width, y-20, images[0].getWidth(), images[0].getHeight(), null);
+            g.drawImage(images[1], width, y - 20, images[1].getWidth(), images[1].getHeight(), null);
+            g.drawImage(images[0], width + images[0].getWidth() + 30, y - 20, images[0].getWidth(),
+                    images[0].getHeight(),
+                    null);
+            g.drawString(clips, width + 60 + images[0].getWidth(), y);
         } else {
             g.drawString(ammo, windowWidth - width - 30, y);
-            g.drawImage(images[0], windowWidth - width - 60, y-20, images[0].getWidth(), images[0].getHeight(), null);
+            g.drawImage(images[1], windowWidth - width - 60, y - 20, images[1].getWidth(), images[1].getHeight(), null);
+            g.drawImage(images[0], windowWidth - width - 80 - images[0].getWidth() , y - 20, images[0].getWidth(),
+                    images[0].getHeight(),
+                    null);
+            g.drawString(clips, windowWidth - width - 50 - images[0].getWidth(), y);
         }
     }
 
