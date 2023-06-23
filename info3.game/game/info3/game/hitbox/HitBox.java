@@ -150,7 +150,12 @@ public class HitBox {
 
     public boolean isSittingOn(Entity e) {
         int x = entity.x + offsetX;
-        int y = entity.y + offsetY + height + 1;
+        int y = entity.y + offsetY + height + 3;
+        return e.hitbox.pointInHitbox(x + width / 4, y) || e.hitbox.pointInHitbox(x + 3 * width / 4, y);
+    }
+    public boolean isKnockingHeadOn(Entity e) {
+        int x = entity.x + offsetX;
+        int y = entity.y + offsetY - 3;
         return e.hitbox.pointInHitbox(x + width / 4, y) || e.hitbox.pointInHitbox(x + 3 * width / 4, y);
     }
 
