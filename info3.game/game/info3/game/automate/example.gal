@@ -80,12 +80,16 @@ Bazooka(Init){
 
 Bullet(Init){
     * (Init)
-  | True() ? Move()  :(Init)
+  | Cell(H,A)? Hit() :()
+  | Cell(H,O)? :()
+  |True()? Move():(Init)
 }
 
 Rocket(Init){
-    * (Init)
-  | True() ? Move()  :(Init)
+      * (Init)
+  | Cell(H,A)? Hit() :()
+  | Cell(H,O)? :()
+  |True()? Move():(Init)
 }
 
 MovingHorizontalPlatform(Init){
