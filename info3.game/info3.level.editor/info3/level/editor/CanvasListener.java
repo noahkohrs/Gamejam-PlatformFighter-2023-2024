@@ -120,7 +120,7 @@ public class CanvasListener implements GameCanvasListener {
         levelEditor.level.scaleChange = 0;
         break;
       case 's' :
-        levelEditor.level.exportJson("level.json");
+        levelEditor.level.exportJson();
         break;
     }
   }
