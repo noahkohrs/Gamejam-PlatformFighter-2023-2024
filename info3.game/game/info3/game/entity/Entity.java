@@ -234,4 +234,6 @@ public abstract class Entity {
 
   public abstract void jump(String direction);
 
+  public abstract void hit(String direction);
+
 }

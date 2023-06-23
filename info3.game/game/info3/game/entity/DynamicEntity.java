@@ -105,4 +105,10 @@ public class DynamicEntity extends Entity {
         System.out.println("We do not use jump with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
         return;
     }
+
+    @Override
+    public void hit(String direction) {
+        System.out.println("We do not use hit with"+this.getClass().getSimpleName()+", so in order to not have a problem with the parser, it always return void");
+        return;
+    }
 }
