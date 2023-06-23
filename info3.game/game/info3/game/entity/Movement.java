@@ -7,10 +7,19 @@ public class Movement {
     static public void Walk(Entity E) {
         E.updateVelocityX();
         E.x += E.velX * E.movingDirection.x;
-        while (E.hitbox.inCollision(Direction.LEFT))
-            E.x += 1;
-        while (E.hitbox.inCollision(Direction.RIGHT))
-            E.x -= 1;
+        Direction first ;
+        Direction second ;
+        if (E.facingDirection.x > 1) {
+            first = Direction.RIGHT;
+            second = Direction.LEFT;
+        } else {
+            first = Direction.LEFT;
+            second = Direction.RIGHT;
+        }
+        while (E.hitbox.inCollision(first))
+            E.x -= first.x ;
+        while (E.hitbox.inCollision(second))
+            E.x -= second.x ;
         E.affectTor();
     }
 
