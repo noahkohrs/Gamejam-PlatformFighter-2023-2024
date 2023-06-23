@@ -69,5 +69,7 @@ public class PortalBlock extends DynamicEntity {
                 linkedPortal.teleporterCooldown = 1000 ;
             }
         }
+
+        super.tick(elapsed);
     } 
 }

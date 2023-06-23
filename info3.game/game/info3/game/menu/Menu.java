@@ -4,7 +4,6 @@ import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -20,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.Border;
 
 import info3.game.Game;
 import info3.level.editor.LevelEditor;

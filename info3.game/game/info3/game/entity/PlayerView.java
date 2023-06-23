@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import info3.game.Camera;
 import info3.game.Game;
-import info3.game.GameSession;
 
 public class PlayerView extends EntityView {
 
@@ -22,7 +21,6 @@ public class PlayerView extends EntityView {
         try {
             killImage = Player.loadSprite("resources/Kill.png", 1, 1);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
