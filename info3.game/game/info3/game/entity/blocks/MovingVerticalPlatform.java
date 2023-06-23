@@ -34,15 +34,7 @@ public class MovingVerticalPlatform extends DynamicEntity {
 
     @Override
     public void move(Direction direction) {
-        for (DynamicEntity e : GameSession.gameSession.entities) {
-            if (e.team != TEAM.NONE && !(e instanceof Weapon) && e.isSittingOn(this) && !(e instanceof Bullet)) {
-                e.y += velY - 2;
-                e.jumpCounter = e.jumpAmount ;
-            } else if (e.team != TEAM.NONE && !(e instanceof Weapon) && e.hitbox.isKnockingHeadOn(this) && !(e instanceof Bullet)) {
-                e.y += velY + 2;
-            }
-
-        }
+        
         switch(direction){
             case UPPER:
               this.y-=10;
@@ -61,7 +53,11 @@ public class MovingVerticalPlatform extends DynamicEntity {
                 break;
           }
         power -= Math.abs(velY);
-
+        for (DynamicEntity e : GameSession.gameSession.entities) {
+            if (e.team != TEAM.NONE && !(e instanceof Weapon) && e.isSittingOn(this) && !(e instanceof Bullet)) {
+                e.y += velY;
+            }
+        }
     }
 
     @Override
