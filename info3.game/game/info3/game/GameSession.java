@@ -147,9 +147,9 @@ public class GameSession {
         }
     }
 
-    private DynamicEntity IdToEntity(String id, int x, int y, JSONObject tags) throws IOException {
+    private DynamicEntity IdToEntity(String name, int x, int y, JSONObject tags) throws IOException {
         int speed;
-        switch (id) {
+        switch (name) {
             case "MovingHorizontalPlatform":
                 int moveX = tags.getInt("blockMove");
                 speed = tags.getInt("speed");
@@ -167,7 +167,8 @@ public class GameSession {
                 malusBlocks.add(malusBlock);
                 return malusBlock;
             case "PortalBlock" :
-                return new PortalBlock(x, y);
+                int id = tags.getInt("id");
+                return new PortalBlock(x, y, id);
             default:
                 return null;
         }

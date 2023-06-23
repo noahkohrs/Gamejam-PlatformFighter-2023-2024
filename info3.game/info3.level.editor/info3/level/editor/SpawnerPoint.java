@@ -10,9 +10,6 @@ public class SpawnerPoint extends Block {
             super("resources/blocks/1.png");
         }
     
-        public Element copy() throws IOException {
-            return new SpawnerPoint();
-        }
     
         public String toString() {
             return "SpawnerPoint";

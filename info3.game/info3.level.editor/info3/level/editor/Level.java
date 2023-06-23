@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
+import javax.sound.sampled.Port;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -58,7 +60,7 @@ public class Level {
                 String id = jsonBlock.getString("id");
                 int x = jsonBlock.getInt("x");
                 int y = jsonBlock.getInt("y");
-                Set<String> tags = jsonBlock.getJSONObject("tags").keySet();
+                JSONObject tags = jsonBlock.getJSONObject("tags");
                 m_elements[x][y] = new ElementContainer(idToElement(id, x, y, tags), x, y);
             }
 
@@ -68,7 +70,7 @@ public class Level {
                 String id = jsonBlock.getString("id");
                 int x = jsonBlock.getInt("x");
                 int y = jsonBlock.getInt("y");
-                Set<String> tags = jsonBlock.getJSONObject("tags").keySet();
+                JSONObject tags = jsonBlock.getJSONObject("tags") ;
                 m_elements[x][y] = new ElementContainer(idToElement(id, x, y, tags), x, y);
             }
 
@@ -77,7 +79,7 @@ public class Level {
         }
     }
 
-    Element idToElement(String id, int x, int y, Set<String> tags) throws IOException {
+    Element idToElement(String id, int x, int y, JSONObject tags) throws IOException {
         switch (id) {
             case "GrassBlock":
                 return new GrassBlock();
@@ -95,7 +97,8 @@ public class Level {
             case "PowerUpBlock":
                 return new PowerUpBlock();
             case "PortalBlock" :
-                return new PortalBlock(); 
+                int portal_id = tags.getInt("portal_id") ;
+                return new PortalBlock(portal_id); 
             default:
                 throw new IOException("Unknown block id: " + id);
         }
@@ -138,9 +141,13 @@ public class Level {
         return m_elements[x / Element.tileRealSize(scale)][y / Element.tileRealSize(scale)];
     }
 
-    public void changeElement(int x, int y) {
-        m_elements[x / Element.tileRealSize(scale)][y / Element.tileRealSize(scale)]
-                .changeElement(LevelEditor.levelEditor.selected.m_element);
+    public void changeElement(int x, int y) throws InstantiationException, IllegalAccessException {
+        ElementContainer elem = m_elements[x / Element.tileRealSize(scale)][y / Element.tileRealSize(scale)];
+        Element currentSelection = LevelEditor.levelEditor.selected.m_element;
+            if (!(elem.m_element.getClass().equals(currentSelection.getClass()))) {
+                elem.m_element = LevelEditor.levelEditor.selected.m_element.copy();
+                
+            }
     }
 
     public void exportJson(String filenameDest) {

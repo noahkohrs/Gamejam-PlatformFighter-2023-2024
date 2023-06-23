@@ -15,9 +15,8 @@ public abstract class Element {
     int m_imageIndex;
     static String spritePath;
 
-
     public Element(String filename) throws IOException {
-        //Check if file exists
+        // Check if file exists
         spritePath = new String(filename);
         loadImage();
     }
@@ -33,22 +32,35 @@ public abstract class Element {
     }
 
     public void paint(Graphics g, int x, int y, float scale) {
-        if (!spritePath.equals("") && m_images != null && m_images[0] != null) {
-            BufferedImage img = m_images[0];
-            g.drawImage(img, tileRealSize(scale)*x, tileRealSize(scale)*y, tileRealSize(scale), tileRealSize(scale), null);
+        BufferedImage img = m_images[0];
+        g.drawImage(img, tileRealSize(scale) * x, tileRealSize(scale) * y, blockSize(scale), blockSize(scale),
+                null);
 
-        } else {
-            g.setColor(java.awt.Color.darkGray);
-            g.fillRect(tileRealSize(scale)*x, tileRealSize(scale)*y, tileRealSize(scale)-1, tileRealSize(scale)-1);
-        }
+    }
+
+    public int blockSize(float scale) {
+        return (int) (m_images[0].getWidth() * scale);
     }
 
     static public int tileRealSize(float scale) {
         return (int) (DEFAULT_SIZE * scale);
     }
 
-    abstract public void setTags(JSONObject tags) ;
-    
+    abstract public void setTags(JSONObject tags);
+
     abstract public String toString();
+
+    Element copy() throws InstantiationException, IllegalAccessException {
+        // Create a new instance of the same class
+        System.out.println("Copying " + this.getClass().getName());
+        return getClass().newInstance();
+    }
+
+    public void paintSelector(Graphics g, int x, int y, float scale) {
+        BufferedImage img = m_images[0];
+        g.drawImage(img, tileRealSize(scale) * x, tileRealSize(scale) * y, tileRealSize(scale), tileRealSize(scale),
+                null);
+
+    }
 
 }
