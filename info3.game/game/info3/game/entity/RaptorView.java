@@ -33,14 +33,18 @@ public class RaptorView extends EntityView{
     public void paint(Graphics g){
         entity.hitbox.showHitBox(g);
         Camera.drawEntity(entity, g);
-        int lifeBarSize = 120;
+        showLifeBar(g);
+    }
+
+    public void showLifeBar(Graphics g) {
+        int lifeBarSize = 60;
         int barX = Camera.centeredCoordinateX(entity) - lifeBarSize/2;
-        int barY = Camera.centeredCoordinateY(entity) - 50;
+        int barY = Camera.centeredCoordinateY(entity) - 25;
         g.setColor(java.awt.Color.GRAY);
-        Camera.fillRect(g, barX, barY, lifeBarSize, 60);
+        Camera.fillRect(g, barX, barY, lifeBarSize, 5);
         g.setColor(java.awt.Color.RED);
-        lifeBarSize -= lifeBarSize*(((Raptor)entity).getLifePercentage()-2);
-        Camera.fillRect(g, barX+1, barY+1, lifeBarSize, 58);
+        lifeBarSize = (int) (lifeBarSize*(((Raptor)entity).getLifePercentage()))-2;
+        Camera.fillRect(g, barX+1, barY+1, lifeBarSize, 4);
     }
 }
 

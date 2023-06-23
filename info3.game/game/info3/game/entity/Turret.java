@@ -9,7 +9,8 @@ import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bullet;
 
 public class Turret extends DynamicEntity {
-    private int time = 3000;
+    private int time = 3000 ;
+    private int maxTime = 3000 ;
     int ammo;
     Player ennemy;
     int currentCooldown = 0;
@@ -73,6 +74,10 @@ public class Turret extends DynamicEntity {
     @Override
     public boolean cell(Direction direction, String category) {
         return distanceTo(ennemy) <= 500;
+    }
+
+    public double getLifePercentage() {
+        return (double)time / (double)maxTime;
     }
 
     @Override
