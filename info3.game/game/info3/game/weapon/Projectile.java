@@ -16,6 +16,7 @@ public abstract class Projectile extends DynamicEntity {
             int ncols) throws IOException {
         super(x, y, team, filename, nrows, ncols);
         this.movingDirection = direction;
+        this.facingDirection = direction;
         this.damage = damage;
         if (team == GameSession.gameSession.player1.team)
             ennemy = GameSession.gameSession.player2;
