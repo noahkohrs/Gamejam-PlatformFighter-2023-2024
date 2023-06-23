@@ -97,7 +97,7 @@ public class Level {
             case "PowerUpBlock":
                 return new PowerUpBlock();
             case "PortalBlock" :
-                int portal_id = tags.getInt("portal_id") ;
+                int portal_id = tags.getInt("id") ;
                 return new PortalBlock(portal_id); 
             default:
                 throw new IOException("Unknown block id: " + id);

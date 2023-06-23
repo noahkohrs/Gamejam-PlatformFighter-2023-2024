@@ -45,6 +45,11 @@ public class ElementContainer {
         g.drawRect(imgSize*i, imgSize*j, imgSize-1, imgSize-1);
     }
 
+    public void remove() {
+        if (m_element instanceof PortalBlock)
+            ((PortalBlock)m_element).linked.linked = null ;
+    }
+
     @Override
     public String toString() {
         return m_element.toString();

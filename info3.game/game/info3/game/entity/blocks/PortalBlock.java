@@ -13,6 +13,7 @@ import info3.game.entity.DynamicEntity;
 import info3.game.entity.TEAM;
 import info3.game.weapon.Bullet;
 import info3.game.weapon.Weapon;
+import java.awt.Graphics;
 
 
 public class PortalBlock extends DynamicEntity {
@@ -20,8 +21,9 @@ public class PortalBlock extends DynamicEntity {
     private static List<PortalBlock> unlinkedPortals ;
     private int id ;
     PortalBlock linkedPortal ;
+    private int deltatime;
     public PortalBlock(int x, int y, int id) throws IOException {
-        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 1, 1);
+        super(x, y, TEAM.NONE, "resources/blocks/portal.png", 2, 2);
         if (unlinkedPortals == null) {
             unlinkedPortals = new ArrayList<PortalBlock>(); ;
         }
@@ -54,12 +56,19 @@ public class PortalBlock extends DynamicEntity {
     @Override
     public
     void tick(long elapsed) {
-        if (teleporterCooldown > 0) {
+        deltatime += elapsed;
+        if(deltatime>150){
+            deltatime=0;
+            view.imageIndex = (view.imageIndex+1)%4;
+        }
+        if (teleporterCooldown>0){
             teleporterCooldown -= elapsed ;
             return ;
         }
+        
+        
         for (DynamicEntity e : GameSession.gameSession.entities) {
-            if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<25) {
+            if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<40) {
                 e.x = Camera.centeredCoordinateX(linkedPortal) - e.getWidth()/2; 
                 e.y = Camera.centeredCoordinateY(linkedPortal)- e.getHeight()/2 ;
                 teleporterCooldown = 1000 ;
