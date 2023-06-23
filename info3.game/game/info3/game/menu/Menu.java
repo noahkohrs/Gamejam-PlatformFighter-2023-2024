@@ -4,6 +4,8 @@ import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 
 import info3.game.Game;
 import info3.level.editor.LevelEditor;
@@ -103,11 +106,17 @@ public class Menu {
         JButton levelEditorButton = new JButton("Level Editor");
         levelEditorButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
         levelEditorButton.addMouseListener(new levelEditorButtonListener());
+        
 
         buttonPanel.add(playButton);
         buttonPanel.add(levelEditorButton);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(buttonPanel,BorderLayout.SOUTH);
+        bottomPanel.add(new JLabel("Map selection"),BorderLayout.NORTH);
+        List mapList = new List();
+        bottomPanel.add(mapList,BorderLayout.CENTER);
 
-        m_frame.add(buttonPanel, BorderLayout.SOUTH);
+        m_frame.add(bottomPanel, BorderLayout.SOUTH);
 
         m_frame.pack();
         // center the window on the screen
@@ -156,7 +165,7 @@ public class Menu {
             System.out.println("Player 1 : " + bg1.getSelection().getActionCommand());
             System.out.println("Player 2 : " + bg2.getSelection().getActionCommand());
             try {
-                new Game(arg,bg1.getSelection().getActionCommand(),bg2.getSelection().getActionCommand());
+                new Game(arg, bg1.getSelection().getActionCommand(), bg2.getSelection().getActionCommand());
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
