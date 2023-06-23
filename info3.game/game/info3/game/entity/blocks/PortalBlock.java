@@ -54,8 +54,7 @@ public class PortalBlock extends DynamicEntity {
     }
 
     @Override
-    public
-    void tick(long elapsed) {
+    public void tick(long elapsed) {
         deltatime += elapsed;
         if(deltatime>150){
             deltatime=0;
