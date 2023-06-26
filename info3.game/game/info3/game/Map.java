@@ -50,15 +50,16 @@ public class Map {
         fixedMap = new Block[width][height];
         File imageFile;
         try {
-            imageFile=new File(json.getString("background"));
+            imageFile = new File(json.getString("background"));
         } catch (Exception e) {
-            imageFile=new File("resources/backgrounds/BG.png");
+            imageFile = new File("resources/backgrounds/BG.png");
         }
 
-        if (!imageFile.exists()) { background=ImageIO.read(new File("resources/backgrounds/BG.png")); } 
-        else { background=ImageIO.read(imageFile); }
-        
-
+        if (!imageFile.exists()) {
+            background = ImageIO.read(new File("resources/backgrounds/BG.png"));
+        } else {
+            background = ImageIO.read(imageFile);
+        }
 
         JSONArray jsonBlocks = json.getJSONArray("blocks");
         for (int i = 0; i < jsonBlocks.length(); i++) {
@@ -73,7 +74,6 @@ public class Map {
         }
     }
 
-
     Block IdToBlock(String id, int x, int y, Set<String> tags) throws IOException {
         switch (id) {
             case "GrassBlock":
@@ -84,7 +84,7 @@ public class Map {
                 return res;
             case "GroundBlock":
                 return new GroundBlock(x, y);
-            case "WoodBlock" :
+            case "WoodBlock":
                 return new WoodBlock(x, y);
             case "StoneBlock":
                 return new StoneBlock(x, y);
@@ -115,8 +115,18 @@ public class Map {
         return this.fixedMap[x][y];
     }
 
+    void tick(long elapsed) {
+        for (int i = 0; i < fixedMap.length; i++) {
+            for (int j = 0; j < fixedMap[i].length; j++) {
+                if (fixedMap[i][j] != null) {
+                    GameSession.gameSession.map.fixedMap[i][j].tick(elapsed);
+                }
+            }
+        }
+    }
+
     void paint(Graphics g, Camera camera) {
-        Camera.drawImage(g,background,-200-10,-140-10,realWidth()+200*2+10,realHeight()+140*2+10);
+        Camera.drawImage(g, background, -200 - 10, -140 - 10, realWidth() + 200 * 2 + 10, realHeight() + 140 * 2 + 10);
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
                 if (fixedMap[i][j] != null) {

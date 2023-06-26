@@ -53,7 +53,7 @@ public class GameSession {
 
     public Camera camera;
 
-    long testelapsed;
+    long totalElapsed;
 
     public List<DynamicEntity> entities;
     List<DynamicEntity> toAddEntities;
@@ -79,7 +79,7 @@ public class GameSession {
 
         keys = new ArrayList<>();
         loadKeys();
-        
+
         entities = new ArrayList<DynamicEntity>();
         toAddEntities = new ArrayList<DynamicEntity>();
         toRemoveEntities = new ArrayList<DynamicEntity>();
@@ -87,7 +87,6 @@ public class GameSession {
 
         map = new Map(mapPath);
 
-        
         camera = new Camera();
         loadEntities(mapPath);
         gametime = new GameTimer();
@@ -168,7 +167,7 @@ public class GameSession {
                 MalusBlock malusBlock = new MalusBlock(x, y);
                 malusBlocks.add(malusBlock);
                 return malusBlock;
-            case "PortalBlock" :
+            case "PortalBlock":
                 int id = tags.getInt("id");
                 return new PortalBlock(x, y, id);
             default:
@@ -185,37 +184,18 @@ public class GameSession {
     }
 
     public void tick(long elapsed) {
-        testelapsed += elapsed;
-        Iterator<DynamicEntity> removeIterator = toRemoveEntities.iterator();
-        while (removeIterator.hasNext()) {
-            DynamicEntity entity = removeIterator.next();
-            entities.remove(entity);
-            removeIterator.remove();
-        }
-        if (testelapsed >= 24) {
+        totalElapsed += elapsed;
+        clearDeadEntities();
+        addBornEntities();
+        if (totalElapsed >= 24) {
             for (DynamicEntity entity : entities) {
-                entity.tick(testelapsed);
+                entity.tick(totalElapsed);
             }
-            
-            for (int i = 0; i < GameSession.gameSession.map.fixedMap.length; i++) {
-                for (int j = 0; j < GameSession.gameSession.map.fixedMap[i].length; j++) {
-                    if (GameSession.gameSession.map.fixedMap[i][j] != null) {
-                        GameSession.gameSession.map.fixedMap[i][j].tick(testelapsed);
-                    }
-                }
-            }
-            camera.tick(testelapsed);
-            testelapsed = 0;
+            map.tick(totalElapsed);
+            camera.tick(totalElapsed);
+            totalElapsed = 0;
         }
         gametime.tick(elapsed);
-        ;
-        Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
-        while (addIterator.hasNext()) {
-            DynamicEntity entity = addIterator.next();
-            entities.add(entity);
-            addIterator.remove();
-        }
-
     }
 
     public void paint(Graphics g) {
@@ -237,6 +217,24 @@ public class GameSession {
         return map.realWidth();
     }
 
+    private void clearDeadEntities() {
+        Iterator<DynamicEntity> removeIterator = toRemoveEntities.iterator();
+        while (removeIterator.hasNext()) {
+            DynamicEntity entity = removeIterator.next();
+            entities.remove(entity);
+            removeIterator.remove();
+        }
+    }
+
+    private void addBornEntities() {
+        Iterator<DynamicEntity> addIterator = toAddEntities.iterator();
+        while (addIterator.hasNext()) {
+            DynamicEntity entity = addIterator.next();
+            entities.add(entity);
+            addIterator.remove();
+        }
+    }
+
     int getLevelHeight() {
         return map.realHeight();
     }
@@ -253,8 +251,8 @@ public class GameSession {
     public Automate findAutomate(Entity entity) {
         String className = entity.getClass().getSimpleName();
         for (Automate automate : this.allAutomates) {
-            if(automate.className.equals("Default"))
-                defaultAutomate=automate;
+            if (automate.className.equals("Default"))
+                defaultAutomate = automate;
             if (automate.className.equals(className)) {
                 return automate;
             } else if ((entity instanceof Player && automate.className.startsWith("Player"))

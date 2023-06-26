@@ -1,5 +1,6 @@
 package info3.game.entity;
 
+import info3.game.Game;
 import info3.game.GameSession;
 
 public class Movement {
