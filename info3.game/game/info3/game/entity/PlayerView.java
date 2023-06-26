@@ -76,10 +76,11 @@ public class PlayerView extends EntityView {
     public void paint(Graphics g) {
         // Camera.drawImage(g, getImage(), entity.x, entity.y, entity.getWidth(),
         // entity.getHeight());
-        entity.hitbox.showHitBox(g);
+        //entity.hitbox.showHitBox(g);
         ((Player) entity).lifeBar.showLifeBar(g);
         // didnt know a better way to implement it ATM
         Camera.drawEntity(entity, g);
         paintKills(g);
+        ((Player) entity).weapon.view.paint(g);
     }
 }

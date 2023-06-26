@@ -67,11 +67,11 @@ public class PortalBlock extends DynamicEntity {
         
         
         for (DynamicEntity e : GameSession.gameSession.entities) {
-            if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<40) {
+            if (e.team != TEAM.NONE && !(e instanceof Weapon) && distanceTo(e)<45) {
                 e.x = Camera.centeredCoordinateX(linkedPortal) - e.getWidth()/2; 
                 e.y = Camera.centeredCoordinateY(linkedPortal)- e.getHeight()/2 ;
-                teleporterCooldown = 1000 ;
-                linkedPortal.teleporterCooldown = 1000 ;
+                teleporterCooldown = 1750 ;
+                linkedPortal.teleporterCooldown = 1750 ;
             }
         }
     } 

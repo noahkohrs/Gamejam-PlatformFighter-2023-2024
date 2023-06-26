@@ -19,7 +19,7 @@ public class TurretView extends EntityView{
     
     @Override
     public void paint(Graphics g){
-        entity.hitbox.showHitBox(g);
+        //entity.hitbox.showHitBox(g);
         Camera.drawEntity(entity, g);
         showLifeBar(g);
     }

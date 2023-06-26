@@ -70,7 +70,7 @@ public class Mexican extends Player {
 
     @Override
     public void wizz(String Direction) {
-        raptorCooldown = 3000;
+        raptorCooldown = 5000;
 
         try {
             new Raptor(Camera.centeredCoordinateX(this), Camera.centeredCoordinateY(this), this.team,

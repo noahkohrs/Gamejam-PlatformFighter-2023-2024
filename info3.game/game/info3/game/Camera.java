@@ -25,6 +25,8 @@ public class Camera {
     public Camera() {
         camera = this;
         camWidth = 200;
+        camX = Game.game.m_canvas.getWidth() / 2 - 100 ;
+        camY = Game.game.m_canvas.getHeight() / 2 - 100;
         camHeight = 200;
         movingTime = 1;
     }
