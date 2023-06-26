@@ -20,6 +20,7 @@ public class Level {
     int x = 20;
     int y = 20;
     private ElementContainer m_elements[][];
+    String background ;
     int width;
     int height;
     private float scale = 1.5f;
@@ -52,6 +53,7 @@ public class Level {
             JSONObject levelJson = new JSONObject(fullString);
             this.width = levelJson.getInt("width");
             this.height = levelJson.getInt("height");
+            this.background = levelJson.getString("background");
             m_elements = new ElementContainer[width][height];
             for (int i = 0; i < m_elements.length; i++) {
                 for (int j = 0; j < m_elements[i].length; j++) {
@@ -200,7 +202,10 @@ public class Level {
         levelJson.put("entities", animatedEntities);
         levelJson.put("width", width);
         levelJson.put("height", height);
-        levelJson.put("background", "<DEFAULT>");
+        if (background == null)
+            levelJson.put("background", "<DEFAULT>");
+        else
+            levelJson.put("background", background);
         try {
             System.out.println(levelFilename);
             java.io.FileWriter fw = new java.io.FileWriter(this.levelFilename);
