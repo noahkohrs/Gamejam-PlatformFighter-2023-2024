@@ -11,7 +11,6 @@ public class Bazooka extends Weapon {
 
   public Bazooka(Player player) throws IOException {
     super(player);
-    System.out.println("Bazooka called");
     damage = 100;
     ammo = 1;
     clips = 1;

@@ -59,7 +59,7 @@ public class PowerUpBlock extends DynamicEntity {
 
     @Override
     public boolean gotPower() {
-        if (timer >= 5000) {
+        if (timer >= 15000) {
             timer = 0;
             return true;
         }

@@ -109,6 +109,6 @@ public class Turret extends DynamicEntity {
 
     @Override
     public void takeDamage(int damage){
-        time-=5000;
+        time-=damage*100;
     }
 }

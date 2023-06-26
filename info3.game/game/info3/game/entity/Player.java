@@ -65,7 +65,7 @@ public class Player extends DynamicEntity {
 
     super(spawningX(team), spawningY(team), team);
     this.lifeBar = new LifeBar(team);
-    hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
+    hitbox = new HitBox(12, 8, 15, 21, this); 
     weapon = new Rifle(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;

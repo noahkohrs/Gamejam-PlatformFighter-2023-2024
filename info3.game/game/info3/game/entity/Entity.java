@@ -67,7 +67,6 @@ public abstract class Entity {
   }
 
   private Automate loadAutomate() {
-    System.out.println("Loading automate for " + this.getClass().getSimpleName());
     return GameSession.gameSession.findAutomate(this);
   }
 

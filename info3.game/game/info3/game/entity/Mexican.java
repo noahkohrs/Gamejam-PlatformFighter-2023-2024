@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import info3.game.Camera;
 import info3.game.entity.life.Life;
+import info3.game.hitbox.HitBox;
 
 public class Mexican extends Player {
     int raptorCooldown;
@@ -14,6 +15,7 @@ public class Mexican extends Player {
 
     public Mexican(int team) throws IOException {
         super(team);
+        hitbox = new HitBox(9, 5, 16, 24, this);
         this.view = new MexicanView(this);
     }
 

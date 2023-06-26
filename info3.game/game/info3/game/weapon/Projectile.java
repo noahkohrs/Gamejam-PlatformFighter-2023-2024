@@ -10,7 +10,6 @@ import info3.game.entity.Raptor;
 
 public abstract class Projectile extends DynamicEntity {
 
-    private Player ennemy;
     private int damage;
 
     public Projectile(int x, int y, Direction direction, int team, int damage, int speed, String filename, int nrows,
@@ -19,10 +18,6 @@ public abstract class Projectile extends DynamicEntity {
         this.movingDirection = direction;
         this.facingDirection = direction;
         this.damage = damage;
-        if (team == GameSession.gameSession.player1.team)
-            ennemy = GameSession.gameSession.player2;
-        else
-            ennemy = GameSession.gameSession.player1;
         this.velX = speed;
         this.velY = speed;
     }
