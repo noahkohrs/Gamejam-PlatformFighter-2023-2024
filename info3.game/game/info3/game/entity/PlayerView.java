@@ -81,5 +81,6 @@ public class PlayerView extends EntityView {
         // didnt know a better way to implement it ATM
         Camera.drawEntity(entity, g);
         paintKills(g);
+        ((Player) entity).weapon.view.paint(g);
     }
 }

@@ -230,8 +230,8 @@ public class GameSession {
             player1.view.paint(g);
         if (!player2.dead && !this.gametime.end)
             player2.view.paint(g);
+        
         gametime.showGameTimer(g);
-        ;
     }
 
     int getLevelWidth() {
