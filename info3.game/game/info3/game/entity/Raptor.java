@@ -98,6 +98,6 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void takeDamage(int damage) {
-        time -= 5000;
+        time -= damage*150;
     }
 }

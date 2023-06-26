@@ -2,6 +2,7 @@ package info3.game.entity;
 
 import java.io.IOException;
 
+import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bazooka;
 import info3.game.weapon.Rifle;
 import info3.game.weapon.Weapon;
@@ -21,6 +22,7 @@ public class Engineer extends Player {
 
     public Engineer(int team) throws IOException {
         super(team);
+        hitbox = new HitBox(10, 5, 18, 21, this);
         this.view=new EngineerView(this);
     }
 

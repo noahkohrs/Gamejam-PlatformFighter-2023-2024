@@ -7,8 +7,8 @@ import info3.game.entity.Entity;
 
 public class Camera {
 
-    public static boolean debugMode = true;
-    private static boolean Opti = false;
+    public static boolean debugMode = false;
+    private static boolean Opti = true;
 
     void toggleDebugMode() {
         debugMode = !debugMode;

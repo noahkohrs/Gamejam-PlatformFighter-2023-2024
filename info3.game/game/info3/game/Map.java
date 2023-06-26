@@ -35,8 +35,6 @@ public class Map {
     public Block fixedMap[][];
     public BufferedImage background;
 
-    private int indexPowerUp = 0;
-
     public Map(String filename) throws IOException {
         loadTiles(filename);
     }

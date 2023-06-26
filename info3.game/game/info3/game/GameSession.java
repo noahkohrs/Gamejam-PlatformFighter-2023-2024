@@ -245,7 +245,6 @@ public class GameSession {
     public int findKEy(String letter) {
         for (int i = 0; i < this.keys.size(); i++) {
             if (this.keys.get(i).name.equals(letter)) {
-                // System.out.println("Found");
                 return i;
             }
         }
