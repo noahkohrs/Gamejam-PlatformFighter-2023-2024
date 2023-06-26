@@ -219,7 +219,6 @@ public class GameSession {
     }
 
     public void paint(Graphics g) {
-        camera.paint(g);
         map.paint(g, camera);
         for (Entity entity : entities) {
             if (entity instanceof Player)
@@ -230,7 +229,7 @@ public class GameSession {
             player1.view.paint(g);
         if (!player2.dead && !this.gametime.end)
             player2.view.paint(g);
-        
+        camera.paint(g);
         gametime.showGameTimer(g);
     }
 

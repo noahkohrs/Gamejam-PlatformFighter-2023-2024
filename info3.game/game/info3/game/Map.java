@@ -116,7 +116,7 @@ public class Map {
     }
 
     void paint(Graphics g, Camera camera) {
-        Camera.drawImage(g,background,-200,-140,realWidth()+200*2,realHeight()+140*2);
+        Camera.drawImage(g,background,-200-10,-140-10,realWidth()+200*2+10,realHeight()+140*2+10);
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
                 if (fixedMap[i][j] != null) {

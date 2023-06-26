@@ -148,8 +148,8 @@ public class CanvasListener implements GameCanvasListener {
       if ((e.getKeyCode() == KeyEvent.VK_ENTER) && key.name.equals("ENTER"))
         key.pressed = true;
     }
-    // if (e.getKeyCode() == KeyEvent.VK_SPACE) 
-    //   GameSession.gameSession.camera.toggleDebugMode(); // Debug purposes only
+    if (e.getKeyCode() == KeyEvent.VK_SPACE) 
+      GameSession.gameSession.camera.toggleDebugMode(); // Debug purposes only
 }
 
   @Override
