@@ -53,28 +53,27 @@ public class Player extends DynamicEntity {
   protected int DashCD;
   public boolean dead = false;
   protected boolean respawned = true;
-  protected int respawnTimer = 3000;
+  protected int respawnTimer = 2000;
   public int kills;
+  public boolean addedDeath=false;
 
   public Player() throws IOException {
     this(1);
   }
 
   public Player(int team) throws IOException {
-    
-  super(spawningX(team), 40, team);
-    respawn();
+
+    super(spawningX(team), spawningY(team), team);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 15, 21, this); // 32 - 15 - 12
     weapon = new Rifle(this);
     this.facingDirection = Direction.RIGHT;
     jumpAmount = 2;
     jumpCounter = jumpAmount;
-    System.out.println("this x: "+spawningX(team));
   }
 
   public Player(int team, String filename) throws IOException {
-    super(40, 40, team, filename, 3, 2);
+    super(spawningX(team), spawningY(team), team, filename, 3, 2);
     view = new PlayerView(filename, 3, 2, this);
     this.lifeBar = new LifeBar(team);
     hitbox = new HitBox(12, 8, 20, 35, this);
@@ -84,15 +83,45 @@ public class Player extends DynamicEntity {
     jumpCounter = jumpAmount;
   }
 
-
-  private static int spawningX(int team){
-    if(team==2){
-      return 40;
+  private static int spawningX(int team) {
+    if (GameSession.gameSession.spawnerPoints.size() == 1) {
+      if (team == 2) {
+        return 40;
+      } else {
+        return GameSession.gameSession.spawnerPoints.get(0).x;
+      }
     }
-    else{
-      return GameSession.gameSession.map.realWidth()-40;
+    if (GameSession.gameSession.spawnerPoints.size() >= 2) {
+      if (team == 2) {
+        return GameSession.gameSession.spawnerPoints.get(1).x;
+      } else {
+        return GameSession.gameSession.spawnerPoints.get(0).x;
+      }
     }
+    if (team == 2) 
+        return 40;
+     else 
+        return GameSession.gameSession.map.realWidth() - 40;
   }
+
+  private static int spawningY(int team) {
+    if (GameSession.gameSession.spawnerPoints.size() == 1) {
+      if (team == 2) {
+        return 40;
+      } else {
+        return GameSession.gameSession.spawnerPoints.get(0).y- 100;
+      }
+    }
+    if (GameSession.gameSession.spawnerPoints.size() >= 2) {
+      if (team == 2) {
+        return GameSession.gameSession.spawnerPoints.get(1).y- 64;
+      } else {
+        return GameSession.gameSession.spawnerPoints.get(0).y- 64;
+      }
+    }
+    return 40;
+  }
+
   public void takeDamage(int amount) {
     lifeBar.life.removeHealth(amount);
   }
@@ -122,17 +151,10 @@ public class Player extends DynamicEntity {
       this.weapon.reset();
 
       // Reinitiallise the variables
-      respawnTimer = 3000;
+      respawnTimer = 2000;
       respawned = true;
-      this.dead = false;
-
-      // Find ennemy and add him a kill
-      Player enemy;
-      if (this.team == TEAM.TEAM_1)
-        enemy = GameSession.gameSession.player2;
-      else
-        enemy = GameSession.gameSession.player1;
-      enemy.kills++;
+      addedDeath=false;
+      dead=false;
     }
   }
 
@@ -145,6 +167,11 @@ public class Player extends DynamicEntity {
 
     if (isDead()) {
       this.dead = true;
+      if(!addedDeath){
+        System.out.print("KIll to add for"+getennemy().getClass().getSimpleName());
+        getennemy().kills++;
+      }
+      addedDeath=true;
       if (!respawned)
         respawnTimer -= elapsed;
       respawn();
@@ -209,13 +236,12 @@ public class Player extends DynamicEntity {
         }
       }
 
-    }
-    else if (category.equals("O")) {
+    } else if (category.equals("O")) {
       this.x += direction.x;
       boolean res = hitbox.inCollision(direction);
       this.x -= direction.x;
       return res;
-    } else if(category.equals("A")){
+    } else if (category.equals("A")) {
       return distanceTo(getennemy()) <= 33;
     }
     return false;
@@ -354,7 +380,6 @@ public class Player extends DynamicEntity {
   @Override
   public void jump(String direction) {
     facingDirection = Direction.fromString(direction);
-    System.out.println(this.facingDirection);
     if (DashCD <= 0) {
       DashTime = 2;
       DashCD = 1000;

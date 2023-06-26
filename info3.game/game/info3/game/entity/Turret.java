@@ -9,7 +9,8 @@ import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bullet;
 
 public class Turret extends DynamicEntity {
-    private int time = 3000;
+    private int time = 3000 ;
+    private int maxTime = 3000 ;
     int ammo;
     Player ennemy;
     int currentCooldown = 0;
@@ -72,17 +73,25 @@ public class Turret extends DynamicEntity {
 
     @Override
     public boolean cell(Direction direction, String category) {
-        return distanceTo(ennemy) <= 500;
+        if(nearestEnemyEntity()==null)
+            return false;
+        return distanceTo(nearestEnemyEntity()) <= 500;
+    }
+
+    public double getLifePercentage() {
+        return (double)time / (double)maxTime;
     }
 
     @Override
     public boolean MyDir(String direction) {
-        double angle = -Math.atan2(ennemy.y - this.y, ennemy.x - this.x);
+        if(nearestEnemyEntity()==null)
+            return false;
+        double angle = -Math.atan2(nearestEnemyEntity().y - this.y, nearestEnemyEntity().x - this.x);
         boolean res;
-        if(ennemy.y>this.y+10)
+        if(nearestEnemyEntity().y>this.y+10)
             return false;
 
-        if ((angle < Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemy.x > this.x))
+        if ((angle < Math.PI / 5 && angle >= 0) || (angle <= 0 && nearestEnemyEntity().x > this.x))
             res = direction.equals("E");
         else if (angle < 2 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NE");
@@ -90,11 +99,16 @@ public class Turret extends DynamicEntity {
             res = direction.equals("N");
         else if (angle < 4 * Math.PI / 5 && angle >= 0)
             res = direction.equals("NW");
-        else if ((angle < 5 * Math.PI / 5 && angle >= 0) || (angle <= 0 && ennemy.x < this.x))
+        else if ((angle < 5 * Math.PI / 5 && angle >= 0) || (angle <= 0 && nearestEnemyEntity().x < this.x))
             res = direction.equals("W");
         else
             res = false;
 
         return res;
+    }
+
+    @Override
+    public void takeDamage(int damage){
+        time-=5000;
     }
 }

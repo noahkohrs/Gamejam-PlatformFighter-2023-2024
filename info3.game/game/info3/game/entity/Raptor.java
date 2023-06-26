@@ -8,6 +8,7 @@ import info3.game.hitbox.HitBox;
 public class Raptor extends DynamicEntity {
 
     private int time = 20000;
+    private static final int maxTime = 20000;
     Player ennemy;
 
     public Raptor(int x, int y, int team, Direction direction) throws IOException {
@@ -16,7 +17,9 @@ public class Raptor extends DynamicEntity {
             ennemy = GameSession.gameSession.player2;
         } else
             ennemy = GameSession.gameSession.player1;
-        hitbox = new HitBox(4, 16, 48, 16, this); //64-48-4=12
+        jumpAmount = 1;
+        jumpCounter = 2;
+        hitbox = new HitBox(4, 16, 48, 16, this); // 64-48-4=12
         view = new RaptorView("resources/raptor-2x8.png", 2, 8, this);
         while (hitbox.inCollision(Direction.BOTTOM))
             this.y -= 1;
@@ -47,6 +50,8 @@ public class Raptor extends DynamicEntity {
     public void move(Direction direction) {
         accelerationX += 0.04;
         movingDirection = direction;
+        if (direction.y == Direction.UPPER.y)
+            Movement.Jump(this);
     }
 
     @Override
@@ -56,7 +61,9 @@ public class Raptor extends DynamicEntity {
 
     @Override
     public void wizz(String direction) {
-        ennemy.takeDamage(25);
+        if(nearestEnemyEntity()==null)
+            return;
+        nearestEnemyEntity().takeDamage(100);
     }
 
     @Override
@@ -67,17 +74,30 @@ public class Raptor extends DynamicEntity {
             this.x -= direction.x;
             return res;
         } else {
-            if (distanceTo(ennemy) <= 100)
+            if(nearestEnemyEntity()==null)
+                return false;
+            else if (distanceTo(nearestEnemyEntity()) <= 150) {
                 ((RaptorView) this.view).attack = true;
-            else
+                Movement.Jump(this, 6);
+
+            } else
                 ((RaptorView) this.view).attack = false;
-            return distanceTo(ennemy) <= 33;
+            return distanceTo(nearestEnemyEntity()) <= 33;
         }
+    }
+
+    double getLifePercentage() {
+        return (double) time / (double) maxTime;
     }
 
     @Override
     public boolean MyDir(String direction) {
         boolean res = this.facingDirection.equals(Direction.fromString(direction));
         return res;
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        time -= 5000;
     }
 }

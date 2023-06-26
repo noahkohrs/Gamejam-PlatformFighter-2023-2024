@@ -48,7 +48,7 @@ public class Engineer extends Player {
 
     @Override
     public void wizz(String Direction) {
-        turretCooldown = 1000;
+        turretCooldown = 15000;
         try {
             new Turret(this.x, this.y, this.team);
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public class Engineer extends Player {
 
     @Override
     public void pop() {
-        bazookaCooldown = 1000;
+        bazookaCooldown = 7000;
         try {
             oldClips = weapon.clips;
             oldAmmo = weapon.ammo;

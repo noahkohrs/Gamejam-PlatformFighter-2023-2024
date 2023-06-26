@@ -101,10 +101,6 @@ public class Camera {
         
         if (camWidth > GameSession.gameSession.map.realWidth())
             camX = GameSession.gameSession.map.realWidth() / 2 - camWidth / 2;
-        if (camHeight + camY > GameSession.gameSession.map.realHeight()) {
-            camY = GameSession.gameSession.map.realHeight() - camHeight - 30;
-            camHeight -= 400;
-        }
             
 
         camX = precCamX + (camX - precCamX) * movingTime / 10;
@@ -204,7 +200,7 @@ public class Camera {
 
     static public void fillRect(Graphics g, int x, int y, int width, int height) {
         if (debugMode) {
-            g.drawRect(x, y, width, height);
+            g.fillRect(x, y, width, height);
         } else {
             int cX = onCamViewX(x, camera.scale);
             int cY = onCamViewY(y, camera.scale);
