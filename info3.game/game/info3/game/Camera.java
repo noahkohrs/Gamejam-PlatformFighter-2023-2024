@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import info3.game.entity.Entity;
+import info3.level.editor.Level;
 
 public class Camera {
 
@@ -11,13 +12,12 @@ public class Camera {
     private static boolean Opti = true;
 
     void toggleDebugMode() {
-        debugMode = !debugMode;
-        Opti = !Opti;
+        // debugMode = !debugMode;
     }
 
     public static Camera camera;
-    int camX, camY;
-    int camWidth, camHeight;
+    double camX, camY;
+    double camWidth, camHeight;
     double scale;
     int movingTime;
     double screenRatio;
@@ -25,8 +25,8 @@ public class Camera {
     public Camera() {
         camera = this;
         camWidth = 200;
-        camX = Game.game.m_canvas.getWidth() / 2 - 100 ;
-        camY = Game.game.m_canvas.getHeight() / 2 - 100;
+        camX = GameSession.gameSession.map.realWidth() / 2 - 100;
+        camY = GameSession.gameSession.map.realHeight() / 2 - 100;
         camHeight = 200;
         movingTime = 1;
     }
@@ -58,10 +58,10 @@ public class Camera {
     }
 
     private void evalCameraVision() {
-        int precCamX = camX;
-        int precCamY = camY;
-        int precCamWidth = camWidth;
-        int precCamHeight = camHeight;
+        double precCamX = camX;
+        double precCamY = camY;
+        double precCamWidth = camWidth;
+        double precCamHeight = camHeight;
 
         int p1X = centeredCoordinateX(GameSession.gameSession.player1);
         int p1Y = centeredCoordinateY(GameSession.gameSession.player1);
@@ -82,28 +82,44 @@ public class Camera {
         if (camHeight < 350)
             camHeight = 350;
 
-        camX = centerX - camWidth / 2;
-        camY = centerY - camHeight / 2;
-
-        if (camX < 0)
-            camX = 0;
-        if (camY < 0)
-            camY = 0;
-
-        // Resize the camera to fit the screen
         if (camWidth < camHeight * screenRatio)
             camWidth = (int) (camHeight * screenRatio);
         else
             camHeight = (int) (camWidth / screenRatio);
-
+        // Resize the camera to fit the screen
         if (camX + camWidth > GameSession.gameSession.map.realWidth())
             camX = GameSession.gameSession.map.realWidth() - camWidth;
         if (camY + camHeight > GameSession.gameSession.map.realHeight())
             camY = GameSession.gameSession.map.realHeight() - camHeight;
-        
+
+        camX = centerX - camWidth / 2;
+        camY = centerY - camHeight / 2;
+
+        if (GameSession.gameSession.map.realWidth() > screenRatio * GameSession.gameSession.map.realHeight()
+                && camWidth > GameSession.gameSession.map.realWidth()) {
+            camWidth = GameSession.gameSession.map.realWidth();
+            camHeight =(camWidth / screenRatio);
+            camX = 0;
+            camY = (GameSession.gameSession.map.realHeight() / 2 - camHeight / 2);
+        }
+
+        else if (GameSession.gameSession.map.realWidth() < screenRatio * GameSession.gameSession.map.realHeight()
+                && camHeight > GameSession.gameSession.map.realHeight()) {
+            camHeight = GameSession.gameSession.map.realHeight();
+            camWidth =(camHeight * screenRatio);
+            camY = 0;
+            camX = (GameSession.gameSession.map.realWidth() / 2 - camWidth / 2);
+        } else {
+        camX = Math.min(camX, GameSession.gameSession.map.realWidth() - camWidth);
+        camY = Math.min(camY, GameSession.gameSession.map.realHeight() - camHeight);
+        camX = Math.max(camX, 0);
+        camY = Math.max(camY, 0);
+        }
+
+
+
         if (camWidth > GameSession.gameSession.map.realWidth())
             camX = GameSession.gameSession.map.realWidth() / 2 - camWidth / 2;
-            
 
         camX = precCamX + (camX - precCamX) * movingTime / 10;
         camY = precCamY + (camY - precCamY) * movingTime / 10;
@@ -115,11 +131,11 @@ public class Camera {
 
     public void paint(Graphics g) {
         if (debugMode) {
-            g.setColor(Color.white);
-            g.fillRect(camX, camY, camWidth, camHeight);
+            g.setColor(Color.pink);
+            for (int i = 0; i < 5; i++)
+                g.drawRect((int)camX + i, (int)camY + i, (int)camWidth - i * 2, (int)camHeight - i * 2);
         }
-        int add=500;
-        }
+    }
 
     static public void drawImage(Graphics g, BufferedImage img, int x, int y, int width, int height) {
         if ((x + Math.abs(width) < camera.camX || x > camera.camX + camera.camWidth
@@ -186,14 +202,10 @@ public class Camera {
 
     }
 
-    static public void drawText(Graphics g, int x, int y, String str)
-    {
-        if(debugMode)
-        {
+    static public void drawText(Graphics g, int x, int y, String str) {
+        if (debugMode) {
             g.drawString(str, x, y);
-        }
-        else
-        {
+        } else {
             int cX = onCamViewX(x, camera.scale);
             int cY = onCamViewY(y, camera.scale);
             g.drawString(str, cX, cY);
