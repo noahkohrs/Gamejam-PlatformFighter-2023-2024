@@ -31,7 +31,6 @@ public class Mexican extends Player {
         if (isDead()) {
             this.dead = true;
             if (!addedDeath) {
-                System.out.print("KIll to add for" + getennemy().getClass().getSimpleName());
                 getennemy().kills++;
             }
             addedDeath = true;

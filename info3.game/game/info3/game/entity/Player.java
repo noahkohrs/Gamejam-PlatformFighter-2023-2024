@@ -154,6 +154,7 @@ public class Player extends DynamicEntity {
       respawnTimer = 2000;
       respawned = true;
       addedDeath=false;
+      System.out.println("Respawned, no dead anymore");
       dead=false;
     }
   }
@@ -168,7 +169,6 @@ public class Player extends DynamicEntity {
     if (isDead()) {
       this.dead = true;
       if(!addedDeath){
-        System.out.print("KIll to add for"+getennemy().getClass().getSimpleName());
         getennemy().kills++;
       }
       addedDeath=true;

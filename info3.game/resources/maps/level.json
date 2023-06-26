@@ -611,7 +611,7 @@
     { "x": 59, "y": 22, "id": "StoneBlock", "tags": { "block": true } },
     { "x": 59, "y": 29, "id": "StoneBlock", "tags": { "block": true } }
   ],
-  "background": "<resources/backgrounds/Teleport.png>",
+  "background": "resources/backgrounds/Teleport.png",
   "width": 60,
   "height": 30
 }
