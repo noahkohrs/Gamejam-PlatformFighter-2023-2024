@@ -207,7 +207,7 @@ Noé           | finition capacité flasque revigorante
 Développeur   | Tâche
 ------------- | -------------
 Clément       | 
-Anastasios    | 
+Anastasios    | Création de tous les actions, conditions. Weapons marchent avec d'automates. Kill ajouté au bon moment, reparation du spawning, la tourelle et le raptror peuvent prendre de dêgats, 
 Bastien       | 
 Gwénolé       | Animation des portails, travail sur la vidéo
 Noah          | Gestion des liens entre portail fonctionnelle + amélioration de l'édition de map pour cette fonctionnalité. petits bugFixes.
