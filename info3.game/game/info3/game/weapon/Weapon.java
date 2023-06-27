@@ -27,7 +27,7 @@ public abstract class Weapon extends DynamicEntity {
         ammo = clipSize;
         clips = 3;
         damage = 25;
-        currentCooldown = 0;
+        currentCooldown = cooldown;
         this.player = player;
         this.view = new WeaponView(this);
         this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound" + player.team, "resources/bullets/shot.ogg", 0,
@@ -41,7 +41,7 @@ public abstract class Weapon extends DynamicEntity {
         this.ammo = ammo;
         this.clips = clips;
         damage = 25;
-        currentCooldown = 0;
+        currentCooldown = cooldown;
         this.player = player;
         this.view = new WeaponView(this);
         this.soundEffect = new Sound(Game.game.m_canvas, "bulletSound" + player.team, "resources/bullets/shot.ogg", 0,
@@ -54,7 +54,7 @@ public abstract class Weapon extends DynamicEntity {
         this.clips = clips;
         this.damage = damage;
         this.clipSize = clipSize;
-        this.currentCooldown = 0;
+        this.currentCooldown = cooldown;
         this.ammo = clipSize;
         this.player = player;
         this.view = new WeaponView(this);

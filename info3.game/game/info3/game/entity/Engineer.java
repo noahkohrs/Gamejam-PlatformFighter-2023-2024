@@ -4,14 +4,11 @@ import java.io.IOException;
 
 import info3.game.hitbox.HitBox;
 import info3.game.weapon.Bazooka;
-import info3.game.weapon.Rifle;
-import info3.game.weapon.Weapon;
+
 
 public class Engineer extends Player {
     int turretCooldown;
     int bazookaCooldown;
-
-    boolean BazookaUsing;
 
     public int oldClips;
     public int oldAmmo;
@@ -35,15 +32,6 @@ public class Engineer extends Player {
     public void tick(long elapsed) {
         turretCooldown -= elapsed;
         bazookaCooldown -= elapsed;
-        if(weapon instanceof Bazooka && bazookaCooldown<900 && bazookaCooldown>800){
-            weapon.createBullet(x, y);
-            weapon.kill();
-            try{
-                this.weapon = new Rifle(this, oldClips, oldAmmo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            };
         view.tick(elapsed);
         super.tick(elapsed);
     }
@@ -66,7 +54,6 @@ public class Engineer extends Player {
             oldAmmo = weapon.ammo;
             weapon.kill();
             weapon = new Bazooka(this);
-            BazookaUsing = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
