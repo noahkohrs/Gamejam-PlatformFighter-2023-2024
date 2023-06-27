@@ -206,9 +206,9 @@ Noé           | finition capacité flasque revigorante
 ## 23/06
 Développeur   | Tâche
 ------------- | -------------
-Clément       | 
+Clément       | fix bug bazooka, création d'une carte personnalisée
 Anastasios    | Création de tous les actions, conditions. Weapons marchent avec d'automates. Kill ajouté au bon moment, reparation du spawning, la tourelle et le raptror peuvent prendre de dêgats, 
-Bastien       | 
+Bastien       | Prémontage des vidéos et fix de dernier minutes
 Gwénolé       | Animation des portails, travail sur la vidéo
 Noah          | Gestion des liens entre portail fonctionnelle + amélioration de l'édition de map pour cette fonctionnalité. petits bugFixes.
 Noé           | résolution de quelque bug, préparation vidéo
@@ -216,3 +216,17 @@ Noé           | résolution de quelque bug, préparation vidéo
 ## 24-27/06
 
 Toute l'équipe a travaillé sur la vidéo de présentation du projet, la correction de bugs et la préparation au rendu.
+Bastien, Clément et Noé : Montage de la vidéo
+
+# Répartition
+
+Développeur   | Poucentage
+------------- | -------------
+Clément       | 14 %
+Anastasios    | 21 % 
+Bastien       | 17 %
+Gwénolé       | 13 %
+Noah          | 25 %
+Noé           | 10 %
+
+
