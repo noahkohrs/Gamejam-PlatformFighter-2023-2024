@@ -34,6 +34,9 @@ public class Raptor extends DynamicEntity {
         try {
             movingDirection = Direction.IDLE;
             this.automate.step(this);
+            if (distanceTo(nearestEnemyEntity()) < 165) {
+                Movement.Jump(this, 7.0f);
+            }
             if (movingDirection.x != 0)
                 facingDirection = movingDirection;
             if (facingDirection != movingDirection)
@@ -78,7 +81,6 @@ public class Raptor extends DynamicEntity {
                 return false;
             else if (distanceTo(nearestEnemyEntity()) <= 150) {
                 ((RaptorView) this.view).attack = true;
-                Movement.Jump(this, 6);
 
             } else
                 ((RaptorView) this.view).attack = false;

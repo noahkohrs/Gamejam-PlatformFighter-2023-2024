@@ -1,0 +1,168 @@
+Player1(Init){
+  * (Init)
+  | Cell(S, P) ? Pick() :(Init)
+  | Key(t) & GotPower() ? Wizz():(Init)
+  | Key(g) & GotStuff() ? Pop() :(Init)
+  | Key(q) & Key(z) ? Move(NW) :(Init)
+  | Key(z) & Key(d) ? Move(NE) :(Init)
+  | Key(z) ? Move(N) :(Init)
+  | Key(d) ? Move(E)  :(Init)
+  | Key(q) ? Move(W)  :(Init)
+  | Key(s) ? Move(S)  :(Init)
+  | Key(x) ?          :(Dash)
+  | True() ?          :(Init)
+
+  *(Dash)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S)? Jump(E):(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
+  |MyDir(N)? Jump(N):(Init)
+  |True() ? :(Init)
+}
+
+Player2(Init){
+  * (Init)
+  | Cell(S, P) ? Pick() :(Init)
+  | Key(FL) & GotPower() ? Wizz():(Init)
+  | Key(FD) & GotStuff() ? Pop() :(Init)
+  | Key(o) & Key(k) ? Move(NW) :(Init)
+  | Key(o) & Key(m) ? Move(NE) :(Init)
+  | Key(o) ? Move(N)  :(Init)
+  | Key(m) ? Move(E)  :(Init)
+  | Key(k) ? Move(W)  :(Init)
+  | Key(l) ? Move(S)  :(Init)
+  | Key(n) ?          :(Dash)
+  | True() ?          :(Init)
+
+    *(Dash)
+  |MyDir(E) / MyDir(SE) / MyDir(NE) / MyDir(S)? Jump(E):(Init)
+  |MyDir(W) / MyDir(SW) / MyDir(NW) ? Jump(W):(Init)
+  |MyDir(N)? Jump(N):(Init)
+  |True() ? :(Init)
+}
+
+Turret(Init){
+  *(Init)
+  |!GotPower? :()
+  |Cell(H,A)? :(InRange)
+  |True()?:(Init)
+
+  *(InRange)
+  |MyDir(N)? Wizz(N):(Init)
+  |MyDir(W)? Wizz(W):(Init)
+  |MyDir(E)? Wizz(E):(Init)
+  |MyDir(NE)? Wizz(NE):(Init)
+  |MyDir(NW)? Wizz(NW):(Init)
+  |True() ? :(Init)
+}
+
+Weapon1(Init){
+  * (Init)
+  | Key(f) ? Pop()    :(Init)
+  | Key(r) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
+
+Weapon2(Init){
+  * (Init)
+  | Key(FR) ? Pop()    :(Init)
+  | Key(FU) ? Wizz()    :(Init)
+  | True() ?   :(Init)
+}
+
+Bazooka(Init){
+  * (Init)
+  | Key(b) ? Pop() :(Dead)
+  | True() ?   :(Init)
+
+  * (Dead)
+  | True() ? :()
+}
+
+Bullet(Init){
+    * (Init)
+  | Cell(H,A)? Hit() :()
+  | Cell(H,O)? :()
+  |True()? Move():(Init)
+}
+
+Rocket(Init){
+      * (Init)
+  | Cell(H,A)? Hit() :()
+  | Cell(H,O)? :()
+  |True()? Move():(Init)
+}
+
+MovingHorizontalPlatform(Init){
+  * (Init)
+  | GotPower() ? Move() :(Init)
+  | !GotPower() ? Turn() :(Init)
+}
+
+MovingVerticalPlatform(Init){
+  * (Init)
+  | GotPower() ? Move() :(Init)
+  | !GotPower() ? Turn() :(Init)
+}
+
+PowerUpBlock(Init){
+  * (Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
+  | True()? :(Init)
+
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+}
+
+MalusBlock(Init){
+  * (Init)
+  | True() ? :(_)
+
+  * (Speed)
+  | GotPower() ? Egg() :(Init)
+  | True()? :(Init)
+
+  * (Shield)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Ammo)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+
+  * (Pow)
+  | GotPower() ? Egg() :(Init)
+  | True() ? :(Init)
+}
+
+
+Raptor(Init){
+  *(Init)
+  |!GotPower ?  :()
+  |MyDir(E) / MyDir(NE) / MyDir(SE) / MyDir(S) /MyDir(N)?  :(Right)
+  |MyDir(W) / MyDir(NW) / MyDir(SW)?  :(Left)
+
+  *(Right)
+  |Cell(E,A) ? Wizz()    :()
+  |!Cell(E,O)?         :(Left)
+  |!GotPower ?  :()
+  |True()    ? Move(E) :(Right)
+
+  *(Left)
+  |Cell(W,A) ? Wizz()    :()
+  |!Cell(W,O)?          :(Right)
+  |!GotPower ?          :()
+  |True()    ? Move(W)  :(Left)
+}

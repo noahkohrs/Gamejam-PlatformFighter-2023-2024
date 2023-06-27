@@ -37,10 +37,10 @@ public class Menu {
         try {
             System.out.println("Menu starting...");
             if (args.length == 0) {
-                System.out.println("Il faut fournir en argument le fichier gal");
-                return;
+                new Menu("resources/automates/default.gal");
+            } else {
+                new Menu(args[0]);
             }
-            new Menu(args[0]);
             System.out.println("Menu started.");
         } catch (Throwable th) {
             th.printStackTrace(System.err);

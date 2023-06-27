@@ -213,3 +213,6 @@ Gwénolé       | Animation des portails, travail sur la vidéo
 Noah          | Gestion des liens entre portail fonctionnelle + amélioration de l'édition de map pour cette fonctionnalité. petits bugFixes.
 Noé           | résolution de quelque bug, préparation vidéo
 
+## 24-27/06
+
+Toute l'équipe a travaillé sur la vidéo de présentation du projet, la correction de bugs et la préparation au rendu.
