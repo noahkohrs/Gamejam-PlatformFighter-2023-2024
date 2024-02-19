@@ -15,3 +15,4 @@ info3.game/bin/
 .mtj.tmp/
 
 info3.game/level.json
+.vscode/launch.json
