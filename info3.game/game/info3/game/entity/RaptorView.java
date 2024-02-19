@@ -44,7 +44,7 @@ public class RaptorView extends EntityView{
         Camera.fillRect(g, barX, barY, lifeBarSize, 5);
         g.setColor(java.awt.Color.RED);
         lifeBarSize = (int) (lifeBarSize*(((Raptor)entity).getLifePercentage()))-2;
-        Camera.fillRect(g, barX+1, barY+1, lifeBarSize, 4);
+        Camera.fillRect(g, barX+1, barY+1, lifeBarSize, 3);
     }
 }
 
